@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /apache/
+Disallow: /Dockerfile
+Disallow: /cloudbuild.yaml
+
+# AI / LLM クローラー（LLMO対応・許可）
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://en1150.co.jp/grave-lp/sitemap.xml

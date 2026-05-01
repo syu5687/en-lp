@@ -1,0 +1,34 @@
+# Git
+.git
+.gitignore
+.github
+
+# Documentation
+README.md
+CHANGELOG.md
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode
+.idea
+
+# Backup / Temporary files
+*.bak
+*.tmp
+*.log
+
+# Source files (使用しない)
+node_modules
+*.psd
+*.ai
+*.sketch
+*.fig
+
+# Local development
+.env
+.env.local
+docker-compose.yml
+docker-compose.local.yml
