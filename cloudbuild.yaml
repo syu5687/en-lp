@@ -1,10 +1,9 @@
 # =====================================================================
-# Cloud Build 設定 — 縁 お墓じまいLP
-# GitHub push → Cloud Build → Artifact Registry → Cloud Run の自動化
+# Cloud Build 設定 — 縁 マルチLP（en-lp）
+# GitHub push → Cloud Build → Artifact Registry → Cloud Run
 # =====================================================================
 
 steps:
-  # ---------- 1. Docker イメージのビルド ----------
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build'
     args:
@@ -15,22 +14,16 @@ steps:
       - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:latest'
       - '.'
 
-  # ---------- 2. Artifact Registry にプッシュ ----------
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-sha'
-    args:
-      - 'push'
-      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}'
+    args: ['push', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}']
     waitFor: ['build']
 
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-latest'
-    args:
-      - 'push'
-      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:latest'
+    args: ['push', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:latest']
     waitFor: ['build']
 
-  # ---------- 3. Cloud Run へデプロイ ----------
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'deploy'
     entrypoint: 'gcloud'
@@ -52,13 +45,11 @@ steps:
       - '--set-env-vars=APP_VERSION=${SHORT_SHA}'
     waitFor: ['push-sha']
 
-# 置換変数（Cloud Build トリガー作成時に上書き可）
 substitutions:
-  _REGION: 'asia-northeast1'              # 東京リージョン
-  _REPOSITORY: 'en-lp'                    # Artifact Registry リポジトリ名
-  _SERVICE_NAME: 'en-ohakajimai-lp'       # Cloud Run サービス名
+  _REGION: 'asia-northeast1'
+  _REPOSITORY: 'en-lp'
+  _SERVICE_NAME: 'en-lp'
 
-# ビルドイメージを保存
 images:
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}'
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_SERVICE_NAME}:latest'

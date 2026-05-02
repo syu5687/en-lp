@@ -96,4 +96,4 @@ User-agent: ImagesiftBot
 Allow: /
 
 # ----- Sitemaps -----
-Sitemap: https://en1150.co.jp/lp-ohaka/sitemap.xml
+Sitemap: https://en1150.co.jp/lp/ohaka/sitemap.xml
