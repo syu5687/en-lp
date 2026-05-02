@@ -18,4 +18,4 @@ User-agent: Google-Extended
 Allow: /
 
 # Sitemap
-Sitemap: https://en1150.co.jp/grave-lp/sitemap.xml
+Sitemap: https://en1150.co.jp/lp-ohaka/sitemap.xml
