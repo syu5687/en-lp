@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pet-kuyo.en1150.co.jp/sitemap.xml
+Sitemap: https://en1150.co.jp/lp/pet/sitemap.xml
