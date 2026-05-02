@@ -1,4 +1,99 @@
+# ============================================================
+# robots.txt for https://en1150.co.jp/lp/pet/
+# 通常検索エンジン許可 + AI検索エンジン/LLMボット明示許可
+# ============================================================
+
+# --- 通常の検索エンジンクローラー ---
 User-agent: *
 Allow: /
 
+# --- AI検索エンジン / LLMボット明示許可 (LLMO対応) ---
+
+# OpenAI (ChatGPT, ChatGPT Search)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google (Gemini, Bard, AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta (Llama)
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Common Crawl (training data for many LLMs)
+User-agent: CCBot
+Allow: /
+
+# Bytedance / Doubao (TikTok)
+User-agent: Bytespider
+Allow: /
+
+# Diffbot (knowledge graph)
+User-agent: Diffbot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Microsoft (Bing, Copilot)
+User-agent: bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Sitemap
 Sitemap: https://en1150.co.jp/lp/pet/sitemap.xml
