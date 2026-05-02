@@ -1,21 +1,99 @@
+# ======================================================================
+# robots.txt — 縁 お墓じまいLP
+# 2026年版: 全AI/LLMクローラー明示的許可（GEO/LLMO最適化）
+# ======================================================================
+
 User-agent: *
 Allow: /
 Disallow: /apache/
 Disallow: /Dockerfile
 Disallow: /cloudbuild.yaml
 
-# AI / LLM クローラー（LLMO対応・許可）
+# ----- 検索エンジン主要クローラー -----
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# ----- AI / LLM クローラー（GEO/LLMO対応） -----
+
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI（Gemini / SGE / AI Overviews）
 User-agent: Google-Extended
 Allow: /
 
-# Sitemap
+# Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+
+# Common Crawl（多くのLLMの訓練データソース）
+User-agent: CCBot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckAssistBot
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# その他のAI研究系
+User-agent: Bytespider
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: ImagesiftBot
+Allow: /
+
+# ----- Sitemaps -----
 Sitemap: https://en1150.co.jp/lp-ohaka/sitemap.xml

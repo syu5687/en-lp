@@ -20,7 +20,22 @@
 <meta property="og:title" content="お墓じまい｜ご供養のプロが330,000円〜全部コミコミ｜九州7県対応">
 <meta property="og:description" content="現地調査・行政手続き・遺骨取り出し・解体撤去・更地化まで全部コミコミ330,000円〜。追加料金は一切ありません。鹿児島の有限会社縁が責任を持って担当します。">
 <meta property="og:url" content="https://en1150.co.jp/lp-ohaka/">
-<meta property="og:image" content="https://en1150.co.jp/wp-content/uploads/2018/03/hikkoshi-banner.jpg">
+<meta property="og:image" content="https://en1150.co.jp/lp-ohaka/images/hero-family.jpg">
+<meta property="og:image:width" content="780">
+<meta property="og:image:height" content="450">
+<meta property="og:image:alt" content="3世代家族の集合写真：ご供養のプロのお墓じまい">
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="ja-JP" href="https://en1150.co.jp/lp-ohaka/">
+<link rel="alternate" hreflang="x-default" href="https://en1150.co.jp/lp-ohaka/">
+
+<!-- Twitter Card image -->
+<meta name="twitter:image" content="https://en1150.co.jp/lp-ohaka/images/hero-family.jpg">
+<meta name="twitter:image:alt" content="3世代家族の集合写真：ご供養のプロのお墓じまい">
+
+<!-- LLMO: AI最適化メタ -->
+<meta name="article:published_time" content="2026-05-01T00:00:00+09:00">
+<meta name="article:modified_time" content="2026-05-01T00:00:00+09:00">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="お墓じまい｜ご供養のプロが330,000円〜全部コミコミ｜縁">
@@ -129,6 +144,65 @@
 }
 </script>
 
+<!-- Article (お墓じまいLP本体) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "@id":"https://en1150.co.jp/lp-ohaka/#article",
+  "headline":"ご供養のプロのお墓じまい — 九州7県対応・税込330,000円〜",
+  "description":"鹿児島の有限会社縁が運営、九州7県対応のお墓じまい。現地調査から更地化まで全部コミコミ税込330,000円〜の完全パック料金で提供。創業以来1,000件超の実績。",
+  "image":["https://en1150.co.jp/lp-ohaka/images/hero-family.jpg"],
+  "datePublished":"2026-05-01T00:00:00+09:00",
+  "dateModified":"2026-05-01T00:00:00+09:00",
+  "author":{"@id":"https://en1150.co.jp/#representative"},
+  "publisher":{"@id":"https://en1150.co.jp/#organization"},
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://en1150.co.jp/lp-ohaka/"},
+  "speakable":{
+    "@type":"SpeakableSpecification",
+    "cssSelector":["#hero-title", "#service-title", ".pack-total"]
+  },
+  "inLanguage":"ja-JP"
+}
+</script>
+
+<!-- Person (代表者) — E-E-A-T強化 -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "@id":"https://en1150.co.jp/#representative",
+  "name":"嶺",
+  "jobTitle":"代表",
+  "worksFor":{"@id":"https://en1150.co.jp/#organization"},
+  "knowsAbout":["お墓じまい","改葬","海洋葬","樹木葬","お手元供養","粉骨","終活","ご供養"],
+  "hasCredential":[
+    {"@type":"EducationalOccupationalCredential","credentialCategory":"終活カウンセラー"},
+    {"@type":"EducationalOccupationalCredential","credentialCategory":"散骨プロデューサー"},
+    {"@type":"EducationalOccupationalCredential","credentialCategory":"船舶免許"}
+  ],
+  "description":"九州エリアで20年以上、海洋葬・粉骨・お墓のお悩みに向き合ってきた、ご供養のトータルアドバイザー。"
+}
+</script>
+
+<!-- WebSite + SearchAction (サイトリンク検索ボックス対応) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "@id":"https://en1150.co.jp/#website",
+  "url":"https://en1150.co.jp/",
+  "name":"有限会社 縁（えん）",
+  "publisher":{"@id":"https://en1150.co.jp/#organization"},
+  "inLanguage":"ja-JP",
+  "potentialAction":{
+    "@type":"SearchAction",
+    "target":{"@type":"EntryPoint","urlTemplate":"https://en1150.co.jp/?s={search_term_string}"},
+    "query-input":"required name=search_term_string"
+  }
+}
+</script>
+
 <!-- Breadcrumb -->
 <script type="application/ld+json">
 {
@@ -173,6 +247,13 @@
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  .skip-link{
+    position:absolute;left:-9999px;top:-9999px;
+    z-index:9999;background:var(--green-800);color:#fff;
+    padding:12px 20px;border-radius:0 0 8px 0;
+    font-weight:600;text-decoration:none;
+  }
+  .skip-link:focus{left:0;top:0}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{
     font-family:var(--sans);
@@ -200,6 +281,34 @@
     box-shadow:var(--shadow-lg);
     padding-bottom:84px; /* fixed bottom nav分 */
   }
+
+  /* =========================================================
+     Breadcrumb (visible)
+     ========================================================= */
+  /* Breadcrumb (visible) */
+  .breadcrumb{
+    background:var(--cream-100);
+    padding:8px 20px;
+    font-size:11px;
+    color:var(--ink-500);
+    border-bottom:1px solid var(--cream-200);
+  }
+  .breadcrumb ol{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:0;padding:0;
+  }
+  .breadcrumb li{display:inline-flex;align-items:center;gap:6px}
+  .breadcrumb li:not(:last-child)::after{
+    content:"›";
+    color:var(--ink-500);
+    margin-left:6px;
+  }
+  .breadcrumb a{color:var(--green-700);text-decoration:none}
+  .breadcrumb a:hover{text-decoration:underline}
+  .breadcrumb li[aria-current]{color:var(--ink-900);font-weight:600}
 
   /* =========================================================
      Header
@@ -284,6 +393,19 @@
     color:var(--ink-700);
     margin-bottom:22px;
   }
+  .hero-entity-def{
+    position:relative;
+    background:rgba(255,255,255,.7);
+    backdrop-filter:blur(4px);
+    border-left:3px solid var(--green-700);
+    padding:14px 16px;
+    margin:0 0 22px;
+    font-size:13px;
+    line-height:1.8;
+    color:var(--ink-900);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .hero-entity-def strong{color:var(--green-800);font-weight:700}
   .hero-img-frame{
     position:relative;
     border-radius:var(--radius-md);
@@ -1021,7 +1143,8 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+<div class="wrap" id="main-content">
 
   <!-- =====================================
        Header
@@ -1036,6 +1159,20 @@
     </a>
   </header>
 
+  <!-- Breadcrumb (visible UI + matches BreadcrumbList JSON-LD) -->
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="https://en1150.co.jp/"><span itemprop="name">ホーム</span></a>
+        <meta itemprop="position" content="1">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+        <span itemprop="name">お墓じまい</span>
+        <meta itemprop="position" content="2">
+      </li>
+    </ol>
+  </nav>
+
   <!-- =====================================
        Hero
        ===================================== -->
@@ -1046,6 +1183,11 @@
       <span class="accent">お墓じまい</span>
     </h1>
     <p class="hero-sub">創業以来1,000件超の実績／九州7県対応</p>
+
+    <!-- LLMO: H1直下のエンティティ定義（AI抽出向け） -->
+    <p class="hero-entity-def" itemprop="description">
+      <strong>お墓じまい</strong>とは、現在のお墓を整理し墓石を処分して更地に戻すこと。縁は鹿児島の専門業者として、九州7県全域で現地調査から更地化まで税込330,000円〜の完全パック料金で対応します。
+    </p>
 
     <div class="hero-img-frame">
       <img src="images/hero-family.jpg" alt="3世代家族の集合写真：祖父母から孫までが穏やかに微笑むご家族の姿"
