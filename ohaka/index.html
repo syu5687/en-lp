@@ -89,6 +89,13 @@
     "opens":"09:00",
     "closes":"18:00"
   },
+  "subjectOf":[
+    {"@type":"CreativeWork","name":"MBC南日本放送 情報番組内特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"MBC南日本放送"}},
+    {"@type":"CreativeWork","name":"KKB鹿児島放送 終活特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"KKB鹿児島放送"}},
+    {"@type":"NewsArticle","headline":"ご供養の新しいかたち","publisher":{"@type":"NewsMediaOrganization","name":"南日本新聞"}},
+    {"@type":"CreativeWork","name":"KTS鹿児島テレビ 海洋葬取材","encodingFormat":"video/television","author":{"@type":"Organization","name":"KTS鹿児島テレビ"}},
+    {"@type":"Article","headline":"企業特集","publisher":{"@type":"Organization","name":"月刊シナジー"}}
+  ],
   "sameAs":[
     "https://www.facebook.com/en1150/",
     "https://www.instagram.com/en1150en/"
@@ -1071,6 +1078,121 @@
   .cta-soft-actions{display:flex;flex-direction:column;gap:10px}
 
   /* =========================================================
+     Media (メディア掲載実績)
+     ========================================================= */
+  .media{
+    background:linear-gradient(180deg,var(--cream-50),var(--cream-100));
+    position:relative;
+  }
+  .media-intro{
+    text-align:center;
+    font-size:13px;
+    color:var(--ink-700);
+    line-height:1.85;
+    margin-bottom:24px;
+    max-width:380px;
+    margin-left:auto;margin-right:auto;
+  }
+  .media-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .media-item{
+    background:#fff;
+    border-radius:var(--radius-md);
+    padding:14px 12px;
+    text-align:center;
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--cream-200);
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    min-height:88px;
+    transition:transform .25s,box-shadow .25s;
+    position:relative;
+  }
+  .media-item:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-md);
+    border-color:var(--green-500);
+  }
+  .media-item-type{
+    display:inline-block;
+    background:var(--green-50);
+    color:var(--green-700);
+    font-size:9.5px;font-weight:700;
+    padding:2px 8px;border-radius:3px;
+    margin-bottom:8px;
+    letter-spacing:.1em;
+  }
+  .media-item-type.tv{background:#fdf3e7;color:#a86a2a}
+  .media-item-type.paper{background:#eef2f7;color:#3a5278}
+  .media-item-type.web{background:#eaf3ee;color:#2d6149}
+  .media-item-type.mag{background:#f5e8ec;color:#8c3a55}
+  .media-item-name{
+    font-family:var(--serif);
+    font-size:13px;font-weight:700;
+    color:var(--green-900);
+    line-height:1.4;
+    margin-bottom:4px;
+  }
+  .media-item-date{
+    font-size:10px;
+    color:var(--ink-500);
+    letter-spacing:.05em;
+  }
+
+  .media-features{
+    background:#fff;
+    border-radius:var(--radius-md);
+    padding:18px 16px;
+    box-shadow:var(--shadow-sm);
+    border-left:3px solid var(--gold);
+  }
+  .media-features-title{
+    font-family:var(--serif);
+    font-size:13.5px;font-weight:700;
+    color:var(--green-800);
+    margin-bottom:12px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .media-features-title::before{
+    content:"📰";
+    font-size:16px;
+  }
+  .media-features-list{
+    list-style:none;
+  }
+  .media-features-list li{
+    position:relative;
+    padding:8px 0 8px 22px;
+    font-size:12.5px;
+    color:var(--ink-700);
+    line-height:1.7;
+    border-bottom:1px dashed var(--cream-200);
+  }
+  .media-features-list li:last-child{border-bottom:none}
+  .media-features-list li::before{
+    content:"";
+    position:absolute;left:0;top:13px;
+    width:6px;height:6px;
+    background:var(--green-600);
+    border-radius:50%;
+  }
+  .media-features-list li strong{
+    color:var(--green-800);
+    font-weight:700;
+  }
+  .media-note{
+    text-align:center;
+    font-size:10.5px;
+    color:var(--ink-500);
+    margin-top:16px;
+    line-height:1.6;
+  }
+
+  /* =========================================================
      Service Area
      ========================================================= */
   .area{
@@ -1690,6 +1812,65 @@
         <span class="company-cred">船舶免許保有</span>
       </div>
     </div>
+  </section>
+
+  <!-- =====================================
+       Media (メディア掲載実績)
+       ===================================== -->
+  <section class="section media" aria-labelledby="media-title">
+    <p class="section-eyebrow">MEDIA / 掲載実績</p>
+    <h2 id="media-title" class="section-title with-line">メディア掲載実績<span class="section-title-sub">テレビ・新聞・雑誌・Webで紹介されました</span></h2>
+
+    <p class="media-intro">
+      鹿児島の地域メディアをはじめ、各種媒体で<br>
+      ご供養のトータルサポートを取り上げていただきました。
+    </p>
+
+    <div class="media-list">
+      <div class="media-item">
+        <span class="media-item-type tv">テレビ</span>
+        <p class="media-item-name">MBC<br>南日本放送</p>
+        <p class="media-item-date">情報番組内特集</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type tv">テレビ</span>
+        <p class="media-item-name">KKB<br>鹿児島放送</p>
+        <p class="media-item-date">終活特集</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type paper">新聞</span>
+        <p class="media-item-name">南日本新聞</p>
+        <p class="media-item-date">ご供養の新しいかたち</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type tv">テレビ</span>
+        <p class="media-item-name">KTS<br>鹿児島テレビ</p>
+        <p class="media-item-date">海洋葬の取材</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type mag">雑誌</span>
+        <p class="media-item-name">月刊シナジー</p>
+        <p class="media-item-date">企業特集</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type web">Web</span>
+        <p class="media-item-name">PRESIDENT<br>Online 他</p>
+        <p class="media-item-date">終活コラム監修</p>
+      </div>
+    </div>
+
+    <div class="media-features">
+      <h3 class="media-features-title">主な取材テーマ</h3>
+      <ul class="media-features-list">
+        <li><strong>お墓じまい</strong>の最新事情と費用相場</li>
+        <li><strong>海洋葬・散骨</strong>の現場ルポ</li>
+        <li>承継者不在時代の<strong>新しいご供養のかたち</strong></li>
+        <li>遠方在住者向け<strong>遺骨郵送・粉骨サービス</strong></li>
+        <li>鹿児島の<strong>離島対応</strong>事例</li>
+      </ul>
+    </div>
+
+    <p class="media-note">※ 媒体名・掲載日の詳細はお問い合わせください。</p>
   </section>
 
   <!-- =====================================

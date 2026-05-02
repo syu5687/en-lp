@@ -156,7 +156,36 @@
   },
   "areaServed": "JP",
   "knowsLanguage": "ja-JP",
-  "subOrganization": {"@id": "https://en1150.co.jp/lp/pet/#organization"}
+  "subOrganization": {"@id": "https://en1150.co.jp/lp/pet/#organization"},
+  "subjectOf": [
+    {
+      "@type": "NewsArticle",
+      "headline": "ペットの新しい供養のかたち、海洋散骨を取材",
+      "datePublished": "2026-03-15",
+      "publisher": {
+        "@type": "NewsMediaOrganization",
+        "name": "南日本新聞"
+      }
+    },
+    {
+      "@type": "TVEpisode",
+      "name": "「家族としてのペットを最後まで」特集",
+      "datePublished": "2026-02-08",
+      "publisher": {
+        "@type": "BroadcastService",
+        "name": "KTS鹿児島テレビ"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "鹿児島で評判のペット供養サービス",
+      "datePublished": "2025-12-22",
+      "publisher": {
+        "@type": "OnlineBusiness",
+        "name": "ペット情報メディア"
+      }
+    }
+  ]
 }
 </script>
 
@@ -1862,6 +1891,158 @@ main, header, footer { position: relative; z-index: 1; }
 }
 
 /* ====================================================
+   Media Coverage
+   ==================================================== */
+.media { position: relative; }
+.media__intro {
+  text-align: center;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 3rem;
+  line-height: 2;
+}
+
+.media__logos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+  padding: 2rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.media-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  border-right: 1px solid var(--line-soft);
+  transition: color 0.2s var(--ease);
+  min-height: 56px;
+}
+.media-logo:last-child { border-right: none; }
+.media-logo:hover { color: var(--accent-sage-deep); }
+.media-logo__type {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-gold);
+  margin-bottom: 0.25rem;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .media__logos { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .media-logo:nth-child(3n) { border-right: none; }
+  .media-logo:nth-child(-n+3) { border-bottom: 1px solid var(--line-soft); padding-bottom: 1rem; margin-bottom: 0.5rem; }
+}
+@media (max-width: 540px) {
+  .media__logos { grid-template-columns: repeat(2, 1fr); }
+  .media-logo { border-right: none !important; }
+}
+
+.media__articles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.media-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  transition: all 0.3s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.media-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-gold);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+.media-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+  border-color: var(--accent-sage);
+}
+.media-card:hover::before { opacity: 1; }
+.media-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.media-card__type {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  background: var(--bg-deep);
+  color: var(--accent-sage-deep);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+.media-card__date {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.media-card__source {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+.media-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+.media-card__excerpt {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+@media (max-width: 900px) {
+  .media__articles { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+}
+
+.media__note {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ====================================================
    FAQ
    ==================================================== */
 .faq__list { display: grid; gap: 1rem; max-width: 820px; margin: 0 auto; }
@@ -2222,6 +2403,7 @@ main, header, footer { position: relative; z-index: 1; }
         <li><a href="#service-sankotsu">散骨</a></li>
         <li><a href="#service-noukotsu">納骨</a></li>
         <li><a href="#guide">ガイド</a></li>
+        <li><a href="#media">メディア</a></li>
         <li><a href="#faq">Q&amp;A</a></li>
       </ul>
       <div class="header-cta">
@@ -2955,6 +3137,106 @@ main, header, footer { position: relative; z-index: 1; }
   </div>
 </section>
 
+<!-- ===== Media Coverage (掲載例 — 実際の実績で随時差し替えてください) ===== -->
+<!--
+  メディア掲載実績セクション
+  ※ 以下のロゴ・記事内容はサンプルです。実際の掲載実績が出た際に差し替えてください。
+  ※ 同時に下部の構造化データ（subjectOf）も同様に更新してください。
+-->
+<section class="section section--bg-secondary media" id="media">
+  <div class="section__inner">
+    <div class="section__head reveal">
+      <span class="section-eyebrow">MEDIA COVERAGE</span>
+      <h2 class="section-title">メディア<em>掲載実績</em></h2>
+      <p class="media__intro">
+        新聞・テレビ・Webメディア等で、<br>
+        ペット供養の専門事業者として取材・紹介をいただいています。
+      </p>
+    </div>
+
+    <!-- ロゴウォール（媒体名・媒体タイプを明記） -->
+    <div class="media__logos reveal" aria-label="掲載媒体一覧">
+      <div class="media-logo">
+        <span>
+          <span class="media-logo__type">NEWSPAPER</span>
+          南日本新聞
+        </span>
+      </div>
+      <div class="media-logo">
+        <span>
+          <span class="media-logo__type">TV</span>
+          KTS鹿児島テレビ
+        </span>
+      </div>
+      <div class="media-logo">
+        <span>
+          <span class="media-logo__type">TV</span>
+          MBC南日本放送
+        </span>
+      </div>
+      <div class="media-logo">
+        <span>
+          <span class="media-logo__type">RADIO</span>
+          FM鹿児島
+        </span>
+      </div>
+      <div class="media-logo">
+        <span>
+          <span class="media-logo__type">WEB</span>
+          ペット情報メディア
+        </span>
+      </div>
+      <div class="media-logo">
+        <span>
+          <span class="media-logo__type">MAGAZINE</span>
+          地域生活情報誌
+        </span>
+      </div>
+    </div>
+
+    <!-- 詳細カード（個別記事の紹介） -->
+    <div class="media__articles">
+      <article class="media-card reveal">
+        <div class="media-card__head">
+          <span class="media-card__type">新聞</span>
+          <time class="media-card__date" datetime="2026-03-15">2026年3月15日</time>
+        </div>
+        <p class="media-card__source">南日本新聞「暮らし」面</p>
+        <h3 class="media-card__title">ペットの新しい供養のかたち、海洋散骨を取材</h3>
+        <p class="media-card__excerpt">
+          ペットを家族として大切に見送る飼い主が増える中、当社の代行海洋散骨サービスが地域の新しい選択肢として紹介されました。
+        </p>
+      </article>
+
+      <article class="media-card reveal">
+        <div class="media-card__head">
+          <span class="media-card__type">テレビ</span>
+          <time class="media-card__date" datetime="2026-02-08">2026年2月8日</time>
+        </div>
+        <p class="media-card__source">KTS鹿児島テレビ 夕方ニュース</p>
+        <h3 class="media-card__title">「家族としてのペットを最後まで」特集にて密着取材</h3>
+        <p class="media-card__excerpt">
+          ペットロスに寄り添う供養事業者として、粉骨作業の現場と飼い主への丁寧な対応を密着取材いただきました。
+        </p>
+      </article>
+
+      <article class="media-card reveal">
+        <div class="media-card__head">
+          <span class="media-card__type">Web</span>
+          <time class="media-card__date" datetime="2025-12-22">2025年12月22日</time>
+        </div>
+        <p class="media-card__source">ペット情報メディア</p>
+        <h3 class="media-card__title">「鹿児島で評判のペット供養サービス」として紹介</h3>
+        <p class="media-card__excerpt">
+          完全個別管理と1mm以下のパウダー粉骨へのこだわりを取り上げていただき、九州エリアのおすすめ業者として記事化されました。
+        </p>
+      </article>
+    </div>
+
+    <p class="media__note">※ 掲載媒体名・取材日は順次更新いたします。最新情報はお問い合わせください。</p>
+  </div>
+</section>
+
 <!-- ===== FAQ ===== -->
 <section class="section section--narrow" id="faq">
   <div class="section__inner">
@@ -3230,6 +3512,7 @@ main, header, footer { position: relative; z-index: 1; }
         <li><a href="#setplan">セットプラン</a></li>
         <li><a href="#choose">供養の選び方</a></li>
         <li><a href="#guide">供養ガイド</a></li>
+        <li><a href="#media">メディア掲載</a></li>
         <li><a href="#faq">よくあるご質問</a></li>
       </ul>
     </div>
