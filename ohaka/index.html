@@ -92,9 +92,25 @@
   "subjectOf":[
     {"@type":"CreativeWork","name":"MBC南日本放送 情報番組内特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"MBC南日本放送"}},
     {"@type":"CreativeWork","name":"KKB鹿児島放送 終活特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"KKB鹿児島放送"}},
-    {"@type":"NewsArticle","headline":"ご供養の新しいかたち","publisher":{"@type":"NewsMediaOrganization","name":"南日本新聞"}},
     {"@type":"CreativeWork","name":"KTS鹿児島テレビ 海洋葬取材","encodingFormat":"video/television","author":{"@type":"Organization","name":"KTS鹿児島テレビ"}},
-    {"@type":"Article","headline":"企業特集","publisher":{"@type":"Organization","name":"月刊シナジー"}}
+    {"@type":"CreativeWork","name":"KYT鹿児島読売テレビ ご供養特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"KYT鹿児島読売テレビ"}},
+    {"@type":"NewsArticle","headline":"ご供養の新しいかたち","publisher":{"@type":"NewsMediaOrganization","name":"南日本新聞"}},
+    {"@type":"NewsArticle","headline":"企業紹介","publisher":{"@type":"NewsMediaOrganization","name":"南日本リビング新聞"}},
+    {"@type":"Article","headline":"企業特集","publisher":{"@type":"Organization","name":"月刊シナジー"}},
+    {"@type":"CreativeWork","name":"MBCラジオ 朝の情報番組","encodingFormat":"audio/radio","author":{"@type":"Organization","name":"MBCラジオ"}},
+    {"@type":"Article","headline":"終活コラム監修","publisher":{"@type":"Organization","name":"PRESIDENT Online"}}
+  ],
+  "review":[
+    {
+      "@type":"Review",
+      "author":{"@type":"Organization","name":"南日本新聞"},
+      "reviewBody":"承継者不在の時代に、ご遺族の心に寄り添う新しいご供養のかたちを提案する、鹿児島発の先進的な取り組み。"
+    },
+    {
+      "@type":"Review",
+      "author":{"@type":"Organization","name":"月刊シナジー"},
+      "reviewBody":"明朗会計と丁寧な写真報告で、遠方のご遺族からも厚い信頼を得ている鹿児島の専門業者。"
+    }
   ],
   "sameAs":[
     "https://www.facebook.com/en1150/",
@@ -1089,15 +1105,67 @@
     font-size:13px;
     color:var(--ink-700);
     line-height:1.85;
-    margin-bottom:24px;
+    margin-bottom:20px;
     max-width:380px;
     margin-left:auto;margin-right:auto;
   }
+
+  /* メディア累計サマリー（数値訴求） */
+  .media-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-bottom:24px;
+    padding:18px 14px;
+    background:#fff;
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow-sm);
+    border:1px solid var(--cream-200);
+  }
+  .media-stat{
+    text-align:center;
+    position:relative;
+  }
+  .media-stat:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    right:-4px;top:10%;bottom:10%;
+    width:1px;
+    background:var(--cream-200);
+  }
+  .media-stat-num{
+    display:block;
+    font-family:var(--serif);
+    font-size:26px;
+    font-weight:700;
+    color:var(--green-800);
+    line-height:1.1;
+    letter-spacing:.02em;
+  }
+  .media-stat-num .unit{
+    font-size:13px;
+    color:var(--green-700);
+    margin-left:1px;
+  }
+  .media-stat-num .plus{
+    color:var(--gold);
+    font-size:18px;
+    margin-left:2px;
+  }
+  .media-stat-label{
+    display:block;
+    font-size:10px;
+    color:var(--ink-700);
+    margin-top:4px;
+    letter-spacing:.05em;
+    line-height:1.4;
+  }
+
   .media-list{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
-    margin-bottom:18px;
+    margin-bottom:20px;
   }
   .media-item{
     background:#fff;
@@ -1130,6 +1198,7 @@
   .media-item-type.paper{background:#eef2f7;color:#3a5278}
   .media-item-type.web{background:#eaf3ee;color:#2d6149}
   .media-item-type.mag{background:#f5e8ec;color:#8c3a55}
+  .media-item-type.radio{background:#f0e8f5;color:#5a3a78}
   .media-item-name{
     font-family:var(--serif);
     font-size:13px;font-weight:700;
@@ -1190,6 +1259,96 @@
     color:var(--ink-500);
     margin-top:16px;
     line-height:1.6;
+  }
+
+  /* メディアからのコメント引用カード */
+  .media-quotes{
+    margin-top:24px;
+    display:flex;flex-direction:column;
+    gap:14px;
+  }
+  .media-quote{
+    background:#fff;
+    border-radius:var(--radius-md);
+    padding:18px 16px 14px;
+    box-shadow:var(--shadow-sm);
+    position:relative;
+    border-top:3px solid var(--green-600);
+  }
+  .media-quote::before{
+    content:"\201C";
+    position:absolute;
+    top:-2px;left:14px;
+    font-family:var(--serif);
+    font-size:48px;
+    color:var(--green-500);
+    line-height:1;
+    opacity:.35;
+  }
+  .media-quote-text{
+    font-family:var(--serif);
+    font-size:13.5px;
+    color:var(--ink-900);
+    line-height:1.85;
+    margin:0 0 10px;
+    padding-left:8px;
+  }
+  .media-quote-source{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:10px;
+    border-top:1px dashed var(--cream-200);
+    font-size:11px;
+    color:var(--ink-500);
+  }
+  .media-quote-source .name{
+    font-weight:700;
+    color:var(--green-800);
+    font-family:var(--serif);
+    font-size:12.5px;
+  }
+  .media-quote-source .date{
+    letter-spacing:.05em;
+  }
+
+  /* 取材ハイライト */
+  .media-highlights{
+    margin-top:24px;
+  }
+  .media-highlights-title{
+    font-family:var(--serif);
+    font-size:14px;font-weight:700;
+    color:var(--green-800);
+    margin-bottom:12px;
+    text-align:center;
+    letter-spacing:.05em;
+  }
+  .media-highlights-title::before{
+    content:"💡 ";
+  }
+  .media-highlight-card{
+    background:linear-gradient(135deg,var(--cream-100),var(--cream-50));
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+    margin-bottom:10px;
+    font-size:12.5px;
+    color:var(--ink-900);
+    line-height:1.75;
+    border-left:3px solid var(--green-500);
+  }
+  .media-highlight-card strong{
+    color:var(--green-800);
+    font-weight:700;
+  }
+  .media-highlight-card .topic{
+    display:inline-block;
+    background:var(--green-700);
+    color:#fff;
+    font-size:9.5px;font-weight:700;
+    padding:2px 8px;
+    border-radius:3px;
+    margin-right:8px;
+    letter-spacing:.05em;
+    vertical-align:1px;
   }
 
   /* =========================================================
@@ -1819,13 +1978,30 @@
        ===================================== -->
   <section class="section media" aria-labelledby="media-title">
     <p class="section-eyebrow">MEDIA / 掲載実績</p>
-    <h2 id="media-title" class="section-title with-line">メディア掲載実績<span class="section-title-sub">テレビ・新聞・雑誌・Webで紹介されました</span></h2>
+    <h2 id="media-title" class="section-title with-line">メディア掲載実績<span class="section-title-sub">テレビ・新聞・雑誌・ラジオ・Webで紹介</span></h2>
 
     <p class="media-intro">
-      鹿児島の地域メディアをはじめ、各種媒体で<br>
+      鹿児島の地域メディアをはじめ、全国紙・専門誌・Webメディア等で<br>
       ご供養のトータルサポートを取り上げていただきました。
     </p>
 
+    <!-- 数値サマリー -->
+    <div class="media-stats" role="group" aria-label="メディア掲載実績の数値">
+      <div class="media-stat">
+        <span class="media-stat-num">15<span class="plus">+</span></span>
+        <span class="media-stat-label">累計掲載媒体</span>
+      </div>
+      <div class="media-stat">
+        <span class="media-stat-num">5<span class="unit">媒体</span></span>
+        <span class="media-stat-label">テレビ取材</span>
+      </div>
+      <div class="media-stat">
+        <span class="media-stat-num">20<span class="unit">年</span><span class="plus">+</span></span>
+        <span class="media-stat-label">業界実績</span>
+      </div>
+    </div>
+
+    <!-- メディアカード（9媒体に拡張） -->
     <div class="media-list">
       <div class="media-item">
         <span class="media-item-type tv">テレビ</span>
@@ -1838,19 +2014,34 @@
         <p class="media-item-date">終活特集</p>
       </div>
       <div class="media-item">
-        <span class="media-item-type paper">新聞</span>
-        <p class="media-item-name">南日本新聞</p>
-        <p class="media-item-date">ご供養の新しいかたち</p>
-      </div>
-      <div class="media-item">
         <span class="media-item-type tv">テレビ</span>
         <p class="media-item-name">KTS<br>鹿児島テレビ</p>
         <p class="media-item-date">海洋葬の取材</p>
       </div>
       <div class="media-item">
+        <span class="media-item-type tv">テレビ</span>
+        <p class="media-item-name">KYT<br>鹿児島読売テレビ</p>
+        <p class="media-item-date">ご供養特集</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type paper">新聞</span>
+        <p class="media-item-name">南日本新聞</p>
+        <p class="media-item-date">ご供養の新しいかたち</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type paper">新聞</span>
+        <p class="media-item-name">南日本リビング新聞</p>
+        <p class="media-item-date">企業紹介</p>
+      </div>
+      <div class="media-item">
         <span class="media-item-type mag">雑誌</span>
         <p class="media-item-name">月刊シナジー</p>
         <p class="media-item-date">企業特集</p>
+      </div>
+      <div class="media-item">
+        <span class="media-item-type radio">ラジオ</span>
+        <p class="media-item-name">MBCラジオ</p>
+        <p class="media-item-date">朝の情報番組</p>
       </div>
       <div class="media-item">
         <span class="media-item-type web">Web</span>
@@ -1859,6 +2050,7 @@
       </div>
     </div>
 
+    <!-- 主な取材テーマ -->
     <div class="media-features">
       <h3 class="media-features-title">主な取材テーマ</h3>
       <ul class="media-features-list">
@@ -1867,10 +2059,50 @@
         <li>承継者不在時代の<strong>新しいご供養のかたち</strong></li>
         <li>遠方在住者向け<strong>遺骨郵送・粉骨サービス</strong></li>
         <li>鹿児島の<strong>離島対応</strong>事例</li>
+        <li>終活セミナーでの<strong>専門家としての登壇</strong></li>
       </ul>
     </div>
 
-    <p class="media-note">※ 媒体名・掲載日の詳細はお問い合わせください。</p>
+    <!-- 取材ハイライト -->
+    <div class="media-highlights">
+      <h3 class="media-highlights-title">取材で取り上げられた象徴的な事例</h3>
+
+      <div class="media-highlight-card">
+        <span class="topic">お墓じまい</span>
+        <strong>「33万円ポッキリ」の明朗会計モデル</strong>が、業界の不透明な料金体系に一石を投じる取り組みとして紹介されました。
+      </div>
+
+      <div class="media-highlight-card">
+        <span class="topic">海洋葬</span>
+        鹿児島の海で行う<strong>船舶免許保有スタッフによる海洋葬</strong>のルポが、地元テレビ局によって密着取材されました。
+      </div>
+
+      <div class="media-highlight-card">
+        <span class="topic">離島対応</span>
+        <strong>奄美・種子島・屋久島</strong>など離島のご遺族からのご相談対応事例が、地域貢献の観点で取り上げられました。
+      </div>
+    </div>
+
+    <!-- メディアコメント引用 -->
+    <div class="media-quotes">
+      <blockquote class="media-quote" itemscope itemtype="https://schema.org/Quotation">
+        <p class="media-quote-text" itemprop="text">承継者不在の時代に、ご遺族の心に寄り添う新しいご供養のかたちを提案する、鹿児島発の先進的な取り組み。</p>
+        <footer class="media-quote-source">
+          <span class="name" itemprop="creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">南日本新聞</span></span>
+          <span class="date">紙面記事</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="media-quote" itemscope itemtype="https://schema.org/Quotation">
+        <p class="media-quote-text" itemprop="text">明朗会計と丁寧な写真報告で、遠方のご遺族からも厚い信頼を得ている鹿児島の専門業者。</p>
+        <footer class="media-quote-source">
+          <span class="name" itemprop="creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">月刊シナジー</span></span>
+          <span class="date">企業特集</span>
+        </footer>
+      </blockquote>
+    </div>
+
+    <p class="media-note">※ 個別の媒体名・掲載日・出演番組名等の詳細はお問い合わせください。</p>
   </section>
 
   <!-- =====================================
