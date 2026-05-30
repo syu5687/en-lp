@@ -22,7 +22,7 @@ require __DIR__ . '/../includes/head.php';
         <tr><th>電話番号</th><td><?= h(SITE['tel']) ?></td></tr>
         <tr><th>メール</th><td><?= h(SITE['email']) ?></td></tr>
         <tr><th>営業時間</th><td>9:00〜18:00（日曜定休）</td></tr>
-        <tr><th>代表者</th><td>※要記入</td></tr>
+        <tr><th>代表者</th><td>堤 裕加里</td></tr>
         <tr><th>設立</th><td>※要記入</td></tr>
         <tr><th>事業内容</th><td>海洋散骨・粉骨・お墓じまい・樹木葬・お手元供養・ペット供養・遺品整理・お墓のお引越し</td></tr>
         <tr><th>加盟団体</th><td>一般社団法人 日本海洋散骨協会</td></tr>

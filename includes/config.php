@@ -7,7 +7,7 @@
 // ---- GCP / Firebase ----
 // en-lp の Cloud Run は 412102088439、Firestore は 941919710488（クロスプロジェクト構成）。
 // 自身のプロジェクト(412...)ではなく Firestore のある 941919710488 を明示する。
-const GCP_PROJECT_ID = 'en-hp-lp';
+const GCP_PROJECT_ID = '941919710488';
 
 // ---- GA4 ----
 // 測定ID（ページ埋め込み用・G-XXXXXXXXXX）。設定すると全ページにgtag.jsが入る。
@@ -38,8 +38,8 @@ const SITE = [
 // ---- グローバルナビ（1か所で管理 → 全ページ自動反映）----
 const NAV = [
   ['label' => 'サービス',     'href' => '/service/'],
-  ['label' => 'ご供養について', 'href' => '/gokuyou/'],
-  ['label' => 'スタッフ紹介',  'href' => '/staff/'],
+  ['label' => 'ご供養について', 'href' => '/kuyou/'],
+  ['label' => 'よくあるご質問', 'href' => '/gokuyou/'],
   ['label' => 'お客様の声',    'href' => '/voice/'],
   ['label' => 'ブログ',       'href' => '/blog/'],
   ['label' => 'お問い合わせ',  'href' => '/contact/'],

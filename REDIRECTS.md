@@ -54,3 +54,31 @@
 
 旧WordPressのURL一覧（サイトマップやSearch Consoleのインデックス済みURL）をいただければ、
 1対1の正確な301マップを作成します。
+
+---
+
+## 確定301マップ（現行 en1150.co.jp 調査結果より）
+
+### URL一致＝301不要（同URLで中身刷新・SEO評価が自動継承）
+`/grave/` `/teien-sou/` `/hikkoshi/` `/company/` `/voice/` `/blog/` `/gokuyou/`(FAQ)
+
+### 301が必要（現行→新HP）
+```apache
+RewriteEngine On
+RewriteRule ^shizen-sou/?$         /kaiyou-sou/      [R=301,L]   # 自然葬→海洋葬
+RewriteRule ^goudou-kaiyou-sou/?$  /kaiyou-sou/      [R=301,L]   # 合同海洋葬→海洋葬
+RewriteRule ^retaliation/?$        /temoto-kuyou/    [R=301,L]   # ご自宅供養→お手元供養
+```
+
+### 注記
+- `/gokuyou/` は **FAQのまま維持**（案A採用）。新「ご供養について」は `/kuyou/` に新設。
+- 旧ブログ記事（日本語スラッグ）・年別/カテゴリ/著者アーカイブは、サイトマップが無いため
+  個別対応は保留。暫定で日本語スラッグ記事を `/blog/` へ集約する場合：
+  ```apache
+  # 個別記事を一覧へ集約（暫定・必要時のみ有効化）
+  # RewriteCond %{REQUEST_URI} !^/(grave|teien-sou|hikkoshi|company|voice|blog|gokuyou|kuyou|kaiyou-sou|powder-cleaning|temoto-kuyou|pet-kaiyou-sou|ihinseiri|service|contact|privacy|ohaka|pet|admin|api|assets|includes)/
+  # RewriteCond %{REQUEST_FILENAME} !-f
+  # RewriteCond %{REQUEST_FILENAME} !-d
+  # RewriteRule ^.+$ /blog/ [R=301,L]
+  ```
+  ※ この集約ルールは強力なので、重要記事は先に1対1で対応してから有効化してください。

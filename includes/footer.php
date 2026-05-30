@@ -14,6 +14,9 @@
         <?php endforeach; ?>
       </ul>
       <ul>
+        <li><a href="/kuyou/">ご供養について</a></li>
+        <li><a href="/gokuyou/">よくあるご質問</a></li>
+        <li><a href="/staff/">スタッフ紹介</a></li>
         <li><a href="/company/">会社概要</a></li>
         <li><a href="/contact/">お問い合わせ</a></li>
         <li><a href="/privacy/">プライバシーポリシー</a></li>
