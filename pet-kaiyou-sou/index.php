@@ -1,25 +1,27 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
-$page_title     = 'ペット供養｜' . SITE['name'];
-$page_desc      = 'ペット供養｜' . SITE['name'] . '（' . SITE['tagline'] . '）。大切な家族のペットの海洋散骨';
-$page_canonical = SITE['url'] . '/pet-kaiyou-sou/';
-require __DIR__ . '/../includes/head.php';
-?>
-<body>
-<?php require __DIR__ . '/../includes/header.php'; ?>
-<section class="page-hero">
-  <h1>ペット供養</h1>
-  <p>大切な家族のペットの海洋散骨</p>
-</section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ ペット供養</nav>
-<main class="section">
-  <div class="container prose">
-    <span class="wip">このページは準備中です</span>
-    <p class="lead">ペット供養のページは現在準備中です。お急ぎの場合はお気軽にお問い合わせください。</p>
-    <p style="margin-top:24px">
-      <a href="/contact/" class="btn">お問い合わせ</a>
-      <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-    </p>
-  </div>
-</main>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+$service = [
+  'slug' => 'pet-kaiyou-sou',
+  'title' => 'ペット供養（ペット海洋散骨）',
+  'sub'   => '大切な家族であるペットを、自然の海へ',
+  'price_label' => 'お問合せ',
+  'lead'  => '大切な家族であるペットの海洋散骨を承っています。鹿児島・錦江湾にて、心を込めてお送りいたします。',
+  'intro' => [
+    'ペットも大切な家族の一員です。当社では半年に一度、鹿児島錦江湾にてペット専用の委託海洋葬を実施しています。',
+    'ご遺骨の粉骨から散骨まで対応いたします。お手元に一部を残すお手元供養との組み合わせも可能です。',
+  ],
+  'points' => [
+    'ペットを自然の海へ還してあげたい方',
+    'お墓の管理が難しい方',
+    '一部を手元に残して供養したい方',
+  ],
+  'flow' => [
+    'お問い合わせ・無料相談',
+    'ご遺骨のお引取り（郵送も可）',
+    '粉骨',
+    'ペット専用委託海洋葬の実施',
+  ],
+  'faq' => [
+    ['q' => 'ペットの海洋散骨はできますか？', 'a' => 'はい、承っております。鹿児島錦江湾にて半年に一度、ペット専用の委託海洋葬を実施しています。'],
+  ],
+];
+require __DIR__ . '/../includes/service-page.php';

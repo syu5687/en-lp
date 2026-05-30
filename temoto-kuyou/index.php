@@ -1,25 +1,24 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
-$page_title     = 'お手元供養｜' . SITE['name'];
-$page_desc      = 'お手元供養｜' . SITE['name'] . '（' . SITE['tagline'] . '）。ご自宅で身近に偲ぶ';
-$page_canonical = SITE['url'] . '/temoto-kuyou/';
-require __DIR__ . '/../includes/head.php';
-?>
-<body>
-<?php require __DIR__ . '/../includes/header.php'; ?>
-<section class="page-hero">
-  <h1>お手元供養</h1>
-  <p>ご自宅で身近に偲ぶ</p>
-</section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ お手元供養</nav>
-<main class="section">
-  <div class="container prose">
-    <span class="wip">このページは準備中です</span>
-    <p class="lead">お手元供養のページは現在準備中です。お急ぎの場合はお気軽にお問い合わせください。</p>
-    <p style="margin-top:24px">
-      <a href="/contact/" class="btn">お問い合わせ</a>
-      <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-    </p>
-  </div>
-</main>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+$service = [
+  'slug' => 'temoto-kuyou',
+  'title' => 'お手元供養',
+  'sub'   => 'ご自宅で、身近に大切な方を偲ぶ',
+  'price_label' => '各種対応',
+  'lead'  => 'ご遺骨の一部を小さな骨壺やジュエリーにして、ご自宅やお身近に置いて供養する方法です。多彩なご提案が可能です。',
+  'intro' => [
+    'お手元供養は、いつもそばで故人を感じていたいという想いに応える供養のかたちです。ミニ骨壺やメモリアルジュエリー、ジュエリーリフォームなど、暮らしに寄り添う形をご提案します。',
+    '散骨やお墓じまいと組み合わせて、一部をお手元に残す方も増えています。',
+  ],
+  'points' => [
+    'いつも身近に故人を感じていたい方',
+    '散骨・樹木葬の際、一部を手元に残したい方',
+    '形見をジュエリーとして残したい方',
+  ],
+  'flow' => [
+    'お問い合わせ・無料相談',
+    'ご希望の形（骨壺・ジュエリー等）のご提案',
+    'ご遺骨のお引取り・加工',
+    'お引渡し',
+  ],
+];
+require __DIR__ . '/../includes/service-page.php';

@@ -1,25 +1,24 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
-$page_title     = '樹木葬｜' . SITE['name'];
-$page_desc      = '樹木葬｜' . SITE['name'] . '（' . SITE['tagline'] . '）。自然に還る、管理不要の埋葬';
-$page_canonical = SITE['url'] . '/teien-sou/';
-require __DIR__ . '/../includes/head.php';
-?>
-<body>
-<?php require __DIR__ . '/../includes/header.php'; ?>
-<section class="page-hero">
-  <h1>樹木葬</h1>
-  <p>自然に還る、管理不要の埋葬</p>
-</section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ 樹木葬</nav>
-<main class="section">
-  <div class="container prose">
-    <span class="wip">このページは準備中です</span>
-    <p class="lead">樹木葬のページは現在準備中です。お急ぎの場合はお気軽にお問い合わせください。</p>
-    <p style="margin-top:24px">
-      <a href="/contact/" class="btn">お問い合わせ</a>
-      <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-    </p>
-  </div>
-</main>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+$service = [
+  'slug' => 'teien-sou',
+  'title' => '樹木葬',
+  'sub'   => '自然に還る、管理不要の安らかな埋葬',
+  'price_label' => 'お問合せ',
+  'lead'  => '墓石の代わりに樹木や草花を墓標とする、自然志向の埋葬方法です。管理の負担がなく、後世への負担も残しません。',
+  'intro' => [
+    '樹木葬は、自然の中で安らかに眠りたいという想いに寄り添う供養のかたちです。継承を前提としないため、後の世代に管理の負担を残しません。',
+    'ご遺骨の粉骨から埋葬までトータルにサポートいたします。ご希望をお聞かせください。',
+  ],
+  'points' => [
+    '自然に還る供養を希望される方',
+    '継承・管理の負担を残したくない方',
+    '宗教・宗派を問わない供養をお考えの方',
+  ],
+  'flow' => [
+    'お問い合わせ・無料相談',
+    'ご希望のヒアリング・ご提案',
+    'ご遺骨のお引取り・粉骨',
+    '埋葬・ご供養',
+  ],
+];
+require __DIR__ . '/../includes/service-page.php';

@@ -10,6 +10,8 @@ $item = [
   'category'  => $_POST['category'] ?? 'お知らせ',
   'title'     => $_POST['title'] ?? '',
   'body'      => $_POST['body'] ?? '',
+  'image'     => $_POST['image'] ?? '',
+  'link'      => $_POST['link'] ?? '',
   'published' => !empty($_POST['published']),
 ];
 news_upsert($item);

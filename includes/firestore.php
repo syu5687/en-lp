@@ -86,6 +86,36 @@ function fs_request(string $method, string $path, ?array $body = null) {
   return json_decode((string)$raw, true);
 }
 
+/**
+ * 構造化クエリ（期間絞り込み等）。
+ * $opts: ['where'=>['field','op','value'], 'orderBy'=>['field','DIRECTION'], 'limit'=>int]
+ *   op 例: 'GREATER_THAN_OR_EQUAL' / value 例: ['integerValue'=>'123']
+ */
+function fs_query(string $collection, array $opts = []): array {
+  $sq = ['from' => [['collectionId' => $collection]]];
+  if (!empty($opts['where'])) {
+    $sq['where'] = ['fieldFilter' => [
+      'field' => ['fieldPath' => $opts['where']['field']],
+      'op'    => $opts['where']['op'],
+      'value' => $opts['where']['value'],
+    ]];
+  }
+  if (!empty($opts['orderBy'])) {
+    $sq['orderBy'] = [[
+      'field'     => ['fieldPath' => $opts['orderBy'][0]],
+      'direction' => $opts['orderBy'][1] ?? 'ASCENDING',
+    ]];
+  }
+  if (!empty($opts['limit'])) $sq['limit'] = (int)$opts['limit'];
+
+  $res = fs_request('POST', 'documents:runQuery', ['structuredQuery' => $sq]);
+  $out = [];
+  foreach (($res ?? []) as $row) {
+    if (!empty($row['document'])) $out[] = fs_from_doc($row['document']);
+  }
+  return $out;
+}
+
 /* ---- ドキュメント⇔連想配列 変換 ---- */
 
 /** PHP配列 → Firestore fields */

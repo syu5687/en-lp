@@ -1,25 +1,28 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
-$page_title     = '粉骨・洗骨｜' . SITE['name'];
-$page_desc      = '粉骨・洗骨｜' . SITE['name'] . '（' . SITE['tagline'] . '）。ご遺骨のパウダー化・クリーニング';
-$page_canonical = SITE['url'] . '/powder-cleaning/';
-require __DIR__ . '/../includes/head.php';
-?>
-<body>
-<?php require __DIR__ . '/../includes/header.php'; ?>
-<section class="page-hero">
-  <h1>粉骨・洗骨</h1>
-  <p>ご遺骨のパウダー化・クリーニング</p>
-</section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ 粉骨・洗骨</nav>
-<main class="section">
-  <div class="container prose">
-    <span class="wip">このページは準備中です</span>
-    <p class="lead">粉骨・洗骨のページは現在準備中です。お急ぎの場合はお気軽にお問い合わせください。</p>
-    <p style="margin-top:24px">
-      <a href="/contact/" class="btn">お問い合わせ</a>
-      <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-    </p>
-  </div>
-</main>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+$service = [
+  'slug' => 'powder-cleaning',
+  'title' => '粉骨・洗骨',
+  'sub'   => 'ご遺骨を丁寧にパウダー化・クリーニング',
+  'price_label' => '5,000円〜',
+  'lead'  => 'ご遺骨を細かなパウダー状にする粉骨と、汚れや湿気を取り除く洗骨を承っています。散骨やお手元供養の前処理として、心を込めて丁寧に対応します。',
+  'intro' => [
+    '海洋散骨や樹木葬には、ご遺骨をパウダー化する「粉骨」が必要です。また、長年お墓に納められていたご遺骨は、湿気やカビが生じていることがあり、洗浄・乾燥（洗骨）でき れいに整えます。',
+    '粉骨のみのご依頼も承っております。お手元供養やご自宅での保管をお考えの方にもご利用いただいています。',
+  ],
+  'points' => [
+    '散骨・樹木葬の前にご遺骨をパウダー化したい方',
+    'お墓じまいでご遺骨の湿気・カビが気になる方',
+    'お手元供養のためコンパクトにしたい方',
+  ],
+  'flow' => [
+    'お問い合わせ・無料相談',
+    'ご遺骨のお引取り（郵送も可）',
+    '洗浄・乾燥（洗骨）',
+    'パウダー化（粉骨）',
+    'ご返送またはお引渡し',
+  ],
+  'faq' => [
+    ['q' => '粉骨だけの依頼もできますか？', 'a' => 'もちろん可能です。粉骨のみのご依頼も5,000円（税込5,500円）〜承っております。'],
+  ],
+];
+require __DIR__ . '/../includes/service-page.php';

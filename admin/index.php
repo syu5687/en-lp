@@ -21,6 +21,10 @@ $news_count = count(news_all());
       <span class="admin-card__label">ブログ・お知らせ</span>
       <span class="admin-card__num"><?= $news_count ?> 件</span>
     </a>
+    <a class="admin-card" href="/admin/analytics/">
+      <span class="admin-card__label">アクセス解析</span>
+      <span class="admin-card__num">表示 →</span>
+    </a>
     <!-- 将来の管理モジュールはここに追加（お客様の声 / お問い合わせ受信 など） -->
   </div>
 </main>

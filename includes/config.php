@@ -8,6 +8,10 @@
 // 空文字なら Cloud Run のメタデータサーバから自動取得。ローカル等で固定したい場合のみ記入。
 const GCP_PROJECT_ID = '';
 
+// ---- お問い合わせ（Cloudflare Worker + Resend）----
+// Workerをデプロイ後、その公開URLをここに設定。
+const CONTACT_WORKER_URL = 'https://en-contact.YOUR-SUBDOMAIN.workers.dev';
+
 // ---- サイト基本情報（NAP / ブランド）----
 const SITE = [
   'name'        => '有限会社 縁',

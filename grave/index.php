@@ -1,25 +1,29 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
-$page_title     = 'お墓じまい｜' . SITE['name'];
-$page_desc      = 'お墓じまい｜' . SITE['name'] . '（' . SITE['tagline'] . '）。手続きから新しい供養先まで一括対応';
-$page_canonical = SITE['url'] . '/grave/';
-require __DIR__ . '/../includes/head.php';
-?>
-<body>
-<?php require __DIR__ . '/../includes/header.php'; ?>
-<section class="page-hero">
-  <h1>お墓じまい</h1>
-  <p>手続きから新しい供養先まで一括対応</p>
-</section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ お墓じまい</nav>
-<main class="section">
-  <div class="container prose">
-    <span class="wip">このページは準備中です</span>
-    <p class="lead">お墓じまいのページは現在準備中です。お急ぎの場合はお気軽にお問い合わせください。</p>
-    <p style="margin-top:24px">
-      <a href="/contact/" class="btn">お問い合わせ</a>
-      <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-    </p>
-  </div>
-</main>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+$service = [
+  'slug' => 'grave',
+  'title' => 'お墓じまい',
+  'sub'   => '手続きから新しい供養先まで、一括でサポート',
+  'price_label' => 'ご相談無料',
+  'lead'  => '墓じまいの手続き・行政対応・墓石の撤去・ご遺骨の取り出しから、新しい供養先のご提案まで、すべてワンストップで対応いたします。',
+  'intro' => [
+    '「継ぐ人がいない」「遠方で管理できない」——お墓じまいのご相談が年々増えています。改葬許可申請などの行政手続きは煩雑ですが、当社がすべてサポートいたしますのでご安心ください。',
+    '取り出したご遺骨は、海洋散骨・樹木葬・お手元供養など、ご希望に合わせた供養先をご提案します。',
+  ],
+  'points' => [
+    'お墓の継承者がいない・後世に負担を残したくない方',
+    '遠方でお墓の管理が難しい方',
+    '手続きが分からず何から始めればよいか不安な方',
+  ],
+  'flow' => [
+    'お問い合わせ・無料相談',
+    '現地確認・お見積り（無料）',
+    '改葬許可申請など行政手続きのサポート',
+    '閉眼供養・墓石の撤去・ご遺骨の取り出し',
+    '新しい供養先のご提案・ご供養',
+  ],
+  'faq' => [
+    ['q' => '墓じまいの手続きがわからないのですが…', 'a' => 'ご安心ください。改葬許可申請や墓石の撤去、ご遺骨の取り出しから新しい供養先のご提案まで、すべてサポートいたします。'],
+    ['q' => '費用は事前にわかりますか？', 'a' => 'はい、お見積りは無料です。ご納得いただいてからのご契約となり、追加料金は一切ございません。'],
+  ],
+];
+require __DIR__ . '/../includes/service-page.php';

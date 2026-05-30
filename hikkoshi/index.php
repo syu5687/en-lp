@@ -1,25 +1,24 @@
 <?php
-require_once __DIR__ . '/../includes/config.php';
-$page_title     = 'お墓のお引越し｜' . SITE['name'];
-$page_desc      = 'お墓のお引越し｜' . SITE['name'] . '（' . SITE['tagline'] . '）。改葬・お墓の移設をサポート';
-$page_canonical = SITE['url'] . '/hikkoshi/';
-require __DIR__ . '/../includes/head.php';
-?>
-<body>
-<?php require __DIR__ . '/../includes/header.php'; ?>
-<section class="page-hero">
-  <h1>お墓のお引越し</h1>
-  <p>改葬・お墓の移設をサポート</p>
-</section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ お墓のお引越し</nav>
-<main class="section">
-  <div class="container prose">
-    <span class="wip">このページは準備中です</span>
-    <p class="lead">お墓のお引越しのページは現在準備中です。お急ぎの場合はお気軽にお問い合わせください。</p>
-    <p style="margin-top:24px">
-      <a href="/contact/" class="btn">お問い合わせ</a>
-      <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-    </p>
-  </div>
-</main>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+$service = [
+  'slug' => 'hikkoshi',
+  'title' => 'お墓のお引越し（改葬）',
+  'sub'   => '今のお墓を、通いやすい場所へ',
+  'price_label' => 'ご相談無料',
+  'lead'  => '遠方のお墓を近くへ移したい——そんなお墓のお引越し（改葬）を、行政手続きから移設先のご提案までサポートします。',
+  'intro' => [
+    'お墓のお引越し（改葬）は、改葬許可申請などの手続きが必要です。当社が一連の流れをサポートし、ご負担を最小限にいたします。',
+    '移設先のお墓だけでなく、樹木葬・海洋散骨・お手元供養への切り替えもご提案可能です。',
+  ],
+  'points' => [
+    '遠方のお墓を近くに移したい方',
+    'お墓参りの負担を軽くしたい方',
+    '改葬の手続きが分からず不安な方',
+  ],
+  'flow' => [
+    'お問い合わせ・無料相談',
+    '現地確認・お見積り',
+    '改葬許可申請など行政手続きのサポート',
+    'ご遺骨の取り出し・移設・ご供養',
+  ],
+];
+require __DIR__ . '/../includes/service-page.php';

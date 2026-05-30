@@ -56,3 +56,15 @@ php -S 127.0.0.1:8000
 - `/blog/` は Firestore の公開記事（`published=true`）を日付降順で表示
 - TOP（index.html）のブログ欄をFirestore連動にする場合は、
   クライアント側 Firebase JS SDK で読む方法と、index.php 化してサーバ側で読む方法があります（別途対応可）。
+
+---
+
+## アクセス解析（自前計測）
+- 仕組み：各ページのJS（`assets/js/track.js`）が `navigator.sendBeacon` で `/api/track.php` に送信 → Firestore `pageviews` コレクションに記録
+- 記録項目：`path / day / ts / ref / device` のみ（**Cookie・IP・個人情報は保存しません**）
+- 除外：管理画面パス・主要ボット
+- 閲覧：管理画面 → ダッシュボード → 「アクセス解析」（`/admin/analytics/`）
+  - 期間サマリ（PV・本日・1日平均・モバイル比率）／日別グラフ／人気ページ／流入元
+  - 期間切替（7〜90日）
+- 権限：`roles/datastore.user`（news と同じ）でそのまま動作
+- 補足：GA4を併用したい場合は別途 gtag タグの設置も可能（自前計測と併存OK）

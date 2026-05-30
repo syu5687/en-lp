@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/admin/includes/store.php';
+$blog_items = [];
+try { $blog_items = news_published(3); } catch (Throwable $e) { $blog_items = []; }
+?>
 <!DOCTYPE html>
 <html lang="ja" prefix="og: https://ogp.me/ns#">
 <head>
@@ -820,9 +826,16 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 <section class="blog"><div class="container">
   <div class="blog-header fade-up"><p class="section-label">News &amp; Blog</p><h2 class="section-title">お知らせ＆終活新聞</h2></div>
   <div class="blog-grid fade-up">
+<?php if ($blog_items): foreach ($blog_items as $it):
+  $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
+  $bhref = !empty($it['link']) ? $it['link'] : '/blog/';
+?>
+    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><?php if(!empty($it['image'])): ?><img src="<?= h($it['image']) ?>" alt="" class="blog-card-img"><?php endif; ?></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?></p><h4><?= h($it['title']) ?></h4></div></a>
+<?php endforeach; else: ?>
     <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="https://en1150.co.jp/wp-content/uploads/2026/04/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
     <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="https://en1150.co.jp/wp-content/uploads/2026/04/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>
     <a href="https://en1150.co.jp/post-4916/" class="blog-card"><div class="blog-card-img-wrap"><img src="https://en1150.co.jp/wp-content/uploads/2026/01/IMG_1924.jpg" alt="" class="blog-card-img"></div><div class="blog-card-body"><p class="blog-card-date">2026.01</p><h4>なぜ今、海洋葬を選ぶ人が増えているのか</h4></div></a>
+<?php endif; ?>
   </div>
   <div class="blog-more fade-up"><a href="/blog/">お知らせ一覧を見る</a></div>
 </div></section>
@@ -913,5 +926,6 @@ if (navToggle) {
   });
 }
 </script>
+<script src="/assets/js/track.js" defer></script>
 </body>
 </html>
