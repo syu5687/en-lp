@@ -4,14 +4,12 @@
 # =====================================================================
 
 Options +FollowSymLinks -MultiViews
-DirectoryIndex index.html index.php
+DirectoryIndex index.php index.html
 
 # ----- リダイレクト/リライト -----
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # ルートアクセス時はお墓じまいLPへ（メインLP）
-  RewriteRule ^$ /ohaka/ [R=302,L]
 </IfModule>
 
 # ----- gzip / deflate 圧縮 -----
@@ -70,4 +68,3 @@ AddCharset UTF-8 .html .css .js .xml .json
 </FilesMatch>
 
 # ----- 各LP配下の404は各LPのindex.htmlへ -----
-ErrorDocument 404 /ohaka/
