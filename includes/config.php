@@ -7,7 +7,7 @@
 // ---- GCP / Firebase ----
 // en-lp の Cloud Run は 412102088439、Firestore は 941919710488（クロスプロジェクト構成）。
 // 自身のプロジェクト(412...)ではなく Firestore のある 941919710488 を明示する。
-const GCP_PROJECT_ID = '941919710488';
+const GCP_PROJECT_ID = 'en-hp-lp';
 
 // ---- GA4 ----
 // 測定ID（ページ埋め込み用・G-XXXXXXXXXX）。設定すると全ページにgtag.jsが入る。
