@@ -25,6 +25,10 @@ $news_count = count(news_all());
       <span class="admin-card__label">アクセス解析</span>
       <span class="admin-card__num">表示 →</span>
     </a>
+    <a class="admin-card" href="/admin/health.php">
+      <span class="admin-card__label">Firestore接続検証</span>
+      <span class="admin-card__num">確認 →</span>
+    </a>
     <!-- 将来の管理モジュールはここに追加（お客様の声 / お問い合わせ受信 など） -->
   </div>
 </main>

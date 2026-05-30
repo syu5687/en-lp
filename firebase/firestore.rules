@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // サーバ側（Cloud Runのサービスアカウント / REST）はこのルールをバイパスして読み書き可能。
+    // クライアントSDK・APIキー経由のアクセスはすべて拒否（最も安全な初期状態）。
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ▼ 将来クライアント側で「公開記事の読み取り」を許可したい場合の例（コメントのまま）
+    // match /news/{id} {
+    //   allow read: if resource.data.published == true;
+    //   allow write: if false;
+    // }
+  }
+}
