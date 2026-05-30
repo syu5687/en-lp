@@ -27,4 +27,5 @@ $page_canonical = $page_canonical ?? null;
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/common.css">
+<?php require __DIR__ . '/ga4.php'; ?>
 </head>

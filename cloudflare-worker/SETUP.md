@@ -24,6 +24,8 @@ Worker → 設定 → 変数 で以下を登録：
 | `MAIL_CC` | Text | mk@emanet.jp（任意） |
 | `MAIL_FROM` | Text | noreply@en1150.co.jp（認証済ドメイン） |
 | `ALLOW_ORIGIN` | Text | https://en1150.co.jp |
+| `MAIL_COMPANY` | Text | 有限会社 縁（自動返信の署名・任意） |
+| `MAIL_TEL` | Text | 099-801-3637（自動返信の案内・任意） |
 
 ## 4. サイト側にURLを設定
 `includes/config.php` の `CONTACT_WORKER_URL` を、手順2で控えた公開URLに変更：

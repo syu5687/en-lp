@@ -68,3 +68,12 @@ php -S 127.0.0.1:8000
   - 期間切替（7〜90日）
 - 権限：`roles/datastore.user`（news と同じ）でそのまま動作
 - 補足：GA4を併用したい場合は別途 gtag タグの設置も可能（自前計測と併存OK）
+
+---
+
+## ⚠️ クロスプロジェクト構成（重要）
+- **en-lp（Cloud Run）= プロジェクト 412102088439**（URL `en-lp-412102088439...` が示す）
+- **Firestore = プロジェクト 941919710488**
+- アプリ設定：`includes/config.php` の `GCP_PROJECT_ID = '941919710488'`（接続先Firestoreを明示）
+- 権限：en-lpのSA `412102088439-compute@developer.gserviceaccount.com` に、**941919710488側で** `roles/datastore.user` を付与
+- 実行：`bash firebase/setup.sh`（クロスプロジェクト対応済み）

@@ -4,8 +4,8 @@
 すべて Makise さんの GCP 権限で実行してください（自動スクリプト同梱）。
 
 ## 前提
-- 対象：Cloud Run サービス `en-lp`（リージョン `asia-northeast1` / プロジェクト番号 `412102088439`）
-- デフォルトのサービスアカウントを使う場合：`412102088439-compute@developer.gserviceaccount.com`
+- 対象：Cloud Run サービス `en-lp`（リージョン `asia-northeast1` / プロジェクト番号 `941919710488`）
+- デフォルトのサービスアカウントを使う場合：`941919710488-compute@developer.gserviceaccount.com`
 
 ## 手順A：スクリプトで一括セットアップ（推奨）
 ローカル or Cloud Shell で：
@@ -24,7 +24,7 @@ gcloud config set project PROJECT_ID
 gcloud services enable firestore.googleapis.com
 gcloud firestore databases create --location=asia-northeast1 --type=firestore-native
 gcloud projects add-iam-policy-binding PROJECT_ID \
-  --member="serviceAccount:412102088439-compute@developer.gserviceaccount.com" \
+  --member="serviceAccount:941919710488-compute@developer.gserviceaccount.com" \
   --role="roles/datastore.user" --condition=None
 ```
 

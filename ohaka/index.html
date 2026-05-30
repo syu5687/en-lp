@@ -1563,6 +1563,14 @@
     }
   }
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BST60JN5FD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BST60JN5FD');
+</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
@@ -2272,5 +2280,14 @@
   });
 </script>
 
+<!-- アクセス解析ビーコン（縁・自前計測 / Cloud Run直送・クロスオリジン対応） -->
+<script>
+(function(){try{
+  var EP='https://en-lp-412102088439.asia-northeast1.run.app/api/track.php';
+  var data=JSON.stringify({path:location.pathname,ref:document.referrer});
+  if(navigator.sendBeacon){navigator.sendBeacon(EP,new Blob([data],{type:"text/plain"}));}
+  else{fetch(EP,{method:"POST",body:data,headers:{"Content-Type":"text/plain"},keepalive:true,mode:"no-cors"});}
+}catch(e){}})();
+</script>
 </body>
 </html>

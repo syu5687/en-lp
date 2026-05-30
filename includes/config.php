@@ -5,8 +5,16 @@
  */
 
 // ---- GCP / Firebase ----
-// 空文字なら Cloud Run のメタデータサーバから自動取得。ローカル等で固定したい場合のみ記入。
-const GCP_PROJECT_ID = '';
+// en-lp の Cloud Run は 412102088439、Firestore は 941919710488（クロスプロジェクト構成）。
+// 自身のプロジェクト(412...)ではなく Firestore のある 941919710488 を明示する。
+const GCP_PROJECT_ID = '941919710488';
+
+// ---- GA4 ----
+// 測定ID（ページ埋め込み用・G-XXXXXXXXXX）。設定すると全ページにgtag.jsが入る。
+// ※ 399545209 はプロパティID（数値）でタグには使えません。下に測定IDを入れてください。
+const GA4_MEASUREMENT_ID = 'G-BST60JN5FD'; // 例: 'G-XXXXXXXXXX'
+// プロパティID（GA4 Data API / レポート参照用の数値ID）
+const GA4_PROPERTY_ID = '399545209';
 
 // ---- お問い合わせ（Cloudflare Worker + Resend）----
 // Workerをデプロイ後、その公開URLをここに設定。

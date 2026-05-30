@@ -497,6 +497,7 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://en1150.co.jp/"}]}
 </script>
+<?php require __DIR__ . '/includes/ga4.php'; ?>
 </head>
 <body>
 
@@ -628,12 +629,12 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 <section class="services"><div class="container">
   <div class="services-header fade-up"><p class="section-label">Services</p><h2 class="section-title">ご供養のトータルサポート</h2><p class="section-desc" style="margin:0 auto;">大切な方を想うさまざまなカタチに対応。ご相談から施行まで一貫してお手伝いいたします。</p></div>
   <div class="services-grid fade-up">
-    <a href="/kaiyou-sou/" class="service-card"><div class="service-card-img-wrap"><img src="https://en1150.co.jp/wp-content/themes/en-theme/img/index/slide-img001.jpg" alt="海洋葬" class="service-card-img"><span class="service-card-price">38,500円〜</span></div><div class="service-card-body"><h3>海洋葬（海洋散骨）</h3><p>鹿児島の美しい海に、大切な方のご遺骨を散骨。委託散骨からチャーター船まで対応。</p><span class="service-link">詳しく見る</span></div></a>
-    <a href="/powder-cleaning/" class="service-card"><div class="service-card-img-wrap"><img src="https://en1150.co.jp/wp-content/themes/en-theme/img/index/slide-img003.jpg" alt="粉骨・洗骨" class="service-card-img"><span class="service-card-price">5,000円〜</span></div><div class="service-card-body"><h3>粉骨・洗骨</h3><p>ご遺骨のパウダー化・クリーニング。散骨やお手元供養の前処理として丁寧に対応。</p><span class="service-link">詳しく見る</span></div></a>
-    <a href="/grave/" class="service-card"><div class="service-card-img-wrap"><img src="https://en1150.co.jp/wp-content/themes/en-theme/img/index/slide-img005.jpg" alt="お墓じまい" class="service-card-img"><span class="service-card-price">ご相談無料</span></div><div class="service-card-body"><h3>お墓の整理（お墓じまい）</h3><p>墓じまいの手続き・行政対応・ご遺骨の取り出しから新しい供養先まで一括対応。</p><span class="service-link">詳しく見る</span></div></a>
-    <a href="/teien-sou/" class="service-card"><div class="service-card-img-wrap"><img src="https://en1150.co.jp/wp-content/themes/en-theme/img/index/slide-img004.jpg" alt="樹木葬" class="service-card-img"><span class="service-card-price">お問合せ</span></div><div class="service-card-body"><h3>樹木葬</h3><p>自然に還る安らかな埋葬方法。管理不要で、後世への負担もありません。</p><span class="service-link">詳しく見る</span></div></a>
-    <a href="/temoto-kuyou/" class="service-card"><div class="service-card-img-wrap"><img src="https://en1150.co.jp/wp-content/themes/en-theme/img/index/slide-img006.jpg" alt="お手元供養" class="service-card-img"><span class="service-card-price">各種対応</span></div><div class="service-card-body"><h3>お手元供養</h3><p>ご自宅で身近に大切な方を偲ぶ。ジュエリーリフォームやミニ骨壺など多彩なご提案。</p><span class="service-link">詳しく見る</span></div></a>
-    <a href="/pet-kaiyou-sou/" class="service-card"><div class="service-card-img-wrap"><img src="https://en1150.co.jp/wp-content/themes/en-theme/img/index/slide-img007.jpg" alt="ペット供養" class="service-card-img"><span class="service-card-price">お問合せ</span></div><div class="service-card-body"><h3>ペット供養</h3><p>大切な家族であるペットの海洋散骨にも対応。心を込めてお送りいたします。</p><span class="service-link">詳しく見る</span></div></a>
+    <a href="/kaiyou-sou/" class="service-card"><div class="service-card-img-wrap"><img src="/assets/img/slide-img001.jpg" alt="海洋葬" class="service-card-img"><span class="service-card-price">38,500円〜</span></div><div class="service-card-body"><h3>海洋葬（海洋散骨）</h3><p>鹿児島の美しい海に、大切な方のご遺骨を散骨。委託散骨からチャーター船まで対応。</p><span class="service-link">詳しく見る</span></div></a>
+    <a href="/powder-cleaning/" class="service-card"><div class="service-card-img-wrap"><img src="/assets/img/slide-img003.jpg" alt="粉骨・洗骨" class="service-card-img"><span class="service-card-price">5,000円〜</span></div><div class="service-card-body"><h3>粉骨・洗骨</h3><p>ご遺骨のパウダー化・クリーニング。散骨やお手元供養の前処理として丁寧に対応。</p><span class="service-link">詳しく見る</span></div></a>
+    <a href="/grave/" class="service-card"><div class="service-card-img-wrap"><img src="/assets/img/slide-img005.jpg" alt="お墓じまい" class="service-card-img"><span class="service-card-price">ご相談無料</span></div><div class="service-card-body"><h3>お墓の整理（お墓じまい）</h3><p>墓じまいの手続き・行政対応・ご遺骨の取り出しから新しい供養先まで一括対応。</p><span class="service-link">詳しく見る</span></div></a>
+    <a href="/teien-sou/" class="service-card"><div class="service-card-img-wrap"><img src="/assets/img/slide-img004.jpg" alt="樹木葬" class="service-card-img"><span class="service-card-price">お問合せ</span></div><div class="service-card-body"><h3>樹木葬</h3><p>自然に還る安らかな埋葬方法。管理不要で、後世への負担もありません。</p><span class="service-link">詳しく見る</span></div></a>
+    <a href="/temoto-kuyou/" class="service-card"><div class="service-card-img-wrap"><img src="/assets/img/slide-img006.jpg" alt="お手元供養" class="service-card-img"><span class="service-card-price">各種対応</span></div><div class="service-card-body"><h3>お手元供養</h3><p>ご自宅で身近に大切な方を偲ぶ。ジュエリーリフォームやミニ骨壺など多彩なご提案。</p><span class="service-link">詳しく見る</span></div></a>
+    <a href="/pet-kaiyou-sou/" class="service-card"><div class="service-card-img-wrap"><img src="/assets/img/slide-img007.jpg" alt="ペット供養" class="service-card-img"><span class="service-card-price">お問合せ</span></div><div class="service-card-body"><h3>ペット供養</h3><p>大切な家族であるペットの海洋散骨にも対応。心を込めてお送りいたします。</p><span class="service-link">詳しく見る</span></div></a>
   </div>
 </div></section>
 
@@ -832,9 +833,9 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 ?>
     <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><?php if(!empty($it['image'])): ?><img src="<?= h($it['image']) ?>" alt="" class="blog-card-img"><?php endif; ?></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?></p><h4><?= h($it['title']) ?></h4></div></a>
 <?php endforeach; else: ?>
-    <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="https://en1150.co.jp/wp-content/uploads/2026/04/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
-    <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="https://en1150.co.jp/wp-content/uploads/2026/04/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>
-    <a href="https://en1150.co.jp/post-4916/" class="blog-card"><div class="blog-card-img-wrap"><img src="https://en1150.co.jp/wp-content/uploads/2026/01/IMG_1924.jpg" alt="" class="blog-card-img"></div><div class="blog-card-body"><p class="blog-card-date">2026.01</p><h4>なぜ今、海洋葬を選ぶ人が増えているのか</h4></div></a>
+    <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
+    <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>
+    <a href="https://en1150.co.jp/post-4916/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/IMG_1924.jpg" alt="" class="blog-card-img"></div><div class="blog-card-body"><p class="blog-card-date">2026.01</p><h4>なぜ今、海洋葬を選ぶ人が増えているのか</h4></div></a>
 <?php endif; ?>
   </div>
   <div class="blog-more fade-up"><a href="/blog/">お知らせ一覧を見る</a></div>

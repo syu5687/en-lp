@@ -3,8 +3,15 @@
  * アクセスログ受信エンドポイント（クライアントのビーコンを受け取りFirestoreに記録）。
  * 記録項目: path / day / ts / ref（リファラ）/ device。Cookie・IP・個人情報は保存しません。
  * 管理画面パスとボットは除外。ページ描画はブロックしません（sendBeacon）。
+ * HP（同一オリジン）／LP（別パス・WordPressプロキシ経由のクロスオリジン）双方から受信可能。
  */
 require_once __DIR__ . '/../includes/firestore.php';
+
+// クロスオリジン（LP→Cloud Run直）対応
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') { http_response_code(204); exit; }
 
 http_response_code(204); // 先に応答を返す姿勢（本文なし）
 $raw = file_get_contents('php://input');

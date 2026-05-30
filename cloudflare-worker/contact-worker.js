@@ -81,6 +81,34 @@ async function handle(request) {
     const err = await r.text();
     return json({ ok: false, error: 'resend', detail: err }, 502, origin);
   }
+
+  // --- 申込者への自動返信（控え）---
+  try {
+    const fromAddr = (typeof MAIL_FROM !== 'undefined' && MAIL_FROM) ? MAIL_FROM : 'onboarding@resend.dev';
+    const company = (typeof MAIL_COMPANY !== 'undefined' && MAIL_COMPANY) ? MAIL_COMPANY : '有限会社 縁';
+    const tel = (typeof MAIL_TEL !== 'undefined' && MAIL_TEL) ? MAIL_TEL : '099-801-3637';
+    const autoText =
+      `${d.name} 様\n\n` +
+      `この度は${company}へお問い合わせいただき、誠にありがとうございます。\n` +
+      `以下の内容で受け付けました。担当者より折り返しご連絡いたします。\n\n` +
+      `──────────\n` +
+      `■種別: ${d.category || '-'}\n` +
+      `■内容:\n${d.message}\n` +
+      `──────────\n\n` +
+      `お急ぎの場合はお電話（${tel}）でもお問い合わせいただけます。\n\n` +
+      `${company}`;
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: fromAddr,
+        to: [d.email],
+        subject: `【${company}】お問い合わせを受け付けました`,
+        text: autoText,
+      }),
+    });
+  } catch (e) { /* 自動返信失敗は本送信の成否に影響させない */ }
+
   return json({ ok: true }, 200, origin);
 }
 

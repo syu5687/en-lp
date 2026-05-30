@@ -24,7 +24,7 @@ $is_new = empty($item);
     <label>カテゴリ<input type="text" name="category" value="<?= htmlspecialchars($item['category'] ?? 'お知らせ') ?>"></label>
     <label>タイトル<input type="text" name="title" value="<?= htmlspecialchars($item['title'] ?? '') ?>" required></label>
     <label>本文<textarea name="body" rows="8"><?= htmlspecialchars($item['body'] ?? '') ?></textarea></label>
-    <label>サムネイル画像URL（任意）<input type="text" name="image" value="<?= htmlspecialchars($item['image'] ?? '') ?>" placeholder="https://en1150.co.jp/wp-content/.../xxx.jpg"></label>
+    <label>サムネイル画像URL（任意）<input type="text" name="image" value="<?= htmlspecialchars($item['image'] ?? '') ?>" placeholder="/assets/img/news-thumb.jpg"></label>
     <label>リンクURL（任意・記事詳細や外部ページ）<input type="text" name="link" value="<?= htmlspecialchars($item['link'] ?? '') ?>" placeholder="https://en1150.co.jp/post-xxxx/"></label>
     <label class="admin-check"><input type="checkbox" name="published" value="1" <?= !empty($item['published']) ? 'checked' : '' ?>> 公開する</label>
     <div class="admin-form__actions">
