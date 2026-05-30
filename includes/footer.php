@@ -1,0 +1,34 @@
+<?php require_once __DIR__ . '/config.php'; ?>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <p class="site-footer__name"><?= h(SITE['name']) ?></p>
+      <p class="site-footer__addr">〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></p>
+      <p class="site-footer__tel">TEL <?= h(SITE['tel']) ?>（<?= h(SITE['hours']) ?>）</p>
+      <p class="site-footer__mail"><?= h(SITE['email']) ?></p>
+    </div>
+    <nav class="site-footer__nav" aria-label="フッターナビ">
+      <ul>
+        <?php foreach (SERVICES as $s): ?>
+          <li><a href="/<?= h($s['slug']) ?>/"><?= h($s['title']) ?></a></li>
+        <?php endforeach; ?>
+      </ul>
+      <ul>
+        <li><a href="/company/">会社概要</a></li>
+        <li><a href="/contact/">お問い合わせ</a></li>
+        <li><a href="/privacy/">プライバシーポリシー</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p class="site-footer__copy">&copy; <?= date('Y') ?> <?= h(SITE['name']) ?></p>
+</footer>
+
+<!-- SP固定フッターCTA -->
+<div class="sticky-cta">
+  <a href="tel:<?= h(SITE['tel']) ?>" class="sticky-cta__tel">電話で相談</a>
+  <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="sticky-cta__line">LINEで相談</a>
+</div>
+
+<script src="/assets/js/common.js" defer></script>
+</body>
+</html>

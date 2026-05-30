@@ -1,0 +1,2 @@
+# data/ への直接Webアクセスを禁止（PHPからの読み書きのみ許可）
+Require all denied
