@@ -1,0 +1,39 @@
+# CHANGELOG v20260713-0022（v0022）
+
+前バージョン: v20260530-0021
+
+## 1. TOPページ（index.php）デザイン改良
+- 配色を「海洋葬」らしい海のトーンへ変更（深い海松色＝ティール × 砂浜の生成り・砂金 × 波しぶきの白）。
+  緑ロゴと調和する青緑寄りの海松色を基調に、CSS変数（--color-*）で全体を一括調整。
+- 波の曲線モチーフを追加：
+  - ヒーロー下部に波しぶきの細線（白・金）。
+  - 深いティールの帯（実績数字 / お客様の声 / フッター）を波の稜線で立ち上げる区切り（.wave-top）。
+  - 各セクションの英字ラベル頭の飾りを直線→小さな波の曲線に変更。
+- 「AIっぽさ」の要因を整理：
+  - 絵文字アイコン（🕊🤝📜📩🏠🗾📞💬☎）を全廃 → 通し番号（01/02/03）・記号・線に置換。
+  - 実績数字のカウントアップ演出を廃止し、明朝＋Cormorantの静的表示に。
+  - 角丸50pxのピル多用を直線基調（2px）へ、光る影・過度なグラデ・ホバー浮遊・NHKバッジ光沢アニメを整理。
+  - サービス／6つの理由等をカードの箱組みからヘアライン罫のエディトリアル構成へ。
+  - 見出し書体を Shippori Mincho に（Google Fonts 追加読み込み）。
+- 配色・構成・現行文言・掲載画像（ヒーロー/CTA背景・サービス写真等）はすべて踏襲。
+- ※ index.php.bak（v0021のTOP）は同梱していません。必要時は旧ZIPを参照。
+
+## 2. レビュー指摘の修正
+- 【重要】Firestore 接続先を修正：`includes/config.php` の `GCP_PROJECT_ID` を
+  `'941919710488'`（番号）→ `'en-hp-lp'`（プロジェクトID）に。引き継ぎ資料の決定事項に準拠
+  （番号だとREST APIが404になる事象があったためID指定が正）。FIREBASE_SETUP.md の記載も統一。
+  → デプロイ後に `/admin/health.php` で3項目が✔になることを必ず確認してください。
+- 管理画面パスワードの初期値を `change-me` → `en2026` に変更（標準運用ルール {productname}{year} 方式）。
+  ★本番前に必ず変更してください（`admin/config.php` の ADMIN_PASSWORD_HASH）。
+- ログインのセッション固定攻撃対策：`admin/login.php` に `session_regenerate_id(true)` を追加。
+- セッションCookie堅牢化：`admin/login.php` / `admin/includes/auth.php` に HttpOnly・SameSite=Lax・
+  （HTTPS時）Secure を付与。
+- SEO：準備中の `/staff/` `/voice/` を `noindex` 化（`includes/head.php` に `$page_noindex` 対応を追加）し、
+  `sitemap.php` からも除外（空ページのインデックス回避）。本実装時に戻す。
+- バージョン表示：`APP_VERSION`（config.php）を追加し、管理ログイン画面の前後に表示。
+
+## マージ手順（既存リポジトリのルートへ）
+- 本ZIPの中身を en-lp リポジトリのルートに**上書きマージ**してください。
+- 既存の Dockerfile / cloudbuild.yaml / apache/ / ohaka(images) / pet(images) / assets/img の実画像等は
+  ZIPに含めていません（保持してください／丸ごと置換しない）。
+- デプロイは GitHub Desktop → Cloud Build → Cloud Run（従来どおり）。

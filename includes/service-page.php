@@ -29,6 +29,17 @@ $jsonld = [
   'description' => $service['lead'] ?? '',
 ];
 
+// パンくず構造化データ
+$breadcrumb = [
+  '@context' => 'https://schema.org',
+  '@type'    => 'BreadcrumbList',
+  'itemListElement' => [
+    ['@type'=>'ListItem','position'=>1,'name'=>'ホーム','item'=>SITE['url'].'/'],
+    ['@type'=>'ListItem','position'=>2,'name'=>'サービス','item'=>SITE['url'].'/service/'],
+    ['@type'=>'ListItem','position'=>3,'name'=>$service['title'],'item'=>SITE['url'].'/'.$service['slug'].'/'],
+  ],
+];
+
 require __DIR__ . '/head.php';
 ?>
 <body>
@@ -127,4 +138,5 @@ require __DIR__ . '/head.php';
 </main>
 
 <script type="application/ld+json"><?= json_encode($jsonld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
+<script type="application/ld+json"><?= json_encode($breadcrumb, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <?php require __DIR__ . '/footer.php'; ?>

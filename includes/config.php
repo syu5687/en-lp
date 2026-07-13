@@ -4,10 +4,15 @@
  * すべてのページ・共通パーツから読み込む基本情報を一元管理。
  */
 
+// ---- アプリバージョン ----
+const APP_VERSION = 'v20260713-0022';
+
 // ---- GCP / Firebase ----
-// en-lp の Cloud Run は 412102088439、Firestore は 941919710488（クロスプロジェクト構成）。
-// 自身のプロジェクト(412...)ではなく Firestore のある 941919710488 を明示する。
-const GCP_PROJECT_ID = '941919710488';
+// クロスプロジェクト構成: en-lp の Cloud Run=412102088439 / Firestore=en-hp-lp（番号941919710488）。
+// ★ Firestore REST は「プロジェクトID(en-hp-lp)」を指定する。番号だと404になる事象があったためID指定が正
+//   （引き継ぎ資料 §1「Firestore接続の仕組み」の決定事項）。
+//   ※ 万一 /admin/health.php で「プロジェクトID取得」がNGの場合はこの値を確認すること。
+const GCP_PROJECT_ID = 'en-hp-lp';
 
 // ---- GA4 ----
 // 測定ID（ページ埋め込み用・G-XXXXXXXXXX）。設定すると全ページにgtag.jsが入る。

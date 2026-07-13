@@ -9,6 +9,7 @@ require_once __DIR__ . '/config.php';
 $page_title    = $page_title    ?? SITE['name'];
 $page_desc     = $page_desc     ?? (SITE['name'] . '｜' . SITE['tagline']);
 $page_canonical = $page_canonical ?? null;
+$page_noindex  = $page_noindex  ?? false; // 準備中ページ等は true で noindex
 ?>
 <!DOCTYPE html>
 <html lang="ja" prefix="og: https://ogp.me/ns#">
@@ -18,7 +19,7 @@ $page_canonical = $page_canonical ?? null;
 <title><?= h($page_title) ?></title>
 <meta name="description" content="<?= h($page_desc) ?>">
 <?php if ($page_canonical): ?><link rel="canonical" href="<?= h($page_canonical) ?>"><?php endif; ?>
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="robots" content="<?= $page_noindex ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large' ?>">
 <meta property="og:title" content="<?= h($page_title) ?>">
 <meta property="og:description" content="<?= h($page_desc) ?>">
 <meta property="og:type" content="website">
@@ -28,4 +29,5 @@ $page_canonical = $page_canonical ?? null;
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/common.css">
 <?php require __DIR__ . '/ga4.php'; ?>
+<?php require __DIR__ . '/jsonld.php'; ?>
 </head>

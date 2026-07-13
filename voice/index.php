@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'お客様の声｜' . SITE['name'];
 $page_desc      = 'お客様の声｜' . SITE['name'] . '（' . SITE['tagline'] . '）。全国のお客様からいただいた声';
 $page_canonical = SITE['url'] . '/voice/';
+$page_noindex   = true; // 準備中のため noindex（本実装時に false へ）
 require __DIR__ . '/../includes/head.php';
 ?>
 <body>

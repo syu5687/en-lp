@@ -73,7 +73,8 @@ php -S 127.0.0.1:8000
 
 ## ⚠️ クロスプロジェクト構成（重要）
 - **en-lp（Cloud Run）= プロジェクト 412102088439**（URL `en-lp-412102088439...` が示す）
-- **Firestore = プロジェクト 941919710488**
-- アプリ設定：`includes/config.php` の `GCP_PROJECT_ID = '941919710488'`（接続先Firestoreを明示）
-- 権限：en-lpのSA `412102088439-compute@developer.gserviceaccount.com` に、**941919710488側で** `roles/datastore.user` を付与
+- **Firestore = プロジェクト `en-hp-lp`（番号 941919710488）**
+- アプリ設定：`includes/config.php` の `GCP_PROJECT_ID = 'en-hp-lp'`（接続先Firestoreを**プロジェクトIDで**明示）
+  - ⚠️ Firestore REST は**プロジェクトID（en-hp-lp）**を指定する。番号だと404になる事象があったためID指定が正。
+- 権限：en-lpのSA `412102088439-compute@developer.gserviceaccount.com` に、**en-hp-lp側で** `roles/datastore.user` を付与
 - 実行：`bash firebase/setup.sh`（クロスプロジェクト対応済み）

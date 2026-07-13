@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'スタッフ紹介｜' . SITE['name'];
 $page_desc      = 'スタッフ紹介｜' . SITE['name'] . '（' . SITE['tagline'] . '）。ご遺骨トータルアドバイザーがご対応';
 $page_canonical = SITE['url'] . '/staff/';
+$page_noindex   = true; // 準備中のため noindex（本実装時に false へ）
 require __DIR__ . '/../includes/head.php';
 ?>
 <body>
