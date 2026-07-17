@@ -321,6 +321,9 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .media-card { background: var(--color-white); border-radius: 0; overflow: hidden; border: 1px solid var(--color-border); transition: var(--transition); text-align: center; }
 .media-card:hover { box-shadow: none; transform: none; background: var(--color-cream); }
 .media-card-img-placeholder { width: 100%; height: 132px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: var(--color-cream-dark); border-bottom: 1px solid var(--color-line); }
+.media-card-img { width: 100%; height: 150px; overflow: hidden; border-bottom: 1px solid var(--color-line); }
+.media-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.media-card:hover .media-card-img img { transform: scale(1.05); }
 .media-card-img-placeholder .media-emoji { font-family: var(--font-serif); font-size: 1.9rem; color: var(--color-gold); opacity: 0.85; width: 52px; height: 52px; border: 1px solid var(--color-gold-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .media-card-body { padding: 18px 16px; }
 .media-card-tag { display: inline-block; background: none; color: var(--color-gold); padding: 0 0 6px; border-radius: 0; font-size: 0.66rem; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.1em; }
@@ -1112,10 +1115,10 @@ body { line-height: 1.8; }
 <section class="media"><div class="container">
   <div class="media-header fade-up"><p class="section-label">Track Record</p><h2 class="section-title">セミナー・活動実績</h2><p class="section-desc" style="margin:0 auto;">終活セミナーや供養相談会の開催、業界団体への参加を通じて、正しい知識の普及に努めています。</p></div>
   <div class="media-grid fade-up">
-    <a href="/post-5043/" class="media-card"><div class="media-card-img-placeholder"><span class="media-emoji">縁</span></div><div class="media-card-body"><span class="media-card-tag">セミナー</span><h4>寺院と地域防災を考える「ゆかりの会」</h4><p>2026.03</p></div></a>
-    <a href="/post-4896/" class="media-card"><div class="media-card-img-placeholder"><span class="media-emoji">縁</span></div><div class="media-card-body"><span class="media-card-tag">相談会</span><h4>マルヤガーデンズ供養の無料相談会</h4><p>2026.01</p></div></a>
-    <a href="/post-4743/" class="media-card"><div class="media-card-img-placeholder"><span class="media-emoji">縁</span></div><div class="media-card-body"><span class="media-card-tag">法要</span><h4>博多湾にて法要クルーズ</h4><p>2025.09</p></div></a>
-    <a href="/post-4959/" class="media-card"><div class="media-card-img-placeholder"><span class="media-emoji">縁</span></div><div class="media-card-body"><span class="media-card-tag">研修会</span><h4>かくれ念仏を学ぶ研修会レポート</h4><p>2026.02</p></div></a>
+    <a href="/post-5043/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar1.jpg" alt="終活セミナーの様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">セミナー</span><h4>寺院と地域防災を考える「ゆかりの会」</h4><p>2026.03</p></div></a>
+    <a href="/post-4896/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar2.jpg" alt="供養相談会の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">相談会</span><h4>マルヤガーデンズ供養の無料相談会</h4><p>2026.01</p></div></a>
+    <a href="/post-4743/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar3.jpg" alt="活動の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">法要</span><h4>博多湾にて法要クルーズ</h4><p>2025.09</p></div></a>
+    <a href="/post-4959/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar4.jpg" alt="研修会の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">研修会</span><h4>かくれ念仏を学ぶ研修会レポート</h4><p>2026.02</p></div></a>
   </div>
 </div></section>
 
