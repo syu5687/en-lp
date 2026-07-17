@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
-$page_title     = '供養さがし｜あなたに合ったご供養が見つかる、かんたん診断｜' . SITE['name'];
+$page_title     = '供養の選び方｜あなたに合ったご供養が見つかる、かんたん診断｜' . SITE['name'];
 $page_desc      = 'いくつかの質問に答えるだけで、あなたに合ったご供養（海洋葬・樹木葬・お墓じまい・お手元供養など）をご提案します。迷ったときはお気軽にご相談ください。' . SITE['name'] . '。';
 $page_canonical = SITE['url'] . '/shindan/';
 require __DIR__ . '/../includes/head.php';
@@ -8,10 +8,10 @@ require __DIR__ . '/../includes/head.php';
 <body>
 <?php require __DIR__ . '/../includes/header.php'; ?>
 <section class="page-hero">
-  <h1>供養さがし</h1>
+  <h1>供養の選び方</h1>
   <p>いくつかの質問に答えるだけ。あなたに寄り添うご供養を、ご提案します。</p>
 </section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ 供養さがし</nav>
+<nav class="breadcrumb"><a href="/">ホーム</a> ＞ 供養の選び方</nav>
 
 <style>
 .shindan{--sd-ink:#23201b;--sd-blue:#15709e;--sd-teal:#2b7d76;}

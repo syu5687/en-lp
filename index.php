@@ -817,7 +817,7 @@ body { line-height: 1.8; }
 <header class="header" role="banner"><div class="header-inner">
   <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;margin-right:8px;vertical-align:middle;"><span class="header-logo-text">有限会社 縁</span></a>
   <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="/service/">サービス一覧</a><a href="/voice/">お客様の声</a><a href="/blog/">終活新聞</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
+    <a href="/service/">サービス一覧</a><a href="/shindan/">供養の選び方</a><a href="/voice/">お客様の声</a><a href="/blog/">終活新聞</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
     <a href="/contact/" class="header-cta-btn">資料請求・ご相談</a>
   </nav>
   <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
@@ -1239,6 +1239,17 @@ if (navToggle) {
 }
 </script>
 <script src="/assets/js/track.js?v=<?= h(asset_ver()) ?>" defer></script>
+<style>
+.side-finder{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;align-items:center;gap:12px;background:linear-gradient(180deg,#1f8fce 0%,#15709e 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(18,89,122,.28);text-decoration:none;transition:.25s}
+.side-finder:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
+.side-finder .sf-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex:none}
+.side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em}
+@media(max-width:768px){.side-finder{padding:12px 8px;gap:9px}.side-finder .sf-label{font-size:.82rem;letter-spacing:.1em}.side-finder .sf-badge{width:22px;height:22px;font-size:.82rem}}
+</style>
+<a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
+  <span class="sf-badge" aria-hidden="true">?</span>
+  <span class="sf-label">供養の選び方</span>
+</a>
 <?= dev_badge_html() ?>
 </body>
 </html>

@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0053';
+const APP_VERSION = 'v20260713-0054';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -67,7 +67,7 @@ const SITE = [
 // ---- グローバルナビ（1か所で管理 → 全ページ自動反映）----
 const NAV = [
   ['label' => 'サービス一覧',   'href' => '/service/'],
-  ['label' => '供養さがし',     'href' => '/shindan/'],
+  ['label' => '供養の選び方',   'href' => '/shindan/'],
   ['label' => 'お客様の声',    'href' => '/voice/'],
   ['label' => '終活新聞',      'href' => '/blog/'],
   ['label' => 'よくある質問',   'href' => '/gokuyou/'],

@@ -26,6 +26,12 @@
   <p class="site-footer__copy">&copy; <?= date('Y') ?> <?= h(SITE['name']) ?></p>
 </footer>
 
+<!-- 右側固定・縦長「供養の選び方」タブ -->
+<a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
+  <span class="sf-badge" aria-hidden="true">?</span>
+  <span class="sf-label">供養の選び方</span>
+</a>
+
 <!-- SP固定フッターCTA -->
 <div class="sticky-cta">
   <a href="tel:<?= h(SITE['tel']) ?>" class="sticky-cta__tel">電話で相談</a>
