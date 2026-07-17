@@ -18,10 +18,13 @@ require __DIR__ . '/../includes/head.php';
 
     <!-- 代表挨拶 -->
     <h2>代表挨拶</h2>
-    <div class="card" style="margin-bottom:36px">
-      <p class="prose" style="line-height:2">何事も前向きにとらえ、一つひとつの出来事をチャンスと思い、日々取り組んでいます。皆さまお一人おひとりのお悩みにお応えできるよう、ご一緒させていただければと思います。</p>
-      <p class="prose" style="line-height:2;margin-top:12px">ありがたいことに、たくさんの出会い・感謝すべきご縁をいただいています。この恵まれた環境にこたえるべく、“日進月歩”という言葉を心にきざみ、日々成長してまいります。どうぞよろしくお願いいたします。</p>
-      <p style="text-align:right;margin-top:14px;color:var(--green-mid);font-weight:600">代表　堤 裕加里</p>
+    <div class="card" style="margin-bottom:36px;display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start">
+      <img src="/assets/img/shacho.jpg" alt="代表 堤 裕加里" style="width:220px;max-width:100%;border-radius:12px;object-fit:cover;flex:none;box-shadow:0 8px 22px rgba(18,89,122,.14)">
+      <div style="flex:1;min-width:260px">
+        <p class="prose" style="line-height:2">何事も前向きにとらえ、一つひとつの出来事をチャンスと思い、日々取り組んでいます。皆さまお一人おひとりのお悩みにお応えできるよう、ご一緒させていただければと思います。</p>
+        <p class="prose" style="line-height:2;margin-top:12px">ありがたいことに、たくさんの出会い・感謝すべきご縁をいただいています。この恵まれた環境にこたえるべく、“日進月歩”という言葉を心にきざみ、日々成長してまいります。どうぞよろしくお願いいたします。</p>
+        <p style="text-align:right;margin-top:14px;color:var(--green-mid);font-weight:600">代表　堤 裕加里</p>
+      </div>
     </div>
 
     <!-- 会社概要 -->
