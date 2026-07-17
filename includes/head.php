@@ -10,6 +10,7 @@ $page_title    = $page_title    ?? SITE['name'];
 $page_desc     = $page_desc     ?? (SITE['name'] . '｜' . SITE['tagline']);
 $page_canonical = $page_canonical ?? null;
 $page_noindex  = $page_noindex  ?? false; // 準備中ページ等は true で noindex
+$page_hero_image = $page_hero_image ?? null; // ページ見出しの背景画像（未指定なら hero-default.jpg）
 ?>
 <!DOCTYPE html>
 <html lang="ja" prefix="og: https://ogp.me/ns#">
@@ -26,6 +27,7 @@ $page_noindex  = $page_noindex  ?? false; // 準備中ページ等は true で n
 <meta property="og:site_name" content="<?= h(SITE['name'] . '｜' . SITE['tagline']) ?>">
 <meta property="og:locale" content="ja_JP">
 <link rel="stylesheet" href="/assets/css/common.css?v=<?= h(asset_ver()) ?>">
+<?php if (!empty($page_hero_image)): ?><style>.page-hero{--hero-image:url('<?= h($page_hero_image) ?>')}</style><?php endif; ?>
 <?php require __DIR__ . '/ga4.php'; ?>
 <?php require __DIR__ . '/jsonld.php'; ?>
 </head>
