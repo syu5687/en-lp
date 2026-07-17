@@ -20,7 +20,7 @@ function row($label, $ok, $detail = '') {
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Firestore 接続検証｜管理画面</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/admin/assets/admin.css">
+<link rel="stylesheet" href="/admin/assets/admin.css?v=<?= h(asset_ver()) ?>">
 </head><body>
 <header class="admin-bar">
   <span class="admin-bar__title"><a href="/admin/">← ダッシュボード</a></span>
@@ -60,4 +60,5 @@ row('読み書きテスト', $rwOk, $rwDetail);
   </p>
   <p style="margin-top:8px"><a class="admin-btn" href="/admin/analytics/">アクセス解析へ</a> <a class="admin-btn" href="/admin/news/">お知らせ管理へ</a></p>
 </main>
+<?= dev_badge_html() ?>
 </body></html>

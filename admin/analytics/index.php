@@ -40,7 +40,7 @@ $devTotal = max(1, array_sum($byDev));
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>アクセス解析｜管理画面</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/admin/assets/admin.css">
+<link rel="stylesheet" href="/admin/assets/admin.css?v=<?= h(asset_ver()) ?>">
 </head><body>
 <header class="admin-bar">
   <span class="admin-bar__title"><a href="/admin/">← ダッシュボード</a></span>
@@ -107,4 +107,5 @@ $devTotal = max(1, array_sum($byDev));
     ※ ボット及び管理画面へのアクセスは集計から除外しています。GA4を併用する場合は別途タグ設置も可能です。
   </p>
 </main>
+<?= dev_badge_html() ?>
 </body></html>

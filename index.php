@@ -1128,7 +1128,7 @@ body { line-height: 1.8; }
   <div class="blog-grid fade-up">
 <?php if ($blog_items): foreach ($blog_items as $it):
   $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
-  $bhref = !empty($it['link']) ? $it['link'] : '/blog/';
+  $bhref = !empty($it['id']) ? '/blog/?id=' . rawurlencode($it['id']) : '/blog/';
 ?>
     <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><?php if(!empty($it['image'])): ?><img src="<?= h($it['image']) ?>" alt="" class="blog-card-img"><?php endif; ?></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?><?php if(!empty($it['category'])): ?> <span class="blog-card-cat"><?= h($it['category']) ?></span><?php endif; ?></p><h4><?= h($it['title']) ?></h4></div></a>
 <?php endforeach; else: ?>
@@ -1226,6 +1226,7 @@ if (navToggle) {
   });
 }
 </script>
-<script src="/assets/js/track.js" defer></script>
+<script src="/assets/js/track.js?v=<?= h(asset_ver()) ?>" defer></script>
+<?= dev_badge_html() ?>
 </body>
 </html>

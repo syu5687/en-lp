@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>管理画面ログイン｜有限会社 縁</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/admin/assets/admin.css">
+<link rel="stylesheet" href="/admin/assets/admin.css?v=<?= h(asset_ver()) ?>">
 </head><body class="admin-login">
   <form method="post" class="admin-login__box">
     <h1>管理画面</h1>
@@ -34,4 +34,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">ログイン</button>
     <p style="text-align:center;font-size:.68rem;color:#bbb;margin-top:16px">有限会社 縁 管理システム <?= htmlspecialchars(APP_VERSION) ?></p>
   </form>
+<?= dev_badge_html() ?>
 </body></html>

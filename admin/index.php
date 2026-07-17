@@ -9,7 +9,7 @@ try { $voice_count = count(voices_all()); } catch (Throwable $e) { $voice_count 
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ダッシュボード｜管理画面</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/admin/assets/admin.css">
+<link rel="stylesheet" href="/admin/assets/admin.css?v=<?= h(asset_ver()) ?>">
 </head><body>
 <header class="admin-bar">
   <span class="admin-bar__title">有限会社 縁 — 管理画面</span>
@@ -37,4 +37,5 @@ try { $voice_count = count(voices_all()); } catch (Throwable $e) { $voice_count 
     <!-- 将来の管理モジュールはここに追加（お客様の声 / お問い合わせ受信 など） -->
   </div>
 </main>
+<?= dev_badge_html() ?>
 </body></html>

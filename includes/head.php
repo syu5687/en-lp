@@ -25,7 +25,7 @@ $page_noindex  = $page_noindex  ?? false; // 準備中ページ等は true で n
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="<?= h(SITE['name'] . '｜' . SITE['tagline']) ?>">
 <meta property="og:locale" content="ja_JP">
-<link rel="stylesheet" href="/assets/css/common.css">
+<link rel="stylesheet" href="/assets/css/common.css?v=<?= h(asset_ver()) ?>">
 <?php require __DIR__ . '/ga4.php'; ?>
 <?php require __DIR__ . '/jsonld.php'; ?>
 </head>

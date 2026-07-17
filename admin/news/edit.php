@@ -10,7 +10,7 @@ $is_new = empty($item);
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= $is_new ? '新規作成' : '編集' ?>｜お知らせ管理</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="/admin/assets/admin.css">
+<link rel="stylesheet" href="/admin/assets/admin.css?v=<?= h(asset_ver()) ?>">
 </head><body>
 <header class="admin-bar">
   <span class="admin-bar__title"><a href="/admin/news/">← 一覧へ戻る</a></span>
@@ -43,4 +43,5 @@ $is_new = empty($item);
     </div>
   </form>
 </main>
+<?= dev_badge_html() ?>
 </body></html>
