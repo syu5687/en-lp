@@ -7,6 +7,10 @@
  * セットアップ手順は FIREBASE_SETUP.md を参照。
  */
 
+// サイト共通設定（APP_VERSION / h() / asset_ver() / dev_badge_html() / DEV_MODE 等）を読み込む。
+// ※ login.php はデータ層(store.php)を読まないため、ここで明示的に取り込む必要がある。
+require_once __DIR__ . '/../includes/config.php';
+
 // ▼ 管理画面ログインパスワード
 //   標準運用ルール（{productname}{year}方式）に基づき初期値を "en2026" に設定。
 //   本番運用前に必ず変更してください。

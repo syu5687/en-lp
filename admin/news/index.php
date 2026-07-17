@@ -1,7 +1,9 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../includes/store.php';
-$items = news_all();
+$items = [];
+$fs_error = '';
+try { $items = news_all(); } catch (Throwable $e) { $fs_error = $e->getMessage(); }
 usort($items, fn($a,$b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
 ?>
 <!DOCTYPE html>
@@ -20,6 +22,9 @@ usort($items, fn($a,$b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
     <h1>ブログ・お知らせ</h1>
     <a class="admin-btn" href="/admin/news/edit.php">＋ 新規作成</a>
   </div>
+  <?php if ($fs_error): ?>
+    <p class="admin-error">Firestoreに接続できませんでした。接続設定（サービスアカウントの権限）をご確認ください。<br><small><?= htmlspecialchars($fs_error) ?></small></p>
+  <?php endif; ?>
   <table class="admin-table">
     <thead><tr><th>日付</th><th>カテゴリ</th><th>タイトル</th><th>公開</th><th></th></tr></thead>
     <tbody>
