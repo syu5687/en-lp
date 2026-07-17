@@ -203,13 +203,16 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 /* GALLERY */
 .gallery { padding: 90px 0; background: var(--color-cream); overflow: hidden; }
 .gallery-header { text-align: center; margin-bottom: 48px; }
-.gallery-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 0; aspect-ratio: 4/3; cursor: pointer; }
+.gallery-grid { display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 10px;
+  scrollbar-width: thin; scrollbar-color: var(--color-green-light, #6fb1ad) transparent; }
+.gallery-grid::-webkit-scrollbar { height: 6px; }
+.gallery-grid::-webkit-scrollbar-thumb { background: var(--color-green-light, #6fb1ad); border-radius: 999px; }
+.gallery-item { position: relative; overflow: hidden; border-radius: var(--radius, 10px); aspect-ratio: 4/3; cursor: pointer; flex: 0 0 auto; width: 262px; scroll-snap-align: start; }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: saturate(0.92); }
 .gallery-item:hover img { transform: scale(1.05); filter: saturate(1); }
 .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,65,63,0.2) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s ease; }
 .gallery-item:hover::after { opacity: 1; }
-@media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .gallery-item { width: 220px; } }
 
 /* FLOW */
 .flow { padding: 100px 0; background: var(--color-white); }
@@ -408,6 +411,7 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 }
 @media (max-width: 768px) {
   .hero { min-height: auto; } .hero-inner { padding: 100px 24px 64px; }
+  .hero-h1 { font-size: 1.34rem; line-height: 1.7; letter-spacing: 0.02em; margin-bottom: 16px; }
   .hero-ctas { flex-direction: column; align-items: stretch; } .hero-ctas a { width: 100%; text-align: center; justify-content: center; }
   .hero-price-highlight .prices { flex-direction: column; gap: 10px; }
   .stats { margin-top: 0; } .stat-card { padding: 16px; } .stat-number { font-size: 2.2rem; }
