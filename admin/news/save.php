@@ -7,7 +7,9 @@ if ($id === '') $id = date('Ymd') . '-' . substr(uniqid(), -4);
 $item = [
   'id'        => $id,
   'date'      => $_POST['date'] ?? date('Y-m-d'),
-  'category'  => $_POST['category'] ?? 'お知らせ',
+  'category'  => (isset($_POST['categories']) && is_array($_POST['categories']))
+                   ? implode(', ', array_map('trim', $_POST['categories']))
+                   : ($_POST['category'] ?? 'お知らせ'),
   'title'     => $_POST['title'] ?? '',
   'body'      => $_POST['body'] ?? '',
   'image'     => $_POST['image'] ?? '',

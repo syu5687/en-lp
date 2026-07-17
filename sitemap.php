@@ -2,8 +2,7 @@
 require_once __DIR__ . '/includes/config.php';
 header('Content-Type: application/xml; charset=UTF-8');
 
-// ※ /staff/ /voice/ は準備中（noindex）のため sitemap から除外。本実装時に戻す。
-$paths = ['/','/service/','/kuyou/','/gokuyou/','/blog/','/company/','/contact/','/privacy/'];
+$paths = ['/','/service/','/kuyou/','/gokuyou/','/staff/','/voice/','/blog/','/company/','/contact/','/privacy/'];
 foreach (SERVICES as $s) $paths[] = '/' . $s['slug'] . '/';
 $paths[] = '/lp/ohaka/';
 $paths[] = '/lp/pet/';

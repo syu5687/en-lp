@@ -3,6 +3,14 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/admin/includes/store.php';
 $blog_items = [];
 try { $blog_items = news_published(3); } catch (Throwable $e) { $blog_items = []; }
+// Firestore未接続・未移行時は data/news.json のシード（公開分）から最新3件を表示
+if (!$blog_items) {
+  $seed = @json_decode((string)@file_get_contents(__DIR__ . '/data/news.json'), true);
+  $tmp = [];
+  foreach (($seed['items'] ?? []) as $it) { if (!empty($it['published'])) $tmp[] = $it; }
+  usort($tmp, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+  $blog_items = array_slice($tmp, 0, 3);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja" prefix="og: https://ogp.me/ns#">
@@ -344,6 +352,7 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .blog-card-new { position: absolute; top: 0; left: 0; background: var(--color-gold); color: var(--color-white); padding: 3px 11px; border-radius: 0; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; }
 .blog-card-body { padding: 22px 20px; }
 .blog-card-date { font-size: 0.72rem; color: var(--color-gold); margin-bottom: 8px; font-family: var(--font-display); letter-spacing: 0.08em; }
+.blog-card-cat { display: inline-block; margin-left: 6px; padding: 1px 9px; border-radius: 999px; background: var(--sea-light, #e3f1f8); color: var(--header-blue, #15709e); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.02em; vertical-align: middle; font-family: inherit; }
 .blog-card-body h4 { font-family: var(--font-serif); font-size: 0.92rem; font-weight: 600; color: var(--color-green-mid); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .blog-more { text-align: center; margin-top: 44px; }
 .blog-more a { display: inline-flex; align-items: center; gap: 7px; color: var(--color-green-mid); font-size: 0.84rem; font-weight: 500; letter-spacing: 0.06em; }
@@ -1121,7 +1130,7 @@ body { line-height: 1.8; }
   $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
   $bhref = !empty($it['link']) ? $it['link'] : '/blog/';
 ?>
-    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><?php if(!empty($it['image'])): ?><img src="<?= h($it['image']) ?>" alt="" class="blog-card-img"><?php endif; ?></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?></p><h4><?= h($it['title']) ?></h4></div></a>
+    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><?php if(!empty($it['image'])): ?><img src="<?= h($it['image']) ?>" alt="" class="blog-card-img"><?php endif; ?></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?><?php if(!empty($it['category'])): ?> <span class="blog-card-cat"><?= h($it['category']) ?></span><?php endif; ?></p><h4><?= h($it['title']) ?></h4></div></a>
 <?php endforeach; else: ?>
     <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
     <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>

@@ -21,7 +21,14 @@ $is_new = empty($item);
   <form method="post" action="/admin/news/save.php" class="admin-form">
     <input type="hidden" name="id" value="<?= htmlspecialchars($item['id'] ?? '') ?>">
     <label>日付<input type="date" name="date" value="<?= htmlspecialchars($item['date'] ?? date('Y-m-d')) ?>" required></label>
-    <label>カテゴリ<input type="text" name="category" value="<?= htmlspecialchars($item['category'] ?? 'お知らせ') ?>"></label>
+    <fieldset class="admin-cats">
+      <legend>カテゴリ（複数選択可）</legend>
+      <?php
+        $selected = array_filter(array_map('trim', explode(',', (string)($item['category'] ?? ''))));
+        foreach (BLOG_CATEGORIES as $cat): ?>
+        <label class="admin-check admin-cat"><input type="checkbox" name="categories[]" value="<?= htmlspecialchars($cat) ?>" <?= in_array($cat, $selected, true) ? 'checked' : '' ?>> <?= htmlspecialchars($cat) ?></label>
+      <?php endforeach; ?>
+    </fieldset>
     <label>タイトル<input type="text" name="title" value="<?= htmlspecialchars($item['title'] ?? '') ?>" required></label>
     <label>本文<textarea name="body" rows="8"><?= htmlspecialchars($item['body'] ?? '') ?></textarea></label>
     <label>サムネイル画像URL（任意）<input type="text" name="image" value="<?= htmlspecialchars($item['image'] ?? '') ?>" placeholder="/assets/img/news-thumb.jpg"></label>

@@ -43,3 +43,42 @@ function news_published(int $limit = 0): array {
   usort($items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
   return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
+
+/* ============================================================
+   お客様の声（voices コレクション）
+   フィールド: service（ご依頼内容）/ title（見出し）/ reason（きっかけ）
+             / impression（ご感想）/ who（属性）/ date / published
+   ============================================================ */
+const VOICES_COLLECTION = 'voices';
+
+function voices_all(): array {
+  $res = fs_request('GET', 'documents/' . VOICES_COLLECTION);
+  $items = [];
+  foreach (($res['documents'] ?? []) as $doc) $items[] = fs_from_doc($doc);
+  return $items;
+}
+
+function voice_find(string $id): ?array {
+  $res = fs_request('GET', 'documents/' . VOICES_COLLECTION . '/' . rawurlencode($id));
+  if (!empty($res['error']) || empty($res['fields'])) return null;
+  return fs_from_doc($res);
+}
+
+function voice_upsert(array $item): bool {
+  $id = $item['id'] ?? '';
+  unset($item['id']);
+  $res = fs_request('PATCH', 'documents/' . VOICES_COLLECTION . '/' . rawurlencode($id), ['fields' => fs_to_fields($item)]);
+  return empty($res['error']);
+}
+
+function voice_delete(string $id): bool {
+  $res = fs_request('DELETE', 'documents/' . VOICES_COLLECTION . '/' . rawurlencode($id));
+  return empty($res['error']);
+}
+
+/** 公開のみ（日付降順）— 公開ページ用 */
+function voices_published(int $limit = 0): array {
+  $items = array_values(array_filter(voices_all(), fn($i) => !empty($i['published'])));
+  usort($items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+  return $limit > 0 ? array_slice($items, 0, $limit) : $items;
+}

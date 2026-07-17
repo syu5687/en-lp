@@ -3,6 +3,7 @@
   <div class="site-header__inner">
     <a href="/" class="site-logo" aria-label="<?= h(SITE['name']) ?> トップページ">
       <img src="<?= h(SITE['logo']) ?>" alt="<?= h(SITE['name']) ?> ロゴ" class="site-logo__img">
+      <span class="site-logo__text"><?= h(SITE['name']) ?></span>
     </a>
     <nav class="site-nav" aria-label="グローバルナビゲーション">
       <button class="site-nav__toggle" aria-label="メニューを開く" aria-expanded="false">
@@ -13,7 +14,7 @@
           <li><a href="<?= h($item['href']) ?>"><?= h($item['label']) ?></a></li>
         <?php endforeach; ?>
         <li class="site-nav__cta">
-          <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener">LINEで相談</a>
+          <a href="/contact/">資料請求・ご相談</a>
         </li>
       </ul>
     </nav>

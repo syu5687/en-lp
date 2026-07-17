@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0030';
+const APP_VERSION = 'v20260713-0037';
 
 // ---- GCP / Firebase ----
 // クロスプロジェクト構成: en-lp の Cloud Run=412102088439 / Firestore=en-hp-lp（番号941919710488）。
@@ -42,12 +42,11 @@ const SITE = [
 
 // ---- グローバルナビ（1か所で管理 → 全ページ自動反映）----
 const NAV = [
-  ['label' => 'サービス',     'href' => '/service/'],
-  ['label' => 'ご供養について', 'href' => '/kuyou/'],
-  ['label' => 'よくあるご質問', 'href' => '/gokuyou/'],
+  ['label' => 'サービス一覧',   'href' => '/service/'],
   ['label' => 'お客様の声',    'href' => '/voice/'],
-  ['label' => 'ブログ',       'href' => '/blog/'],
-  ['label' => 'お問い合わせ',  'href' => '/contact/'],
+  ['label' => '終活新聞',      'href' => '/blog/'],
+  ['label' => 'よくある質問',   'href' => '/gokuyou/'],
+  ['label' => 'スタッフ紹介',   'href' => '/staff/'],
 ];
 
 // ---- サービス詳細ページ一覧（service/ ハブとフッターで使用）----
@@ -60,6 +59,27 @@ const SERVICES = [
   ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => 'お問合せ'],
   ['slug' => 'ihinseiri',       'title' => '遺品整理',          'price' => 'お問合せ'],
   ['slug' => 'hikkoshi',        'title' => 'お墓のお引越し',    'price' => 'ご相談無料'],
+];
+
+// ---- ブログ・お知らせのカテゴリ（管理画面の登録候補・現行サイト準拠）----
+const BLOG_CATEGORIES = [
+  '366',
+  'teraumi',
+  'お墓・納骨堂',
+  'お客様のご質問にお答えします',
+  'お悩み相談',
+  'お手元供養',
+  'お知らせ',
+  'ご遺骨パウダー（粉骨）・洗骨',
+  'スタッフ紹介',
+  'セミナー・終活',
+  'ブログ',
+  'ゆかりの会',
+  '実績日記',
+  '未分類',
+  '法要クルーズ',
+  '海洋散骨体験クルーズ',
+  '海洋葬(海洋散骨)',
 ];
 
 /** HTMLエスケープ簡易ヘルパー */

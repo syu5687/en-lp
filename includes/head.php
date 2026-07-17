@@ -25,8 +25,6 @@ $page_noindex  = $page_noindex  ?? false; // 準備中ページ等は true で n
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="<?= h(SITE['name'] . '｜' . SITE['tagline']) ?>">
 <meta property="og:locale" content="ja_JP">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/common.css">
 <?php require __DIR__ . '/ga4.php'; ?>
 <?php require __DIR__ . '/jsonld.php'; ?>

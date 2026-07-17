@@ -7,6 +7,14 @@ $page_canonical = SITE['url'] . '/blog/';
 
 $items = [];
 try { $items = news_published(); } catch (Throwable $e) { $items = []; }
+// Firestore未接続・未移行時のフォールバック（data/news.json のシードを表示）
+if (!$items) {
+  $seed = @json_decode((string)@file_get_contents(__DIR__ . '/../data/news.json'), true);
+  foreach (($seed['items'] ?? []) as $it) {
+    if (!empty($it['published'])) $items[] = $it;
+  }
+  usort($items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+}
 
 require __DIR__ . '/../includes/head.php';
 ?>

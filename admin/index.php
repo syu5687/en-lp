@@ -1,7 +1,8 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 require __DIR__ . '/includes/store.php';
-$news_count = count(news_all());
+try { $news_count  = count(news_all()); }   catch (Throwable $e) { $news_count  = 0; }
+try { $voice_count = count(voices_all()); } catch (Throwable $e) { $voice_count = 0; }
 ?>
 <!DOCTYPE html>
 <html lang="ja"><head>
@@ -20,6 +21,10 @@ $news_count = count(news_all());
     <a class="admin-card" href="/admin/news/">
       <span class="admin-card__label">ブログ・お知らせ</span>
       <span class="admin-card__num"><?= $news_count ?> 件</span>
+    </a>
+    <a class="admin-card" href="/admin/voice/">
+      <span class="admin-card__label">お客様の声</span>
+      <span class="admin-card__num"><?= $voice_count ?> 件</span>
     </a>
     <a class="admin-card" href="/admin/analytics/">
       <span class="admin-card__label">アクセス解析</span>
