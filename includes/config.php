@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0037';
+const APP_VERSION = 'v20260713-0039';
 
 // ---- GCP / Firebase ----
 // クロスプロジェクト構成: en-lp の Cloud Run=412102088439 / Firestore=en-hp-lp（番号941919710488）。
@@ -56,6 +56,7 @@ const SERVICES = [
   ['slug' => 'grave',           'title' => 'お墓じまい',        'price' => 'ご相談無料'],
   ['slug' => 'teien-sou',       'title' => '樹木葬',            'price' => 'お問合せ'],
   ['slug' => 'temoto-kuyou',    'title' => 'お手元供養',        'price' => '各種対応'],
+  ['slug' => 'jewelry-reform',  'title' => 'JEWELRYリフォーム', 'price' => 'お見積り無料'],
   ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => 'お問合せ'],
   ['slug' => 'ihinseiri',       'title' => '遺品整理',          'price' => 'お問合せ'],
   ['slug' => 'hikkoshi',        'title' => 'お墓のお引越し',    'price' => 'ご相談無料'],
