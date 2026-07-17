@@ -82,12 +82,17 @@ require __DIR__ . '/head.php';
   <section class="section">
     <div class="container">
       <h2>プラン・料金</h2>
-      <div class="card-grid">
+      <div class="plan-grid">
         <?php foreach ($service['plans'] as $pl): ?>
-          <div class="card">
-            <h3><?= h($pl['name']) ?></h3>
-            <?php if (!empty($pl['price'])): ?><span class="price"><?= h($pl['price']) ?></span><?php endif; ?>
-            <?php if (!empty($pl['desc'])): ?><p style="font-size:.9rem;margin-top:8px"><?= h($pl['desc']) ?></p><?php endif; ?>
+          <div class="plan-card">
+            <div class="plan-card__media<?= empty($pl['img']) ? ' plan-card__media--ph' : '' ?>"<?php if (!empty($pl['img'])): ?> style="background-image:url('<?= h($pl['img']) ?>')"<?php endif; ?>>
+              <?php if (empty($pl['img'])): ?><span class="plan-card__wave" aria-hidden="true"></span><?php endif; ?>
+              <?php if (!empty($pl['price'])): ?><span class="plan-card__price"><?= h($pl['price']) ?></span><?php endif; ?>
+            </div>
+            <div class="plan-card__body">
+              <h3><?= h($pl['name']) ?></h3>
+              <?php if (!empty($pl['desc'])): ?><p><?= h($pl['desc']) ?></p><?php endif; ?>
+            </div>
           </div>
         <?php endforeach; ?>
       </div>
