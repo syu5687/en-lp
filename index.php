@@ -435,6 +435,11 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .wave-top svg { display: block; width: 100%; height: 100%; }
 .wave-top .wave-fill { fill: var(--color-green-mid); }
 @media (max-width: 768px) { .wave-top { height: 30px; } }
+/* 水色帯の下側の波（上側 .wave-top と対、上下で波デザインに） */
+.wave-bottom { position: absolute; left: 0; top: 100%; width: 100%; height: 48px; display: block; line-height: 0; pointer-events: none; z-index: 2; }
+.wave-bottom svg { display: block; width: 100%; height: 100%; }
+.wave-bottom .wave-fill { fill: #b8e0ee; }
+@media (max-width: 768px) { .wave-bottom { height: 30px; } }
 
 .hero { position: relative; }
 .hero-wave-lines { position: absolute; left: 0; right: 0; bottom: 46px; width: 100%; z-index: 1; opacity: 0.8; pointer-events: none; }
@@ -486,12 +491,12 @@ body { background: #f7f5ef; }
 .stats .stat-number .stat-unit { color: var(--color-deep-green); }
 .stats .stat-label { color: var(--color-text-light); }
 .stats .stat-card:not(:last-child)::after { background: rgba(39,92,88,0.16); }
-.stats .wave-fill { fill: var(--color-sea-light); }
+.stats .wave-fill { fill: #b8e0ee; }
 
 .testimonials { background: var(--color-sea-light); }
 .testimonials .section-title { color: var(--color-deep-green); }
 .testimonials .section-label { color: var(--color-gold); }
-.testimonials .wave-fill { fill: var(--color-sea-light); }
+.testimonials .wave-fill { fill: #b8e0ee; }
 .testimonial-card { border: 1px solid var(--color-line); box-shadow: var(--shadow-card); border-radius: var(--radius-lg); }
 .testimonial-avatar { background: var(--color-ocean); }
 
@@ -693,13 +698,13 @@ body { line-height: 1.8; }
    「こんなお悩みはありませんか？」を横幅いっぱいの背景画像でおしゃれに
    背景実画像は /assets/img/onayami-bg.jpg に配置（無い場合は明るい水色で表示）
    ============================================================ */
-.worry { position: relative; overflow: hidden; padding: 82px 0 !important;
+.worry { position: relative; overflow: visible; padding: 82px 0 !important;
   background: linear-gradient(120deg, #e6f4f8 0%, #bfe6f1 55%, #a8dced 100%); }
 .worry::before { display: none; }               /* 旧・縦罫を撤去 */
-.worry::after { content: ''; position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.24) 100%),
-              url('/assets/img/onayami-bg.jpg') center/cover no-repeat; }
+.worry::after { display: none; }                /* 旧・非存在画像オーバーレイを撤去 */
 .worry > .container { position: relative; z-index: 1; }
+.worry .wave-top .wave-fill { fill: #b8e0ee; }   /* はっきり見えるソフトなオーシャンブルー */
+.worry .wave-bottom .wave-fill { fill: #b8e0ee; }
 .worry-header .section-title { color: #12597a; }
 .worry-card { background: rgba(255,255,255,0.86); border: 1px solid rgba(255,255,255,0.9);
   box-shadow: 0 12px 34px rgba(18,89,122,0.14); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
@@ -847,7 +852,7 @@ body { line-height: 1.8; }
 </section>
 
 <!-- ① STATS -->
-<section class="stats"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><div class="stats-inner"><div class="stats-grid fade-up">
+<section class="stats"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><svg class="wave-bottom" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,22 C180,44 360,44 540,24 C720,4 900,4 1080,24 C1260,42 1380,34 1440,26 L1440,0 L0,0 Z"/></svg><div class="stats-inner"><div class="stats-grid fade-up">
   <div class="stat-card">
     <div class="stat-icon"><img src="data:image/jpeg;base64,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" alt="ご供養の対応実績"></div>
     <div class="stat-number">500<span class="stat-unit">件以上</span></div><div class="stat-label">ご供養の対応実績</div>
@@ -922,7 +927,7 @@ body { line-height: 1.8; }
 </div></section>
 
 <!-- WORRY -->
-<section class="worry"><div class="container">
+<section class="worry"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><svg class="wave-bottom" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,22 C180,44 360,44 540,24 C720,4 900,4 1080,24 C1260,42 1380,34 1440,26 L1440,0 L0,0 Z"/></svg><div class="container">
   <div class="worry-header fade-up"><p class="section-label">Worries</p><h2 class="section-title">こんなお悩みはありませんか？</h2></div>
   <div class="worry-grid fade-up">
     <div class="worry-card"><span class="worry-check">✓</span><p>お墓の管理が難しくなり、<strong>墓じまい</strong>を考えている</p></div>
@@ -1007,7 +1012,7 @@ body { line-height: 1.8; }
 </div></section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><div class="container">
+<section class="testimonials"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><svg class="wave-bottom" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,22 C180,44 360,44 540,24 C720,4 900,4 1080,24 C1260,42 1380,34 1440,26 L1440,0 L0,0 Z"/></svg><div class="container">
   <div class="testimonials-header fade-up"><p class="section-label">Voice</p><h2 class="section-title">お客様の声</h2></div>
   <div class="testimonials-grid fade-up">
     <div class="testimonial-card"><div class="testimonial-quote">"</div><p>息子が眠る海に、妻の遺灰を撒いてほしいという想いを叶えていただきました。スタッフの方々の心遣いに感謝しています。</p><div class="testimonial-meta"><div class="testimonial-avatar"></div><div class="testimonial-meta-text"><strong>K.M 様</strong><span>委託海洋葬をご利用</span><span class="testimonial-location"> 鹿児島県</span></div></div></div>
