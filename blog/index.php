@@ -84,16 +84,21 @@ if ($blog_id !== '') {
 
 <main class="section">
   <article class="container" style="max-width:760px">
-    <?php if (!empty($post['image'])): ?>
-      <img src="<?= h($post['image']) ?>" alt="<?= h($post['title'] ?? '') ?>" style="width:100%;border-radius:var(--radius-lg);margin-bottom:28px">
+    <?php if (!empty($post['body_html'])): ?>
+      <?php /* 旧WordPress本文HTML（生成時にサニタイズ済み・画像はルート相対に書き換え済み）*/ ?>
+      <div class="prose prose--html"><?= $post['body_html'] ?></div>
+    <?php else: ?>
+      <?php if (!empty($post['image'])): ?>
+        <img src="<?= h($post['image']) ?>" alt="<?= h($post['title'] ?? '') ?>" style="width:100%;border-radius:var(--radius-lg);margin-bottom:28px">
+      <?php endif; ?>
+      <div class="prose">
+        <?php
+          $body  = (string)($post['body'] ?? '');
+          $paras = preg_split('/\n+/', $body);
+          foreach ($paras as $p) { $p = trim($p); if ($p !== '') echo '<p>' . h($p) . '</p>' . "\n"; }
+        ?>
+      </div>
     <?php endif; ?>
-    <div class="prose">
-      <?php
-        $body  = (string)($post['body'] ?? '');
-        $paras = preg_split('/\n+/', $body);
-        foreach ($paras as $p) { $p = trim($p); if ($p !== '') echo '<p>' . h($p) . '</p>' . "\n"; }
-      ?>
-    </div>
     <?php if (!empty($post['link'])): ?>
       <p style="margin-top:22px;font-size:.9rem;color:var(--text-light)">参考リンク：<a href="<?= h($post['link']) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:600"><?= h($post['link']) ?></a></p>
     <?php endif; ?>
@@ -192,11 +197,16 @@ require __DIR__ . '/../includes/head.php';
       <p style="font-size:.85rem;color:var(--text-light);margin-bottom:14px"><?= number_format($total) ?>件<?php if ($pages > 1): ?>　（<?= $page_no ?> / <?= $pages ?>ページ）<?php endif; ?></p>
       <div class="card-grid">
         <?php foreach ($items as $it): ?>
-          <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column">
+          <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+            <?php if (!empty($it['image'])): ?>
+              <span class="card-thumb" style="display:block;aspect-ratio:16/10;background:#eef5f8 center/cover no-repeat url('<?= h($it['image']) ?>')"></span>
+            <?php endif; ?>
+            <span style="display:flex;flex-direction:column;padding:18px 20px;flex:1">
             <p style="font-size:.8rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ <?= h($it['category'] ?? '') ?></p>
             <h3><?= h($it['title'] ?? '') ?></h3>
             <?php if (!empty($it['body'])): ?><p style="font-size:.9rem;flex:1"><?= h(mb_strimwidth(preg_replace('/\s+/', ' ', (string)$it['body']), 0, 80, '…')) ?></p><?php endif; ?>
             <span style="margin-top:12px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">続きを読む →</span>
+            </span>
           </a>
         <?php endforeach; ?>
       </div>
@@ -246,5 +256,13 @@ require __DIR__ . '/../includes/head.php';
   .pager__btn:hover{background:#e0eef4}
   .pager__btn.is-active{background:var(--green);color:#fff}
   .pager__dots{color:var(--text-light);padding:0 2px}
+  .prose--html img{max-width:100%;height:auto;border-radius:10px;margin:8px 0;box-shadow:0 6px 18px rgba(18,89,122,.10)}
+  .prose--html h2,.prose--html h3,.prose--html h4,.prose--html h5{margin:1.4em 0 .5em;line-height:1.5}
+  .prose--html p{margin:0 0 1em;line-height:1.95}
+  .prose--html a{color:var(--green);font-weight:600;word-break:break-all}
+  .prose--html table{width:100%;border-collapse:collapse;margin:1em 0}
+  .prose--html td,.prose--html th{border:1px solid #d8e6ec;padding:8px 10px}
+  .prose--html ul,.prose--html ol{margin:0 0 1em;padding-left:1.4em}
+  .prose--html li{margin:.3em 0;line-height:1.85}
 </style>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
