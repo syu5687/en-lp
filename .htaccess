@@ -1,13 +1,59 @@
 # ============================================================
-# 有限会社 縁 — 静的アセットのキャッシュ設定
+# 有限会社 縁 — URL正規化・旧サイト（WordPress）からの 301 リダイレクト
+# 目的：リニューアル前 en1150.co.jp のURL評価（SEO）を新サイトへ引き継ぐ。
+#   1) HTTPS強制 ＋ www→非www 正規化
+#   2) 旧・固定ページURL → 対応する新ページへ 301
+#   3) 旧・ブログ記事URL（ルート直下 /<slug>/）→ /blog/?id=<slug> へ 301
+#      （実ファイル・実ディレクトリが無い単一セグメントのみ blog-redirect.php に委譲）
+# ※ 反映には Apache の mod_rewrite が必要です
+#   （Dockerfile で `a2enmod rewrite headers expires` を有効化してください）。
+# ============================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ---- 1) HTTPS 強制（プロキシ経由も考慮）----
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # ---- 1b) www → 非www 正規化 ----
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # ---- 2) 旧・固定ページ → 新ページ（301）----
+  # 統合・名称変更されたページ
+  RewriteRule ^powder/?$                 /powder-cleaning/ [R=301,L]
+  RewriteRule ^cleaning/?$               /powder-cleaning/ [R=301,L]
+  RewriteRule ^about/?$                  /powder-cleaning/ [R=301,L]
+  RewriteRule ^retaliation/?$            /temoto-kuyou/    [R=301,L]
+  RewriteRule ^retaliation-accessory/?$  /temoto-kuyou/    [R=301,L]
+  RewriteRule ^shizen-sou/?$             /kaiyou-sou/      [R=301,L]
+  RewriteRule ^charter-kaiyou-sou/?$     /kaiyou-sou/      [R=301,L]
+  RewriteRule ^goudou/?$                 /kaiyou-sou/      [R=301,L]
+  RewriteRule ^goudou-kaiyou-sou/?$      /kaiyou-sou/      [R=301,L]
+  RewriteRule ^itaku-kaiyou-sou/?$       /kaiyou-sou/      [R=301,L]
+  RewriteRule ^memorial-cruise/?$        /kaiyou-sou/      [R=301,L]
+  RewriteRule ^letter/?$                 /kaiyou-sou/      [R=301,L]
+  RewriteRule ^message/?$                /company/         [R=301,L]
+  RewriteRule ^grave-test/?$             /ihinseiri/       [R=301,L]
+  RewriteRule ^onayami/?$                /grave/           [R=301,L]
+  RewriteRule ^contact/contact-lec/?$    /contact/         [R=301,L]
+  RewriteRule ^sample-page/?$            /                 [R=301,L]
+
+  # ---- 3) 旧・ブログ記事（ルート直下 /<slug>/）→ blog-redirect.php で 301 判定 ----
+  # 実ファイル／実ディレクトリが存在しない「単一セグメント」のみ委譲する。
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^([^/]+)/?$ /blog-redirect.php [L]
+</IfModule>
+
+# ============================================================
+# 静的アセットのキャッシュ設定
 # CSS/JS/画像は URL に ?v=バージョン を付けているため、長期キャッシュしても
 # 更新時は必ず新URLとして再取得されます（＝安全にキャッシュ有効化できます）。
 # 構築中（DEV_MODE=true）は ?v=時刻 で毎回URLが変わるため、実質キャッシュされません。
 # HTMLのキャッシュ可否は PHP 側（includes/config.php）で制御します。
-# ※ 反映には Apache の mod_headers / mod_expires が必要です
-#   （Dockerfile で `a2enmod headers expires` を有効化してください）。
 # ============================================================
-
 <IfModule mod_headers.c>
   <FilesMatch "\.(css|js|jpg|jpeg|png|gif|webp|avif|svg|ico|woff2?|ttf|eot)$">
     Header set Cache-Control "public, max-age=31536000, immutable"

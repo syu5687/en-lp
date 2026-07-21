@@ -3,11 +3,17 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/admin/includes/store.php';
 $blog_items = [];
 try { $blog_items = news_published(3); } catch (Throwable $e) { $blog_items = []; }
-// Firestore未接続・未移行時は data/news.json のシード（公開分）から最新3件を表示
+// Firestore未接続・未移行時は data/news.json ＋ 旧WordPressアーカイブから最新3件を表示
 if (!$blog_items) {
-  $seed = @json_decode((string)@file_get_contents(__DIR__ . '/data/news.json'), true);
-  $tmp = [];
-  foreach (($seed['items'] ?? []) as $it) { if (!empty($it['published'])) $tmp[] = $it; }
+  $tmp = []; $seen = [];
+  foreach (['/data/news.json', '/data/blog-posts.json'] as $src) {
+    $seed = @json_decode((string)@file_get_contents(__DIR__ . $src), true);
+    foreach (($seed['items'] ?? []) as $it) {
+      $id = (string)($it['id'] ?? '');
+      if (empty($it['published']) || $id === '' || isset($seen[$id])) continue;
+      $seen[$id] = true; $tmp[] = $it;
+    }
+  }
   usort($tmp, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
   $blog_items = array_slice($tmp, 0, 3);
 }
