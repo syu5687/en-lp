@@ -1,22 +1,28 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/admin/includes/store.php';
-$blog_items = [];
-try { $blog_items = news_published(3); } catch (Throwable $e) { $blog_items = []; }
-// Firestore未接続・未移行時は data/news.json ＋ 旧WordPressアーカイブから最新3件を表示
-if (!$blog_items) {
-  $tmp = []; $seen = [];
-  foreach (['/data/news.json', '/data/blog-posts.json'] as $src) {
-    $seed = @json_decode((string)@file_get_contents(__DIR__ . $src), true);
-    foreach (($seed['items'] ?? []) as $it) {
-      $id = (string)($it['id'] ?? '');
-      if (empty($it['published']) || $id === '' || isset($seen[$id])) continue;
-      $seen[$id] = true; $tmp[] = $it;
-    }
-  }
-  usort($tmp, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
-  $blog_items = array_slice($tmp, 0, 3);
+// 新着ブログ3件。Firestore → news.json → 旧WordPressアーカイブ を統合し、
+// 同一記事（同日付＋同タイトル）は本文HTML・画像を持つ情報の濃い方を優先する。
+$by_key = []; $seen_ids = [];
+$blog_score = fn(array $it): int =>
+  (!empty($it['body_html']) ? 4 : 0) + (!empty($it['image']) ? 2 : 0) + (!empty($it['images']) ? 1 : 0);
+$push_item = function (array $it) use (&$by_key, &$seen_ids, $blog_score) {
+  if (empty($it['published'])) return;
+  $id = (string)($it['id'] ?? '');
+  if ($id === '' || isset($seen_ids[$id])) return;
+  $seen_ids[$id] = true;
+  // タイトルは記号・絵文字・空白を除いて比較（絵文字有無の表記ゆれを同一視）
+  $key = ($it['date'] ?? '') . '|' . preg_replace('/[^\p{L}\p{N}]+/u', '', (string)($it['title'] ?? ''));
+  if (!isset($by_key[$key]) || $blog_score($it) > $blog_score($by_key[$key])) $by_key[$key] = $it;
+};
+try { foreach (news_published() as $it) $push_item($it); } catch (Throwable $e) {}
+foreach (['/data/news.json', '/data/blog-posts.json'] as $src) {
+  $seed = @json_decode((string)@file_get_contents(__DIR__ . $src), true);
+  foreach (($seed['items'] ?? []) as $it) $push_item($it);
 }
+$blog_items = array_values($by_key);
+usort($blog_items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+$blog_items = array_slice($blog_items, 0, 3);
 ?>
 <!DOCTYPE html>
 <html lang="ja" prefix="og: https://ogp.me/ns#">
@@ -1148,7 +1154,7 @@ body { line-height: 1.8; }
   $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
   $bhref = !empty($it['id']) ? '/blog/?id=' . rawurlencode($it['id']) : '/blog/';
 ?>
-    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><?php if(!empty($it['image'])): ?><img src="<?= h($it['image']) ?>" alt="" class="blog-card-img"><?php endif; ?></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?><?php if(!empty($it['category'])): ?> <span class="blog-card-cat"><?= h($it['category']) ?></span><?php endif; ?></p><h4><?= h($it['title']) ?></h4></div></a>
+    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><img src="<?= h(!empty($it['image']) ? $it['image'] : '/assets/img/hero-default.jpg') ?>" alt="" class="blog-card-img" loading="lazy" onerror="this.src='/assets/img/hero-default.jpg';this.onerror=null"></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?><?php if(!empty($it['category'])): ?> <span class="blog-card-cat"><?= h($it['category']) ?></span><?php endif; ?></p><h4><?= h($it['title']) ?></h4></div></a>
 <?php endforeach; else: ?>
     <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
     <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>

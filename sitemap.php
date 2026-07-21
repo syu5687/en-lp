@@ -14,19 +14,20 @@ foreach (array_unique($paths) as $p) {
 }
 
 // ---- ブログ記事（旧WordPressアーカイブ ＋ news.json）を追加 ----
+// 同一記事（同日付＋同タイトル・記号無視）は一覧と同じ基準で1本に統一する。
+$by_key = [];
+$score = fn(array $it): int =>
+  (!empty($it['body_html']) ? 4 : 0) + (!empty($it['image']) ? 2 : 0) + (!empty($it['images']) ? 1 : 0);
+foreach (['/data/news.json', '/data/blog-posts.json'] as $src) {
+  $j = @json_decode((string)@file_get_contents(__DIR__ . $src), true);
+  foreach (($j['items'] ?? []) as $it) {
+    if (empty($it['published']) || (string)($it['id'] ?? '') === '') continue;
+    $key = ($it['date'] ?? '') . '|' . preg_replace('/[^\p{L}\p{N}]+/u', '', (string)($it['title'] ?? ''));
+    if (!isset($by_key[$key]) || $score($it) > $score($by_key[$key])) $by_key[$key] = $it;
+  }
+}
 $posts = [];
-$archive = @json_decode((string)@file_get_contents(__DIR__ . '/data/blog-posts.json'), true);
-foreach (($archive['items'] ?? []) as $it) {
-  if (empty($it['published'])) continue;
-  $id = (string)($it['id'] ?? '');
-  if ($id !== '') $posts[$id] = $it['date'] ?? '';
-}
-$news = @json_decode((string)@file_get_contents(__DIR__ . '/data/news.json'), true);
-foreach (($news['items'] ?? []) as $it) {
-  if (empty($it['published'])) continue;
-  $id = (string)($it['id'] ?? '');
-  if ($id !== '' && !isset($posts[$id])) $posts[$id] = $it['date'] ?? '';
-}
+foreach ($by_key as $it) $posts[(string)$it['id']] = $it['date'] ?? '';
 foreach ($posts as $id => $date) {
   $loc = SITE['url'] . '/blog/?id=' . rawurlencode($id);
   echo "  <url><loc>" . htmlspecialchars($loc) . "</loc>";

@@ -40,6 +40,9 @@
   RewriteRule ^contact/contact-lec/?$    /contact/         [R=301,L]
   RewriteRule ^sample-page/?$            /                 [R=301,L]
 
+  # ---- 2b) 画像配信（Cloud Storage プロキシ・管理画面アップロード分）----
+  RewriteRule ^img/(.+)$ /img.php?p=$1 [L,B]
+
   # ---- 3) 旧・ブログ記事（ルート直下 /<slug>/）→ blog-redirect.php で 301 判定 ----
   # 実ファイル／実ディレクトリが存在しない「単一セグメント」のみ委譲する。
   RewriteCond %{REQUEST_FILENAME} !-f

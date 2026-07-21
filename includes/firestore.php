@@ -118,26 +118,42 @@ function fs_query(string $collection, array $opts = []): array {
 
 /* ---- ドキュメント⇔連想配列 変換 ---- */
 
-/** PHP配列 → Firestore fields */
+/** PHP配列 → Firestore fields（文字列の配列は arrayValue として保存） */
 function fs_to_fields(array $data): array {
   $f = [];
   foreach ($data as $k => $v) {
     if (is_bool($v))      $f[$k] = ['booleanValue' => $v];
     elseif (is_int($v))   $f[$k] = ['integerValue' => (string)$v];
     elseif (is_float($v)) $f[$k] = ['doubleValue'  => $v];
+    elseif (is_array($v)) {
+      $vals = [];
+      foreach ($v as $x) $vals[] = ['stringValue' => (string)$x];
+      $f[$k] = ['arrayValue' => ['values' => $vals]];
+    }
     else                  $f[$k] = ['stringValue'  => (string)$v];
   }
   return $f;
 }
 
-/** Firestore document → PHP配列（idを含む） */
+/** Firestore document → PHP配列（idを含む・arrayValueはPHP配列に復元） */
 function fs_from_doc(array $doc): array {
   $out = [];
   if (!empty($doc['name'])) $out['id'] = basename($doc['name']);
   foreach (($doc['fields'] ?? []) as $k => $v) {
-    $out[$k] = $v['booleanValue'] ?? $v['stringValue']
-             ?? (isset($v['integerValue']) ? (int)$v['integerValue'] : null)
-             ?? $v['doubleValue'] ?? null;
+    if (isset($v['arrayValue'])) {
+      $out[$k] = array_map(
+        fn($x) => $x['stringValue'] ?? (string)($x['integerValue'] ?? ''),
+        $v['arrayValue']['values'] ?? []
+      );
+    } elseif (array_key_exists('booleanValue', $v)) {
+      $out[$k] = $v['booleanValue'];
+    } elseif (isset($v['integerValue'])) {
+      $out[$k] = (int)$v['integerValue'];
+    } elseif (isset($v['doubleValue'])) {
+      $out[$k] = $v['doubleValue'];
+    } else {
+      $out[$k] = $v['stringValue'] ?? null;
+    }
   }
   return $out;
 }

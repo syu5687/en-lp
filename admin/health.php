@@ -53,6 +53,23 @@ if ($tokOk) {
   } catch (Throwable $e) { $rwDetail = $e->getMessage(); }
 }
 row('読み書きテスト', $rwOk, $rwDetail);
+
+// 4) Cloud Storage（画像アップロード先）
+require_once __DIR__ . '/../includes/storage.php';
+$stOk = false; $stDetail = '';
+try {
+  $obj = 'news/_healthcheck/ping-' . substr(uniqid(), -6) . '.png';
+  // 1x1 PNG
+  $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==');
+  $w = storage_put($obj, $png, 'image/png');
+  $r = $w['ok'] ? storage_get($obj) : null;
+  if ($w['ok']) storage_delete($obj);
+  $stOk = $w['ok'] && $r !== null;
+  $stDetail = $stOk
+    ? ('保存・取得・削除すべて成功（モード: ' . $w['mode'] . ($w['mode'] === 'gcs' ? ' / バケット: ' . GCS_BUCKET : ' / ローカル開発') . '）')
+    : ($w['error'] ?: '取得に失敗しました');
+} catch (Throwable $e) { $stDetail = $e->getMessage(); }
+row('Storage 読み書きテスト（画像アップロード）', $stOk, $stDetail);
 ?>
   </tbody></table>
   <p style="margin-top:20px;font-size:.88rem;color:#555">

@@ -87,9 +87,22 @@ if ($blog_id !== '') {
     <?php if (!empty($post['body_html'])): ?>
       <?php /* 旧WordPress本文HTML（生成時にサニタイズ済み・画像はルート相対に書き換え済み）*/ ?>
       <div class="prose prose--html"><?= $post['body_html'] ?></div>
+      <script>
+        // 配信元が消えた外部画像（旧ブログのホットリンク）は自動的に非表示にする
+        document.querySelectorAll('.prose--html img').forEach(function (i) {
+          if (i.complete && !i.naturalWidth) { i.style.display = 'none'; return; }
+          i.addEventListener('error', function () { i.style.display = 'none'; });
+        });
+      </script>
     <?php else: ?>
-      <?php if (!empty($post['image'])): ?>
-        <img src="<?= h($post['image']) ?>" alt="<?= h($post['title'] ?? '') ?>" style="width:100%;border-radius:var(--radius-lg);margin-bottom:28px">
+      <?php
+        // 画像（複数対応）。1枚目をメイン、2枚目以降を本文下にギャラリー表示。
+        $gallery = [];
+        if (!empty($post['images']) && is_array($post['images'])) $gallery = array_values(array_filter($post['images']));
+        elseif (!empty($post['image'])) $gallery = [$post['image']];
+      ?>
+      <?php if ($gallery): ?>
+        <img src="<?= h($gallery[0]) ?>" alt="<?= h($post['title'] ?? '') ?>" style="width:100%;border-radius:var(--radius-lg);margin-bottom:28px">
       <?php endif; ?>
       <div class="prose">
         <?php
@@ -98,6 +111,13 @@ if ($blog_id !== '') {
           foreach ($paras as $p) { $p = trim($p); if ($p !== '') echo '<p>' . h($p) . '</p>' . "\n"; }
         ?>
       </div>
+      <?php if (count($gallery) > 1): ?>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:26px">
+          <?php foreach (array_slice($gallery, 1) as $g): ?>
+            <img src="<?= h($g) ?>" alt="<?= h($post['title'] ?? '') ?>" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(18,89,122,.10)">
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     <?php endif; ?>
     <?php if (!empty($post['link'])): ?>
       <p style="margin-top:22px;font-size:.9rem;color:var(--text-light)">参考リンク：<a href="<?= h($post['link']) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:600"><?= h($post['link']) ?></a></p>
@@ -130,19 +150,29 @@ $page_title     = 'ブログ・お知らせ｜' . SITE['name'];
 $page_desc      = SITE['name'] . 'からのお知らせ・供養に役立つ情報をお届けします。';
 
 // ---- 記事の収集（Firestore → news.json シード → 旧WordPressアーカイブ を統合）----
-$all = [];
-$seen = [];
-$push = function (array $it) use (&$all, &$seen) {
+// 同じ記事が複数ソースにある場合（同日付＋同タイトル）は、本文HTML・画像を持つ
+// 情報の濃い方を優先する（シードの要約版がアーカイブ完全版を隠してしまう問題の対策）。
+$by_key = [];
+$seen_ids = [];
+$blog_score = function (array $it): int {
+  return (!empty($it['body_html']) ? 4 : 0)
+       + (!empty($it['image'])     ? 2 : 0)
+       + (!empty($it['images'])    ? 1 : 0);
+};
+$push = function (array $it) use (&$by_key, &$seen_ids, $blog_score) {
   if (empty($it['published'])) return;
   $id = (string)($it['id'] ?? '');
-  if ($id === '' || isset($seen[$id])) return;
-  $seen[$id] = true;
-  $all[] = $it;
+  if ($id === '' || isset($seen_ids[$id])) return;
+  $seen_ids[$id] = true;
+  // タイトルは記号・絵文字・空白を除いて比較（「…胡蝶蘭」と「…胡蝶蘭🌸」を同一視）
+  $key = ($it['date'] ?? '') . '|' . preg_replace('/[^\p{L}\p{N}]+/u', '', (string)($it['title'] ?? ''));
+  if (!isset($by_key[$key]) || $blog_score($it) > $blog_score($by_key[$key])) $by_key[$key] = $it;
 };
 try { foreach (news_published() as $it) $push($it); } catch (Throwable $e) {}
 $seed = @json_decode((string)@file_get_contents(__DIR__ . '/../data/news.json'), true);
 foreach (($seed['items'] ?? []) as $it) $push($it);
 foreach (blog_archive_items() as $it) $push($it);
+$all = array_values($by_key);
 usort($all, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
 
 // ---- カテゴリ絞り込み ----
@@ -199,7 +229,8 @@ require __DIR__ . '/../includes/head.php';
         <?php foreach ($items as $it): ?>
           <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
             <?php if (!empty($it['image'])): ?>
-              <span class="card-thumb" style="display:block;aspect-ratio:16/10;background:#eef5f8 center/cover no-repeat url('<?= h($it['image']) ?>')"></span>
+              <span class="card-thumb"><img src="<?= h($it['image']) ?>" alt="" loading="lazy"
+                onerror="var t=this.closest('.card-thumb');if(t)t.remove()"></span>
             <?php endif; ?>
             <span style="display:flex;flex-direction:column;padding:18px 20px;flex:1">
             <p style="font-size:.8rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ <?= h($it['category'] ?? '') ?></p>
@@ -256,6 +287,8 @@ require __DIR__ . '/../includes/head.php';
   .pager__btn:hover{background:#e0eef4}
   .pager__btn.is-active{background:var(--green);color:#fff}
   .pager__dots{color:var(--text-light);padding:0 2px}
+  .card-thumb{display:block;aspect-ratio:16/10;overflow:hidden;background:#eef5f8}
+  .card-thumb img{width:100%;height:100%;object-fit:cover;display:block}
   .prose--html img{max-width:100%;height:auto;border-radius:10px;margin:8px 0;box-shadow:0 6px 18px rgba(18,89,122,.10)}
   .prose--html h2,.prose--html h3,.prose--html h4,.prose--html h5{margin:1.4em 0 .5em;line-height:1.5}
   .prose--html p{margin:0 0 1em;line-height:1.95}

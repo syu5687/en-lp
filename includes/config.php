@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0057';
+const APP_VERSION = 'v20260713-0059';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -37,6 +37,14 @@ if (PHP_SAPI !== 'cli' && !headers_sent()) {
 //   （引き継ぎ資料 §1「Firestore接続の仕組み」の決定事項）。
 //   ※ 万一 /admin/health.php で「プロジェクトID取得」がNGの場合はこの値を確認すること。
 const GCP_PROJECT_ID = 'en-hp-lp';
+
+// ---- Cloud Storage（管理画面の画像アップロード先）----
+// Cloud Run はファイル書込みが永続しないため、画像は GCS バケットに保存し
+// /img/... （img.php プロキシ）経由で配信します。
+// ★ バケットが未作成の場合: gsutil mb -l asia-northeast1 gs://en-hp-lp-media
+//   サービスアカウントに roles/storage.objectAdmin を付与してください。
+//   （/admin/health.php の「Storage 読み書きテスト」で確認できます）
+const GCS_BUCKET = 'en-hp-lp-media';
 
 // ---- GA4 ----
 // 測定ID（ページ埋め込み用・G-XXXXXXXXXX）。設定すると全ページにgtag.jsが入る。
