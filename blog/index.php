@@ -176,8 +176,17 @@ $all = array_values($by_key);
 usort($all, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
 
 // ---- カテゴリ絞り込み ----
+// 「お知らせ／海洋葬」「お知らせ, ブログ」のような複数カテゴリは分解して扱う
+// （※「お墓・納骨堂」等の「・」はカテゴリ名の一部なので区切りにしない）
+$cat_alias = ['海洋葬' => '海洋葬(海洋散骨)', '海洋散骨' => '海洋葬(海洋散骨)'];
+$split_cats = fn(?string $s): array =>
+  array_values(array_unique(array_map(
+    fn($c) => $cat_alias[$c] ?? $c,
+    array_filter(array_map('trim', preg_split('/[,、\/／]+/u', (string)$s)))
+  )));
 $cat = isset($_GET['cat']) ? trim((string)$_GET['cat']) : '';
-$filtered = $cat === '' ? $all : array_values(array_filter($all, fn($it) => ($it['category'] ?? '') === $cat));
+$filtered = $cat === '' ? $all
+  : array_values(array_filter($all, fn($it) => in_array($cat, $split_cats($it['category'] ?? ''), true)));
 
 // ---- ページネーション（30件/ページ）----
 $per_page = 30;
@@ -209,18 +218,43 @@ require __DIR__ . '/../includes/head.php';
 <main class="section">
   <div class="container">
     <?php
-      // 記事数の多い順にカテゴリを並べ、絞り込みチップを表示
+      // 記事数の多い順にカテゴリを集計（複数カテゴリは分解してそれぞれに加算）
       $cat_counts = [];
-      foreach ($all as $it) { $c = (string)($it['category'] ?? ''); if ($c !== '') $cat_counts[$c] = ($cat_counts[$c] ?? 0) + 1; }
+      foreach ($all as $it) {
+        foreach ($split_cats($it['category'] ?? '') as $c) $cat_counts[$c] = ($cat_counts[$c] ?? 0) + 1;
+      }
       arsort($cat_counts);
+      // 主要カテゴリ（上位）だけを見せ、残りは「その他」で開閉
+      $cat_visible = 7;
+      $cat_open    = false; // 絞り込み中のカテゴリが「その他」側にあれば最初から開く
+      if ($cat !== '') {
+        $idx = array_search($cat, array_keys($cat_counts), true);
+        if ($idx !== false && $idx >= $cat_visible) $cat_open = true;
+      }
     ?>
     <?php if ($cat_counts): ?>
-      <div class="blog-cats" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px">
+      <nav class="blog-cats<?= $cat_open ? ' is-open' : '' ?>" id="blog-cats" aria-label="カテゴリで絞り込み">
         <a href="/blog/" class="chip<?= $cat === '' ? ' is-active' : '' ?>">すべて<span class="chip__n"><?= count($all) ?></span></a>
-        <?php foreach ($cat_counts as $c => $n): ?>
-          <a href="/blog/?cat=<?= h(rawurlencode($c)) ?>" class="chip<?= $cat === $c ? ' is-active' : '' ?>"><?= h($c) ?><span class="chip__n"><?= (int)$n ?></span></a>
+        <?php $i = 0; foreach ($cat_counts as $c => $n): $i++; ?>
+          <a href="/blog/?cat=<?= h(rawurlencode($c)) ?>"
+             class="chip<?= $cat === $c ? ' is-active' : '' ?><?= $i > $cat_visible ? ' chip--more' : '' ?>"><?= h($c) ?><span class="chip__n"><?= (int)$n ?></span></a>
         <?php endforeach; ?>
-      </div>
+        <?php if (count($cat_counts) > $cat_visible): ?>
+          <button type="button" class="chip chip--toggle" id="cats-toggle" aria-expanded="<?= $cat_open ? 'true' : 'false' ?>">
+            <span class="chip--toggle__open">その他のカテゴリ（<?= count($cat_counts) - $cat_visible ?>） ＋</span>
+            <span class="chip--toggle__close">閉じる −</span>
+          </button>
+        <?php endif; ?>
+      </nav>
+      <script>
+        (function () {
+          var t = document.getElementById('cats-toggle'), w = document.getElementById('blog-cats');
+          if (t) t.addEventListener('click', function () {
+            var open = w.classList.toggle('is-open');
+            t.setAttribute('aria-expanded', open ? 'true' : 'false');
+          });
+        })();
+      </script>
     <?php endif; ?>
 
     <?php if ($items): ?>
@@ -278,11 +312,23 @@ require __DIR__ . '/../includes/head.php';
 </main>
 
 <style>
-  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:#eef5f8;color:var(--text);font-size:.82rem;font-weight:600;border:1px solid transparent;transition:.15s}
-  .chip:hover{background:#e0eef4}
-  .chip.is-active{background:var(--green);color:#fff}
-  .chip__n{font-size:.72rem;opacity:.7;font-weight:700}
+  .blog-cats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:26px;padding:14px 16px;background:#f4f9fb;border:1px solid #e2eef3;border-radius:14px}
+  .chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;background:#fff;color:var(--text);font-size:.8rem;font-weight:600;border:1px solid #dcebf1;transition:.15s;line-height:1.5;cursor:pointer}
+  .chip:hover{background:#e6f2f7;border-color:#bcdce8}
+  .chip.is-active{background:var(--green);color:#fff;border-color:var(--green)}
+  .chip__n{font-size:.68rem;opacity:.55;font-weight:700}
   .chip.is-active .chip__n{opacity:.85}
+  .chip--more{display:none}
+  .blog-cats.is-open .chip--more{display:inline-flex}
+  .chip--toggle{background:transparent;border:1px dashed #a9cddc;color:var(--green-mid,#15709e);font-family:inherit}
+  .chip--toggle:hover{background:#e6f2f7}
+  .chip--toggle__close{display:none}
+  .blog-cats.is-open .chip--toggle__open{display:none}
+  .blog-cats.is-open .chip--toggle__close{display:inline}
+  @media (max-width:640px){
+    .blog-cats{padding:12px;gap:6px}
+    .chip{font-size:.76rem;padding:4px 10px}
+  }
   .pager__btn{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 12px;border-radius:8px;background:#eef5f8;color:var(--text);font-weight:600;font-size:.9rem;transition:.15s}
   .pager__btn:hover{background:#e0eef4}
   .pager__btn.is-active{background:var(--green);color:#fff}
