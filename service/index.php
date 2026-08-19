@@ -49,7 +49,7 @@ $groups = [
   [
     'heading' => 'セミナー・説明会',
     'items' => [
-      ['title'=>'セミナー・説明会の実績', 'href'=>'/blog/', 'img'=>'/assets/img/svc-seminar.jpg', 'desc'=>'終活セミナーや供養の相談会など、これまでの取り組みの実績をご紹介いたします。', 'cta'=>'実績を見る'],
+      ['title'=>'セミナー・説明会の実績', 'href'=>'/blog/?cat=' . rawurlencode('セミナー・終活'), 'img'=>'/assets/img/svc-seminar.jpg', 'desc'=>'終活セミナーや供養の相談会など、これまでの取り組みの実績をご紹介いたします。', 'cta'=>'実績を見る'],
     ],
   ],
 ];
