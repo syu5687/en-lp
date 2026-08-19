@@ -15,7 +15,7 @@
 require_once __DIR__ . '/config.php';
 
 $page_title     = $service['title'] . '｜' . SITE['name'];
-$page_desc      = ($service['lead'] ?? '') . '（' . SITE['name'] . '・' . SITE['tagline'] . '）';
+$page_desc      = trim(($service['lead'] ?? '') !== '' ? ($service['lead'] . '（' . SITE['name'] . '・' . SITE['tagline'] . '）') : ($service['title'] . '｜' . SITE['name'] . '（' . SITE['tagline'] . '）'));
 $page_canonical = SITE['url'] . '/' . $service['slug'] . '/';
 // サービスごとの見出し背景画像（$service['hero_image'] があれば個別画像を使用）
 if (!empty($service['hero_image'])) $page_hero_image = $service['hero_image'];
@@ -49,9 +49,14 @@ require __DIR__ . '/head.php';
 
 <section class="page-hero">
   <h1><?= h($service['title']) ?></h1>
-  <p><?= h($service['sub'] ?? '') ?></p>
+  <?php if (!empty($service['sub'])): ?><p><?= h($service['sub']) ?></p><?php endif; ?>
   <?php if (!empty($service['price_label'])): ?>
-    <p style="margin-top:14px"><span style="display:inline-block;background:rgba(255,255,255,.18);padding:6px 18px;border-radius:999px;font-weight:700"><?= h($service['price_label']) ?></span></p>
+    <?php $__labels = is_array($service['price_label']) ? $service['price_label'] : [$service['price_label']]; ?>
+    <p style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+      <?php foreach ($__labels as $__l): ?>
+        <span style="display:inline-block;background:rgba(255,255,255,.18);padding:6px 18px;border-radius:999px;font-weight:700"><?= h($__l) ?></span>
+      <?php endforeach; ?>
+    </p>
   <?php endif; ?>
 </section>
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/service/">サービス</a> ＞ <?= h($service['title']) ?></nav>

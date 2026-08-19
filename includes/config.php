@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0062';
+const APP_VERSION = 'v20260713-0063';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -84,13 +84,13 @@ const NAV = [
 
 // ---- サービス詳細ページ一覧（service/ ハブとフッターで使用）----
 const SERVICES = [
-  ['slug' => 'kaiyou-sou',      'title' => '海洋葬（海洋散骨）', 'price' => '38,500円〜'],
-  ['slug' => 'powder-cleaning', 'title' => '粉骨・洗骨',        'price' => '5,000円〜'],
+  ['slug' => 'kaiyou-sou',      'title' => '海洋葬（海洋散骨）', 'price' => '54,450円〜'],
+  ['slug' => 'powder-cleaning', 'title' => '粉骨・洗骨',        'price' => '24,200円〜'],
   ['slug' => 'grave',           'title' => 'お墓じまい',        'price' => 'ご相談無料'],
   ['slug' => 'teien-sou',       'title' => '樹木葬',            'price' => 'お問合せ'],
   ['slug' => 'temoto-kuyou',    'title' => 'お手元供養',        'price' => '各種対応'],
   ['slug' => 'jewelry-reform',  'title' => 'JEWELRYリフォーム', 'price' => 'お見積り無料'],
-  ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => 'お問合せ'],
+  ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => '54,450円'],
   ['slug' => 'ihinseiri',       'title' => '遺品整理',          'price' => 'お問合せ'],
   ['slug' => 'hikkoshi',        'title' => 'お墓のお引越し',    'price' => 'ご相談無料'],
 ];
