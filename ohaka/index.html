@@ -1562,6 +1562,66 @@
       transition-duration:0.01ms!important;
     }
   }
+
+  /* =====================================
+     PC レイアウト（min-width:960px）
+     ===================================== */
+  @media(min-width:960px){
+    .wrap{max-width:1140px;padding-bottom:0}
+    .header{padding:16px 48px}
+    .breadcrumb{padding-left:48px;padding-right:48px}
+
+    /* Hero: 左テキスト＋右画像の2カラム */
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      grid-template-areas:
+        "eyebrow img"
+        "title   img"
+        "price   img"
+        "tax     img"
+        "def     pack"
+        "cta     pack";
+      column-gap:56px;
+      align-items:start;
+      text-align:left;
+      padding:64px 56px 72px;
+    }
+    .hero-eyebrow{grid-area:eyebrow;justify-self:start}
+    .hero-title{grid-area:title;font-size:2.5rem;line-height:1.4}
+    .hero-price-headline{grid-area:price;justify-content:flex-start}
+    .hero-tax{grid-area:tax;text-align:left}
+    .hero-entity-def{grid-area:def}
+    .hero-img-frame{grid-area:img;margin:0;align-self:center}
+    .hero-pack-summary{grid-area:pack;align-self:start;margin-top:18px}
+    .hero-cta-stack{grid-area:cta;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;margin-top:6px}
+    .hero-cta-stack .cta-primary{flex:1 1 240px;width:auto}
+    .hero-cta-stack .cta-secondary{flex-basis:100%;justify-content:flex-start}
+
+    /* 各セクション: 余白拡大＋本文を読みやすい幅に */
+    .section{padding:72px 48px}
+    .section>*{max-width:780px;margin-left:auto;margin-right:auto}
+    .section-title{font-size:1.9rem}
+
+    /* お悩みリストを2カラム */
+    .pain-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px}
+
+    /* 事例・FAQ・料金はゆったり中央 */
+    .price-card,.case-card,.faq-item{max-width:780px;margin-left:auto;margin-right:auto}
+
+    /* CTA帯 */
+    .cta-soft{padding:80px 48px}
+    .final-cta{padding:80px 48px 88px}
+
+    /* PCでは下部固定ナビを非表示 */
+    .bottom-nav{display:none}
+    .footer{padding-bottom:40px}
+  }
+
+  .logo{background:var(--green-900,#1c3d2e);padding:6px 12px;border-radius:10px;display:inline-flex;align-items:center}
+  .footer .logo,.footer img[src$="en.svg"]{background:transparent;padding:0}
+  .case-photos--wide{grid-template-columns:1fr!important;display:grid}
+  .case-photos .case-photo img{aspect-ratio:auto;height:auto}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BST60JN5FD"></script>
@@ -1579,7 +1639,7 @@
   <!-- Header -->
   <header class="header" role="banner">
     <a href="https://en1150.co.jp" class="logo" aria-label="有限会社 縁 EN">
-      <img src="images/en_logo.png" alt="有限会社 縁 EN" width="80" height="36" fetchpriority="high">
+      <img src="/assets/img/en.svg" alt="有限会社 縁 EN" width="80" height="36" fetchpriority="high">
     </a>
     <a href="tel:0998013637" class="header-tel" aria-label="電話で問い合わせる">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -1624,7 +1684,7 @@
     </p>
 
     <div class="hero-img-frame">
-      <img src="images/hero-family.jpg"
+      <img src="/assets/img/hero-grave.jpg"
            alt="3世代家族の集合写真：祖父母から孫までが穏やかに微笑むご家族の姿"
            width="780" height="450"
            loading="eager"
@@ -1695,6 +1755,52 @@
     </div>
   </section>
 
+
+  <!-- =====================================
+       お墓の整理とは（本サイト /grave/ より）
+       ===================================== -->
+  <section class="section" aria-labelledby="about-title">
+    <p class="section-eyebrow">ABOUT</p>
+    <h2 id="about-title" class="section-title with-line">お墓の整理とは</h2>
+    <div class="case-card">
+      <p style="line-height:2">「お墓が遠くてお墓参りに行けない」「体力的にお墓参りが難しくなってきた」「お墓の継承者がいない」などのお悩みをお持ちの方が増えています。</p>
+      <p style="line-height:2;margin-top:12px">そのようなお悩みをお持ちの方が、今ある「お墓」から、新しい墓地・納骨堂などに納骨先を変えられることを<strong>「改葬」</strong>といいます。そして、「改葬」の後に、もとあったお墓の撤去等を行うことを<strong>「お墓じまい」</strong>といいます。</p>
+    </div>
+    <div class="case-card">
+      <h3 class="case-title" style="margin-bottom:14px">お墓じまいに必要なこと</h3>
+      <ul class="case-actions">
+        <li>墓地の管理者（お寺や、共同墓地・公営墓地等）に「お墓じまい」について相談しておく</li>
+        <li>納骨されているご遺骨の納骨先を決める（納骨堂・新しい墓地・海洋葬などの自然葬）</li>
+        <li>（墓地を撤去される場合は）墓地撤去の見積もりをとる</li>
+        <li>お墓じまいの手続きをする（改葬手続き）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================
+       費用が変わる条件（本サイト /grave/ より）
+       ===================================== -->
+  <section class="section" aria-labelledby="cost-title" style="background:#f4ede0">
+    <p class="section-eyebrow">COST FACTORS</p>
+    <h2 id="cost-title" class="section-title with-line">「お墓の撤去」は、<br>このような条件で費用が変わります</h2>
+    <div class="case-card">
+      <h3 class="case-title">① 解体する墓石の量や、付随する撤去物</h3>
+      <ul class="case-actions">
+        <li>どの程度まで墓地を更地にするか</li>
+        <li>解体する墓石の量はどのくらいか</li>
+        <li>墓誌、灯篭など装飾品または、屋根などの撤去が必要か</li>
+      </ul>
+    </div>
+    <div class="case-card">
+      <h3 class="case-title">② 墓地までの距離と通路の状況</h3>
+      <ul class="case-actions">
+        <li>運搬用トラックの駐車場所から墓地までの距離（ユニックが使用可能か）</li>
+        <li>墓石を運搬する機械が通ることのできる道幅があるか、階段があるか、また舗装されているか等</li>
+      </ul>
+    </div>
+    <p style="text-align:center;font-size:.92rem;line-height:2;max-width:680px;margin:18px auto 0">墓地の立地条件や、撤去する墓石の量、墓地返却の条件（どの程度更地にする必要があるのか）によって、かかる費用が大きく変わります。まずはお気軽にお見積もりをご依頼ください。</p>
+  </section>
+
   <!-- =====================================
        Price Detail（33万円ポッキリ詳細）
        ===================================== -->
@@ -1760,58 +1866,55 @@
        ===================================== -->
   <section class="section case" aria-labelledby="case-title">
     <p class="section-eyebrow">CASE STUDY</p>
-    <h2 id="case-title" class="section-title with-line">実例紹介<span class="section-title-sub">（鹿児島市）</span></h2>
+    <h2 id="case-title" class="section-title with-line">撤去工事の実例<span class="section-title-sub">（Before / After）</span></h2>
 
     <article class="case-card">
       <div class="case-tag-wrap">
-        <span class="case-tag">鹿児島市</span>
-        <span class="case-tag alt">遠方在住</span>
+        <span class="case-tag">工事がしやすい墓地区画の例</span>
+        <span class="case-tag alt">解体工事金額 〜約20万円目安</span>
       </div>
-      <h3 class="case-title">遠方でお墓参りが難しく、お墓じまいへ</h3>
-
+      <h3 class="case-title">重機を近くまで入れられるケース</h3>
       <div class="case-block">
-        <span class="case-label">ご相談内容</span>
-        <p class="case-quote">県外に住んでおり、お墓参りや管理が難しい。今後のことを考えて、お墓じまいを検討したい。</p>
-      </div>
-
-      <div class="case-block">
-        <span class="case-label">対応内容</span>
         <ul class="case-actions">
-          <li>事前見積もりの取得・工事内容の確認</li>
-          <li>改葬のご相談（必要に応じて申請手続きも対応）</li>
-          <li>墓石撤去工事の手配・立ち会い</li>
-          <li>工事前後の写真報告（状況を"見える化"）</li>
+          <li>公道が解体現場の近くにあり、墓地撤去に必要な重機を墓地近くに移動することが可能</li>
+          <li>墓地の枠を残し、架台もそのままで墓地区画を管理団体へ返却。解体する墓石の量が少量</li>
         </ul>
       </div>
-
-      <div class="case-point">
-        遠方にお住まいの場合でも、現地の進捗を写真で丁寧にご報告しながら、撤去までスムーズに完了しました。
-      </div>
-
-      <!-- Photo Gallery: Before / During / After -->
       <div class="case-photos">
         <div class="case-photo">
-          <img src="https://images.unsplash.com/photo-1597077962467-be16edcc6bee?w=400&q=75&auto=format&fit=crop" alt="工事前：墓石・外柵の状況" loading="lazy" decoding="async" width="400" height="400">
-          <span class="case-photo-label">BEFORE</span>
-          <p class="case-photo-cap">撤去前：墓石・外柵の状況を確認</p>
+          <img src="images/grave-before1.jpg" alt="撤去前：墓石・灯篭のある墓地区画" loading="lazy" decoding="async" width="900" height="588">
+          <p class="case-photo-cap">撤去前：墓石・灯篭・墓誌のある区画</p>
         </div>
         <div class="case-photo">
-          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&q=75&auto=format&fit=crop" alt="工事中：安全に配慮しながら解体" loading="lazy" decoding="async" width="400" height="400">
-          <span class="case-photo-label">DURING</span>
-          <p class="case-photo-cap">撤去工事中：安全に配慮し解体</p>
-        </div>
-        <div class="case-photo">
-          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=75&auto=format&fit=crop" alt="工事後：更地・整地まで完了" loading="lazy" decoding="async" width="400" height="400">
-          <span class="case-photo-label">AFTER</span>
-          <p class="case-photo-cap">撤去完了：更地・整地まで完了</p>
-        </div>
-        <div class="case-photo">
-          <img src="https://images.unsplash.com/photo-1536147116438-62679a5e01f2?w=400&q=75&auto=format&fit=crop" alt="工事後：仕上がり確認（近景）" loading="lazy" decoding="async" width="400" height="400">
-          <span class="case-photo-label">CLOSE-UP</span>
-          <p class="case-photo-cap">仕上がり確認（近景）</p>
+          <img src="images/grave-after1.jpg" alt="撤去後：枠を残して管理団体へ返却" loading="lazy" decoding="async" width="900" height="588">
+          <p class="case-photo-cap">撤去後：枠を残して管理団体へ返却</p>
         </div>
       </div>
-      <p class="case-photo-note">撤去前→工事中→更地・整地完了→近景の4段階で写真報告。完了後の状態を写真でご確認いただけます。</p>
+    </article>
+
+    <article class="case-card">
+      <div class="case-tag-wrap">
+        <span class="case-tag">工事が難しい墓地区画の例</span>
+        <span class="case-tag alt">解体工事金額 〜約60万円目安</span>
+      </div>
+      <h3 class="case-title">重機が入れず、人の力での作業が必要なケース</h3>
+      <div class="case-block">
+        <ul class="case-actions">
+          <li>解体現場と駐車場間が離れており、墓地撤去に必要な重機を墓地近くに移動することが不可。人の力にて作業が必要なので、工事日数がかかる</li>
+          <li>全て更地にして、墓地区画を管理団体へ返却。解体する墓石の量が多くなります</li>
+        </ul>
+      </div>
+      <div class="case-photos case-photos--wide">
+        <div class="case-photo">
+          <img src="images/grave-before2.jpg" alt="撤去前：斜面の密集した墓地（解体現場）" loading="lazy" decoding="async" width="1100" height="406">
+          <p class="case-photo-cap">撤去前：重機の入れない密集区画（解体現場）</p>
+        </div>
+        <div class="case-photo">
+          <img src="images/grave-after2.jpg" alt="撤去後：全て更地にして返却" loading="lazy" decoding="async" width="1100" height="542">
+          <p class="case-photo-cap">撤去後：全て更地にして返却</p>
+        </div>
+      </div>
+      <p class="case-photo-note">※ 表示金額は目安です。金額をお約束するものではございませんので、まずはお問合せください。</p>
     </article>
   </section>
 
@@ -1891,6 +1994,29 @@
     </ol>
   </section>
 
+
+  <!-- =====================================
+       お墓じまい後のサポート（本サイト /grave/ より）
+       ===================================== -->
+  <section class="section" aria-labelledby="support-title">
+    <p class="section-eyebrow">AFTER SUPPORT</p>
+    <h2 id="support-title" class="section-title with-line">お墓じまい後も<br>しっかりサポート</h2>
+    <p style="text-align:center;font-size:.95rem;margin-bottom:22px">お客様お一人おひとりにあったご供養のカタチをご提案</p>
+    <div class="case-card">
+      <h3 class="case-title">身近に置いて供養されたい方は… お手元供養</h3>
+      <ul class="case-actions">
+        <li><a href="https://en1150.co.jp/temoto-kuyou/" style="color:inherit;text-decoration:underline">ご自宅供養・アクセサリー</a></li>
+      </ul>
+    </div>
+    <div class="case-card">
+      <h3 class="case-title">自然に還したい・自然の中で眠らせてあげたい方は… 自然葬</h3>
+      <ul class="case-actions">
+        <li><a href="https://en1150.co.jp/kaiyou-sou/" style="color:inherit;text-decoration:underline">海洋葬（海洋散骨）</a></li>
+        <li><a href="https://en1150.co.jp/teien-sou/" style="color:inherit;text-decoration:underline">樹木葬（庭苑葬）</a></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- =====================================
        FAQ
        ===================================== -->
@@ -1959,7 +2085,7 @@
     <div class="company-card">
       <div class="company-rep">
         <div class="company-photo">
-          <img src="images/staff1.jpg" alt="代表 堤の写真" width="80" height="80" loading="lazy" decoding="async">
+          <img src="/assets/img/staff-tsutsumi.jpg" alt="代表 堤の写真" width="80" height="80" loading="lazy" decoding="async">
         </div>
         <div class="company-rep-text">
           <p class="company-rep-quote">「任せて良かった」と<br>言われる体制で。</p>
@@ -2181,7 +2307,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="footer-logo"><img src="images/en_logo.png" alt="有限会社 縁 EN" width="120" height="54" loading="lazy"></div>
+    <div class="footer-logo"><img src="/assets/img/en.svg" alt="有限会社 縁 EN" width="120" height="54" loading="lazy"></div>
     <div class="footer-info">
       <div class="footer-info-row">
         <div class="footer-info-label">会社</div>
