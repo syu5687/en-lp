@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'ご供養について｜' . SITE['name'];
 $page_desc      = '宗教・宗派を問わず、心を込めて。' . SITE['name'] . 'のご供養に対する考え方をご紹介します。';
 $page_canonical = SITE['url'] . '/kuyou/';
+$page_hero_image = '/assets/img/svc-soudan.jpg';
 require __DIR__ . '/../includes/head.php';
 ?>
 <body>

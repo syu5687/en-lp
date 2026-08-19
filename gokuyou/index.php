@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'よくあるご質問｜' . SITE['name'];
 $page_desc      = '海洋葬（海洋散骨）・チャーター海洋葬・合同海洋葬・ペット海洋葬・粉骨などに関するよくあるご質問にお答えします。' . SITE['name'] . '。';
 $page_canonical = SITE['url'] . '/gokuyou/';
+$page_hero_image = '/assets/img/hero-gokuyou.jpg';
 
 // 現行サイト（en1150.co.jp/gokuyou/）の内容を反映
 $faq_groups = [

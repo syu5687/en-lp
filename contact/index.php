@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'お問い合わせ｜' . SITE['name'];
 $page_desc      = SITE['name'] . 'へのご相談・お見積りは無料です。海洋散骨・粉骨・お墓じまい等、お気軽にお問い合わせください。';
 $page_canonical = SITE['url'] . '/contact/';
+$page_hero_image = '/assets/img/hero-contact.jpg';
 require __DIR__ . '/../includes/head.php';
 ?>
 <body>

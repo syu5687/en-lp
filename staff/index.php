@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'スタッフ紹介｜' . SITE['name'];
 $page_desc      = 'スタッフ紹介｜' . SITE['name'] . '（' . SITE['tagline'] . '）。エンディングトータルアドバイザーが、お客様お一人おひとりのお悩みに寄り添います。';
 $page_canonical = SITE['url'] . '/staff/';
+$page_hero_image = '/assets/img/svc-seminar.jpg';
 
 // 現行サイト（en1150.co.jp/staff/）の内容を反映
 $staff = [

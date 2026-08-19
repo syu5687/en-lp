@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = '会社案内｜' . SITE['name'];
 $page_desc      = SITE['name'] . 'の会社案内・会社概要。' . SITE['tagline'] . '。代表者 堤 裕加里。';
 $page_canonical = SITE['url'] . '/company/';
+$page_hero_image = '/assets/img/hero-company.jpg';
 require __DIR__ . '/../includes/head.php';
 ?>
 <body>

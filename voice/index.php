@@ -4,6 +4,7 @@ require_once __DIR__ . '/../admin/includes/store.php'; // voices_published()
 $page_title     = 'お客様の声｜' . SITE['name'];
 $page_desc      = '全国のお客様からいただいた海洋葬・お墓じまい・お手元供養などのご感想をご紹介します。' . SITE['name'] . '。';
 $page_canonical = SITE['url'] . '/voice/';
+$page_hero_image = '/assets/img/hero-voice.jpg';
 
 // 管理画面（Firestore）から公開分を取得。未接続・未移行時は data/voices.json をフォールバック表示。
 $voices = [];

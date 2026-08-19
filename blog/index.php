@@ -198,6 +198,7 @@ $items    = array_slice($filtered, ($page_no - 1) * $per_page, $per_page);
 
 // canonical（2ページ目以降・カテゴリ絞り込みはクエリ付き）
 $page_canonical = SITE['url'] . '/blog/';
+$page_hero_image = '/assets/img/hero-blog.jpg';
 $qp = [];
 if ($cat !== '')     $qp['cat'] = $cat;
 if ($page_no > 1)    $qp['p']   = $page_no;

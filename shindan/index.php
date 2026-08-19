@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = '供養の選び方｜あなたに合ったご供養が見つかる、かんたん診断｜' . SITE['name'];
 $page_desc      = 'いくつかの質問に答えるだけで、あなたに合ったご供養（海洋葬・樹木葬・お墓じまい・お手元供養など）をご提案します。迷ったときはお気軽にご相談ください。' . SITE['name'] . '。';
 $page_canonical = SITE['url'] . '/shindan/';
+$page_hero_image = '/assets/img/hero-shindan.jpg';
 require __DIR__ . '/../includes/head.php';
 ?>
 <body>

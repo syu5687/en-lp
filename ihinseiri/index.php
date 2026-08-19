@@ -3,6 +3,7 @@ $service = [
   'slug' => 'ihinseiri',
   'title' => '遺品整理',
   'sub'   => '心を込めて、想い出の品を整理します',
+  'hero_image' => '/assets/img/hero-ihinseiri.jpg',
   'price_label' => 'お問合せ',
   'lead'  => '故人が遺された品々を、ご遺族のお気持ちに寄り添いながら丁寧に整理いたします。お墓じまいや供養と合わせてのご依頼も承ります。',
   'intro' => [

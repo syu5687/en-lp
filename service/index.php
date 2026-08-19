@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 $page_title     = 'サービス一覧｜' . SITE['name'];
 $page_desc      = '海洋散骨・樹木葬・粉骨・洗骨・お手元供養・ペット供養・お墓じまい・遺品整理まで。' . SITE['name'] . 'のサービス一覧。';
 $page_canonical = SITE['url'] . '/service/';
+$page_hero_image = '/assets/img/hero-service.jpg';
 
 // 現行サイト（en1150.co.jp/service/）のグループ構成・説明文を反映
 $groups = [

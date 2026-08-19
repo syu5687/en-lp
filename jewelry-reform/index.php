@@ -4,6 +4,7 @@ $service = [
   'slug' => 'jewelry-reform',
   'title' => 'JEWELRYリフォーム',
   'sub'   => '大切なひとと、永遠に、そばに。',
+  'hero_image' => '/assets/img/svc-jewelry.jpg',
   'price_label' => 'お見積り無料',
   'lead'  => '大切な方を想う気持ちを《祈り》に込め、身につける。お手持ちのジュエリーが、大切な方をそばに感じるメモリアルジュエリーへ生まれ変わります。',
   'intro' => [
