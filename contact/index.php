@@ -54,13 +54,13 @@ require __DIR__ . '/../includes/head.php';
       </label>
       <label class="contact-consent">
         <input type="checkbox" name="consent" value="1" required>
-        <a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します
+        <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
       </label>
       <button type="submit" class="btn" id="submit-btn">送信する</button>
     </form>
 
     <p style="margin-top:24px;font-size:.9rem;color:var(--text-light)">
-      お電話でも承ります：<a href="tel:<?= h(SITE['tel']) ?>" style="color:var(--green);font-weight:700"><?= h(SITE['tel']) ?></a>（<?= h(SITE['hours']) ?>）
+      お電話でも承ります：<a href="tel:<?= h(SITE['tel']) ?>" style="color:var(--green);font-weight:700"><?= h(SITE['tel']) ?></a>（<?= h(SITE['hours_jp']) ?>）
     </p>
   </div>
 </main>
@@ -70,7 +70,10 @@ require __DIR__ . '/../includes/head.php';
 .contact-form label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
 .contact-form input,.contact-form select,.contact-form textarea{padding:12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-family:inherit}
 .contact-form .req{display:inline-block;background:var(--green);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:6px}
-.contact-consent{flex-direction:row!important;align-items:center;gap:8px;font-weight:400!important}
+.contact-consent{flex-direction:row!important;align-items:center;justify-content:center;gap:10px;font-weight:400!important}
+.contact-consent input[type=checkbox]{width:18px;height:18px;padding:0!important;margin:0;flex:none;accent-color:var(--green)}
+.contact-consent span{white-space:nowrap}
+.contact-consent a{color:var(--green);font-weight:600;text-decoration:underline}
 #form-msg:not(:empty){padding:14px;border-radius:8px;margin-bottom:20px;font-size:.95rem}
 #form-msg.ok{background:#e8f5e9;color:#2e7d32}
 #form-msg.ng{background:#fdecea;color:#c0392b}

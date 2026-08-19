@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0067';
+const APP_VERSION = 'v20260713-0068';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -67,7 +67,8 @@ const SITE = [
   'email'       => 'info@en1150.co.jp',
   'zip'         => '891-0150',
   'address'     => '鹿児島県鹿児島市坂之上7丁目7-3',
-  'hours'       => 'Mo-Sa 09:00-18:00',
+  'hours'       => 'Mo-Sa 09:00-18:00', // 構造化データ用（schema.org形式）
+  'hours_jp'    => '月〜土 9:00〜18:00',   // 画面表示用
   'line_url'    => 'https://line.me/R/ti/p/%40bkx9825r',
   'logo'        => '/assets/img/en.svg',
 ];

@@ -4,7 +4,7 @@
     <div class="site-footer__brand">
       <p class="site-footer__name"><?= h(SITE['name']) ?></p>
       <p class="site-footer__addr">〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></p>
-      <p class="site-footer__tel">TEL <?= h(SITE['tel']) ?>（<?= h(SITE['hours']) ?>）</p>
+      <p class="site-footer__tel">TEL <?= h(SITE['tel']) ?>（<?= h(SITE['hours_jp']) ?>）</p>
       <p class="site-footer__mail"><?= h(SITE['email']) ?></p>
     </div>
     <nav class="site-footer__nav" aria-label="フッターナビ">

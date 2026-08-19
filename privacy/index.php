@@ -52,7 +52,7 @@ require __DIR__ . '/../includes/head.php';
     <p>当サイトでは、サイト改善のために自前のアクセス解析を行っていますが、<strong>Cookie・IPアドレス・個人を特定する情報は取得・保存していません</strong>。記録するのは閲覧ページ・日時・参照元・端末種別（PC/モバイル）のみです。</p>
 
     <h2>お問い合わせ窓口</h2>
-    <p><?= h(SITE['name']) ?>　TEL <?= h(SITE['tel']) ?>（<?= h(SITE['hours']) ?>） ／ <?= h(SITE['email']) ?></p>
+    <p><?= h(SITE['name']) ?>　TEL <?= h(SITE['tel']) ?>（<?= h(SITE['hours_jp']) ?>） ／ <?= h(SITE['email']) ?></p>
   </div>
 </main>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
