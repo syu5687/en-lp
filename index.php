@@ -331,11 +331,11 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .media-header { text-align: center; margin-bottom: 56px; }
 .media-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 900px; margin: 0 auto; }
 .media-card { background: var(--color-white); border-radius: 0; overflow: hidden; border: 1px solid var(--color-border); transition: var(--transition); text-align: center; }
-.media-card:hover { box-shadow: none; transform: none; background: var(--color-cream); }
+a.media-card:hover { box-shadow: none; transform: none; background: var(--color-cream); }
 .media-card-img-placeholder { width: 100%; height: 132px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: var(--color-cream-dark); border-bottom: 1px solid var(--color-line); }
 .media-card-img { width: 100%; height: 150px; overflow: hidden; border-bottom: 1px solid var(--color-line); }
 .media-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-.media-card:hover .media-card-img img { transform: scale(1.05); }
+aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .media-card-img-placeholder .media-emoji { font-family: var(--font-serif); font-size: 1.9rem; color: var(--color-gold); opacity: 0.85; width: 52px; height: 52px; border: 1px solid var(--color-gold-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .media-card-body { padding: 18px 16px; }
 .media-card-tag { display: inline-block; background: none; color: var(--color-gold); padding: 0 0 6px; border-radius: 0; font-size: 0.66rem; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.1em; }
@@ -541,7 +541,7 @@ body { background: #f7f5ef; }
 
 .blog-card, .media-card { border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
 .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-.media-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+a.media-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
 
 .faq-list { border-top: none; gap: 12px; }
 .faq-item { border: 1px solid var(--color-line); border-radius: var(--radius); }
