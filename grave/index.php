@@ -1556,8 +1556,8 @@
 
   /* Wider screen */
   @media(min-width:520px){
-    .wrap{margin:24px auto;border-radius:24px;overflow:hidden}
-    body{background:#e8dfcc}
+    .wrap{margin:0 auto;border-radius:0;overflow:visible;box-shadow:none}
+    body{background:var(--cream-50)}
   }
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{
@@ -1570,7 +1570,9 @@
      PC レイアウト（min-width:960px）
      ===================================== */
   @media(min-width:960px){
-    .wrap{max-width:1140px;padding-bottom:0}
+    .wrap{max-width:none;padding-bottom:0;box-shadow:none}
+    .breadcrumb{max-width:1160px;margin:0 auto}
+    .hero{max-width:1160px;margin:0 auto}
     .header{padding:16px 48px}
     .breadcrumb{padding-left:48px;padding-right:48px}
 
@@ -1615,6 +1617,7 @@
     /* CTA帯 */
     .cta-soft{padding:80px 48px}
     .final-cta{padding:80px 48px 88px}
+    .cta-soft>*,.final-cta>*{max-width:1080px;margin-left:auto;margin-right:auto}
 
     /* PCでは下部固定ナビを非表示 */
     .bottom-nav{display:none}
@@ -1637,10 +1640,11 @@
 </head>
 <body>
 <a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+<?php require __DIR__ . '/../includes/header.php'; ?>
+
 <div class="wrap" id="main-content">
 
   <!-- Header -->
-  <?php require __DIR__ . '/../includes/header.php'; ?>
 
   <!-- Breadcrumb -->
   <nav class="breadcrumb" aria-label="パンくずリスト">
