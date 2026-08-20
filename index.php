@@ -1185,7 +1185,7 @@ body { line-height: 1.8; }
     </div>
   </div>
   <div class="footer-assoc"><p>一般社団法人日本海洋散骨協会 加盟事業者</p></div>
-  <div class="footer-bottom">&copy; 有限会社 縁（えん） All Rights Reserved.</div>
+  <div class="footer-bottom">&copy; 有限会社 縁（えん） All Rights Reserved.<br><span style="font-size:.68rem;opacity:.55;letter-spacing:.05em"><?= h(APP_VERSION) ?></span></div>
 </div></footer>
 
 <div class="sticky-cta"><div class="sticky-cta-inner">
