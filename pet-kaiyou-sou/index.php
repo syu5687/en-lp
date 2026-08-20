@@ -1194,9 +1194,11 @@ main, header, footer { position: relative; z-index: 1; }
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
   justify-self: end;
 }
+a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
 .diag-row:hover {
   border-color: var(--accent-sage);
   transform: translateX(4px);
+  box-shadow: var(--shadow-soft);
 }
 .diag-row__feeling {
   font-family: var(--font-serif);
@@ -1593,6 +1595,7 @@ main, header, footer { position: relative; z-index: 1; }
   transition: all 0.3s var(--ease);
   display: flex;
   flex-direction: column;
+  overflow: visible !important; /* 「おすすめ」バッジがカード上端で見切れないように */
 }
 .plan-card:hover {
   transform: translateY(-6px);
@@ -1666,6 +1669,15 @@ main, header, footer { position: relative; z-index: 1; }
   align-items: baseline;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+  /* common.css の白いピル表示（absolute配置）を打ち消し */
+  position: static;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
 }
 .plan-card__price-strike {
   font-size: 0.85rem;
@@ -1687,17 +1699,6 @@ main, header, footer { position: relative; z-index: 1; }
   color: var(--text-muted);
   margin-left: 0.25rem;
 }
-.plan-card__open-tag {
-  display: inline-block;
-  font-size: 0.7rem;
-  background: var(--accent-rose);
-  color: #fff;
-  padding: 0.15rem 0.6rem;
-  border-radius: 4px;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
-}
-
 .setplan__note {
   margin-top: 3rem;
   text-align: center;
@@ -2181,8 +2182,8 @@ main, header, footer { position: relative; z-index: 1; }
   letter-spacing: 0.05em;
   color: var(--accent-sage-deep);
 }
-.final-cta__line {
-  background: #06C755;
+.final-cta__contact {
+  background: var(--accent-gold);
   color: #fff;
   padding: 1.25rem 2.5rem;
   border-radius: 999px;
@@ -2195,7 +2196,7 @@ main, header, footer { position: relative; z-index: 1; }
   transition: all 0.3s var(--ease);
   box-shadow: var(--shadow-soft);
 }
-.final-cta__line:hover { transform: translateY(-3px); background: #05a347; }
+.final-cta__contact:hover { transform: translateY(-3px); background: #a6845b; }
 .final-cta__hours {
   font-size: 0.85rem;
   color: rgba(250, 246, 239, 0.65);
@@ -2204,7 +2205,7 @@ main, header, footer { position: relative; z-index: 1; }
 
 @media (max-width: 540px) {
   .final-cta__buttons { flex-direction: column; align-items: stretch; }
-  .final-cta__tel, .final-cta__line { width: 100%; justify-content: center; }
+  .final-cta__tel, .final-cta__contact { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 800px) {
@@ -2385,36 +2386,36 @@ main, header, footer { position: relative; z-index: 1; }
       <h3 class="diagnostic__title">ペット供養の選び方チャート</h3>
       <p class="diagnostic__sub">DIAGNOSTIC CHART</p>
       <div class="diagnostic__rows">
-        <div class="diag-row">
+        <a class="diag-row" href="#service-funkotsu">
           <p class="diag-row__feeling">「ずっと身近に感じていたい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">粉骨<span class="diag-row__answer-tag">手元供養</span></p>
           <img class="diag-row__img" src="/assets/img/svc-funkotsu.jpg" alt="粉骨（手元供養）" width="64" height="64" loading="lazy">
-        </div>
-        <div class="diag-row">
+        </a>
+        <a class="diag-row" href="#service-sankotsu">
           <p class="diag-row__feeling">「大自然の中で、自由にさせてあげたい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">散骨<span class="diag-row__answer-tag">海洋・自然葬</span></p>
           <img class="diag-row__img" src="/assets/img/svc-kaiyou.jpg" alt="散骨（海洋・自然葬）" width="64" height="64" loading="lazy">
-        </div>
-        <div class="diag-row">
+        </a>
+        <a class="diag-row" href="#service-noukotsu">
           <p class="diag-row__feeling">「家族みんなでお参りに行きたい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">納骨<span class="diag-row__answer-tag">提携納骨堂</span></p>
           <img class="diag-row__img" src="/assets/img/hero-temoto-kuyou.jpg" alt="納骨（提携納骨堂）" width="64" height="64" loading="lazy">
-        </div>
-        <div class="diag-row">
+        </a>
+        <a class="diag-row" href="#setplan">
           <p class="diag-row__feeling">「散骨か納骨か、まだ決めきれない」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">分骨<span class="diag-row__answer-tag">散骨＋手元供養</span></p>
           <img class="diag-row__img" src="/assets/img/hero-pet-kaiyou-sou.jpg" alt="分骨（散骨＋手元供養）" width="64" height="64" loading="lazy">
-        </div>
-        <div class="diag-row">
+        </a>
+        <a class="diag-row" href="#contact">
           <p class="diag-row__feeling">「どれが合うか、まずは相談したい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">無料相談<span class="diag-row__answer-tag">LINE・お電話</span></p>
           <img class="diag-row__img" src="/assets/img/svc-soudan.jpg" alt="無料相談（LINE・お電話）" width="64" height="64" loading="lazy">
-        </div>
+        </a>
       </div>
     </div>
 
@@ -2727,7 +2728,6 @@ main, header, footer { position: relative; z-index: 1; }
             <span class="plan-card__include">たまごちゃん</span>
             <span class="plan-card__include">粉骨セット</span>
           </div>
-          <span class="plan-card__open-tag">オープン価格</span>
           <div class="plan-card__price">
             <span class="plan-card__price-strike">¥35,200</span>
             <span class="plan-card__price-num">¥30,000<small>（税込）</small></span>
@@ -2745,7 +2745,6 @@ main, header, footer { position: relative; z-index: 1; }
             <span class="plan-card__include">ステージ丸螺鈿</span>
             <span class="plan-card__include">粉骨セット</span>
           </div>
-          <span class="plan-card__open-tag">オープン価格</span>
           <div class="plan-card__price">
             <span class="plan-card__price-strike">¥53,460</span>
             <span class="plan-card__price-num">¥50,000<small>（税込）</small></span>
@@ -2764,7 +2763,6 @@ main, header, footer { position: relative; z-index: 1; }
             <span class="plan-card__include">エコー</span>
             <span class="plan-card__include">粉骨セット</span>
           </div>
-          <span class="plan-card__open-tag">オープン価格</span>
           <div class="plan-card__price">
             <span class="plan-card__price-strike">¥88,000</span>
             <span class="plan-card__price-num">¥65,000<small>（税込）</small></span>
@@ -2788,7 +2786,6 @@ main, header, footer { position: relative; z-index: 1; }
             <span class="plan-card__include">海洋葬セット</span>
             <span class="plan-card__include">たまごちゃん</span>
           </div>
-          <span class="plan-card__open-tag">オープン価格</span>
           <div class="plan-card__price">
             <span class="plan-card__price-strike">¥53,900</span>
             <span class="plan-card__price-num">¥50,000<small>（税込）</small></span>
@@ -2806,7 +2803,6 @@ main, header, footer { position: relative; z-index: 1; }
             <span class="plan-card__include">琴柱／玉璽</span>
             <span class="plan-card__include">ステージ丸螺鈿</span>
           </div>
-          <span class="plan-card__open-tag">オープン価格</span>
           <div class="plan-card__price">
             <span class="plan-card__price-strike">¥72,160</span>
             <span class="plan-card__price-num">¥70,000<small>（税込）</small></span>
@@ -2825,7 +2821,6 @@ main, header, footer { position: relative; z-index: 1; }
             <span class="plan-card__include">手元供養台150</span>
             <span class="plan-card__include">エコー</span>
           </div>
-          <span class="plan-card__open-tag">オープン価格</span>
           <div class="plan-card__price">
             <span class="plan-card__price-strike">¥106,700</span>
             <span class="plan-card__price-num">¥85,000<small>（税込）</small></span>
@@ -3307,7 +3302,7 @@ main, header, footer { position: relative; z-index: 1; }
     <span class="final-cta__eyebrow">CONTACT</span>
     <h2 class="final-cta__title">「まずは相談だけ」<br>でも構いません。</h2>
     <p class="final-cta__lead">
-      お電話、またはLINEから、<br>
+      お電話、またはお問い合わせフォームから、<br>
       今の状況をお聞かせください。<br>
       ご家族のペースに合わせて、<br>最適な供養の形を一緒に考えます。
     </p>
@@ -3321,9 +3316,9 @@ main, header, footer { position: relative; z-index: 1; }
           <span class="final-cta__tel-num">099-801-3637</span>
         </span>
       </a>
-      <a href="#" class="final-cta__line" aria-label="LINEで相談する">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.952 11.027c0-3.49-3.51-6.331-7.825-6.331-4.314 0-7.824 2.841-7.824 6.331 0 3.13 2.78 5.752 6.537 6.247.255.055.601.168.69.387.078.198.05.508.024.708l-.114.665c-.034.197-.156.768.677.42.835-.348 4.502-2.65 6.142-4.535 1.135-1.247 1.693-2.527 1.693-3.892zm-10.6 1.866h-1.55a.41.41 0 0 1-.41-.41V9.39a.41.41 0 1 1 .82 0v2.673h1.14a.41.41 0 0 1 0 .82zm1.605-.41a.41.41 0 0 1-.82 0V9.39a.41.41 0 1 1 .82 0v3.094zm3.728 0a.41.41 0 0 1-.41.41.41.41 0 0 1-.328-.164l-1.586-2.156v1.91a.41.41 0 1 1-.82 0V9.39a.41.41 0 0 1 .41-.41.41.41 0 0 1 .328.164l1.586 2.156V9.39a.41.41 0 1 1 .82 0v3.094zm2.515-1.957h-1.14v.726h1.14a.41.41 0 0 1 0 .82h-1.55a.41.41 0 0 1-.41-.41V9.39a.41.41 0 0 1 .41-.41h1.55a.41.41 0 0 1 0 .82h-1.14v.726h1.14a.41.41 0 0 1 0 .82z"/></svg>
-        LINEで相談する
+      <a href="/contact/" class="final-cta__contact" aria-label="資料請求・ご相談">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        資料請求・ご相談
       </a>
     </div>
     <p class="final-cta__hours">受付時間 9:00〜18:00（日曜定休）／ 相談・お見積もり無料</p>
