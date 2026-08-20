@@ -954,10 +954,11 @@
     font-family:var(--serif);
     font-size:13.5px;font-weight:700;
     color:var(--green-900);
-    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    display:flex;justify-content:flex-start;align-items:center;gap:12px;
     line-height:1.5;
     cursor:pointer;
   }
+  .faq-q .faq-icon{margin-left:auto}
   .faq-q::before{
     content:"Q";flex-shrink:0;
     width:26px;height:26px;
@@ -1613,6 +1614,9 @@
 
     /* 事例・FAQ・料金はゆったり中央 */
     .price-card,.case-card,.faq-item{max-width:780px;margin-left:auto;margin-right:auto}
+    /* .faq-list は flex縦並びのため、autoマージンだと各カードが内容幅に縮む。
+       width:100% で全カードを同一幅（780px）に揃える */
+    .faq-item{width:100%}
 
     /* CTA帯 */
     .cta-soft{padding:80px 48px}
