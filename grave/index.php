@@ -1066,7 +1066,7 @@
   }
   .cta-soft::before{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(35,77,58,.92),rgba(28,61,46,.95));
+    background:linear-gradient(180deg,rgba(15,77,112,.92),rgba(10,56,82,.95)); /* 母艦サイトのヘッダーブルー系 */
   }
   .cta-soft-inner{
     position:relative;
@@ -1411,7 +1411,7 @@
      Final CTA
      ========================================================= */
   .final-cta{
-    background:linear-gradient(180deg,var(--green-900) 0%,var(--green-800) 100%);
+    background:linear-gradient(180deg,#0a3852 0%,#0f4d70 100%); /* 母艦サイトのヘッダーブルー系 */
     color:#fff;
     padding:50px 20px 60px;
     text-align:center;
@@ -1421,8 +1421,8 @@
     content:"";position:absolute;
     inset:0;
     background:
-      radial-gradient(ellipse at 20% 0%,rgba(168,138,77,.18),transparent 50%),
-      radial-gradient(ellipse at 80% 100%,rgba(74,146,112,.2),transparent 50%);
+      radial-gradient(ellipse at 20% 0%,rgba(208,183,143,.16),transparent 50%),
+      radial-gradient(ellipse at 80% 100%,rgba(31,143,206,.22),transparent 50%);
     pointer-events:none;
   }
   .final-cta-inner{position:relative}
@@ -1457,18 +1457,8 @@
   }
   .final-tel-num svg{width:22px;height:22px}
   .final-tel-time{font-size:10.5px;color:rgba(255,255,255,.7);margin-top:6px;letter-spacing:.1em}
-  .btn-line{
-    background:#06c755;color:#fff;
-    padding:16px 20px;
-    border-radius:var(--radius-md);
-    font-size:15px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    box-shadow:0 6px 16px rgba(6,199,85,.35);
-    transition:transform .2s;
-  }
-  .btn-line:hover{transform:translateY(-1px)}
-  .btn-mail{
-    background:#fff;color:var(--green-800);
+  .btn-contact{
+    background:#fff;color:#0f4d70;
     padding:16px 20px;
     border-radius:var(--radius-md);
     font-size:15px;font-weight:700;
@@ -1476,7 +1466,7 @@
     box-shadow:0 6px 16px rgba(0,0,0,.25);
     transition:transform .2s;
   }
-  .btn-mail:hover{transform:translateY(-1px)}
+  .btn-contact:hover{transform:translateY(-1px)}
 
   /* Footer */
   .footer{
@@ -2297,14 +2287,9 @@
           <p class="final-tel-time">受付：月〜土 9:00 - 18:00</p>
         </div>
 
-        <a href="https://line.me/R/ti/p/%40bkx9825r" class="btn-line" target="_blank" rel="noopener" data-cta="final-line">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-          LINEで相談・見積もり
-        </a>
-
-        <a href="mailto:info@en1150.co.jp?subject=お墓じまいのお見積り依頼" class="btn-mail" data-cta="final-mail">
+        <a href="/contact/" class="btn-contact" data-cta="final-contact">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          メールで見積もり依頼
+          資料請求・ご相談
         </a>
       </div>
     </div>
