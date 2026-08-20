@@ -4,7 +4,6 @@ header('Content-Type: application/xml; charset=UTF-8');
 
 $paths = ['/','/service/','/shindan/','/kuyou/','/gokuyou/','/staff/','/voice/','/blog/','/company/','/contact/','/privacy/'];
 foreach (SERVICES as $s) $paths[] = '/' . $s['slug'] . '/';
-$paths[] = '/pet/';
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
