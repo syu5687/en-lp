@@ -1622,6 +1622,8 @@
     .cta-soft{padding:80px 48px}
     .final-cta{padding:80px 48px 88px}
     .cta-soft>*,.final-cta>*{max-width:1080px;margin-left:auto;margin-right:auto}
+    /* ボタン・電話ボックスは読みやすい幅で中央に（帯いっぱいに伸ばさない） */
+    .cta-soft-actions,.final-cta-actions{max-width:560px;margin-left:auto;margin-right:auto}
 
     /* PCでは下部固定ナビを非表示 */
     .bottom-nav{display:none}
