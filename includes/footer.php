@@ -24,7 +24,7 @@
     </nav>
   </div>
   <p class="site-footer__copy">&copy; <?= date('Y') ?> <?= h(SITE['name']) ?></p>
-  <p class="site-footer__ver" style="margin-top:6px;font-size:.68rem;opacity:.55;letter-spacing:.05em"><?= h(APP_VERSION) ?></p>
+  <p class="site-footer__ver" style="margin-top:6px;font-size:.68rem;opacity:.55;letter-spacing:.05em;text-align:center"><?= h(APP_VERSION) ?></p>
 </footer>
 
 <!-- 右側固定・縦長「供養の選び方」タブ -->
