@@ -1176,7 +1176,7 @@ main, header, footer { position: relative; z-index: 1; }
 }
 .diag-row {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr auto;
   align-items: center;
   gap: 1.25rem;
   padding: 1.25rem 1.5rem;
@@ -1184,6 +1184,15 @@ main, header, footer { position: relative; z-index: 1; }
   border-radius: var(--radius-md);
   border: 1px solid var(--line-soft);
   transition: all 0.3s var(--ease);
+}
+.diag-row__img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+  justify-self: end;
 }
 .diag-row:hover {
   border-color: var(--accent-sage);
@@ -1229,6 +1238,7 @@ main, header, footer { position: relative; z-index: 1; }
   }
   .diag-row__answer { text-align: center; }
   .diag-row__arrow { transform: rotate(90deg); }
+  .diag-row__img { justify-self: center; margin-top: 0.35rem; width: 84px; height: 84px; }
 }
 
 /* Comparison Table */
@@ -2372,23 +2382,38 @@ main, header, footer { position: relative; z-index: 1; }
     </div>
 
     <div class="diagnostic reveal">
-      <h3 class="diagnostic__title">「供養の選び方」診断チャート</h3>
+      <h3 class="diagnostic__title">ペット供養の選び方チャート</h3>
       <p class="diagnostic__sub">DIAGNOSTIC CHART</p>
       <div class="diagnostic__rows">
         <div class="diag-row">
           <p class="diag-row__feeling">「ずっと身近に感じていたい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">粉骨<span class="diag-row__answer-tag">手元供養</span></p>
+          <img class="diag-row__img" src="/assets/img/svc-funkotsu.jpg" alt="粉骨（手元供養）" width="64" height="64" loading="lazy">
         </div>
         <div class="diag-row">
           <p class="diag-row__feeling">「大自然の中で、自由にさせてあげたい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">散骨<span class="diag-row__answer-tag">海洋・自然葬</span></p>
+          <img class="diag-row__img" src="/assets/img/svc-kaiyou.jpg" alt="散骨（海洋・自然葬）" width="64" height="64" loading="lazy">
         </div>
         <div class="diag-row">
           <p class="diag-row__feeling">「家族みんなでお参りに行きたい」</p>
           <span class="diag-row__arrow" aria-hidden="true">⟶</span>
           <p class="diag-row__answer">納骨<span class="diag-row__answer-tag">提携納骨堂</span></p>
+          <img class="diag-row__img" src="/assets/img/hero-temoto-kuyou.jpg" alt="納骨（提携納骨堂）" width="64" height="64" loading="lazy">
+        </div>
+        <div class="diag-row">
+          <p class="diag-row__feeling">「散骨か納骨か、まだ決めきれない」</p>
+          <span class="diag-row__arrow" aria-hidden="true">⟶</span>
+          <p class="diag-row__answer">分骨<span class="diag-row__answer-tag">散骨＋手元供養</span></p>
+          <img class="diag-row__img" src="/assets/img/hero-pet-kaiyou-sou.jpg" alt="分骨（散骨＋手元供養）" width="64" height="64" loading="lazy">
+        </div>
+        <div class="diag-row">
+          <p class="diag-row__feeling">「どれが合うか、まずは相談したい」</p>
+          <span class="diag-row__arrow" aria-hidden="true">⟶</span>
+          <p class="diag-row__answer">無料相談<span class="diag-row__answer-tag">LINE・お電話</span></p>
+          <img class="diag-row__img" src="/assets/img/svc-soudan.jpg" alt="無料相談（LINE・お電話）" width="64" height="64" loading="lazy">
         </div>
       </div>
     </div>
