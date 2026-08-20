@@ -2253,6 +2253,15 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
 
 <main>
 
+<nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/service/">サービス一覧</a> ＞ ペット供養</nav>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"ホーム","item":"https://en1150.co.jp/"},
+  {"@type":"ListItem","position":2,"name":"サービス一覧","item":"https://en1150.co.jp/service/"},
+  {"@type":"ListItem","position":3,"name":"ペット供養","item":"https://en1150.co.jp/pet-kaiyou-sou/"}
+]}
+</script>
+
 <!-- ===== Hero ===== -->
 <section class="hero" id="hero">
   <span class="hero__decorative" aria-hidden="true"></span>
