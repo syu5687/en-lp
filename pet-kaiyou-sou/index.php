@@ -2090,9 +2090,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
    ==================================================== */
 .final-cta {
   padding: 6rem 1.5rem;
-  background:
-    linear-gradient(rgba(45, 42, 38, 0.78), rgba(45, 42, 38, 0.85)),
-    linear-gradient(135deg, #4a443d, #2d2a26);
+  background: linear-gradient(180deg, #0a3852 0%, #0f4d70 100%); /* 母艦サイトのヘッダーブルー系（/grave/ と統一） */
   color: var(--text-on-dark);
   text-align: center;
   position: relative;
@@ -2104,7 +2102,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
   top: -50%; left: -10%;
   width: 50%;
   height: 200%;
-  background: radial-gradient(circle, rgba(212, 184, 150, 0.15), transparent 70%);
+  background: radial-gradient(circle, rgba(31, 143, 206, 0.18), transparent 70%);
   pointer-events: none;
 }
 .final-cta__inner { max-width: var(--max-w-narrow); margin: 0 auto; position: relative; z-index: 1; }
