@@ -2846,6 +2846,107 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
   </div>
 </section>
 
+<!-- ===== Keepsake Gallery（手元供養品ギャラリー） ===== -->
+<section class="section kgal" id="keepsake-gallery" aria-label="手元供養品ギャラリー">
+  <div class="section__head reveal" style="text-align:center">
+    <span class="section-eyebrow">GALLERY</span>
+    <h2 class="section-title">手元供養品<em>ギャラリー</em></h2>
+    <p class="section-lead">ミニ骨壺・お参りステージ・メモリアルジュエリーなど、<br>実際にお選びいただける手元供養品の一例です。（写真をタップで拡大）</p>
+  </div>
+  <div class="kgal__marquee" data-dir="left">
+    <div class="kgal__track">
+      <?php
+        $kgal_row1 = [
+          ['temoto-gal-01.jpg', 'ミニ骨壺（赤・漆調）'],
+          ['temoto-gal-02.jpg', 'ミニ骨壺（たまご型・ホワイト）'],
+          ['temoto-gal-03.jpg', 'ミニ骨壺（たまご型・ピンク）'],
+          ['temoto-gal-04.jpg', 'ガラス製ミニ骨壺（グリーン）'],
+          ['temoto-gal-05.jpg', 'ミニ骨壺（ゴールド）'],
+          ['temoto-gal-06.jpg', 'ミニ骨壺（シルバー・花柄）'],
+        ];
+        $kgal_row2 = [
+          ['temoto-gal-07.jpg', 'お参りステージセット'],
+          ['temoto-gal-08.jpg', 'お参りステージセット（グリーン）'],
+          ['temoto-gal-09.jpg', 'フラワーステージセット'],
+          ['temoto-gal-10.jpg', 'アーチ型お参りステージ'],
+          ['temoto-gal-11.jpg', 'メモリアルリング・ネックレス'],
+          ['temoto-gal-12.jpg', 'メモリアルネックレス（ハート）'],
+        ];
+        foreach ([1, 2] as $loop):
+          foreach ($kgal_row1 as $g):
+      ?>
+        <button type="button" class="kgal__item" data-img="/assets/img/<?= h($g[0]) ?>" <?= $loop === 2 ? 'aria-hidden="true" tabindex="-1"' : '' ?>>
+          <img src="/assets/img/<?= h($g[0]) ?>" alt="<?= $loop === 1 ? h($g[1]) : '' ?>" width="320" height="213" loading="lazy" decoding="async">
+        </button>
+      <?php endforeach; endforeach; ?>
+    </div>
+  </div>
+  <div class="kgal__marquee kgal__marquee--reverse" data-dir="right">
+    <div class="kgal__track">
+      <?php foreach ([1, 2] as $loop): foreach ($kgal_row2 as $g): ?>
+        <button type="button" class="kgal__item" data-img="/assets/img/<?= h($g[0]) ?>" <?= $loop === 2 ? 'aria-hidden="true" tabindex="-1"' : '' ?>>
+          <img src="/assets/img/<?= h($g[0]) ?>" alt="<?= $loop === 1 ? h($g[1]) : '' ?>" width="320" height="213" loading="lazy" decoding="async">
+        </button>
+      <?php endforeach; endforeach; ?>
+    </div>
+  </div>
+  <p class="kgal__note">※ 商品の一例です。在庫・価格はお問い合わせください。</p>
+
+  <div id="kgal-lightbox" hidden>
+    <img src="" alt="手元供養品 拡大表示">
+    <span id="kgal-lightbox-close" aria-label="閉じる">×</span>
+  </div>
+</section>
+<style>
+  .kgal{overflow:hidden;padding-left:0;padding-right:0}
+  .kgal .section__head{padding:0 1.5rem}
+  .kgal__marquee{overflow:hidden;padding:14px 0;position:relative}
+  .kgal__marquee::before,.kgal__marquee::after{
+    content:"";position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none;
+  }
+  .kgal__marquee::before{left:0;background:linear-gradient(90deg,var(--bg-primary),transparent)}
+  .kgal__marquee::after{right:0;background:linear-gradient(270deg,var(--bg-primary),transparent)}
+  .kgal__track{display:flex;gap:18px;width:max-content;animation:kgal-scroll 42s linear infinite}
+  .kgal__marquee--reverse .kgal__track{animation-name:kgal-scroll-r;animation-duration:48s}
+  .kgal__marquee:hover .kgal__track{animation-play-state:paused}
+  @keyframes kgal-scroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 9px))}}
+  @keyframes kgal-scroll-r{from{transform:translateX(calc(-50% - 9px))}to{transform:translateX(0)}}
+  .kgal__item{
+    flex:0 0 auto;width:240px;padding:0;border:1px solid var(--line-soft);
+    border-radius:var(--radius-md);overflow:hidden;background:#fff;cursor:zoom-in;
+    box-shadow:var(--shadow-soft);transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+  }
+  .kgal__item img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+  .kgal__item:hover{transform:translateY(-5px) rotate(-1deg);box-shadow:var(--shadow-medium)}
+  .kgal__item:hover img{transform:scale(1.07)}
+  .kgal__note{text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:10px;letter-spacing:.05em}
+  #kgal-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(30,28,24,.86);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  #kgal-lightbox[hidden]{display:none}
+  #kgal-lightbox img{max-width:min(92vw,860px);max-height:88vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);background:#fff}
+  #kgal-lightbox-close{position:fixed;top:14px;right:20px;color:#fff;font-size:2rem;line-height:1;cursor:pointer;opacity:.85}
+  @media(max-width:600px){
+    .kgal__item{width:180px}
+    .kgal__item img{height:120px}
+    .kgal__marquee::before,.kgal__marquee::after{width:36px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .kgal__track{animation:none}
+    .kgal__marquee{overflow-x:auto}
+  }
+</style>
+<script>
+  (function () {
+    var lb = document.getElementById('kgal-lightbox');
+    if (!lb) return;
+    var im = lb.querySelector('img');
+    document.querySelectorAll('.kgal__item').forEach(function (b) {
+      b.addEventListener('click', function () { im.src = b.dataset.img; lb.hidden = false; document.body.style.overflow = 'hidden'; });
+    });
+    lb.addEventListener('click', function () { lb.hidden = true; im.src = ''; document.body.style.overflow = ''; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) lb.click(); });
+  })();
+</script>
+
 <!-- ===== Trust Process ===== -->
 <section class="section trust section--bg-deep" id="trust">
   <div class="section__inner">
