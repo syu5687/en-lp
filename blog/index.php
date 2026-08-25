@@ -45,10 +45,10 @@ if ($blog_id !== '') {
 <body>
 <?php require __DIR__ . '/../includes/header.php'; ?>
 <section class="page-hero"><h1>記事が見つかりません</h1></section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/blog/">ブログ・お知らせ</a> ＞ 記事が見つかりません</nav>
+<nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/blog/">終活と供養の話</a> ＞ 記事が見つかりません</nav>
 <main class="section"><div class="container" style="max-width:760px;text-align:center">
   <p class="lead">お探しの記事は削除されたか、URLが変更された可能性があります。</p>
-  <a href="/blog/" class="btn">ブログ・お知らせ一覧へ</a>
+  <a href="/blog/" class="btn">終活と供養の話一覧へ</a>
 </div></main>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
 <?php
@@ -80,7 +80,7 @@ if ($blog_id !== '') {
   <h1 style="font-size:1.55rem;line-height:1.55;max-width:820px;margin:14px auto 0"><?= h($post['title'] ?? '') ?></h1>
   <p style="margin-top:12px"><?= h($post['date'] ?? '') ?></p>
 </section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/blog/">ブログ・お知らせ</a> ＞ <?= h(mb_strimwidth($post['title'] ?? '', 0, 24, '…')) ?></nav>
+<nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/blog/">終活と供養の話</a> ＞ <?= h(mb_strimwidth($post['title'] ?? '', 0, 24, '…')) ?></nav>
 
 <main class="section">
   <article class="container" style="max-width:760px">
@@ -123,7 +123,7 @@ if ($blog_id !== '') {
       <p style="margin-top:22px;font-size:.9rem;color:var(--text-light)">参考リンク：<a href="<?= h($post['link']) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:600"><?= h($post['link']) ?></a></p>
     <?php endif; ?>
     <div style="margin-top:38px;text-align:center">
-      <a href="/blog/" class="btn btn--outline">← ブログ・お知らせ一覧へ</a>
+      <a href="/blog/" class="btn btn--outline">← 終活と供養の話一覧へ</a>
     </div>
   </article>
 </main>
@@ -146,7 +146,7 @@ if ($blog_id !== '') {
 /* ============================================================
    一覧モード ： /blog/
    ============================================================ */
-$page_title     = 'ブログ・お知らせ｜' . SITE['name'];
+$page_title     = '終活と供養の話｜' . SITE['name'];
 $page_desc      = SITE['name'] . 'からのお知らせ・供養に役立つ情報をお届けします。';
 
 // ---- 記事の収集（Firestore → news.json シード → 旧WordPressアーカイブ を統合）----
@@ -212,10 +212,10 @@ require __DIR__ . '/../includes/head.php';
 <body>
 <?php require __DIR__ . '/../includes/header.php'; ?>
 <section class="page-hero">
-  <h1>ブログ・お知らせ</h1>
+  <h1>終活と供養の話</h1>
   <p>供養に役立つ情報をお届けします</p>
 </section>
-<nav class="breadcrumb"><a href="/">ホーム</a> ＞ ブログ・お知らせ<?php if ($cat !== ''): ?> ＞ <?= h($cat) ?><?php endif; ?></nav>
+<nav class="breadcrumb"><a href="/">ホーム</a> ＞ 終活と供養の話<?php if ($cat !== ''): ?> ＞ <?= h($cat) ?><?php endif; ?></nav>
 <main class="section">
   <div class="container">
     <?php

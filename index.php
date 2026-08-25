@@ -829,7 +829,7 @@ body { line-height: 1.8; }
 <header class="header" role="banner"><div class="header-inner">
   <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;margin-right:8px;vertical-align:middle;"><span class="header-logo-text">有限会社 縁</span></a>
   <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="/service/">サービス一覧</a><a href="/shindan/">供養の選び方</a><a href="/voice/">お客様の声</a><a href="/blog/">終活新聞</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
+    <a href="/service/">サービス一覧</a><a href="/shindan/">供養の選び方</a><a href="/voice/">お客様の声</a><a href="/blog/">終活と供養の話</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
     <a href="/contact/" class="header-cta-btn">資料請求・ご相談</a>
   </nav>
   <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
@@ -1147,7 +1147,7 @@ body { line-height: 1.8; }
 
 <!-- ⑤ BLOG -->
 <section class="blog"><div class="container">
-  <div class="blog-header fade-up"><p class="section-label">News &amp; Blog</p><h2 class="section-title">お知らせ＆終活新聞</h2></div>
+  <div class="blog-header fade-up"><p class="section-label">News &amp; Blog</p><h2 class="section-title">お知らせ＆終活と供養の話</h2></div>
   <div class="blog-grid fade-up">
 <?php if ($blog_items): foreach ($blog_items as $it):
   $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
@@ -1181,7 +1181,7 @@ body { line-height: 1.8; }
     <div class="footer-nav-grid">
       <div class="footer-nav-col"><h4>サービス</h4><ul><li><a href="/kaiyou-sou/">海洋葬（海洋散骨）</a></li><li><a href="/teien-sou/">樹木葬</a></li><li><a href="/powder-cleaning/">粉骨・洗骨</a></li><li><a href="/temoto-kuyou/">お手元供養</a></li></ul></div>
       <div class="footer-nav-col"><h4>お墓のお悩み</h4><ul><li><a href="/grave/">お墓じまい</a></li><li><a href="/hikkoshi/">お墓の引越し（改葬）</a></li><li><a href="/pet-kaiyou-sou/">ペット供養</a></li><li><a href="/ihinseiri/">遺品整理</a></li></ul></div>
-      <div class="footer-nav-col"><h4>情報</h4><ul><li><a href="/voice/">お客様の声</a></li><li><a href="/blog/">終活新聞</a></li><li><a href="/staff/">スタッフ紹介</a></li><li><a href="/company/">会社案内</a></li><li><a href="/contact/">お問合せ</a></li><li><a href="/privacy/">個人情報保護方針</a></li></ul></div>
+      <div class="footer-nav-col"><h4>情報</h4><ul><li><a href="/voice/">お客様の声</a></li><li><a href="/blog/">終活と供養の話</a></li><li><a href="/staff/">スタッフ紹介</a></li><li><a href="/company/">会社案内</a></li><li><a href="/contact/">お問合せ</a></li><li><a href="/privacy/">個人情報保護方針</a></li></ul></div>
     </div>
   </div>
   <div class="footer-assoc"><p>一般社団法人日本海洋散骨協会 加盟事業者</p></div>

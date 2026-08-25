@@ -47,6 +47,7 @@ $groups = [
     'heading' => '遺品整理',
     'items' => [
       ['title'=>'遺品整理', 'href'=>'/ihinseiri/', 'img'=>'/assets/img/svc-soudan.jpg', 'desc'=>'遺品に準ずる家財・衣類・家電ほかの物品を、地域行政の分別処分に沿って仕分け（袋わけ）。家電リサイクル法を順守のうえ、お客様との委託契約を交わしながら正しく行ってまいります。'],
+      ['title'=>'仏壇じまい安心パック', 'coming'=>true, 'img'=>'/assets/img/hero-temoto-kuyou.jpg', 'desc'=>'お役目を終えたお仏壇のご供養からお引き取りまでを、まとめてお任せいただける安心のパックサービスです。詳細は準備が整い次第ご案内いたします。'],
     ],
   ],
   [
@@ -83,6 +84,14 @@ require __DIR__ . '/../includes/head.php';
 .svc-card p{font-size:.9rem;line-height:1.85;color:var(--text);flex:1}
 .svc-card__more{margin-top:16px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.88rem}
 .svc-card:hover .svc-card__more{color:var(--header-blue)}
+/* 準備中カード（リンクなし） */
+.svc-card--coming{cursor:default}
+.svc-card--coming:hover{transform:none;box-shadow:var(--shadow)}
+.svc-card--coming:hover .svc-card__img img{transform:none}
+.svc-card--coming .svc-card__img{position:relative}
+.svc-card--coming .svc-card__img img{filter:saturate(.6) brightness(.96)}
+.svc-card--coming .svc-card__coming{position:absolute;top:10px;left:10px;background:var(--gold,#b18e63);background:#b18e63;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.12em;padding:4px 12px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.svc-card--coming .svc-card__more{color:var(--text-light)}
 </style>
 
 <main class="section">
@@ -92,16 +101,19 @@ require __DIR__ . '/../includes/head.php';
         <div class="svc-group__head"><h2><?= h($g['heading']) ?></h2></div>
         <div class="card-grid">
           <?php foreach ($g['items'] as $it): ?>
-            <a class="svc-card" href="<?= h($it['href']) ?>"<?= !empty($it['external']) ? ' target="_blank" rel="noopener"' : '' ?>>
+            <?php $coming = !empty($it['coming']); $tag = $coming ? 'div' : 'a'; ?>
+            <<?= $tag ?> class="svc-card<?= $coming ? ' svc-card--coming' : '' ?>"<?= $coming ? '' : ' href="' . h($it['href']) . '"' ?><?= !$coming && !empty($it['external']) ? ' target="_blank" rel="noopener"' : '' ?>>
               <?php if (!empty($it['img'])): ?>
-                <span class="svc-card__img"><img src="<?= h($it['img']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($it['title']) ?>" loading="lazy"></span>
+                <span class="svc-card__img"><img src="<?= h($it['img']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($it['title']) ?>" loading="lazy">
+                  <?php if ($coming): ?><span class="svc-card__coming">準備中</span><?php endif; ?>
+                </span>
               <?php endif; ?>
               <span class="svc-card__body">
                 <h3><?= h($it['title']) ?></h3>
                 <p><?= h($it['desc']) ?></p>
-                <span class="svc-card__more"><?= h($it['cta'] ?? '詳細を見る') ?> →</span>
+                <span class="svc-card__more"><?= $coming ? 'サービス準備中' : h($it['cta'] ?? '詳細を見る') . ' →' ?></span>
               </span>
-            </a>
+            </<?= $tag ?>>
           <?php endforeach; ?>
         </div>
       </div>
