@@ -76,7 +76,12 @@ require_once __DIR__ . '/../includes/config.php';
   .sz-hero__title em{font-style:normal;color:var(--sea-700)}
   .sz-hero__lead{text-align:center;font-family:var(--serif);font-size:1.02rem;color:var(--ink-700);margin-bottom:18px}
   .sz-hero__note{max-width:560px;margin:0 auto 26px;background:#fff;border:1px solid var(--cream-200);border-left:4px solid var(--gold);border-radius:var(--radius-sm);padding:12px 16px;font-size:.88rem;color:var(--ink-700);text-align:center}
-  .sz-hero__img{max-width:860px;margin:0 auto 28px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md)}
+  /* メインビジュアル：画面横いっぱい（フルブリード） */
+  .sz-hero__img{max-width:none;width:100vw;margin:0 calc(50% - 50vw) 28px;border-radius:0;overflow:hidden;box-shadow:none}
+  .sz-hero__img img{width:100%;height:clamp(280px,42vw,560px);object-fit:cover}
+  /* キービジュアル：画面横いっぱい（文字入りのためトリミングなし） */
+  .sz .section>.sz-keyvisual{max-width:none;width:100vw;margin:26px calc(50% - 50vw) 0;border-radius:0;overflow:hidden;box-shadow:none}
+  .sz-keyvisual img{width:100%}
   .sz-hero__cta{display:flex;flex-direction:column;gap:12px;max-width:560px;margin:0 auto}
   .sz-btn-tel{background:#fff;border:1px solid var(--cream-200);border-radius:999px;padding:14px 22px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--shadow-sm);transition:.25s}
   .sz-btn-tel:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
@@ -245,7 +250,7 @@ require_once __DIR__ . '/../includes/config.php';
       <p>近年、海洋散骨という新しい形の葬送が注目されています。</p>
       <p>海洋散骨は、故人を海へと送り出すことで、その思い出を海とともに永遠に刻むことができる儀式です。また生まれ育った故郷の馴染み深い海での散骨を望まれ、「亡き後は故郷の海での散骨」と生前に家族と話し合い決めておく方が増えております。</p>
     </div>
-    <div class="sz-keyvisual" style="margin-top:26px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md)">
+    <div class="sz-keyvisual">
       <img src="images/keyvisual.webp?v=<?= h(asset_ver()) ?>" alt="海に行けばいつでも会える　海洋散骨を選びました ─ 残された家族に父が選んだのは、お墓を残さない選択" width="2400" height="1070" loading="lazy">
     </div>
   </section>
