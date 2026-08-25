@@ -98,6 +98,9 @@ require_once __DIR__ . '/../includes/config.php';
   /* キービジュアル：画面横いっぱい（文字入りのためトリミングなし） */
   .sz .section>.sz-keyvisual{max-width:none;width:100vw;margin:26px calc(50% - 50vw) 0;border-radius:0;overflow:hidden;box-shadow:none}
   .sz-keyvisual img{width:100%}
+  /* 3者紹介ストリップ */
+  .sz-actorsimg{background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:14px;margin-top:6px}
+  .sz-actorsimg img{width:100%;max-width:640px;margin:0 auto}
   .sz-hero__cta{display:flex;flex-direction:column;gap:12px;max-width:560px;margin:0 auto}
   .sz-btn-tel{background:#fff;border:1px solid var(--cream-200);border-radius:999px;padding:14px 22px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--shadow-sm);transition:.25s}
   .sz-btn-tel:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
@@ -269,7 +272,10 @@ require_once __DIR__ . '/../includes/config.php';
       <p>海洋散骨は、故人を海へと送り出すことで、その思い出を海とともに永遠に刻むことができる儀式です。また生まれ育った故郷の馴染み深い海での散骨を望まれ、「亡き後は故郷の海での散骨」と生前に家族と話し合い決めておく方が増えております。</p>
     </div>
     <div class="sz-keyvisual">
-      <img src="images/keyvisual.webp?v=<?= h(asset_ver()) ?>" alt="海に行けばいつでも会える　海洋散骨を選びました ─ 残された家族に父が選んだのは、お墓を残さない選択" width="2400" height="1070" loading="lazy">
+      <picture>
+        <source media="(max-width:600px)" srcset="images/keyvisual-sp.webp?v=<?= h(asset_ver()) ?>" width="748" height="798">
+        <img src="images/keyvisual.webp?v=<?= h(asset_ver()) ?>" alt="海に行けばいつでも会える　海洋散骨を選びました ─ 残された家族に父が選んだのは、お墓を残さない選択" width="2400" height="1070" loading="lazy">
+      </picture>
     </div>
   </section>
 
@@ -299,6 +305,10 @@ require_once __DIR__ . '/../includes/config.php';
 
     <div class="sz-diagram" style="background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:18px">
       <img src="images/diagram-sankaku.webp?v=<?= h(asset_ver()) ?>" alt="3者の関係図：①利用者→縁 海洋散骨生前予約（費用は発生しません）②代表遺族→利用者 海洋散骨生前申込み連絡（海洋散骨費用の授受）③縁→利用者 海洋散骨生前予約 ④代表遺族→縁 利用申込者の没後、海洋散骨の申し込み ⑤料金の支払い" width="2026" height="1570" loading="lazy" style="width:100%;max-width:640px;margin:0 auto">
+    </div>
+
+    <div class="sz-actorsimg">
+      <img src="images/actors-strip.webp?v=<?= h(asset_ver()) ?>" alt="利用者：海洋散骨の対象になる方／代表遺族：利用者の死後手続きを託す方／有限会社縁：海洋散骨の実施" width="900" height="246" loading="lazy">
     </div>
 
     <div class="sz-cards3">

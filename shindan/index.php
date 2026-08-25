@@ -79,19 +79,31 @@ require __DIR__ . '/../includes/head.php';
     'temoto-kuyou':{name:'お手元供養',href:'/temoto-kuyou/',lead:'ご自宅で、いつもそばに感じられるご供養のかたち。ご遺骨の一部を手元に残すこともできます。'},
     'powder-cleaning':{name:'粉骨・洗骨',href:'/powder-cleaning/',lead:'ご遺骨をパウダー状にする「粉骨」、汚れたご遺骨をきれいにする「洗骨」。散骨や手元供養の前の準備にも。'},
     'pet-kaiyou-sou':{name:'ペット供養（ペット海洋葬）',href:'/pet-kaiyou-sou/',lead:'大切なご家族であるペットを、鹿児島・錦江湾から自然の海へお見送りするご供養です。'},
-    'jewelry-reform':{name:'JEWELRYリフォーム',href:'/jewelry-reform/',lead:'ご遺骨や思い出の宝石・貴金属を、身につけられるメモリアルジュエリーへ。いつもそばに感じられます。'}
+    'jewelry-reform':{name:'JEWELRYリフォーム',href:'/jewelry-reform/',lead:'ご遺骨や思い出の宝石・貴金属を、身につけられるメモリアルジュエリーへ。いつもそばに感じられます。'},
+    'seizen':{name:'海洋散骨 生前契約',href:'/seizen/',lead:'「海洋散骨をしたい」という想いを、お元気なうちに契約して託すサービスです。ご自身の意思に沿ったご供養が実現でき、ご家族の負担も軽くなります。'}
   };
   var TREE = {
-    start:{q:'どなたのご供養をお考えですか？',opts:[
-      {b:'ご家族・大切な方',next:'concern'},
-      {b:'ペット',res:'pet-kaiyou-sou'}
+    start:{q:'どなたの、どんなご供養をお考えですか？',opts:[
+      {b:'ご家族・大切な方',s:'ご供養の方法を考えたい',next:'concern'},
+      {b:'ご自身のこと',s:'生前準備・終活として',next:'self'},
+      {b:'お墓のこと',s:'お墓じまい・改葬など',next:'ohaka'},
+      {b:'ペットのこと',s:'大切なご家族のご供養',res:'pet-kaiyou-sou'}
     ]},
     concern:{q:'いま、いちばん近いお気持ちは？',sub:'直感でお選びください',opts:[
       {b:'自然に還してあげたい',s:'海や緑が好きだった',next:'natural'},
+      {b:'いつもそばに置いて供養したい',s:'手元で偲びたい',res:'temoto-kuyou',alt:['jewelry-reform']},
+      {b:'ご遺骨をきれいに・粉にしたい',s:'粉骨・洗骨',res:'powder-cleaning'},
+      {b:'お墓のことで悩んでいる',s:'管理・継承・改葬など',next:'ohaka'}
+    ]},
+    self:{q:'ご自身の将来について、どちらが近いですか？',sub:'生前のご準備をお手伝いします',opts:[
+      {b:'「海に散骨してほしい」と想いを託したい',s:'海洋散骨の生前契約',res:'seizen',alt:['kaiyou-sou']},
+      {b:'眠る場所を今から考えておきたい',s:'海洋葬・樹木葬など',next:'natural'},
+      {b:'今あるお墓を将来どうするか考えたい',s:'お墓じまい・改葬',next:'ohaka'}
+    ]},
+    ohaka:{q:'お墓について、どのようなお悩みですか？',opts:[
       {b:'お墓の管理・継承が負担',s:'お墓を整理したい',res:'grave',alt:['kaiyou-sou','teien-sou']},
       {b:'お墓を別の場所へ移したい',s:'改葬を考えている',res:'hikkoshi'},
-      {b:'いつもそばに置いて供養したい',s:'手元で偲びたい',res:'temoto-kuyou',alt:['jewelry-reform']},
-      {b:'ご遺骨をきれいに・粉にしたい',s:'粉骨・洗骨',res:'powder-cleaning'}
+      {b:'お墓じまいの後の供養先を知りたい',s:'海洋葬・樹木葬など',next:'natural'}
     ]},
     natural:{q:'どちらのイメージが近いですか？',opts:[
       {b:'海へ還したい',s:'広い海で眠りたい',res:'kaiyou-sou',alt:['powder-cleaning']},
