@@ -76,7 +76,21 @@ require_once __DIR__ . '/../includes/config.php';
   .sz-hero__visual>img{width:100%;height:clamp(340px,46vw,600px);object-fit:cover;display:block}
   .sz-hero__visual::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,56,82,.30) 0%,rgba(10,56,82,.12) 45%,rgba(10,56,82,.34) 100%);pointer-events:none}
   .sz-hero__copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;z-index:1}
-  .sz-hero__eyebrow{font-size:11px;letter-spacing:.3em;color:var(--gold-light);font-weight:700;text-shadow:0 1px 8px rgba(10,56,82,.5)}
+  /* キャッチコピー（目立たせる） */
+  .sz-hero__eyebrow{
+    font-family:var(--serif);
+    font-size:clamp(1.02rem,2.4vw,1.45rem);
+    font-weight:700;
+    letter-spacing:.22em;
+    color:var(--gold-light);
+    text-shadow:0 2px 12px rgba(10,56,82,.6);
+    display:flex;align-items:center;gap:14px;
+  }
+  .sz-hero__eyebrow::before,.sz-hero__eyebrow::after{
+    content:"";display:block;width:36px;height:1px;background:var(--gold-light);opacity:.85;
+  }
+  .br-sp{display:inline}
+  @media(min-width:600px){.br-sp{display:none}}
   .sz-hero__title{font-family:var(--serif);font-size:clamp(1.45rem,4.5vw,2.5rem);font-weight:700;color:#fff;line-height:1.6;margin:12px 0 8px;text-shadow:0 2px 16px rgba(10,56,82,.55)}
   .sz-hero__title em{font-style:normal;color:#fff;border-bottom:3px solid var(--gold-light);padding-bottom:2px}
   .sz-hero__lead{font-family:var(--serif);font-size:clamp(.9rem,1.6vw,1.05rem);color:rgba(255,255,255,.92);text-shadow:0 1px 10px rgba(10,56,82,.5)}
@@ -226,8 +240,8 @@ require_once __DIR__ . '/../includes/config.php';
     <div class="sz-hero__visual">
       <img src="images/hero-water.webp?v=<?= h(asset_ver()) ?>" alt="水面に浮かぶ花" width="2400" height="1228" fetchpriority="high">
       <div class="sz-hero__copy">
-        <p class="sz-hero__eyebrow">SEIZEN KEIYAKU ─ 生前の希望を叶えるために</p>
-        <h1 class="sz-hero__title">「海洋散骨をしたい」という想いを託す<br><em>海洋散骨 生前契約</em></h1>
+        <p class="sz-hero__eyebrow">生前の希望を叶えるために</p>
+        <h1 class="sz-hero__title">「海洋散骨をしたい」という<br class="br-sp">想いを託す<br><em>海洋散骨 生前契約</em></h1>
         <p class="sz-hero__lead">海洋散骨・生前契約 ─ 種類と流れ</p>
       </div>
     </div>
@@ -284,7 +298,7 @@ require_once __DIR__ . '/../includes/config.php';
     <p class="section-sub">生前契約に関わる3者の役割</p>
 
     <div class="sz-diagram" style="background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:18px">
-      <img src="images/diagram-sankaku.webp?v=<?= h(asset_ver()) ?>" alt="3者の関係図：①利用者→縁 海洋散骨生前予約（費用は発生しません）②代表遺族→利用者 海洋散骨生前申込み連絡（海洋散骨費用の授受）③縁→利用者 海洋散骨生前予約 ④代表遺族→縁 利用申込者の没後、海洋散骨の申し込み ⑤料金の支払い" width="2026" height="1570" loading="lazy" style="max-width:640px;margin:0 auto">
+      <img src="images/diagram-sankaku.webp?v=<?= h(asset_ver()) ?>" alt="3者の関係図：①利用者→縁 海洋散骨生前予約（費用は発生しません）②代表遺族→利用者 海洋散骨生前申込み連絡（海洋散骨費用の授受）③縁→利用者 海洋散骨生前予約 ④代表遺族→縁 利用申込者の没後、海洋散骨の申し込み ⑤料金の支払い" width="2026" height="1570" loading="lazy" style="width:100%;max-width:640px;margin:0 auto">
     </div>
 
     <div class="sz-cards3">
@@ -312,7 +326,7 @@ require_once __DIR__ . '/../includes/config.php';
     <h2 class="section-title">〜利用者が亡くなった後〜<br>海洋散骨までの流れ</h2>
 
     <div class="sz-flowimg" style="margin-top:24px;background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:18px">
-      <img src="images/flow-after.webp?v=<?= h(asset_ver()) ?>" alt="ご連絡：利用者のご訃報を有限会社縁に伝える（※海洋散骨を希望される時期の連絡でも可 TEL:0993-78-4650）→ 日程調整：利用者様の海洋散骨を行う時期を決めます（例えば、故人の没後すぐに／しばらくご自宅にて手元供養をしてから／〇回忌まではお寺やお墓に納骨してから など）→ 申し込み：海洋散骨の正式申し込み・料金の支払い（※散骨ご希望の時期に海洋葬申込みとなります。※海洋散骨の申込み時の料金を代表遺族がお支払い）→ 預ける：ご遺骨のお預かり（郵送・お持ち込み・出張預かり（費用別途））→ 海洋散骨：実施前連絡・海洋散骨当日（天候による出航可否判断を出航2日前に連絡します）海洋散骨証明書発行：緯度・経度が記載された海洋散骨証明書を発行します" width="2400" height="2291" loading="lazy" style="max-width:720px;margin:0 auto">
+      <img src="images/flow-after.webp?v=<?= h(asset_ver()) ?>" alt="ご連絡：利用者のご訃報を有限会社縁に伝える（※海洋散骨を希望される時期の連絡でも可 TEL:0993-78-4650）→ 日程調整：利用者様の海洋散骨を行う時期を決めます（例えば、故人の没後すぐに／しばらくご自宅にて手元供養をしてから／〇回忌まではお寺やお墓に納骨してから など）→ 申し込み：海洋散骨の正式申し込み・料金の支払い（※散骨ご希望の時期に海洋葬申込みとなります。※海洋散骨の申込み時の料金を代表遺族がお支払い）→ 預ける：ご遺骨のお預かり（郵送・お持ち込み・出張預かり（費用別途））→ 海洋散骨：実施前連絡・海洋散骨当日（天候による出航可否判断を出航2日前に連絡します）海洋散骨証明書発行：緯度・経度が記載された海洋散骨証明書を発行します" width="2400" height="2291" loading="lazy" style="width:100%;max-width:720px;margin:0 auto">
     </div>
   </section>
 
