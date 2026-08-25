@@ -92,6 +92,17 @@ require_once __DIR__ . '/../includes/config.php';
 
   /* TV */
   .sz-tv{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+  .sz-tv__shots{display:grid;grid-template-columns:1fr;gap:12px;width:100%}
+  .sz-tv__shots img{border-radius:var(--radius-md);box-shadow:var(--shadow-sm);width:100%}
+
+  /* 3枚カード画像・フェーズ画像 */
+  .sz-cards3{display:grid;grid-template-columns:1fr;gap:14px;margin-top:26px}
+  .sz-cards3 img{border-radius:var(--radius-md);box-shadow:var(--shadow-sm);background:#fff;width:100%}
+  .sz-phaseimgs{display:flex;flex-direction:column;gap:16px;margin-top:24px}
+  .sz-phaseimgs img{border-radius:var(--radius-md);box-shadow:var(--shadow-sm);background:#fff;width:100%}
+
+  /* 手紙イメージ（全幅） */
+  .sz-letter img{width:100%;max-height:420px;object-fit:cover}
   .sz-tv__btn{display:inline-flex;align-items:center;gap:8px;background:var(--green-700);color:#fff;border-radius:999px;padding:12px 26px;font-weight:700;font-size:.92rem;transition:.25s}
   .sz-tv__btn:hover{background:var(--green-900);color:#fff;transform:translateY(-2px)}
 
@@ -142,13 +153,16 @@ require_once __DIR__ . '/../includes/config.php';
 
   /* お考えの方 */
   .sz-who{display:grid;grid-template-columns:1fr;gap:12px}
-  .sz-who__card{background:#fff;border:1px solid var(--cream-200);border-left:4px solid var(--sea-700);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);padding:16px 18px}
-  .sz-who__card h3{font-size:.98rem;font-weight:700;color:var(--sea-800);margin-bottom:4px}
-  .sz-who__card p{font-size:.88rem;color:var(--ink-700)}
+  .sz-who__card{background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:0 0 16px;overflow:hidden}
+  .sz-who__img{width:100%;height:170px;object-fit:cover;margin-bottom:12px}
+  .sz-who__card h3{font-size:.98rem;font-weight:700;color:var(--sea-800);margin:0 18px 4px}
+  .sz-who__card p{font-size:.88rem;color:var(--ink-700);margin:0 18px}
 
   /* 声 */
   .sz-voice{display:grid;grid-template-columns:1fr;gap:12px}
-  .sz-voice__card{background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:18px 20px}
+  .sz-voice__card{background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:0 0 18px;overflow:hidden}
+  .sz-voice__img{width:100%;height:180px;object-fit:cover;margin-bottom:12px}
+  .sz-voice__card h3,.sz-voice__card p{margin-left:20px;margin-right:20px}
   .sz-voice__card h3{font-family:var(--serif);font-size:1rem;color:var(--green-900);margin-bottom:6px}
   .sz-voice__card h3::before{content:"“";color:var(--gold);margin-right:4px;font-size:1.2rem}
   .sz-voice__card p{font-size:.88rem;color:var(--ink-700)}
@@ -181,7 +195,8 @@ require_once __DIR__ . '/../includes/config.php';
     .sz-hero{padding:64px 48px 72px}
     .sz-hero__cta{flex-direction:row}
     .sz-hero__cta>*{flex:1 1 0}
-    .sz-actors{grid-template-columns:1fr 1fr 1fr}
+    .sz-tv__shots{grid-template-columns:1fr 1fr 1fr}
+    .sz-cards3{grid-template-columns:1fr 1fr 1fr;max-width:900px}
     .sz-who{grid-template-columns:1fr 1fr;max-width:900px}
     .sz-voice{grid-template-columns:1fr 1fr;max-width:900px}
     .sz-omoi{grid-template-columns:1.2fr .8fr;max-width:980px}
@@ -207,7 +222,7 @@ require_once __DIR__ . '/../includes/config.php';
       <p class="sz-hero__lead">海洋散骨・生前契約 ─ 種類と流れ</p>
       <p class="sz-hero__note">生前契約は、利用者の死後、<br>代表遺族の申し込みをもって確定となります</p>
       <div class="sz-hero__img">
-        <img src="/assets/img/plan-goudou.jpg?v=<?= h(asset_ver()) ?>" alt="海洋散骨の献花" width="1200" height="750" fetchpriority="high">
+        <img src="images/hero-water.webp?v=<?= h(asset_ver()) ?>" alt="水面に浮かぶ花" width="2400" height="1228" fetchpriority="high">
       </div>
       <div class="sz-hero__cta">
         <a class="sz-btn-tel" href="tel:0993784650">
@@ -230,6 +245,9 @@ require_once __DIR__ . '/../includes/config.php';
       <p>近年、海洋散骨という新しい形の葬送が注目されています。</p>
       <p>海洋散骨は、故人を海へと送り出すことで、その思い出を海とともに永遠に刻むことができる儀式です。また生まれ育った故郷の馴染み深い海での散骨を望まれ、「亡き後は故郷の海での散骨」と生前に家族と話し合い決めておく方が増えております。</p>
     </div>
+    <div class="sz-keyvisual" style="margin-top:26px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md)">
+      <img src="images/keyvisual.webp?v=<?= h(asset_ver()) ?>" alt="海に行けばいつでも会える　海洋散骨を選びました ─ 残された家族に父が選んだのは、お墓を残さない選択" width="2400" height="1070" loading="lazy">
+    </div>
   </section>
 
   <!-- TV -->
@@ -237,6 +255,11 @@ require_once __DIR__ . '/../includes/config.php';
     <p class="section-eyebrow">MEDIA</p>
     <h2 class="section-title">当社の取り組みが<br>TVで放送されました</h2>
     <div class="sz-tv" style="margin-top:20px">
+      <div class="sz-tv__shots">
+        <img src="images/tv-1.webp?v=<?= h(asset_ver()) ?>" alt="TV放送：海洋散骨 体験クルーズの様子" width="1200" height="675" loading="lazy">
+        <img src="images/tv-2.webp?v=<?= h(asset_ver()) ?>" alt="TV放送：粉にした遺骨を水溶性の袋に" width="1200" height="675" loading="lazy">
+        <img src="images/tv-3.webp?v=<?= h(asset_ver()) ?>" alt="TV放送：スタッフインタビュー" width="1372" height="762" loading="lazy">
+      </div>
       <p style="font-size:.9rem;color:var(--ink-700)">海洋散骨・供養の多様化への取り組みが、テレビ番組で紹介されました。</p>
       <a class="sz-tv__btn" href="https://news.ntv.co.jp/n/fbs/category/life/fs5a5d946b5f2341e2894be034beca46e3" target="_blank" rel="noopener">
         放送内容はこちらから
@@ -251,48 +274,14 @@ require_once __DIR__ . '/../includes/config.php';
     <h2 class="section-title">生前契約から<br>海洋散骨までの流れ</h2>
     <p class="section-sub">生前契約に関わる3者の役割</p>
 
-    <div class="sz-actors">
-      <div class="sz-actor"><h3>利用者</h3><p>海洋散骨の対象になる方</p></div>
-      <div class="sz-actor"><h3>代表遺族</h3><p>利用者の死後手続きを託す方</p></div>
-      <div class="sz-actor"><h3>有限会社 縁</h3><p>海洋散骨の実施</p></div>
+    <div class="sz-diagram" style="background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:18px">
+      <img src="images/diagram-sankaku.webp?v=<?= h(asset_ver()) ?>" alt="3者の関係図：①利用者→縁 海洋散骨生前予約（費用は発生しません）②代表遺族→利用者 海洋散骨生前申込み連絡（海洋散骨費用の授受）③縁→利用者 海洋散骨生前予約 ④代表遺族→縁 利用申込者の没後、海洋散骨の申し込み ⑤料金の支払い" width="2026" height="1570" loading="lazy" style="max-width:640px;margin:0 auto">
     </div>
 
-    <div class="sz-steps">
-      <div class="sz-step">
-        <span class="sz-step__tag">STEP 1</span>
-        <h3 class="sz-step__title">利用者・代表遺族</h3>
-        <p class="sz-step__body">連名で生前契約の申込みをします。</p>
-        <p class="sz-step__docs">必要書類【海洋散骨生前申込書】</p>
-        <p class="sz-step__note">キャンセル料は 0円 です</p>
-      </div>
-      <div class="sz-step">
-        <span class="sz-step__tag">STEP 2</span>
-        <h3 class="sz-step__title">代表遺族</h3>
-        <p class="sz-step__body">利用者の死後、代表遺族は、有限会社縁へ連絡を行い、海洋散骨の申込みを行います。</p>
-        <p class="sz-step__docs">必要書類【海洋散骨申込書・火葬許可証もしくは死亡証明書等】</p>
-        <div class="sz-step__body">
-          <ul>
-            <li>海洋散骨申し込み時のサービス費用が請求金額となります</li>
-            <li>代表遺族の変更があった際は「縁」まで連絡をお願いします</li>
-          </ul>
-        </div>
-      </div>
-      <div class="sz-step">
-        <span class="sz-step__tag">STEP 3</span>
-        <h3 class="sz-step__title">有限会社 縁</h3>
-        <p class="sz-step__body">利用者の希望のプランにて海洋散骨を行います。</p>
-      </div>
-    </div>
-
-    <div class="sz-relation">
-      <h3>3者の関係（契約のしくみ）</h3>
-      <ol>
-        <li>利用者 → 縁：海洋散骨生前予約 <small>※費用は発生しません</small></li>
-        <li>代表遺族 → 利用者：海洋散骨生前申込み連絡 <small>※海洋散骨費用の授受</small></li>
-        <li>縁 → 利用者：海洋散骨生前予約の受理</li>
-        <li>代表遺族 → 縁：利用申込者の没後、海洋散骨の申し込み</li>
-        <li>代表遺族 → 縁：料金の支払い</li>
-      </ol>
+    <div class="sz-cards3">
+      <img src="images/card-step1.webp?v=<?= h(asset_ver()) ?>" alt="利用者・代表遺族：連名で生前契約の申込みをします。必要書類【海洋散骨生前申込書】キャンセル料は0円です" width="964" height="1074" loading="lazy">
+      <img src="images/card-step2.webp?v=<?= h(asset_ver()) ?>" alt="代表遺族：利用者の死後、代表遺族は有限会社縁へ連絡を行い、海洋散骨の申込みを行います。必要書類【海洋散骨申込書・火葬許可証もしくは死亡証明書等】海洋散骨申し込み時のサービス費用が請求金額となります。代表遺族の変更があった際は「縁」まで連絡をお願いします" width="968" height="1074" loading="lazy">
+      <img src="images/card-en.webp?v=<?= h(asset_ver()) ?>" alt="有限会社 縁：利用者の希望のプランにて海洋散骨を行います" width="964" height="1074" loading="lazy">
     </div>
   </section>
 
@@ -301,45 +290,10 @@ require_once __DIR__ . '/../includes/config.php';
     <p class="section-eyebrow">IMPORTANT</p>
     <h2 class="section-title">生前予約　大切なこと</h2>
 
-    <div class="sz-phase">
-      <p class="sz-phase__label">契約前</p>
-      <div class="sz-phase__box">
-        <div class="sz-phase__item">
-          <h4>伝える</h4>
-          <p>海洋散骨をしてほしいという想いを「代表遺族（予定）」となる方に伝えます。</p>
-        </div>
-        <div class="sz-phase__item">
-          <h4>話し合う</h4>
-          <p>お一人で抱えることなく、<span class="em">ご親族の皆さんで共有してください。</span></p>
-          <p class="note">※正式契約以前は、代表遺族が全ての責任を負う必要はありません。<br>※大切な情報を共有することで後にトラブルが発生することを防ぎます。</p>
-        </div>
-      </div>
-
-      <p class="sz-phase__label" style="margin-top:26px">契約</p>
-      <div class="sz-phase__box">
-        <div class="sz-phase__item">
-          <h4>結ぶ</h4>
-          <p>申込書を有限会社縁にて受理します。</p>
-          <p class="note">※この段階では有限会社縁からの請求は発生いたしません。</p>
-        </div>
-        <div class="sz-phase__item">
-          <h4>託す</h4>
-          <p>海洋散骨への想いが確定したら代表遺族となる予定の方に必要費用を託します。</p>
-        </div>
-      </div>
-
-      <p class="sz-phase__label" style="margin-top:26px">契約後</p>
-      <div class="sz-phase__box">
-        <div class="sz-phase__item">
-          <h4>見直す</h4>
-          <p>申込書を有限会社縁にて受理します。</p>
-          <p class="note">※この段階では有限会社縁からの請求は発生いたしません。</p>
-        </div>
-        <div class="sz-phase__item">
-          <h4>叶える</h4>
-          <p>海洋散骨への想いが確定したら代表遺族となる予定の方に必要費用を託します。</p>
-        </div>
-      </div>
+    <div class="sz-phaseimgs">
+      <img src="images/phase-pre.webp?v=<?= h(asset_ver()) ?>" alt="契約前｜伝える：海洋散骨をしてほしいという想いを「代表遺族（予定）」となる方に伝えます。話し合う：お一人で抱えることなく、ご親族の皆さんで共有してください。※正式契約以前は、代表遺族が全ての責任を負う必要はありません。※大切な情報を共有することで後にトラブルが発生することを防ぎます。" width="2400" height="996" loading="lazy">
+      <img src="images/phase-keiyaku.webp?v=<?= h(asset_ver()) ?>" alt="契約｜結ぶ：申込書を有限会社縁にて受理します。※この段階では有限会社縁からの請求は発生いたしません。託す：海洋散骨への想いが確定したら代表遺族となる予定の方に必要費用を託します。" width="2400" height="981" loading="lazy">
+      <img src="images/phase-post.webp?v=<?= h(asset_ver()) ?>" alt="契約後｜見直す・叶える" width="2400" height="977" loading="lazy">
     </div>
   </section>
 
@@ -348,54 +302,8 @@ require_once __DIR__ . '/../includes/config.php';
     <p class="section-eyebrow">AFTER</p>
     <h2 class="section-title">〜利用者が亡くなった後〜<br>海洋散骨までの流れ</h2>
 
-    <div class="sz-steps" style="margin-top:24px">
-      <div class="sz-step">
-        <span class="sz-step__tag">1．ご連絡</span>
-        <h3 class="sz-step__title">利用者のご訃報を有限会社縁に伝える</h3>
-        <p class="sz-step__note">※海洋散骨を希望される時期の連絡でも可</p>
-        <p class="sz-step__body" style="margin-top:6px;font-weight:700">TEL:0993-78-4650</p>
-      </div>
-      <div class="sz-step">
-        <span class="sz-step__tag">2．日程調整</span>
-        <h3 class="sz-step__title">利用者様の海洋散骨を行う時期を決めます</h3>
-        <div class="sz-step__body">
-          例えば
-          <ul>
-            <li>故人の没後、すぐに</li>
-            <li>しばらくご自宅にて手元供養をしてから</li>
-            <li>〇回忌まではお寺やお墓に納骨してから　など</li>
-          </ul>
-        </div>
-      </div>
-      <div class="sz-step">
-        <span class="sz-step__tag">3．申し込み</span>
-        <h3 class="sz-step__title">海洋散骨の正式申し込み</h3>
-        <div class="sz-step__body">
-          料金の支払い
-          <ul>
-            <li>※散骨ご希望の時期に海洋葬申込みとなります。</li>
-            <li>※海洋散骨の申込み時の料金を代表遺族がお支払い</li>
-          </ul>
-        </div>
-      </div>
-      <div class="sz-step">
-        <span class="sz-step__tag">4．預ける</span>
-        <h3 class="sz-step__title">ご遺骨のお預かり</h3>
-        <div class="sz-step__body">
-          お預かりの方法
-          <ul>
-            <li>郵送</li>
-            <li>お持ち込み</li>
-            <li>出張預かり（費用別途）</li>
-          </ul>
-        </div>
-      </div>
-      <div class="sz-step">
-        <span class="sz-step__tag">5．海洋散骨</span>
-        <h3 class="sz-step__title">実施前連絡・海洋散骨当日</h3>
-        <p class="sz-step__body">天候による出航可否判断を出航2日前に連絡します。</p>
-        <p class="sz-step__cert"><strong>海洋散骨証明書発行</strong>　緯度・経度が記載された海洋散骨証明書を発行します</p>
-      </div>
+    <div class="sz-flowimg" style="margin-top:24px;background:#fff;border:1px solid var(--cream-200);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:18px">
+      <img src="images/flow-after.webp?v=<?= h(asset_ver()) ?>" alt="ご連絡：利用者のご訃報を有限会社縁に伝える（※海洋散骨を希望される時期の連絡でも可 TEL:0993-78-4650）→ 日程調整：利用者様の海洋散骨を行う時期を決めます（例えば、故人の没後すぐに／しばらくご自宅にて手元供養をしてから／〇回忌まではお寺やお墓に納骨してから など）→ 申し込み：海洋散骨の正式申し込み・料金の支払い（※散骨ご希望の時期に海洋葬申込みとなります。※海洋散骨の申込み時の料金を代表遺族がお支払い）→ 預ける：ご遺骨のお預かり（郵送・お持ち込み・出張預かり（費用別途））→ 海洋散骨：実施前連絡・海洋散骨当日（天候による出航可否判断を出航2日前に連絡します）海洋散骨証明書発行：緯度・経度が記載された海洋散骨証明書を発行します" width="2400" height="2291" loading="lazy" style="max-width:720px;margin:0 auto">
     </div>
   </section>
 
@@ -410,10 +318,15 @@ require_once __DIR__ . '/../includes/config.php';
         <p>これにより、「供養」や「納骨」に関する不安を解消し、死後も自身の希望が叶うことへの望みを感じ、安らかな日々をお過ごしいただけるお手伝いをさせていただけたら幸いです。皆様が安心して大切な毎日を過ごせるよう、サポートを続けてまいります。</p>
       </div>
       <div class="sz-omoi__img">
-        <img src="/assets/img/hero-kaiyou-sou.jpg?v=<?= h(asset_ver()) ?>" alt="海洋散骨の様子" loading="lazy" width="1600" height="700">
+        <img src="images/omoi-boat.webp?v=<?= h(asset_ver()) ?>" alt="船上から海を見つめるスタッフ" loading="lazy" width="2400" height="1600">
       </div>
     </div>
   </section>
+
+  <!-- 手紙イメージ -->
+  <div class="sz-letter">
+    <img src="images/letter.webp?v=<?= h(asset_ver()) ?>" alt="故人への手書きの手紙を読む様子" loading="lazy" width="1200" height="800">
+  </div>
 
   <!-- このようなお考えの方 -->
   <section class="section">
@@ -421,18 +334,22 @@ require_once __DIR__ . '/../includes/config.php';
     <h2 class="section-title">〜このようなお考えの方が<br>ご利用されております〜</h2>
     <div class="sz-who" style="margin-top:22px">
       <div class="sz-who__card">
+        <img class="sz-who__img" src="images/who-kazoku.webp?v=<?= h(asset_ver()) ?>" alt="リビングでくつろぐ三世代家族" loading="lazy" width="2400" height="1602">
         <h3>家族に安心してもらいたい方</h3>
         <p>死後、家族が納骨や葬儀に関する判断で悩まないよう、事前に決めておくことで穏やかな気持ちで過ごせます。</p>
       </div>
       <div class="sz-who__card">
+        <img class="sz-who__img" src="images/who-ishi.webp?v=<?= h(asset_ver()) ?>" alt="資料を見ながら話し合うご夫婦" loading="lazy" width="2400" height="1350">
         <h3>ご自身の意思や希望をお持ちの方</h3>
         <p>自分が望む場所や方法で納骨されたいという強い希望があり、その意思をしっかり伝えることで、不安なく過ごすことができます。</p>
       </div>
       <div class="sz-who__card">
+        <img class="sz-who__img" src="images/who-anshin.webp?v=<?= h(asset_ver()) ?>" alt="愛犬とソファでくつろぐご夫婦" loading="lazy" width="2400" height="1600">
         <h3>安心感を得たい方</h3>
         <p>自分の最期がどのように扱われるかを明確にすることで、精神的な安心感や心の平穏を得ることができます。</p>
       </div>
       <div class="sz-who__card">
+        <img class="sz-who__img" src="images/who-kizuna.webp?v=<?= h(asset_ver()) ?>" alt="夕日の海辺を歩く家族" loading="lazy" width="2400" height="1600">
         <h3>家族との絆を感じたい方</h3>
         <p>ご自身の家族が海洋散骨をされたので、と同じ場所に散骨したいと希望される方。</p>
       </div>
@@ -445,10 +362,12 @@ require_once __DIR__ . '/../includes/config.php';
     <h2 class="section-title">ご利用者の声</h2>
     <div class="sz-voice" style="margin-top:22px">
       <div class="sz-voice__card">
+        <img class="sz-voice__img" src="images/voice-fisher.webp?v=<?= h(asset_ver()) ?>" alt="海辺で釣りをする人" loading="lazy" width="2400" height="1601">
         <h3>自分らしい納骨をお願いできて安心です</h3>
         <p>釣りが好きな私は、自身が亡くなった後は、海洋散骨をしてほしいと、こだわりがあるので、生前にしっかりと話し合って決めておけるのは大きな安心です。自分の希望通りに送ってもらえることが何より嬉しいです。</p>
       </div>
       <div class="sz-voice__card">
+        <img class="sz-voice__img" src="images/voice-sakura.webp?v=<?= h(asset_ver()) ?>" alt="桜の下を歩くご夫婦" loading="lazy" width="2400" height="1602">
         <h3>準備を済ませたことで心が軽くなりました</h3>
         <p>自分の最期について事前に準備を進めておくことで、漠然とした不安が消えて、気持ちが落ち着きました。これで毎日を安心して過ごせます。</p>
       </div>
