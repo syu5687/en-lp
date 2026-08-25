@@ -69,16 +69,18 @@ require_once __DIR__ . '/../includes/config.php';
   .sz .wave{display:block;margin:0 auto 14px;width:120px;height:14px;color:var(--sea-700)}
 
   /* Hero */
-  .sz-hero{background:linear-gradient(180deg,var(--sea-100),var(--cream-50));padding:44px 20px 52px}
+  .sz-hero{background:var(--cream-50);padding:0 20px 52px}
   .sz-hero__inner{max-width:1160px;margin:0 auto}
-  .sz-hero__eyebrow{font-size:11px;letter-spacing:.3em;color:var(--sea-700);font-weight:700;text-align:center}
-  .sz-hero__title{font-family:var(--serif);font-size:clamp(1.5rem,4.5vw,2.3rem);font-weight:700;color:var(--green-900);text-align:center;line-height:1.6;margin:12px 0 6px}
-  .sz-hero__title em{font-style:normal;color:var(--sea-700)}
-  .sz-hero__lead{text-align:center;font-family:var(--serif);font-size:1.02rem;color:var(--ink-700);margin-bottom:18px}
+  /* メインビジュアル：画面横いっぱい＋キャッチコピーを画像上に重ねる */
+  .sz-hero__visual{position:relative;width:100vw;margin:0 calc(50% - 50vw) 26px;overflow:hidden}
+  .sz-hero__visual>img{width:100%;height:clamp(340px,46vw,600px);object-fit:cover;display:block}
+  .sz-hero__visual::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,56,82,.30) 0%,rgba(10,56,82,.12) 45%,rgba(10,56,82,.34) 100%);pointer-events:none}
+  .sz-hero__copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;z-index:1}
+  .sz-hero__eyebrow{font-size:11px;letter-spacing:.3em;color:var(--gold-light);font-weight:700;text-shadow:0 1px 8px rgba(10,56,82,.5)}
+  .sz-hero__title{font-family:var(--serif);font-size:clamp(1.45rem,4.5vw,2.5rem);font-weight:700;color:#fff;line-height:1.6;margin:12px 0 8px;text-shadow:0 2px 16px rgba(10,56,82,.55)}
+  .sz-hero__title em{font-style:normal;color:#fff;border-bottom:3px solid var(--gold-light);padding-bottom:2px}
+  .sz-hero__lead{font-family:var(--serif);font-size:clamp(.9rem,1.6vw,1.05rem);color:rgba(255,255,255,.92);text-shadow:0 1px 10px rgba(10,56,82,.5)}
   .sz-hero__note{max-width:560px;margin:0 auto 26px;background:#fff;border:1px solid var(--cream-200);border-left:4px solid var(--gold);border-radius:var(--radius-sm);padding:12px 16px;font-size:.88rem;color:var(--ink-700);text-align:center}
-  /* メインビジュアル：画面横いっぱい（フルブリード） */
-  .sz-hero__img{max-width:none;width:100vw;margin:0 calc(50% - 50vw) 28px;border-radius:0;overflow:hidden;box-shadow:none}
-  .sz-hero__img img{width:100%;height:clamp(280px,42vw,560px);object-fit:cover}
   /* キービジュアル：画面横いっぱい（文字入りのためトリミングなし） */
   .sz .section>.sz-keyvisual{max-width:none;width:100vw;margin:26px calc(50% - 50vw) 0;border-radius:0;overflow:hidden;box-shadow:none}
   .sz-keyvisual img{width:100%}
@@ -221,14 +223,16 @@ require_once __DIR__ . '/../includes/config.php';
 
   <!-- Hero -->
   <section class="sz-hero">
-    <div class="sz-hero__inner">
-      <p class="sz-hero__eyebrow">SEIZEN KEIYAKU ─ 生前の希望を叶えるために</p>
-      <h1 class="sz-hero__title">「海洋散骨をしたい」という想いを託す<br><em>海洋散骨 生前契約</em></h1>
-      <p class="sz-hero__lead">海洋散骨・生前契約 ─ 種類と流れ</p>
-      <p class="sz-hero__note">生前契約は、利用者の死後、<br>代表遺族の申し込みをもって確定となります</p>
-      <div class="sz-hero__img">
-        <img src="images/hero-water.webp?v=<?= h(asset_ver()) ?>" alt="水面に浮かぶ花" width="2400" height="1228" fetchpriority="high">
+    <div class="sz-hero__visual">
+      <img src="images/hero-water.webp?v=<?= h(asset_ver()) ?>" alt="水面に浮かぶ花" width="2400" height="1228" fetchpriority="high">
+      <div class="sz-hero__copy">
+        <p class="sz-hero__eyebrow">SEIZEN KEIYAKU ─ 生前の希望を叶えるために</p>
+        <h1 class="sz-hero__title">「海洋散骨をしたい」という想いを託す<br><em>海洋散骨 生前契約</em></h1>
+        <p class="sz-hero__lead">海洋散骨・生前契約 ─ 種類と流れ</p>
       </div>
+    </div>
+    <div class="sz-hero__inner">
+      <p class="sz-hero__note">生前契約は、利用者の死後、<br>代表遺族の申し込みをもって確定となります</p>
       <div class="sz-hero__cta">
         <a class="sz-btn-tel" href="tel:0993784650">
           <span class="lbl">お電話で相談</span>
