@@ -12,6 +12,8 @@ $groups = [
     'items' => [
       ['title'=>'海洋葬（海洋散骨）', 'href'=>'/kaiyou-sou/', 'img'=>'/assets/img/svc-kaiyou.jpg', 'desc'=>'海洋散骨は、亡くなられた方のご遺骨を母なる海へ還すこと。弊社は一般社団法人海洋散骨協会に加盟しており、協会で取り決められた節度あるルールのもと、海洋葬として執り行っております。'],
       ['title'=>'庭苑葬（樹木葬）', 'href'=>'/teien-sou/', 'img'=>'/assets/img/hero-teien-sou.jpg', 'desc'=>'自然葬の中で樹木葬を選ばれる方も増えています。弊社では“庭苑葬”として、美しい草花に囲まれて眠る新しいスタイルをご提案。従来の家墓はもちろん、お一人様・お二人様の個別墓や永代供養墓もご用意しています。'],
+      ['title'=>'てらうみ', 'href'=>'https://www.teraumi.com', 'external'=>true, 'img'=>'/assets/img/plan-goudou.jpg', 'desc'=>'「お寺に納骨」＆「海へ散骨」の新しい供養のカタチ。粉骨したご遺骨の一部を寺院の納骨堂に納め、いつでもお参りできるようにしながら、残りのご遺骨を海へ散骨し自然に還します。福岡・熊本・鹿児島で展開しています。', 'cta'=>'公式サイトを見る'],
+      ['title'=>'生前契約', 'href'=>'https://lp.en1150.co.jp/seizen', 'external'=>true, 'img'=>'/assets/img/hero-shindan.jpg', 'desc'=>'「海洋散骨をしたい」という想いを、お元気なうちに契約して託すサービスです。生前にご希望を形にしておくことで、ご自身の意思に沿った供養が実現でき、ご家族の負担も軽くなります。', 'cta'=>'詳しく見る'],
     ],
   ],
   [
@@ -90,7 +92,7 @@ require __DIR__ . '/../includes/head.php';
         <div class="svc-group__head"><h2><?= h($g['heading']) ?></h2></div>
         <div class="card-grid">
           <?php foreach ($g['items'] as $it): ?>
-            <a class="svc-card" href="<?= h($it['href']) ?>">
+            <a class="svc-card" href="<?= h($it['href']) ?>"<?= !empty($it['external']) ? ' target="_blank" rel="noopener"' : '' ?>>
               <?php if (!empty($it['img'])): ?>
                 <span class="svc-card__img"><img src="<?= h($it['img']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($it['title']) ?>" loading="lazy"></span>
               <?php endif; ?>
