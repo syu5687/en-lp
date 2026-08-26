@@ -32,6 +32,10 @@ require __DIR__ . '/../includes/head.php';
     <div id="form-msg" role="status" aria-live="polite"></div>
 
     <form id="contact-form" class="contact-form" novalidate>
+      <!-- ハニーポット（人間には見えない欄。ボットが入力したら弾く） -->
+      <div class="hp-field" aria-hidden="true">
+        <label>ウェブサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
       <label>お名前 <span class="req">必須</span>
         <input type="text" name="name" required>
       </label>
@@ -81,10 +85,12 @@ require __DIR__ . '/../includes/head.php';
 #form-msg:not(:empty){padding:14px;border-radius:8px;margin-bottom:20px;font-size:.95rem}
 #form-msg.ok{background:#e8f5e9;color:#2e7d32}
 #form-msg.ng{background:#fdecea;color:#c0392b}
+.hp-field{position:absolute !important;left:-9999px !important;top:-9999px !important;height:1px;width:1px;overflow:hidden}
 </style>
 
 <script>
 const WORKER_URL = <?= json_encode(CONTACT_WORKER_URL) ?>;
+const PAGE_LOADED_AT = Date.now();
 const form = document.getElementById('contact-form');
 const msg  = document.getElementById('form-msg');
 const btn  = document.getElementById('submit-btn');
@@ -122,6 +128,7 @@ form.addEventListener('submit', async (e) => {
   }
   data.source = location.href;
   data.formName = 'en1150.co.jp お問い合わせフォーム';
+  data.elapsedMs = Date.now() - PAGE_LOADED_AT; // 表示から送信までの時間（ボット判定用）
   if (shindanService) data.shindan = shindanService; // 診断結果を通知メールにも記載
   btn.disabled = true; btn.textContent = '送信中…';
   try {

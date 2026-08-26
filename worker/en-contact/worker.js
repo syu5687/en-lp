@@ -1,5 +1,5 @@
 /**
- * @version v0002 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker | Cloudflare Workers
+ * @version v0003 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（ボット対策追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -53,7 +53,18 @@ export default {
 
     try {
       if (!env.BREVO_API_KEY) return json({ ok: false, error: "BREVO_API_KEY 未設定" }, 500);
+
+      // ---- ボット・不正送信対策 ----
+      // ① Origin必須＋許可リスト一致（Originを送らない直接POSTや他サイトからの送信を拒否）
+      if (!CONFIG.ALLOWED_ORIGINS.includes(origin)) return json({ ok: false, error: "forbidden origin" }, 403);
       const d = await request.json();
+      // ② ハニーポット：見えない欄に入力があればボット（本物っぽく応答して静かに破棄）
+      if (d.website) return json({ ok: true });
+      // ③ 表示から3秒未満の即時送信はボットとみなす
+      if (typeof d.elapsedMs === "number" && d.elapsedMs < 3000) return json({ ok: true });
+      // ④ 内容の異常な長さを拒否（緩い上限）
+      if (String(d.message || "").length > 8000 || String(d.name || "").length > 100) return json({ ok: false, error: "too long" }, 400);
+
       for (const k of CONFIG.REQUIRED) if (!d[k]) return json({ ok: false, error: `missing ${k}` }, 400);
 
       const esc = (s) => String(s ?? "").replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
