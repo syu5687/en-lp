@@ -28,6 +28,18 @@ require __DIR__ . '/../includes/head.php';
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ お客様の声</nav>
 
 <main class="section">
+  <div class="container" style="max-width:820px;margin-bottom:34px">
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 26px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between">
+      <div>
+        <p style="font-weight:700;margin-bottom:4px">Googleの口コミでも高い評価をいただいています</p>
+        <p style="font-size:1.4rem;font-weight:700;color:#f4b400">★ 4.9 <span style="font-size:.85rem;color:var(--text-light);font-weight:400">（Googleビジネスプロフィール）</span></p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="https://maps.google.com/?cid=2494401172745547436" target="_blank" rel="noopener" class="btn btn--outline" style="font-size:.9rem">Googleで口コミを見る</a>
+        <a href="https://g.page/r/Cazu0JSm5J0iEBM/review" target="_blank" rel="noopener" class="btn" style="font-size:.9rem">口コミを書く</a>
+      </div>
+    </div>
+  </div>
   <div class="container" style="max-width:900px">
     <div class="card-grid">
       <?php foreach ($voices as $v): ?>
