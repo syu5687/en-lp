@@ -24,7 +24,6 @@
   # 統合・名称変更されたページ
   RewriteRule ^powder/?$                 /powder-cleaning/ [R=301,L]
   RewriteRule ^cleaning/?$               /powder-cleaning/ [R=301,L]
-  RewriteRule ^about/?$                  /powder-cleaning/ [R=301,L]
   RewriteRule ^retaliation/?$            /temoto-kuyou/    [R=301,L]
   RewriteRule ^retaliation-accessory/?$  /temoto-kuyou/    [R=301,L]
   RewriteRule ^shizen-sou/?$             /kaiyou-sou/      [R=301,L]

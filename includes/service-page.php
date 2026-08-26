@@ -106,6 +106,21 @@ require __DIR__ . '/head.php';
   </section>
   <?php endif; ?>
 
+  <?php if (!empty($service['gallery'])): ?>
+  <section class="section">
+    <div class="container" style="max-width:960px">
+      <h2 class="section-title">作品例</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px">
+        <?php foreach ($service['gallery'] as $g): ?>
+          <img src="<?= h($g['src']) ?>" alt="<?= h($g['alt']) ?>" loading="lazy"
+               style="width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)">
+        <?php endforeach; ?>
+      </div>
+      <?php if (!empty($service['gallery_note'])): ?><p style="text-align:center;margin-top:14px;font-size:.88rem;color:var(--text-light)"><?= h($service['gallery_note']) ?></p><?php endif; ?>
+    </div>
+  </section>
+  <?php endif; ?>
+
   <?php if (!empty($service['flow'])): ?>
   <section class="section" style="background:var(--white)">
     <div class="container" style="max-width:820px">

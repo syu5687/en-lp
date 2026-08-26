@@ -152,3 +152,8 @@ details[open] summary{margin-bottom:8px}
   .sticky-cta{display:flex}
   body{padding-bottom:52px}
 }
+
+/* Instagramリンク（ヘッダー） */
+.site-nav__insta a{color:#fff;opacity:.9}
+.site-nav__insta a:hover{opacity:1}
+@media(min-width:769px){ .site-nav__insta-label{display:none} }
