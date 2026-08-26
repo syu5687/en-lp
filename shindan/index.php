@@ -147,17 +147,18 @@ require __DIR__ . '/../includes/head.php';
 
   function renderResult(slug,alt){
     var s=SV[slug];
+    var contactUrl='/contact/?service='+encodeURIComponent(s.name)+'&from=shindan';
     var h='<p class="sd-result-label">あなたにおすすめのご供養</p>';
     h+='<h2 class="sd-result-name">'+esc(s.name)+'</h2>';
     h+='<p class="sd-result-lead">'+esc(s.lead)+'</p>';
-    h+='<div class="sd-result-actions"><a href="'+s.href+'" class="btn">詳しく見る</a><a href="/contact/" class="btn btn--outline">このご供養を相談する</a></div>';
+    h+='<div class="sd-result-actions"><a href="'+s.href+'" class="btn">詳しく見る</a><a href="'+contactUrl+'" class="btn btn--outline">このご供養を相談する</a></div>';
     if(alt&&alt.length){
       h+='<div class="sd-alt"><h4>あわせて検討される方が多いご供養</h4><div class="sd-alt-list">';
       alt.forEach(function(a){ if(SV[a]) h+='<a href="'+SV[a].href+'">'+esc(SV[a].name)+'</a>'; });
       h+='</div></div>';
     }
     h+='<p class="sd-reassure">「これで合っているのかな」と迷われても大丈夫です。ご家族それぞれに事情や想いがあります。専門のスタッフが、おひとりおひとりのお気持ちに合わせて、いちばん安心できるご供養を一緒に考えます。宗教・宗派は問いません。</p>';
-    h+='<div class="sd-contact"><h3>まずはお気軽にご相談ください</h3><p>ご相談・お見積りは無料です。しつこい勧誘は一切いたしません。</p><div class="btns"><a href="/contact/" class="btn" style="background:#fff;color:var(--green-mid)">お問い合わせフォーム</a><a href="'+SITE_LINE+'" target="_blank" rel="noopener" class="btn" style="background:#06C755">LINEで相談</a></div><a href="tel:'+SITE_TEL+'" class="sd-tel">'+SITE_TEL+'</a></div>';
+    h+='<div class="sd-contact"><h3>まずはお気軽にご相談ください</h3><p>ご相談・お見積りは無料です。しつこい勧誘は一切いたしません。</p><div class="btns"><a href="'+contactUrl+'" class="btn" style="background:#fff;color:var(--green-mid)">お問い合わせフォーム</a><a href="'+SITE_LINE+'" target="_blank" rel="noopener" class="btn" style="background:#06C755">LINEで相談</a></div><a href="tel:'+SITE_TEL+'" class="sd-tel">'+SITE_TEL+'</a></div>';
     h+='<div style="text-align:center"><button class="sd-back" data-restart="1">↺ もう一度診断する</button></div>';
     quiz.innerHTML=h;
     var r=quiz.querySelector('[data-restart]');

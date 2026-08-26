@@ -1,5 +1,5 @@
 /**
- * @version v0001 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker | Cloudflare Workers
+ * @version v0002 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -30,7 +30,7 @@ var CONFIG = {
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", category: "お問い合わせ種別" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", category: "お問い合わせ種別", shindan: "診断結果（供養の選び方）" },
   REQUIRED: ["name", "email", "message"]  // 最低限の必須チェック
 };
 

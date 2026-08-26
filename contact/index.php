@@ -25,6 +25,10 @@ require __DIR__ . '/../includes/head.php';
 
     <h2>フォームからのお問い合わせ</h2>
 
+    <div id="shindan-note" hidden style="background:var(--sea-light);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.92rem">
+      「供養の選び方」診断の結果：<strong id="shindan-service" style="color:var(--green-mid)"></strong> についてのご相談ですね。<br>下記フォームにそのまま入力してお送りください。
+    </div>
+
     <div id="form-msg" role="status" aria-live="polite"></div>
 
     <form id="contact-form" class="contact-form" novalidate>
@@ -69,7 +73,7 @@ require __DIR__ . '/../includes/head.php';
 .contact-form{display:flex;flex-direction:column;gap:18px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
 .contact-form label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
 .contact-form input,.contact-form select,.contact-form textarea{padding:12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-family:inherit}
-.contact-form .req{display:inline-block;background:var(--green);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:6px}
+.contact-form .req{display:inline-block;background:var(--green);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:6px;align-self:flex-start}
 .contact-consent{flex-direction:row!important;align-items:center;justify-content:center;gap:10px;font-weight:400!important}
 .contact-consent input[type=checkbox]{width:18px;height:18px;padding:0!important;margin:0;flex:none;accent-color:var(--green)}
 .contact-consent span{white-space:nowrap}
@@ -84,6 +88,28 @@ const WORKER_URL = <?= json_encode(CONTACT_WORKER_URL) ?>;
 const form = document.getElementById('contact-form');
 const msg  = document.getElementById('form-msg');
 const btn  = document.getElementById('submit-btn');
+
+// 「供養の選び方」診断からの遷移：選択したご供養を表示し、種別に自動セット
+let shindanService = '';
+(function () {
+  const params = new URLSearchParams(location.search);
+  const svc = (params.get('service') || '').trim();
+  if (!svc) return;
+  shindanService = svc;
+  // お知らせバナー
+  const note = document.getElementById('shindan-note');
+  document.getElementById('shindan-service').textContent = svc;
+  note.hidden = false;
+  // 種別セレクトに反映（一致する選択肢がなければ追加して選択）
+  const sel = form.querySelector('select[name="category"]');
+  let opt = [...sel.options].find(o => o.value === svc)
+         || [...sel.options].find(o => o.value && (svc.indexOf(o.value) === 0 || o.value.indexOf(svc) === 0));
+  if (!opt) {
+    opt = new Option(svc, svc);
+    sel.insertBefore(opt, sel.querySelector('option[value="その他"]'));
+  }
+  sel.value = opt.value;
+})();
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.className = ''; msg.textContent = '';
@@ -96,6 +122,7 @@ form.addEventListener('submit', async (e) => {
   }
   data.source = location.href;
   data.formName = 'en1150.co.jp お問い合わせフォーム';
+  if (shindanService) data.shindan = shindanService; // 診断結果を通知メールにも記載
   btn.disabled = true; btn.textContent = '送信中…';
   try {
     const res = await fetch(WORKER_URL, {

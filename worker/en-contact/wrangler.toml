@@ -1,4 +1,4 @@
-# @version v0002 | 2026-08-26 | en1150.co.jp お問い合わせフォームWorker
+# @version v0003 | 2026-08-26 | en1150.co.jp お問い合わせフォームWorker
 name = "en-contact"             # → https://en-contact.mk-cbe.workers.dev
 main = "worker.js"
 compatibility_date = "2026-08-01"
@@ -6,8 +6,6 @@ compatibility_date = "2026-08-01"
 # 通知先・送信元は worker.js 冒頭の CONFIG で管理（vars 不要）。
 # 秘密情報： npx wrangler secret put BREVO_API_KEY
 
-# 稼働確認Cronは未設定（Workers Freeのアカウント上限5個に達しているため）。
-# 他Workerの稼働確認メールが毎日届いていれば Brevo 側の異常は検知できる。
-# 有料プランにした場合は以下を有効化：
-# [triggers]
-# crons = ["0 0 * * *"]
+# 毎日の稼働確認メール（UTC 00:00 = 日本時間 09:00）。Workers Paidプランで有効。
+[triggers]
+crons = ["0 0 * * *"]
