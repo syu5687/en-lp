@@ -47,6 +47,7 @@ $is_new = empty($item);
 <main class="admin-main">
   <h1><?= $is_new ? '新規作成' : '記事を編集' ?></h1>
   <form method="post" action="/admin/news/save.php" class="admin-form">
+    <?= csrf_field() ?>
     <input type="hidden" name="id" value="<?= htmlspecialchars($item['id'] ?? '') ?>">
     <label>日付<input type="date" name="date" value="<?= htmlspecialchars($item['date'] ?? date('Y-m-d')) ?>" required></label>
     <fieldset class="admin-cats">
@@ -113,6 +114,7 @@ $is_new = empty($item);
   </form>
 </main>
 
+<script>var EN_CSRF = '<?= h(csrf_token()) ?>';</script>
 <script>
 (function () {
   var list   = document.getElementById('img-list');
@@ -176,7 +178,7 @@ $is_new = empty($item);
         var f  = await shrink(files[i]);
         var fd = new FormData();
         fd.append('file', f, f.name);
-        var r = await fetch('/admin/upload.php', { method: 'POST', body: fd });
+        var r = await fetch('/admin/upload.php', { method: 'POST', body: fd, headers: { 'X-CSRF-Token': EN_CSRF } });
         var j = await r.json();
         if (j.ok) list.appendChild(makeTile(j.url));
         else alert(files[i].name + '：' + (j.error || 'アップロードに失敗しました'));
@@ -226,7 +228,7 @@ $is_new = empty($item);
         var f  = await shrinkFile(file);
         var fd = new FormData();
         fd.append('file', f, f.name);
-        var r = await fetch('/admin/upload.php', { method: 'POST', body: fd });
+        var r = await fetch('/admin/upload.php', { method: 'POST', body: fd, headers: { 'X-CSRF-Token': EN_CSRF } });
         var j = await r.json();
         if (!j.ok) { alert(j.error || '画像のアップロードに失敗しました'); return; }
         var range = q.getSelection(true);

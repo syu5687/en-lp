@@ -68,6 +68,7 @@ if (!empty($_GET['edit'])) {
   <?php if ($fs_error): ?><p class="gd-msg" style="background:#fdecea;color:#c0392b">データ取得エラー: <?= h($fs_error) ?></p><?php endif; ?>
 
   <form method="post" class="gd-form">
+    <?= csrf_field() ?>
     <h2 style="font-size:1rem"><?= $edit ? '開催日を編集' : '開催日を追加' ?></h2>
     <input type="hidden" name="id" value="<?= h($edit['id'] ?? '') ?>">
     <label>開催日（必須）
@@ -108,6 +109,7 @@ if (!empty($_GET['edit'])) {
         <td style="white-space:nowrap">
           <a href="?edit=<?= h(rawurlencode($it['id'] ?? '')) ?>">編集</a>
           <form method="post" style="display:inline" onsubmit="return confirm('この開催日を削除しますか？');">
+            <?= csrf_field() ?>
             <input type="hidden" name="delete_id" value="<?= h($it['id'] ?? '') ?>">
             <button type="submit" style="background:none;border:0;color:#c0392b;cursor:pointer;padding:0;font-size:inherit;font-family:inherit">削除</button>
           </form>

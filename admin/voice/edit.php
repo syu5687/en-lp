@@ -19,6 +19,7 @@ $is_new = empty($item);
 <main class="admin-main">
   <h1><?= $is_new ? '新規作成' : 'お客様の声を編集' ?></h1>
   <form method="post" action="/admin/voice/save.php" class="admin-form">
+    <?= csrf_field() ?>
     <input type="hidden" name="id" value="<?= htmlspecialchars($item['id'] ?? '') ?>">
     <label>日付<input type="date" name="date" value="<?= htmlspecialchars($item['date'] ?? date('Y-m-d')) ?>" required></label>
     <label>ご依頼内容（サービス）<input type="text" name="service" value="<?= htmlspecialchars($item['service'] ?? '') ?>" placeholder="例：委託海洋葬"></label>
