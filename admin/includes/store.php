@@ -113,3 +113,24 @@ function goudou_upcoming(): array {
   return array_values(array_filter(goudou_all(),
     fn($i) => !empty($i['published']) && (($i['date'] ?? '') >= $today)));
 }
+
+/* ===== お問い合わせ受信（inquiries） ===== */
+const INQUIRIES_COLLECTION = 'inquiries';
+
+/** 受信内容を1件保存（/api/inquiry-log.php から使用） */
+function inquiry_add(array $item): bool {
+  $id = 'inq' . date('YmdHis') . '-' . bin2hex(random_bytes(3));
+  $res = fs_request(
+    'PATCH',
+    'documents/' . INQUIRIES_COLLECTION . '/' . rawurlencode($id),
+    ['fields' => fs_to_fields($item)]
+  );
+  return empty($res['error']);
+}
+
+/** 全受信（受信日時の降順） */
+function inquiries_all(): array {
+  $items = array_map('fs_from_doc', fs_list_all(INQUIRIES_COLLECTION));
+  usort($items, fn($a, $b) => strcmp($b['received_at'] ?? '', $a['received_at'] ?? ''));
+  return $items;
+}

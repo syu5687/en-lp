@@ -30,6 +30,10 @@ try { $voice_count = count(voices_all()); } catch (Throwable $e) { $voice_count 
       <span class="admin-card__label">合同散骨 実施予定日</span>
       <span class="admin-card__num">編集 →</span>
     </a>
+    <a class="admin-card" href="/admin/inquiries/">
+      <span class="admin-card__label">お問い合わせ受信・解析</span>
+      <span class="admin-card__num">表示 →</span>
+    </a>
     <a class="admin-card" href="/admin/analytics/">
       <span class="admin-card__label">アクセス解析</span>
       <span class="admin-card__num">表示 →</span>

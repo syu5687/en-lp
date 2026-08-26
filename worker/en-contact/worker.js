@@ -1,5 +1,5 @@
 /**
- * @version v0007 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（合同海洋散骨ご希望日欄を追加） | Cloudflare Workers
+ * @version v0008 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（受信内容のDB保存連携・任意属性欄を追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -24,20 +24,43 @@ var CONFIG = {
   AUTO_REPLY_SUBJECT: "【有限会社 縁】お問い合わせを承りました",
   AUTO_REPLY_NOTE: "※このメールは自動送信用メールアドレスです。返信はできません。お急ぎの場合はお電話（099-801-3637）でご連絡ください。",
   BREVO_LIST_ID: null,                    // コンタクト登録する場合のみリストID
+  LOG_URL: "https://en1150.co.jp/api/inquiry-log.php",   // 受信内容のDB保存先（管理画面の解析用）
+  LOG_SECRET: "fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2", // サイト側と共有のHMAC鍵
   MONITOR_TO: ["info@en1150.co.jp", "mk@lu-m.co.jp"], // 毎日の稼働確認メール宛先（複数可）
   MONITOR_SUBJECT: "【自動稼働確認】en1150 お問い合わせフォーム 正常稼働中",
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", category: "お問い合わせ種別", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
   REQUIRED: ["name", "email", "message"]  // 最低限の必須チェック
 };
 
 var BREVO_EMAIL = "https://api.brevo.com/v3/smtp/email";
 var BREVO_CONTACT = "https://api.brevo.com/v3/contacts";
 
+/** 受信内容を en1150.co.jp のDBへ転送（HMAC-SHA256署名付き） */
+async function logInquiry(d) {
+  const body = JSON.stringify({
+    name: d.name || "", kana: d.kana || "", email: d.email || "", tel: d.tel || "",
+    category: d.category || "", message: d.message || "", goudou_date: d.goudou_date || "",
+    shindan: d.shindan || "", pref: d.pref || "", age_group: d.age_group || "", gender: d.gender || "",
+    source: d.source || "",
+  });
+  const key = await crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(CONFIG.LOG_SECRET),
+    { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+  );
+  const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(body));
+  const sig = [...new Uint8Array(mac)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  await fetch(CONFIG.LOG_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Signature": sig },
+    body,
+  });
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin") || "";
     const allowOrigin = CONFIG.ALLOWED_ORIGINS.includes(origin) ? origin : CONFIG.ALLOWED_ORIGINS[0];
     const cors = {
@@ -127,6 +150,10 @@ export default {
       if (CONFIG.BREVO_LIST_ID && d.email) {
         await fetch(BREVO_CONTACT, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ email: d.email, attributes: { NOM: d.name, SMS: d.tel }, listIds: [Number(CONFIG.BREVO_LIST_ID)], updateEnabled: true }) });
       }
+
+      // 受信内容をサイト側DB（Firestore）へ保存（HMAC署名付き・失敗してもメール送信には影響しない）
+      const logP = logInquiry(d).catch(() => {});
+      if (ctx && ctx.waitUntil) ctx.waitUntil(logP); else await logP;
 
       return json({ ok: adminRes.ok, autoReply: autoReplyOk, ...adminResult }, adminRes.ok ? 200 : 500);
     } catch (e) {

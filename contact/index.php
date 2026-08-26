@@ -46,6 +46,30 @@ require __DIR__ . '/../includes/head.php';
       <label>電話番号
         <input type="tel" name="tel" inputmode="tel">
       </label>
+      <div class="contact-attrs">
+        <label>お住まい（任意）
+          <select name="pref">
+            <option value="">選択しない</option>
+            <?php $prefs = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
+              foreach ($prefs as $pf): ?><option value="<?= h($pf) ?>"><?= h($pf) ?></option><?php endforeach; ?>
+          </select>
+        </label>
+        <label>ご年代（任意）
+          <select name="age_group">
+            <option value="">選択しない</option>
+            <?php foreach (['40代以下','50代','60代','70代','80代以上'] as $ag): ?><option value="<?= h($ag) ?>"><?= h($ag) ?></option><?php endforeach; ?>
+          </select>
+        </label>
+        <label>性別（任意）
+          <select name="gender">
+            <option value="">回答しない</option>
+            <option value="女性">女性</option>
+            <option value="男性">男性</option>
+            <option value="その他">その他</option>
+          </select>
+        </label>
+      </div>
+      <p style="font-size:.78rem;color:var(--text-light);margin:-8px 0 0">※ 任意項目は、サービス改善のための統計にのみ利用します（<a href="/privacy/" target="_blank" rel="noopener" style="color:var(--green);text-decoration:underline">プライバシーポリシー</a>）。</p>
       <label>お問い合わせ種別
         <select name="category">
           <option value="">選択してください</option>
@@ -80,6 +104,9 @@ require __DIR__ . '/../includes/head.php';
 .contact-form{display:flex;flex-direction:column;gap:18px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
 .contact-form label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
 .contact-form label[hidden]{display:none !important} /* 合同散骨ご希望日欄は日付指定の遷移時のみ表示 */
+.contact-attrs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.contact-attrs label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
+@media(max-width:560px){.contact-attrs{grid-template-columns:1fr}}
 .contact-form input,.contact-form select,.contact-form textarea{padding:12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-family:inherit}
 .contact-form .req{display:inline-block;background:var(--green);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:6px;align-self:flex-start}
 .contact-consent{flex-direction:row!important;align-items:center;justify-content:center;gap:10px;font-weight:400!important}
