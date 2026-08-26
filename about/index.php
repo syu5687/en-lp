@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 $page_title     = '縁とは｜私たちの想い・大切にしていること｜' . SITE['name'];
-$page_desc      = '有限会社 縁（えん）の理念のご紹介。「ご供養の不安を、安穏に。」——宗教・宗派を問わず中立の立場で、ご家族お一人おひとりの想いに寄り添うご供養のかたちを、鹿児島・福岡からお届けします。';
+$page_desc      = '有限会社 縁（えん）の理念のご紹介。「ご供養の不安を、安穏に。」——宗教・宗派を問わず中立の立場で、ご家族お一人おひとりの想いに寄り添うご供養のかたちを、鹿児島・福岡からお届けします。鹿児島でいち早く海洋葬を始めて10年以上、対応実績は全国3,800件以上、セミナー登壇100回以上。';
 $page_canonical = SITE['url'] . '/about/';
 $page_hero_image = '/assets/img/svc-soudan.jpg';
 require __DIR__ . '/../includes/head.php';
@@ -37,8 +37,31 @@ require __DIR__ . '/../includes/head.php';
     </div>
   </section>
 
-  <!-- 大切にしていること -->
+  <!-- 実績 -->
   <section class="section">
+    <div class="container" style="max-width:860px;text-align:center">
+      <p style="font-size:.85rem;letter-spacing:.24em;color:var(--green);font-weight:700;margin-bottom:14px">TRACK RECORD</p>
+      <h2 style="margin-bottom:22px">鹿児島でいち早く、海洋葬とともに10年以上</h2>
+      <p class="prose" style="max-width:720px;margin:0 auto;line-height:2.1;text-align:left">まだ「海洋葬」という言葉が全国でもほとんど知られていなかった頃、私たちは鹿児島でいち早く海洋散骨を始めました。それから10年以上。これまでの対応実績は、鹿児島・福岡を中心に<strong>全国で3,800件以上</strong>にのぼります。終活セミナーなど講演のご依頼も<strong>100回以上</strong>いただき、供養の新しい選択肢を、一つひとつ丁寧にお伝えしてきました。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:30px">
+        <div class="card" style="text-align:center">
+          <p style="font-size:2rem;font-weight:700;color:var(--green);line-height:1.3">10年<span style="font-size:1rem">以上</span></p>
+          <p style="font-size:.88rem;color:var(--text-light);margin-top:6px">鹿児島でいち早く<br>海洋葬を開始</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <p style="font-size:2rem;font-weight:700;color:var(--green);line-height:1.3">3,800<span style="font-size:1rem">件以上</span></p>
+          <p style="font-size:.88rem;color:var(--text-light);margin-top:6px">鹿児島・福岡を中心に<br>全国の対応実績</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <p style="font-size:2rem;font-weight:700;color:var(--green);line-height:1.3">100回<span style="font-size:1rem">以上</span></p>
+          <p style="font-size:.88rem;color:var(--text-light);margin-top:6px">終活セミナー・講演の<br>ご依頼実績</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 大切にしていること -->
+  <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:860px">
       <p style="font-size:.85rem;letter-spacing:.24em;color:var(--green);font-weight:700;text-align:center;margin-bottom:14px">OUR VALUES</p>
       <h2 style="text-align:center;margin-bottom:30px">縁が大切にしている4つのこと</h2>
@@ -60,7 +83,7 @@ require __DIR__ . '/../includes/head.php';
   </section>
 
   <!-- 代表メッセージ -->
-  <section class="section" style="background:var(--cream)">
+  <section class="section">
     <div class="container" style="max-width:820px">
       <p style="font-size:.85rem;letter-spacing:.24em;color:var(--green);font-weight:700;text-align:center;margin-bottom:14px">MESSAGE</p>
       <h2 style="text-align:center;margin-bottom:30px">たくさんのご縁に、こたえ続ける</h2>
@@ -78,7 +101,7 @@ require __DIR__ . '/../includes/head.php';
   </section>
 
   <!-- 信頼の根拠 -->
-  <section class="section">
+  <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:820px;text-align:center">
       <h2 style="margin-bottom:24px">縁について</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;text-align:center">
