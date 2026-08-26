@@ -85,8 +85,25 @@ if ($blog_id !== '') {
 <main class="section">
   <article class="container" style="max-width:760px">
     <?php if (!empty($post['body_html'])): ?>
-      <?php /* 旧WordPress本文HTML（生成時にサニタイズ済み・画像はルート相対に書き換え済み）*/ ?>
+      <?php
+        /* リッチテキスト本文（管理画面エディタ or 旧WordPress。保存時にサニタイズ済み） */
+        // 登録画像（サムネイル等）。本文中に画像が無い記事のみ、従来どおり本文の前後に表示する。
+        $gallery = [];
+        if (!empty($post['images']) && is_array($post['images'])) $gallery = array_values(array_filter($post['images']));
+        elseif (!empty($post['image'])) $gallery = [$post['image']];
+        $html_has_img = stripos((string)$post['body_html'], '<img') !== false;
+      ?>
+      <?php if ($gallery && !$html_has_img): ?>
+        <img src="<?= h($gallery[0]) ?>" alt="<?= h($post['title'] ?? '') ?>" style="width:100%;border-radius:var(--radius-lg);margin-bottom:28px">
+      <?php endif; ?>
       <div class="prose prose--html"><?= $post['body_html'] ?></div>
+      <?php if (count($gallery) > 1 && !$html_has_img): ?>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:26px">
+          <?php foreach (array_slice($gallery, 1) as $g): ?>
+            <img src="<?= h($g) ?>" alt="<?= h($post['title'] ?? '') ?>" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(18,89,122,.10)">
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
       <script>
         // 配信元が消えた外部画像（旧ブログのホットリンク）は自動的に非表示にする
         document.querySelectorAll('.prose--html img').forEach(function (i) {

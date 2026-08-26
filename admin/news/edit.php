@@ -11,6 +11,34 @@ $is_new = empty($item);
 <title><?= $is_new ? '新規作成' : '編集' ?>｜お知らせ管理</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="/admin/assets/admin.css?v=<?= h(asset_ver()) ?>">
+<!-- リッチテキストエディタ（Quill） -->
+<link rel="stylesheet" href="/admin/assets/quill/quill.snow.css?v=<?= h(asset_ver()) ?>">
+<script src="/admin/assets/quill/quill.js?v=<?= h(asset_ver()) ?>"></script>
+<style>
+  .rte-wrap{background:#fff;border-radius:8px}
+  #editor{min-height:320px;font-size:1rem;line-height:1.9;background:#fff}
+  #editor .ql-editor{min-height:320px}
+  #editor img{max-width:100%;height:auto}
+  .ql-toolbar.ql-snow{border-radius:8px 8px 0 0;background:#fafaf6}
+  .ql-container.ql-snow{border-radius:0 0 8px 8px;font-family:inherit}
+  /* 文字サイズの選択肢を日本語表記に */
+  .ql-picker.ql-size .ql-picker-label::before,
+  .ql-picker.ql-size .ql-picker-item::before{content:'標準'}
+  .ql-picker.ql-size .ql-picker-label[data-value="0.85em"]::before,
+  .ql-picker.ql-size .ql-picker-item[data-value="0.85em"]::before{content:'小'}
+  .ql-picker.ql-size .ql-picker-label[data-value="1.2em"]::before,
+  .ql-picker.ql-size .ql-picker-item[data-value="1.2em"]::before{content:'大'}
+  .ql-picker.ql-size .ql-picker-label[data-value="1.5em"]::before,
+  .ql-picker.ql-size .ql-picker-item[data-value="1.5em"]::before{content:'特大'}
+  /* 見出しの選択肢を日本語表記に */
+  .ql-picker.ql-header .ql-picker-label::before,
+  .ql-picker.ql-header .ql-picker-item::before{content:'本文'}
+  .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
+  .ql-picker.ql-header .ql-picker-item[data-value="3"]::before{content:'見出し'}
+  .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
+  .ql-picker.ql-header .ql-picker-item[data-value="4"]::before{content:'小見出し'}
+  .rte-note{font-size:.8rem;color:#888;margin-top:6px;font-weight:400}
+</style>
 </head><body>
 <header class="admin-bar">
   <span class="admin-bar__title"><a href="/admin/news/">← 一覧へ戻る</a></span>
@@ -30,7 +58,20 @@ $is_new = empty($item);
       <?php endforeach; ?>
     </fieldset>
     <label>タイトル<input type="text" name="title" value="<?= htmlspecialchars($item['title'] ?? '') ?>" required></label>
-    <label>本文<textarea name="body" rows="8"><?= htmlspecialchars($item['body'] ?? '') ?></textarea></label>
+    <div class="admin-rte">
+      <p style="font-weight:600;font-size:.9rem;margin:0 0 8px">本文</p>
+      <div class="rte-wrap">
+        <div id="editor"></div>
+      </div>
+      <p class="rte-note">太字・文字サイズ・色・リンク・画像の挿入ができます。画像ボタン（🖼）で本文の好きな位置に画像を入れられます。</p>
+      <textarea name="body" id="body-plain" hidden><?= htmlspecialchars($item['body'] ?? '') ?></textarea>
+      <input type="hidden" name="body_html" id="body-html" value="">
+      <?php /* 既存本文をエディタへ安全に渡す（JSONとして埋め込み） */ ?>
+      <script id="rte-initial" type="application/json"><?= json_encode([
+        'html' => (string)($item['body_html'] ?? ''),
+        'text' => (string)($item['body'] ?? ''),
+      ], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?></script>
+    </div>
 
     <?php
       // 画像（複数）。旧データ（imageのみ）は1枚として引き継ぐ。
@@ -145,6 +186,96 @@ $is_new = empty($item);
     }
     status.hidden = true;
     input.value = '';
+  });
+})();
+</script>
+<script>
+/* ===== リッチテキストエディタ（Quill）初期化 ===== */
+(function () {
+  // 文字サイズ・配置は class ではなく style 属性で出力（公開ページ側でそのまま表示できる）
+  var SizeStyle = Quill.import('attributors/style/size');
+  SizeStyle.whitelist = ['0.85em', '1.2em', '1.5em'];
+  Quill.register(SizeStyle, true);
+  var AlignStyle = Quill.import('attributors/style/align');
+  Quill.register(AlignStyle, true);
+
+  // 画像ボタン：アップロードAPI経由でGCSへ保存し、URLをカーソル位置へ挿入
+  async function shrinkFile(file) {
+    if (file.type === 'image/gif' || file.size < 400 * 1024) return file;
+    try {
+      var bmp = await createImageBitmap(file);
+      var max = 1600;
+      var scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+      if (scale >= 1 && file.size < 2 * 1024 * 1024) return file;
+      var w = Math.round(bmp.width * scale), h = Math.round(bmp.height * scale);
+      var c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(bmp, 0, 0, w, h);
+      var blob = await new Promise(function (res) { c.toBlob(res, 'image/jpeg', 0.85); });
+      return blob && blob.size < file.size ? new File([blob], file.name.replace(/\.\w+$/, '.jpg'), { type: 'image/jpeg' }) : file;
+    } catch (_) { return file; }
+  }
+  function imageHandler() {
+    var q = this.quill;
+    var inp = document.createElement('input');
+    inp.type = 'file';
+    inp.accept = 'image/jpeg,image/png,image/gif,image/webp';
+    inp.onchange = async function () {
+      var file = inp.files && inp.files[0];
+      if (!file) return;
+      try {
+        var f  = await shrinkFile(file);
+        var fd = new FormData();
+        fd.append('file', f, f.name);
+        var r = await fetch('/admin/upload.php', { method: 'POST', body: fd });
+        var j = await r.json();
+        if (!j.ok) { alert(j.error || '画像のアップロードに失敗しました'); return; }
+        var range = q.getSelection(true);
+        q.insertEmbed(range.index, 'image', j.url, 'user');
+        q.setSelection(range.index + 1);
+      } catch (e) { alert('画像のアップロードで通信エラーが発生しました'); }
+    };
+    inp.click();
+  }
+
+  var quill = new Quill('#editor', {
+    theme: 'snow',
+    placeholder: '本文を入力してください',
+    modules: {
+      toolbar: {
+        container: [
+          [{ header: [3, 4, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ size: ['0.85em', false, '1.2em', '1.5em'] }],
+          [{ color: [] }, { background: [] }],
+          [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
+          ['link', 'image'],
+          ['clean']
+        ],
+        handlers: { image: imageHandler }
+      }
+    }
+  });
+
+  // 既存本文の読み込み（HTML本文があればそれを、無ければプレーン本文を段落に）
+  try {
+    var init = JSON.parse(document.getElementById('rte-initial').textContent || '{}');
+    if (init.html) {
+      quill.setContents(quill.clipboard.convert({ html: init.html }), 'silent');
+    } else if (init.text) {
+      var html = init.text.split(/\n+/).map(function (t) {
+        t = t.trim();
+        return t ? '<p>' + t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>' : '';
+      }).join('');
+      if (html) quill.setContents(quill.clipboard.convert({ html: html }), 'silent');
+    }
+  } catch (_) {}
+
+  // 保存時：整形済みHTMLとプレーンテキスト（一覧の抜粋用）を隠しフィールドへ
+  document.querySelector('.admin-form').addEventListener('submit', function () {
+    var text = quill.getText().replace(/\s+$/,'');
+    var hasImage = quill.root.querySelector('img') !== null;
+    document.getElementById('body-html').value  = (text || hasImage) ? quill.getSemanticHTML() : '';
+    document.getElementById('body-plain').value = text.replace(/\n/g, '\n').trim();
   });
 })();
 </script>
