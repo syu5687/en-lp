@@ -83,6 +83,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
             <p class="ks-st__tag">安全</p>
             <h3>協会ルールを順守した運航</h3>
             <p>日本海洋散骨協会の加盟事業者として、散骨海域の選定や環境への配慮などルールを順守。天候・海況を見極め、無理のない安全第一の運航を行います。</p>
+            <p style="margin-top:12px"><span style="display:inline-flex;align-items:center;gap:10px;background:var(--sea-light);border-radius:10px;padding:8px 14px"><img src="/assets/img/jmas-logo.png?v=<?= h(asset_ver()) ?>" alt="一般社団法人 日本海洋散骨協会 ロゴ" width="360" height="454" loading="lazy" style="width:40px;height:auto"><span style="font-size:.76rem;line-height:1.6;color:#4a5a58">一般社団法人<br><strong style="color:#2a5a7a">日本海洋散骨協会</strong> 加盟事業者</span></span></p>
           </div>
         </div>
         <div class="ks-st">
