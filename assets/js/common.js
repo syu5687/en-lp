@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => {
       const open = list.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('sp-menu-open', open); // 右固定タブ等を隠す
     });
   }
 });

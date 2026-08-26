@@ -190,8 +190,10 @@ details[open] summary{margin-bottom:8px}
 
 /* ===== SPハンバーガーメニュー：整理されたデザイン ===== */
 @media(max-width:768px){
-  .site-nav__list{background:linear-gradient(180deg,#15709e 0%,#0e567d 100%);padding:6px 20px 22px;gap:0;border-radius:0 0 16px 16px}
-  .site-nav__list > li{border-bottom:1px solid rgba(255,255,255,.14)}
+  .site-nav__list{background:linear-gradient(180deg,#15709e 0%,#0e567d 100%);padding:6px 20px 90px;gap:0;border-radius:0 0 16px 16px;align-items:stretch;text-align:left}
+  .site-nav__list > li{border-bottom:1px solid rgba(255,255,255,.14);width:100%}
+  /* メニュー展開中は右固定タブ・文字サイズボタンを隠して重なりを防ぐ */
+  body.sp-menu-open .side-tabs,body.sp-menu-open .fontsize-ctl{display:none !important}
   .site-nav__list > li.site-nav__insta,.site-nav__list > li.site-nav__cta{border-bottom:0}
   .site-nav__list > li > a{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;font-size:1rem;font-weight:700;color:#fff}
   .subnav{padding:0 0 12px 8px}

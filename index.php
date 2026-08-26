@@ -123,13 +123,21 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .nav-dd-menu a:hover { background: #eef5f4; color: #15709e !important; }
 .nav-dd-menu .nav-dd-top { font-weight: 700; color: #15709e !important; border-bottom: 1px solid #e4ebee; margin-bottom: 6px; padding-bottom: 12px; }
 @media (max-width: 860px) {
-  .header-nav > a, .nav-dd > a { display: block; padding: 11px 2px; border-bottom: 1px solid rgba(255,255,255,0.16); font-size: 0.95rem; font-weight: 600; }
-  .header-nav .header-cta-btn { border: 1px solid rgba(255,255,255,0.8); border-radius: 999px; text-align: center; margin-top: 12px; font-weight: 700; }
+  /* SPメニュー：開いた時のパネル（不透明グラデ・左寄せ・角丸） */
+  .header-nav.is-open { display: flex; flex-direction: column; align-items: stretch; text-align: left; position: absolute; top: 100%; left: 0; right: 0; gap: 0; background: linear-gradient(180deg, #15709e 0%, #0e567d 100%); padding: 6px 20px 90px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); border-radius: 0 0 16px 16px; max-height: calc(100dvh - 70px); overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  .header-nav > a, .nav-dd > a { display: block; padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,0.14); font-size: 1rem; font-weight: 700; color: #fff !important; }
+  .header-nav a::after { display: none; }
+  .header-nav .header-cta-btn { display: block; background: #fff; color: #15709e !important; border: 0; border-radius: 999px; text-align: center; margin-top: 16px; padding: 13px; font-size: 0.98rem; font-weight: 700; }
+  .header-nav .header-cta-btn:hover { background: #fff; color: #15709e !important; }
   .nav-dd-menu .nav-dd-top { display: none; }
-  .nav-dd { display: block; }
-  .nav-dd-menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; background: transparent; padding: 4px 0 0 14px; min-width: 0; }
-  .nav-dd-menu a { color: #fff !important; opacity: 0.9; padding: 6px 8px; }
+  .nav-dd { display: block; border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .nav-dd > a { border-bottom: 0; }
+  .nav-dd-menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; background: transparent; padding: 0 0 12px 8px; min-width: 0; }
+  .nav-dd-menu a { color: rgba(255,255,255,0.94) !important; opacity: 1; padding: 9px 12px; font-size: 0.88rem; font-weight: 500; border-left: 2px solid rgba(255,255,255,0.3); margin-left: 4px; white-space: normal; }
+  .nav-dd-menu a:hover, .nav-dd-menu a:active { background: rgba(255,255,255,0.1); color: #fff !important; }
   .nav-dd-caret { display: none; }
+  /* メニュー展開中は右固定タブ・文字サイズボタンを隠して重なりを防ぐ */
+  body.sp-menu-open .side-tabs, body.sp-menu-open .fontsize-ctl { display: none !important; }
 }
 .header-cta-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--color-green-mid) !important; padding: 9px 16px; white-space: nowrap; border: 1px solid var(--color-deep-green); border-radius: var(--radius); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; box-shadow: none !important; }
 .header-cta-btn:hover { background: var(--color-deep-green); color: var(--color-white) !important; }
@@ -529,6 +537,9 @@ body { background: #f7f5ef; }
 .sticky-btn-tel { background: var(--color-ocean); }
 .testimonials-more .btn-secondary { color: var(--color-ocean); border-color: var(--color-ocean); }
 .testimonials-more .btn-secondary:hover { background: rgba(31,143,206,0.08); border-color: var(--color-ocean); }
+/* 塗りつぶしオーシャンブルーのCTAボタン（背景と同化しない強調用） */
+.btn-ocean { display: inline-flex; background: var(--color-ocean) !important; color: #fff !important; border-color: var(--color-ocean) !important; font-weight: 600; box-shadow: 0 4px 14px rgba(18,89,122,0.25) !important; }
+.btn-ocean:hover { background: var(--color-ocean-dark) !important; border-color: var(--color-ocean-dark) !important; color: #fff !important; }
 .header-nav a::after, .flow-step-num { border-color: var(--color-ocean); }
 
 /* 明るいバンド（深緑帯→淡い潮色） */
@@ -1011,7 +1022,7 @@ body { line-height: 1.8; }
     <div class="worry-card"><span class="worry-check">✓</span><p><strong>粉骨</strong>をお願いしたいが、費用や手順がわからない</p></div>
     <div class="worry-card"><span class="worry-check">✓</span><p>お墓の引越し（<strong>改葬</strong>）の手続きがわからない</p></div>
   </div>
-  <p class="fade-up" style="text-align:center;margin-top:26px"><a href="/onayami/" class="btn-secondary" style="display:inline-flex;background:var(--color-ocean);color:#fff;border-color:var(--color-ocean);font-weight:600;box-shadow:0 4px 14px rgba(18,89,122,.25) !important">お悩み別の解決策と実際の声を見る →</a></p>
+  <p class="fade-up" style="text-align:center;margin-top:26px"><a href="/onayami/" class="btn-secondary btn-ocean">お悩み別の解決策と実際の声を見る →</a></p>
   <div class="worry-answer fade-up">
   <div class="worry-answer-banner">
     <p class="worry-answer-text">そのお悩み、<em>縁</em>が<br>まるごと解決いたします。</p>
@@ -1097,7 +1108,7 @@ body { line-height: 1.8; }
     <div class="testimonial-card"><div class="testimonial-quote">"</div><p>墓じまいから海洋散骨まで、すべてお任せできて本当に安心でした。料金も明瞭で、最初の相談から丁寧に対応していただきました。</p><div class="testimonial-meta"><div class="testimonial-avatar"></div><div class="testimonial-meta-text"><strong>S.T 様</strong><span>お墓じまい＋海洋葬をご利用</span><span class="testimonial-location"> 福岡県からご依頼</span></div></div></div>
     <div class="testimonial-card"><div class="testimonial-quote">"</div><p>大阪に住んでいますが、実家の墓じまいをお願いしました。改葬手続きから粉骨、散骨まですべてワンストップで対応してくださり、何度も鹿児島に行く必要がなく助かりました。</p><div class="testimonial-meta"><div class="testimonial-avatar"></div><div class="testimonial-meta-text"><strong>Y.K 様</strong><span>お墓じまい＋粉骨＋委託海洋葬</span><span class="testimonial-location"> 大阪府からご依頼</span></div></div></div>
   </div>
-  <div class="testimonials-more"><a href="/voice/" class="btn-secondary" style="background:var(--color-ocean);color:#fff;border-color:var(--color-ocean);font-weight:600;box-shadow:0 4px 14px rgba(18,89,122,.25) !important">お客様の声をもっと見る</a></div>
+  <div class="testimonials-more"><a href="/voice/" class="btn-secondary btn-ocean">お客様の声をもっと見る</a></div>
 </div></section>
 
 <!-- STRENGTHS -->
@@ -1303,10 +1314,10 @@ const navToggle = document.querySelector('.nav-toggle');
 const headerNav = document.querySelector('.header-nav');
 if (navToggle) {
   navToggle.addEventListener('click', () => {
-    const isOpen = headerNav.style.display === 'flex';
-    navToggle.classList.toggle('is-open', !isOpen);
-    if (isOpen) { headerNav.style.display = 'none'; return; }
-    Object.assign(headerNav.style, { display: 'flex', flexDirection: 'column', position: 'absolute', top: '100%', left: '0', right: '0', background: 'rgba(21,112,158,0.98)', padding: '20px 24px 28px', gap: '16px', boxShadow: '0 8px 24px rgba(0,0,0,0.15)', maxHeight: 'calc(100dvh - 70px)', overflowY: 'auto', WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' });
+    const isOpen = headerNav.classList.toggle('is-open');
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.classList.toggle('sp-menu-open', isOpen);
   });
 }
 </script>
