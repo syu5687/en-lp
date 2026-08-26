@@ -26,6 +26,7 @@
         <li><a href="/area/">対応エリア</a></li>
         <li><a href="/company/">会社概要</a></li>
         <li><a href="/contact/">お問い合わせ</a></li>
+        <li><a href="/policy/">キャンセルポリシー</a></li>
         <li><a href="/privacy/">プライバシーポリシー</a></li>
       </ul>
     </nav>

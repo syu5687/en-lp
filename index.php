@@ -108,8 +108,8 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(246,241,232,0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--color-line); transition: var(--transition); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1160px; margin: 0 auto; padding: 14px 32px; }
 .header-logo-text { font-family: var(--font-serif); font-size: 1.12rem; font-weight: 600; color: var(--color-green-mid); letter-spacing: 0.14em; }
-.header-nav { display: flex; align-items: center; gap: 30px; }
-.header-nav a { font-size: 0.82rem; font-weight: 400; color: var(--color-text); position: relative; }
+.header-nav { display: flex; align-items: center; gap: clamp(12px, 1.5vw, 28px); }
+.header-nav a { font-size: 0.82rem; font-weight: 400; color: var(--color-text); position: relative; white-space: nowrap; }
 .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--color-gold); transition: var(--transition); }
 .header-nav a:hover::after { width: 100%; }
 .nav-dd { position: relative; display: inline-flex; align-items: center; }
@@ -131,7 +131,7 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
   .nav-dd-menu a { color: #fff !important; opacity: 0.9; padding: 6px 8px; }
   .nav-dd-caret { display: none; }
 }
-.header-cta-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--color-green-mid) !important; padding: 9px 22px; border: 1px solid var(--color-deep-green); border-radius: var(--radius); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; box-shadow: none !important; }
+.header-cta-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--color-green-mid) !important; padding: 9px 16px; white-space: nowrap; border: 1px solid var(--color-deep-green); border-radius: var(--radius); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; box-shadow: none !important; }
 .header-cta-btn:hover { background: var(--color-deep-green); color: var(--color-white) !important; }
 .header-cta-btn::after { display: none !important; }
 .nav-toggle { display: none; background: none; border: none; cursor: pointer; width: 32px; height: 32px; position: relative; }
@@ -877,6 +877,34 @@ body { line-height: 1.8; }
 </div>
 <div class="hero-wave-bottom" aria-hidden="true"><svg viewBox="0 0 1440 72" preserveAspectRatio="none"><path class="wave-fill-1" d="M0,34 C220,8 430,8 660,30 C900,54 1080,54 1260,32 C1350,20 1400,24 1440,30 L1440,72 L0,72 Z"/><path class="wave-fill-2" d="M0,44 C220,20 430,20 660,40 C900,62 1080,62 1260,42 C1350,32 1400,36 1440,42 L1440,72 L0,72 Z"/><path class="wave-fill-3" d="M0,54 C220,32 430,32 660,50 C900,70 1080,70 1260,52 C1350,44 1400,46 1440,52 L1440,72 L0,72 Z"/></svg></div>
 </section>
+
+<!-- 期間限定キャンペーンバナー -->
+<a href="/kaiyou-sou/" class="cam-banner" aria-label="委託海洋葬 期間限定価格 54,450円（税込）の詳細を見る">
+  <span class="cam-banner__badge">期間限定価格</span>
+  <span class="cam-banner__body">
+    <span class="cam-banner__name">委託海洋葬</span>
+    <span class="cam-banner__prices">
+      <span class="cam-banner__old">通常価格 66,000円</span>
+      <span class="cam-banner__arrow" aria-hidden="true">→</span>
+      <span class="cam-banner__new">54,450<small>円（税込）</small></span>
+    </span>
+  </span>
+  <span class="cam-banner__cta">詳しく見る →</span>
+</a>
+<style>
+.cam-banner{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;background:linear-gradient(90deg,#8a2b2b,#b0483f);color:#fff;padding:16px 20px;text-decoration:none;transition:.2s}
+.cam-banner:hover{filter:brightness(1.07);color:#fff}
+.cam-banner__badge{background:#ffd77a;color:#5c2a12;font-weight:700;font-size:.8rem;padding:5px 16px;border-radius:999px;letter-spacing:.08em;flex:none}
+.cam-banner__body{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.cam-banner__name{font-size:1.15rem;font-weight:700;letter-spacing:.06em}
+.cam-banner__prices{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.cam-banner__old{font-size:.85rem;opacity:.85;text-decoration:line-through}
+.cam-banner__arrow{font-size:.9rem;opacity:.85}
+.cam-banner__new{font-size:1.7rem;font-weight:700;color:#ffe9a8;line-height:1}
+.cam-banner__new small{font-size:.85rem;font-weight:600;margin-left:2px}
+.cam-banner__cta{border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:7px 18px;font-size:.85rem;font-weight:700;flex:none}
+@media(max-width:600px){.cam-banner{gap:10px;padding:14px 14px}.cam-banner__name{font-size:1rem}.cam-banner__new{font-size:1.45rem}.cam-banner__cta{display:none}}
+</style>
 
 <!-- 縁が選ばれる理由（ヒーローから移設） -->
 <section class="reasons-band">
