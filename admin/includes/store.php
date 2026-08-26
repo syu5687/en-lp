@@ -80,3 +80,36 @@ function voices_published(int $limit = 0): array {
   usort($items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
   return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
+
+/* ============================================================
+   合同海洋散骨 実施予定日（goudou コレクション）
+   フィールド: date（Y-m-d）/ sea（海域）/ status（受付中・残りわずか・受付終了）
+             / note（備考）/ published
+   ============================================================ */
+const GOUDOU_COLLECTION = 'goudou';
+
+function goudou_all(): array {
+  $items = [];
+  foreach (fs_list_all(GOUDOU_COLLECTION) as $doc) $items[] = fs_from_doc($doc);
+  usort($items, fn($a, $b) => strcmp($a['date'] ?? '', $b['date'] ?? ''));
+  return $items;
+}
+
+function goudou_upsert(array $item): bool {
+  $id = $item['id'] ?? '';
+  unset($item['id']);
+  $res = fs_request('PATCH', 'documents/' . GOUDOU_COLLECTION . '/' . rawurlencode($id), ['fields' => fs_to_fields($item)]);
+  return empty($res['error']);
+}
+
+function goudou_delete(string $id): bool {
+  $res = fs_request('DELETE', 'documents/' . GOUDOU_COLLECTION . '/' . rawurlencode($id));
+  return empty($res['error']);
+}
+
+/** 公開中かつ本日以降の開催日（日付昇順）— 公開ページ用 */
+function goudou_upcoming(): array {
+  $today = date('Y-m-d');
+  return array_values(array_filter(goudou_all(),
+    fn($i) => !empty($i['published']) && (($i['date'] ?? '') >= $today)));
+}

@@ -992,6 +992,8 @@ body { line-height: 1.8; }
 </div></section>
 
 <!-- SERVICES -->
+<?php require __DIR__ . '/includes/goudou-schedule.php'; ?>
+
 <section class="services"><div class="container">
   <div class="services-header fade-up"><p class="section-label">Services</p><h2 class="section-title">ご供養のトータルサポート</h2><p class="section-desc" style="margin:0 auto;">大切な方を想うさまざまなカタチに対応。ご相談から施行まで一貫してお手伝いいたします。</p></div>
   <div class="services-grid fade-up">

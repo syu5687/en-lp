@@ -34,7 +34,7 @@ require __DIR__ . '/../includes/head.php';
     <!-- 福岡 -->
     <div class="card" style="margin-bottom:26px">
       <h2 style="color:var(--green);margin-bottom:12px">福岡県（福岡営業所）</h2>
-      <p><strong>福岡営業所</strong>を拠点に、福岡・北部九州エリアのご相談に対応しています。福岡の海域での海洋散骨、<a href="/seizen/" style="color:var(--green);font-weight:600">海洋散骨の生前契約</a>、粉骨・お墓じまいのご相談まで。対面でのご相談をご希望の方もお気軽にお問い合わせください。</p>
+      <p><strong>福岡営業所</strong>を拠点に、福岡・北部九州エリアのご相談に対応しています。福岡の海域での海洋散骨、<a href="/seizen/" style="color:var(--green);font-weight:600">海洋散骨の生前契約</a>、粉骨・お墓じまいのご相談まで。対面でのご相談をご希望の方もお気軽にお問い合わせください。<a href="/fukuoka/" style="color:var(--green);font-weight:700;text-decoration:underline">福岡営業所の専用ページはこちら →</a></p>
       <p style="margin-top:10px;font-size:.92rem;color:var(--text-light)"><?= h(SITE['fukuoka']['name']) ?>：〒<?= h(SITE['fukuoka']['zip']) ?> <?= h(SITE['fukuoka']['address']) ?>（TEL <?= h(SITE['fukuoka']['tel']) ?>）<br>
       <a href="https://maps.google.com/?cid=1235913108976072113" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">Googleマップで見る →</a>　<a href="https://g.page/r/CbF1xKls2CYREBM/review" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">口コミを書く →</a></p>
     </div>
