@@ -1,5 +1,5 @@
 /**
- * @version v0005 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（稼働確認メールも2名宛に） | Cloudflare Workers
+ * @version v0006 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（run.appオリジン削除） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -18,8 +18,7 @@ var CONFIG = {
   SUBJECT_PREFIX: "【お問い合わせ】",
   ALLOWED_ORIGINS: [                      // 受付を許可するオリジン（設置元のみ）
     "https://en1150.co.jp",
-    "https://www.en1150.co.jp",
-    "https://en-lp-412102088439.asia-northeast1.run.app"
+    "https://www.en1150.co.jp"
   ],
   AUTO_REPLY: true,                       // お客様への受付確認メール
   AUTO_REPLY_SUBJECT: "【有限会社 縁】お問い合わせを承りました",
