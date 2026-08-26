@@ -23,7 +23,7 @@ require __DIR__ . '/../includes/head.php';
     <h2>当社が大切にしていること</h2>
     <ul style="list-style:none;display:grid;gap:12px;padding:0">
       <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">ご遺骨トータルアドバイザーとして、最初から最後まで一貫してサポートします</li>
-      <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">追加料金のない明朗なお見積りをお出しします</li>
+      <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">お見積りは無料。あとから追加料金をいただくことはありません</li>
       <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">遠方の方にも、郵送・委託で全国対応します</li>
     </ul>
 

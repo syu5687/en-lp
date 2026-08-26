@@ -47,8 +47,8 @@ require __DIR__ . '/../includes/head.php';
           <h3 style="margin-bottom:10px">急かさない、押し付けない</h3>
           <p style="font-size:.93rem">ご供養に「正解」はありません。どの供養にも良さと注意点があることを丁寧にお伝えし、ご家族全員が納得して選べるまで、何度でもご相談に応じます。</p></div>
         <div class="card"><p style="font-size:1.6rem;color:var(--green);font-weight:700;margin-bottom:8px">02</p>
-          <h3 style="margin-bottom:10px">明朗なお見積り</h3>
-          <p style="font-size:.93rem">お見積りは無料。追加料金のない明朗な金額をご提示します。見えないところにこそ誠実さが表れると考えています。</p></div>
+          <h3 style="margin-bottom:10px">お見積りどおりの料金で</h3>
+          <p style="font-size:.93rem">お見積りは無料です。作業が終わってから追加料金をいただくことはありません。金額のことこそ、先にはっきりお伝えします。</p></div>
         <div class="card"><p style="font-size:1.6rem;color:var(--green);font-weight:700;margin-bottom:8px">03</p>
           <h3 style="margin-bottom:10px">最初から最後まで一貫して</h3>
           <p style="font-size:.93rem">ご遺骨トータルアドバイザーとして、お引き取りから供養の完了、そしてその後の「心の置きどころ」まで、一つの窓口でお手伝いします。</p></div>

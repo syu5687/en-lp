@@ -9,7 +9,7 @@
 
 <!-- SEO Primary -->
 <title>鹿児島のお墓じまい 基本プラン33万円（税込）｜撤去〜納骨まで一括対応｜縁（えん）</title>
-<meta name="description" content="鹿児島のお墓じまい、撤去から納骨まで一括対応。墓石撤去工事・写真報告・遺骨引き出し・新しい納骨先への納骨まで、基本プラン33万円（税込）。離島対応可。改葬手続きオプション¥25,000〜。創業20年以上、明朗会計の有限会社縁。無料相談・LINE相談受付中。">
+<meta name="description" content="鹿児島のお墓じまい、撤去から納骨まで一括対応。墓石撤去工事・写真報告・遺骨引き出し・新しい納骨先への納骨まで、基本プラン33万円（税込）。離島対応可。改葬手続きオプション¥25,000〜。創業20年以上、追加料金のない安心価格の有限会社縁。無料相談・LINE相談受付中。">
 <meta name="keywords" content="お墓じまい,墓じまい,鹿児島,鹿児島市,鹿児島県,離島,改葬,33万円,墓石撤去,納骨,粉骨,洗骨,散骨,海洋葬,樹木葬,お手元供養,縁,en1150">
 <meta name="author" content="有限会社 縁（えん）">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -626,7 +626,7 @@
     overflow:hidden;
   }
   .price-card::before{
-    content:"明朗会計";
+    content:"追加料金なし";
     position:absolute;
     top:14px;right:-30px;
     background:var(--gold);
@@ -1625,6 +1625,21 @@
   .case-photos--wide{grid-template-columns:1fr!important;display:grid}
   .case-photos .case-photo{aspect-ratio:auto;background:#fff}
   .case-photos .case-photo img{width:100%;height:auto;display:block;aspect-ratio:auto}
+
+  /* ===== 注意点・改葬手続き ===== */
+  .caution-lead,.procedure-lead{max-width:760px;margin:18px auto 0;line-height:2;text-align:center}
+  .caution-list{max-width:760px;margin:26px auto 0;padding:0;list-style:none;display:grid;gap:12px}
+  .caution-list li{background:#fff;border:1px solid #e3d9c6;border-left:4px solid #b08d3f;border-radius:10px;padding:14px 18px;line-height:1.9;font-size:.95rem}
+  .procedure-grid{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start;max-width:960px;margin:30px auto 0}
+  .procedure-fig{margin:0}
+  .procedure-fig img{width:100%;height:auto;border:1px solid #d8cdb9;border-radius:8px;background:#fff}
+  .procedure-fig figcaption{font-size:.78rem;color:#7a7264;margin-top:8px;text-align:center}
+  .procedure-steps{margin-top:0}
+  .procedure-note{max-width:760px;margin:26px auto 0;text-align:center;background:#eef4f8;border:1px solid #cfe0ea;border-radius:10px;padding:14px 18px;font-size:.93rem;line-height:1.9}
+  @media(max-width:720px){
+    .procedure-grid{grid-template-columns:1fr}
+    .procedure-fig{max-width:340px;margin:0 auto}
+  }
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BST60JN5FD"></script>
@@ -1673,7 +1688,7 @@
       <span class="price-num">33</span>万円
       <span class="pokkiri">税込</span>
     </div>
-    <p class="hero-tax">事前見積もりで金額を確定（明朗会計）</p>
+    <p class="hero-tax">事前見積もりで金額を確定（追加料金なし）</p>
 
     <p class="hero-entity-def" itemprop="description">
       <strong>お墓じまい</strong>とは、現在のお墓を撤去し、ご遺骨を新しい納骨先へお移しすること。縁は鹿児島の専門業者として、見積もり取得から納骨までを<strong>基本プラン33万円（税込）</strong>で一括対応します。
@@ -1801,7 +1816,7 @@
        Price Detail（基本プラン33万円 詳細）
        ===================================== -->
   <section class="section price" aria-labelledby="price-title">
-    <p class="section-eyebrow">PRICE / 明朗会計</p>
+    <p class="section-eyebrow">PRICE / 料金のすべて</p>
     <h2 id="price-title" class="section-title with-line">33万円に含まれる内容<span class="section-title-sub">— 何が入っているのか、明確に。</span></h2>
 
     <div class="price-card">
@@ -1989,6 +2004,78 @@
       </li>
     </ol>
   </section>
+
+
+  <!-- =====================================
+       墓じまい（改葬）の注意点
+       ===================================== -->
+  <section class="section caution" aria-labelledby="caution-title" style="background:#f4ede0">
+    <p class="section-eyebrow">CAUTION</p>
+    <h2 id="caution-title" class="section-title with-line">墓じまい（改葬）の注意点</h2>
+    <p class="caution-lead">お墓や納骨堂は、持ち主だけでなく、ご家族・ご親族、故人とご縁のあった方々にとっても大切な場所です。周囲に相談のないまま進めてしまうと、行き違いからトラブルになることもあります。始める前に、次の点をご確認ください。</p>
+    <ul class="caution-list">
+      <li>決める前に、まず<strong>ご家族・ご親族に相談</strong>しましょう。事前の話し合いが、いちばんのトラブル予防です。</li>
+      <li>お墓のある<strong>菩提寺や霊園の管理者にも早めに相談</strong>を。長くお世話になった所へは、感謝とともに意向を伝えるのが円満に進めるコツです。</li>
+      <li>撤去工事の<strong>見積もりは複数社（2〜3社）で比較</strong>しましょう。当社の相見積もりも歓迎です。</li>
+      <li>墓地によっては<strong>工事に入れる石材店が指定</strong>されている場合があります。あらかじめ墓地の管理者にご確認ください。</li>
+      <li><strong>改葬先（新しい供養先）を決めてから</strong>進めましょう。ご遺骨の行き先が決まっていないと手続きが進みません。</li>
+      <li>散骨や合葬墓へ移した後は、<strong>ご遺骨を元に戻すことができません</strong>。ご家族でよく話し合い、慎重にお決めください。</li>
+    </ul>
+  </section>
+
+  <!-- =====================================
+       改葬（お墓の引越し）の手続き
+       ===================================== -->
+  <section class="section procedure" aria-labelledby="procedure-title">
+    <p class="section-eyebrow">PROCEDURE</p>
+    <h2 id="procedure-title" class="section-title with-line">墓じまい（改葬）の手続き</h2>
+    <p class="procedure-lead">墓じまい（改葬）を行う際は、市町村役場でのいくつかの行政手続きが必要です。ご自身でも行えますが、面倒な場合は当社の<strong>改葬手続き代行（オプション ¥25,000〜）</strong>にお任せいただけます。</p>
+    <div class="procedure-grid">
+      <figure class="procedure-fig">
+        <img src="images/kaiso-shinseisho.jpg" alt="改葬許可申請書の記入例（様式は市町村により異なります）" width="723" height="1044" loading="lazy" decoding="async">
+        <figcaption>改葬許可申請書の例（様式は市町村により異なります）</figcaption>
+      </figure>
+      <ol class="flow-list procedure-steps">
+        <li class="flow-item"><div class="flow-card">
+          <h3 class="flow-title">「埋葬証明書」をもらう</h3>
+          <p class="flow-desc">現在のお墓・納骨堂の管理者から「埋葬証明書」を発行してもらいます。</p>
+        </div></li>
+        <li class="flow-item"><div class="flow-card">
+          <h3 class="flow-title">「受入証明書」をもらう</h3>
+          <p class="flow-desc">改葬先（新しい納骨先）の管理者から「受入証明書」をもらいます。※海洋散骨など改葬先の形によって必要書類が異なる場合があります。</p>
+        </div></li>
+        <li class="flow-item"><div class="flow-card">
+          <h3 class="flow-title">「改葬許可申請書」に記入</h3>
+          <p class="flow-desc">現在のお墓がある市町村役場で「改葬許可申請書」を受け取り、必要事項を記入します（様式は市町村ごとに異なります）。</p>
+        </div></li>
+        <li class="flow-item"><div class="flow-card">
+          <h3 class="flow-title">市町村に提出 → 「改葬許可証」の交付</h3>
+          <p class="flow-desc">「改葬許可申請書」「受入証明書」「埋葬証明書」を市町村に提出し、「改葬許可証」を交付してもらいます。</p>
+        </div></li>
+        <li class="flow-item"><div class="flow-card">
+          <h3 class="flow-title">新しい納骨先に「改葬許可証」を提出</h3>
+          <p class="flow-desc">改葬先に「改葬許可証」を提出し、ご納骨となります。</p>
+        </div></li>
+      </ol>
+    </div>
+    <p class="procedure-note">書類の取り寄せから申請まで、まとめて代行いたします。「何から始めればいいか分からない」という段階でも、お気軽にご相談ください。</p>
+  </section>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HowTo",
+    "name":"墓じまい（改葬）の行政手続き",
+    "description":"改葬に必要な行政手続きの5ステップ。有限会社縁では改葬手続きの代行（¥25,000〜）も承ります。",
+    "step":[
+      {"@type":"HowToStep","position":1,"name":"埋葬証明書の取得","text":"現在の墓地・納骨堂の管理者から埋葬証明書を発行してもらう。"},
+      {"@type":"HowToStep","position":2,"name":"受入証明書の取得","text":"改葬先（新しい納骨先）の管理者から受入証明書をもらう。"},
+      {"@type":"HowToStep","position":3,"name":"改葬許可申請書の記入","text":"現在の墓地がある市町村役場で改葬許可申請書を受け取り、必要事項を記入する。"},
+      {"@type":"HowToStep","position":4,"name":"改葬許可証の交付","text":"改葬許可申請書・受入証明書・埋葬証明書を市町村に提出し、改葬許可証の交付を受ける。"},
+      {"@type":"HowToStep","position":5,"name":"新しい納骨先へ提出","text":"改葬先に改葬許可証を提出し、納骨する。"}
+    ]
+  }
+  </script>
 
 
   <!-- =====================================
@@ -2199,7 +2286,7 @@
 
       <div class="media-highlight-card">
         <span class="topic">お墓じまい</span>
-        <strong>「基本プラン33万円（税込）」の明朗会計モデル</strong>が、業界の不透明な料金体系に一石を投じる取り組みとして紹介されました。
+        <strong>「基本プラン33万円（税込）」の追加料金のない料金モデル</strong>が、業界の不透明な料金体系に一石を投じる取り組みとして紹介されました。
       </div>
 
       <div class="media-highlight-card">
