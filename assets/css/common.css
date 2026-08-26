@@ -167,6 +167,8 @@ details[open] summary{margin-bottom:8px}
 .subnav li{display:block}
 .subnav a{display:block;padding:9px 18px;color:#1c3b40 !important;font-size:.85rem;font-weight:500;white-space:nowrap}
 .subnav a:hover{background:#eef5f4;color:#15709e !important}
+.subnav .subnav__top a{font-weight:700;color:#15709e !important}
+.subnav .subnav__top{border-bottom:1px solid #e4ebee;margin-bottom:6px;padding-bottom:6px}
 @media(max-width:768px){
   /* SPのバーガーメニュー内では子項目を常時インライン表示 */
   .site-nav__list > li.has-subnav{position:static}

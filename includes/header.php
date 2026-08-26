@@ -3,6 +3,7 @@ require_once __DIR__ . '/config.php';
 // グローバルナビのサブメニュー（親のhref => 子項目）
 $nav_sub = [
   '/service/' => array_merge(
+    [['label' => 'サービス一覧を見る', 'href' => '/service/', 'top' => true]],
     array_map(fn($s) => ['label' => $s['title'], 'href' => '/' . $s['slug'] . '/'], SERVICES),
     [
       ['label' => '海洋散骨 生前契約', 'href' => '/seizen/'],
@@ -33,7 +34,7 @@ $nav_sub = [
               <a href="<?= h($item['href']) ?>" aria-haspopup="true"><?= h($item['label']) ?><span class="subnav-caret" aria-hidden="true">▾</span></a>
               <ul class="subnav">
                 <?php foreach ($sub as $c): ?>
-                  <li><a href="<?= h($c['href']) ?>"><?= h($c['label']) ?></a></li>
+                  <li<?= !empty($c['top']) ? ' class="subnav__top"' : '' ?>><a href="<?= h($c['href']) ?>"><?= h($c['label']) ?></a></li>
                 <?php endforeach; ?>
               </ul>
             </li>
