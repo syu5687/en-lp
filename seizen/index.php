@@ -42,7 +42,7 @@ require_once __DIR__ . '/../includes/config.php';
   "@context":"https://schema.org",
   "@type":"Service",
   "name":"海洋散骨 生前契約",
-  "provider":{"@type":"Organization","name":"有限会社 縁","telephone":"0993-78-4650"},
+  "provider":{"@type":"Organization","name":"有限会社 縁","telephone":"099-801-3637"},
   "areaServed":["鹿児島県","福岡県"],
   "description":"生前に海洋散骨の希望を契約して託すサービス。利用者の死後、代表遺族の申し込みをもって確定となります。"
 }
@@ -259,9 +259,9 @@ require_once __DIR__ . '/../includes/config.php';
     <div class="sz-hero__inner">
       <p class="sz-hero__note">生前契約は、利用者の死後、<br>代表遺族の申し込みをもって確定となります</p>
       <div class="sz-hero__cta">
-        <a class="sz-btn-tel" href="tel:0993784650">
+        <a class="sz-btn-tel" href="tel:0998013637">
           <span class="lbl">お電話で相談</span>
-          <span class="num">0993-78-4650</span>
+          <span class="num">099-801-3637</span>
         </a>
         <a class="sz-btn-contact" href="/contact/">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -433,9 +433,9 @@ require_once __DIR__ . '/../includes/config.php';
     <p class="sz-final__lead">まずはお気軽にご連絡ください。</p>
     <div class="sz-final__tel">
       <p class="sz-final__tel-label">お電話でのご相談</p>
-      <a href="tel:0993784650" class="sz-final__tel-num">
+      <a href="tel:0998013637" class="sz-final__tel-num">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        0993-78-4650
+        099-801-3637
       </a>
       <p class="sz-final__tel-time">受付：月〜土 9:00 - 18:00</p>
     </div>
@@ -445,8 +445,8 @@ require_once __DIR__ . '/../includes/config.php';
     </a>
     <p class="sz-final__company">
       有限会社縁<br>
-      〒897-0202　鹿児島県南九州市川辺町清水9860<br>
-      電話 0993-78-4650
+      本社　〒891-0150　鹿児島県鹿児島市坂之上7丁目7-3　電話 099-801-3637<br>
+      福岡営業所　〒810-0003　福岡県福岡市中央区春吉2丁目1-3 2F　電話 090-5000-4825
     </p>
   </section>
 

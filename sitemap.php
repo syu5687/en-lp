@@ -2,7 +2,7 @@
 require_once __DIR__ . '/includes/config.php';
 header('Content-Type: application/xml; charset=UTF-8');
 
-$paths = ['/','/service/','/shindan/','/kuyou/','/gokuyou/','/staff/','/voice/','/blog/','/company/','/contact/','/privacy/','/seizen/'];
+$paths = ['/','/service/','/shindan/','/kuyou/','/gokuyou/','/staff/','/voice/','/blog/','/company/','/contact/','/privacy/','/seizen/','/area/'];
 foreach (SERVICES as $s) $paths[] = '/' . $s['slug'] . '/';
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";

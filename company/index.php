@@ -34,7 +34,8 @@ require __DIR__ . '/../includes/head.php';
       <tbody>
         <tr><th style="width:30%">商号</th><td><?= h(SITE['name']) ?></td></tr>
         <tr><th>代表者</th><td>堤 裕加里</td></tr>
-        <tr><th>所在地</th><td>〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></td></tr>
+        <tr><th>本社所在地</th><td>〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></td></tr>
+        <tr><th><?= h(SITE['fukuoka']['name']) ?></th><td>〒<?= h(SITE['fukuoka']['zip']) ?> <?= h(SITE['fukuoka']['address']) ?><br>TEL <?= h(SITE['fukuoka']['tel']) ?></td></tr>
         <tr><th>TEL / FAX</th><td><?= h(SITE['tel']) ?></td></tr>
         <tr><th>メール</th><td><?= h(SITE['email']) ?></td></tr>
         <tr><th>営業時間</th><td>9:00〜18:00（日曜定休）</td></tr>
@@ -48,7 +49,10 @@ require __DIR__ . '/../includes/head.php';
     <h2>アクセス</h2>
     <p class="prose" style="margin-bottom:14px">〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></p>
     <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow)">
-      <iframe src="https://maps.google.com/maps?q=<?= rawurlencode('鹿児島県鹿児島市坂之上7丁目7-3') ?>&z=15&output=embed" width="100%" height="340" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="有限会社 縁 所在地"></iframe>
+      <p style="font-weight:700;margin-bottom:8px">本社（鹿児島）</p>
+      <iframe src="https://maps.google.com/maps?q=<?= rawurlencode('鹿児島県鹿児島市坂之上7丁目7-3') ?>&z=15&output=embed" width="100%" height="340" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="有限会社 縁 本社所在地"></iframe>
+      <p style="font-weight:700;margin:24px 0 8px">福岡営業所</p>
+      <iframe src="https://maps.google.com/maps?q=<?= rawurlencode('福岡県福岡市中央区春吉2丁目1-3') ?>&z=15&output=embed" width="100%" height="340" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="有限会社 縁 福岡営業所"></iframe>
     </div>
 
     <div style="text-align:center;margin-top:36px">

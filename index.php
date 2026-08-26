@@ -30,7 +30,7 @@ $blog_items = array_slice($blog_items, 0, 3);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>海洋散骨・粉骨・お墓じまい｜鹿児島の供養トータルサポート 有限会社 縁</title>
-<meta name="description" content="鹿児島で海洋散骨・粉骨・お墓じまい・樹木葬のご相談なら有限会社縁。粉骨24,200円〜、海洋葬54,450円〜。日本海洋散骨協会加盟、宗教宗派不問。ご遺骨のお引取りから供養までトータルサポート。">
+<meta name="description" content="鹿児島・福岡で海洋散骨・粉骨・お墓じまい・樹木葬のご相談なら有限会社縁。鹿児島本社・福岡営業所の2拠点で九州全域に対応、全国からの郵送粉骨・委託散骨も。粉骨24,200円〜、海洋葬54,450円〜。日本海洋散骨協会加盟。">
 <meta name="keywords" content="海洋散骨,鹿児島,粉骨,お墓じまい,樹木葬,海洋葬,散骨,供養,お手元供養,宇宙葬,生前契約,有限会社縁">
 <link rel="canonical" href="https://en1150.co.jp/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -813,7 +813,7 @@ body { line-height: 1.8; }
 </script>
 <!-- 2. Organization + LocalBusiness (MEO/LLMO) -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://en1150.co.jp/#organization","name":"有限会社 縁","alternateName":"鹿児島海洋散骨 縁","url":"https://en1150.co.jp/","logo":"https://en1150.co.jp/assets/logo.svg","description":"鹿児島を拠点に海洋散骨・粉骨・お墓じまい・樹木葬・お手元供養・宇宙葬まで、ご遺骨の供養をワンストップでサポート。日本海洋散骨協会加盟事業者。","founder":{"@type":"Person","name":"堤 裕加里","jobTitle":"代表取締役"},"address":{"@type":"PostalAddress","streetAddress":"坂之上7丁目7-3","addressLocality":"鹿児島市","addressRegion":"鹿児島県","postalCode":"891-0150","addressCountry":"JP"},"geo":{"@type":"GeoCoordinates","latitude":31.5058,"longitude":130.5248},"telephone":"099-801-3637","email":"info@en1150.co.jp","openingHours":"Mo-Sa 09:00-18:00","priceRange":"¥5,000〜","areaServed":[{"@type":"State","name":"鹿児島県"},{"@type":"State","name":"宮崎県"},{"@type":"State","name":"熊本県"},{"@type":"Country","name":"日本"}],"sameAs":["https://www.instagram.com/en1150en/","https://lp.en1150.co.jp/"],"memberOf":{"@type":"Organization","name":"一般社団法人日本海洋散骨協会"},"hasCredential":{"@type":"EducationalOccupationalCredential","credentialCategory":"ご遺骨トータルアドバイザー"}}
+{"@context":"https://schema.org","@type":["Organization","LocalBusiness"],"@id":"https://en1150.co.jp/#organization","name":"有限会社 縁","alternateName":"鹿児島海洋散骨 縁","url":"https://en1150.co.jp/","logo":"https://en1150.co.jp/assets/logo.svg","description":"鹿児島を拠点に海洋散骨・粉骨・お墓じまい・樹木葬・お手元供養・宇宙葬まで、ご遺骨の供養をワンストップでサポート。日本海洋散骨協会加盟事業者。","founder":{"@type":"Person","name":"堤 裕加里","jobTitle":"代表取締役"},"address":{"@type":"PostalAddress","streetAddress":"坂之上7丁目7-3","addressLocality":"鹿児島市","addressRegion":"鹿児島県","postalCode":"891-0150","addressCountry":"JP"},"geo":{"@type":"GeoCoordinates","latitude":31.5058,"longitude":130.5248},"telephone":"099-801-3637","email":"info@en1150.co.jp","openingHours":"Mo-Sa 09:00-18:00","priceRange":"¥5,000〜","areaServed":[{"@type":"State","name":"鹿児島県"},{"@type":"State","name":"福岡県"},{"@type":"State","name":"宮崎県"},{"@type":"State","name":"熊本県"},{"@type":"AdministrativeArea","name":"九州"},{"@type":"Country","name":"日本"}],"department":[{"@type":"LocalBusiness","name":"有限会社 縁 福岡営業所","telephone":"090-5000-4825","address":{"@type":"PostalAddress","postalCode":"810-0003","addressRegion":"福岡県","addressLocality":"福岡市中央区","streetAddress":"春吉2丁目1-3 2F","addressCountry":"JP"}}],"sameAs":["https://www.instagram.com/en1150en/","https://lp.en1150.co.jp/"],"memberOf":{"@type":"Organization","name":"一般社団法人日本海洋散骨協会"},"hasCredential":{"@type":"EducationalOccupationalCredential","credentialCategory":"ご遺骨トータルアドバイザー"}}
 </script>
 <!-- 3. Service -->
 <script type="application/ld+json">
@@ -1117,7 +1117,7 @@ body { line-height: 1.8; }
 </svg>
     </div>
     <div class="area-info">
-      <div class="area-primary"><h4>拠点エリア</h4><p><strong>鹿児島県</strong>を中心に、<strong>九州全域</strong>（福岡・佐賀・長崎・熊本・大分・宮崎・沖縄）での海洋散骨・粉骨・お墓じまいに対応しています。<br><br>出張相談も承りますので、お気軽にお問い合わせください。</p></div>
+      <div class="area-primary"><h4>拠点エリア</h4><p><strong>鹿児島本社</strong>と<strong>福岡営業所</strong>の2拠点体制で、<strong>九州全域</strong>（福岡・佐賀・長崎・熊本・大分・宮崎・沖縄）での海洋散骨・粉骨・お墓じまいに対応しています。<br><br>全国からの郵送粉骨・委託海洋散骨も承ります。出張相談もお気軽にお問い合わせください。<br><br><a href="/area/" style="color:var(--color-deep-green);font-weight:700;text-decoration:underline">対応エリアのご案内はこちら →</a></p></div>
       <div class="area-nationwide"><h4>全国対応について</h4><p>ご遺骨は<strong>ゆうパック</strong>での郵送受付が可能です。<br>北海道から沖縄まで、全国どこからでもご依頼いただけます。<br>委託海洋葬であれば、お立ち会いなしでも施行いたします。</p><span class="area-nationwide-badge">全国どこからでも郵送OK</span>
         <div style="margin-top:16px;padding:16px;background:var(--color-white);border-radius:var(--radius);border:1px solid var(--color-border);">
           <p style="font-size:0.78rem;font-weight:600;color:var(--color-deep-green);margin-bottom:8px;">県外からの主なご依頼実績</p>
@@ -1182,7 +1182,7 @@ body { line-height: 1.8; }
 <!-- FOOTER -->
 <footer class="footer" role="contentinfo"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><div class="container">
   <div class="footer-inner">
-    <div class="footer-brand"><h3>有限会社 縁</h3><p>〒891-0150<br>鹿児島県鹿児島市坂之上7丁目7-3</p><a href="tel:099-801-3637" class="footer-tel">099-801-3637</a><p style="font-size:0.75rem;margin-top:8px;opacity:0.7;">Email: <a href="mailto:info@en1150.co.jp" style="color:inherit;">info@en1150.co.jp</a><br>営業時間: 9:00〜18:00（日曜定休）</p></div>
+    <div class="footer-brand"><h3>有限会社 縁</h3><p><strong>本社</strong><br>〒891-0150<br>鹿児島県鹿児島市坂之上7丁目7-3</p><a href="tel:099-801-3637" class="footer-tel">099-801-3637</a><p style="margin-top:10px"><strong>福岡営業所</strong><br>〒810-0003<br>福岡県福岡市中央区春吉2丁目1-3 2F</p><a href="tel:090-5000-4825" class="footer-tel" style="font-size:1rem">090-5000-4825</a><p style="font-size:0.75rem;margin-top:8px;opacity:0.7;">Email: <a href="mailto:info@en1150.co.jp" style="color:inherit;">info@en1150.co.jp</a><br>営業時間: 9:00〜18:00（日曜定休）</p></div>
     <div class="footer-nav-grid">
       <div class="footer-nav-col"><h4>サービス</h4><ul><li><a href="/kaiyou-sou/">海洋葬（海洋散骨）</a></li><li><a href="/teien-sou/">樹木葬</a></li><li><a href="/powder-cleaning/">粉骨・洗骨</a></li><li><a href="/temoto-kuyou/">お手元供養</a></li></ul></div>
       <div class="footer-nav-col"><h4>お墓のお悩み</h4><ul><li><a href="/grave/">お墓じまい</a></li><li><a href="/hikkoshi/">お墓の引越し（改葬）</a></li><li><a href="/pet-kaiyou-sou/">ペット供養</a></li><li><a href="/ihinseiri/">遺品整理</a></li></ul></div>

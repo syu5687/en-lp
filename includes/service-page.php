@@ -14,8 +14,8 @@
  */
 require_once __DIR__ . '/config.php';
 
-$page_title     = $service['title'] . '｜' . SITE['name'];
-$page_desc      = trim(($service['lead'] ?? '') !== '' ? ($service['lead'] . '（' . SITE['name'] . '・' . SITE['tagline'] . '）') : ($service['title'] . '｜' . SITE['name'] . '（' . SITE['tagline'] . '）'));
+$page_title     = $service['seo_title'] ?? ($service['title'] . '｜' . SITE['name']);
+$page_desc      = $service['seo_desc'] ?? trim(($service['lead'] ?? '') !== '' ? ($service['lead'] . '（' . SITE['name'] . '・' . SITE['tagline'] . '）') : ($service['title'] . '｜' . SITE['name'] . '（' . SITE['tagline'] . '）'));
 $page_canonical = SITE['url'] . '/' . $service['slug'] . '/';
 // サービスごとの見出し背景画像（$service['hero_image'] があれば個別画像を使用）
 if (!empty($service['hero_image'])) $page_hero_image = $service['hero_image'];

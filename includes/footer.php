@@ -3,9 +3,11 @@
   <div class="site-footer__inner">
     <div class="site-footer__brand">
       <p class="site-footer__name"><?= h(SITE['name']) ?></p>
-      <p class="site-footer__addr">〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></p>
+      <p class="site-footer__addr"><span style="font-weight:700">本社</span>　〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?></p>
       <p class="site-footer__tel">TEL <?= h(SITE['tel']) ?>（<?= h(SITE['hours_jp']) ?>）</p>
-      <p class="site-footer__mail"><?= h(SITE['email']) ?></p>
+      <p class="site-footer__addr" style="margin-top:8px"><span style="font-weight:700"><?= h(SITE['fukuoka']['name']) ?></span>　〒<?= h(SITE['fukuoka']['zip']) ?> <?= h(SITE['fukuoka']['address']) ?></p>
+      <p class="site-footer__tel">TEL <?= h(SITE['fukuoka']['tel']) ?></p>
+      <p class="site-footer__mail" style="margin-top:8px"><?= h(SITE['email']) ?></p>
     </div>
     <nav class="site-footer__nav" aria-label="フッターナビ">
       <ul>
@@ -17,6 +19,7 @@
         <li><a href="/kuyou/">ご供養について</a></li>
         <li><a href="/gokuyou/">よくあるご質問</a></li>
         <li><a href="/staff/">スタッフ紹介</a></li>
+        <li><a href="/area/">対応エリア</a></li>
         <li><a href="/company/">会社概要</a></li>
         <li><a href="/contact/">お問い合わせ</a></li>
         <li><a href="/privacy/">プライバシーポリシー</a></li>

@@ -27,7 +27,25 @@ $org = [
     'streetAddress' => '坂之上7丁目7-3',
     'addressCountry' => 'JP',
   ],
-  'areaServed' => ['@type' => 'Country', 'name' => '日本'],
+  'areaServed' => [
+    ['@type' => 'State', 'name' => '鹿児島県'],
+    ['@type' => 'State', 'name' => '福岡県'],
+    ['@type' => 'AdministrativeArea', 'name' => '九州'],
+    ['@type' => 'Country', 'name' => '日本'],
+  ],
+  'department' => [[
+    '@type' => 'LocalBusiness',
+    'name'  => SITE['name'] . ' ' . SITE['fukuoka']['name'],
+    'telephone' => SITE['fukuoka']['tel'],
+    'address' => [
+      '@type' => 'PostalAddress',
+      'postalCode' => SITE['fukuoka']['zip'],
+      'addressRegion' => '福岡県',
+      'addressLocality' => '福岡市中央区',
+      'streetAddress' => '春吉2丁目1-3 2F',
+      'addressCountry' => 'JP',
+    ],
+  ]],
   'openingHoursSpecification' => [[
     '@type' => 'OpeningHoursSpecification',
     'dayOfWeek' => ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
