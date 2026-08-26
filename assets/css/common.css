@@ -146,7 +146,7 @@ details[open] summary{margin-bottom:8px}
 /* ---- レスポンシブ ---- */
 @media(max-width:768px){
   .site-nav__toggle{display:flex}
-  .site-nav__list{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--header-blue);padding:16px 24px;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+  .site-nav__list{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--header-blue);padding:16px 24px 24px;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s;max-height:calc(100dvh - 70px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   .site-nav__list.is-open{transform:translateY(0);opacity:1;pointer-events:auto}
   .site-nav__cta{margin-top:4px}
   .page-hero h1{font-size:1.5rem}

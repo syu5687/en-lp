@@ -23,6 +23,8 @@ require __DIR__ . '/../includes/head.php';
       <p class="lead" style="line-height:2.1">大切な方を想う気持ちに寄り添うご供養のかたちを。<br>
       迷いや不安を抱えたままのご供養ではなく、<br class="pc-only">ご家族が「これでよかった」と思えるお見送りを。<br>
       それが、私たち縁の願いです。</p>
+      <img src="/about/images/vision-sea.jpg" alt="船上から海へ花びらを手向けるスタッフ" width="1600" height="1067" loading="eager"
+           style="width:100%;max-width:820px;border-radius:16px;margin-top:30px;box-shadow:0 10px 30px rgba(9,45,66,.14)">
     </div>
   </section>
 
@@ -34,6 +36,10 @@ require __DIR__ . '/../includes/head.php';
       <p>お墓の継承や管理に悩む方が増える中、海洋散骨・樹木葬・お手元供養など、自然に寄り添う新しい供養が選ばれるようになりました。一方で、「本当にこれでいいのか」という不安を抱える方も少なくありません。</p>
       <p>私たちは、宗教・宗派を問わず中立の立場で、それぞれの供養のメリットだけでなく注意点も含めて丁寧にご説明します。選択肢を押し付けるのではなく、迷っている時間にこそ寄り添う。ご相談・お見積りは無料で、急かすことは一切ありません。</p>
       <p>ご遺骨のお引き取りから、粉骨、海洋散骨、樹木葬、お手元供養、お墓じまい、遺品整理まで。「ご供養のトータルサポート」として、最初から最後まで一貫してお手伝いできることが、私たちの役割だと考えています。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:26px">
+        <img src="/about/images/ceremony-flowers.jpg" alt="船上に用意された献花・献酒のセレモニーセット" width="1100" height="733" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px">
+        <img src="/about/images/grave-consult.jpg" alt="お墓の前で資料を手にご説明するスタッフ" width="1100" height="733" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px">
+      </div>
     </div>
   </section>
 
@@ -56,6 +62,16 @@ require __DIR__ . '/../includes/head.php';
           <p style="font-size:2rem;font-weight:700;color:var(--green);line-height:1.3">100回<span style="font-size:1rem">以上</span></p>
           <p style="font-size:.88rem;color:var(--text-light);margin-top:6px">終活セミナー・講演の<br>ご依頼実績</p>
         </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:26px">
+        <figure style="margin:0">
+          <img src="/about/images/kaiyou-hanabira.jpg" alt="錦江湾での海洋散骨セレモニー：海に花びらを手向ける様子" width="1100" height="733" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px">
+          <figcaption style="font-size:.8rem;color:var(--text-light);margin-top:6px">海洋散骨セレモニーの様子</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <img src="/about/images/seminar.jpg" alt="寺院で開催された終活セミナーで講演する代表 堤" width="1100" height="825" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px">
+          <figcaption style="font-size:.8rem;color:var(--text-light);margin-top:6px">終活セミナーの様子</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -88,7 +104,7 @@ require __DIR__ . '/../includes/head.php';
       <p style="font-size:.85rem;letter-spacing:.24em;color:var(--green);font-weight:700;text-align:center;margin-bottom:14px">MESSAGE</p>
       <h2 style="text-align:center;margin-bottom:30px">たくさんのご縁に、こたえ続ける</h2>
       <div style="display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap">
-        <img src="/assets/img/staff-tsutsumi.jpg" alt="代表 堤 裕加里" width="160" height="160" loading="lazy" style="border-radius:50%;object-fit:cover;flex:none;margin:0 auto">
+        <img src="/about/images/portrait-tsutsumi.jpg" alt="代表 堤 裕加里" width="220" height="220" loading="lazy" style="width:220px;height:220px;border-radius:16px;object-fit:cover;object-position:top;flex:none;margin:0 auto">
         <div class="prose" style="flex:1;min-width:260px">
           <p>近年、社会状況や生活環境の変化により、供養のかたちも多様化しています。「お墓」や「納骨堂」に限らず、樹木葬や海洋散骨などの自然葬、お手元供養など、幅広い選択肢から選べる時代になりました。</p>
           <p>だからこそ私たちは、ご先祖様や身近な方のご供養はもちろん、ご自身の将来に関する希望まで、安心して話し合い、選び取っていただけるお手伝いをしたいと考えています。「供養」や「納骨」に関する不安を解消し、皆様が安心して大切な毎日を過ごせるよう、サポートを続けてまいります。</p>
@@ -96,7 +112,11 @@ require __DIR__ . '/../includes/head.php';
           <p style="text-align:right;font-weight:700;margin-top:18px">有限会社 縁　代表　堤 裕加里</p>
         </div>
       </div>
-      <p style="text-align:center;margin-top:26px"><a href="/staff/" class="btn btn--outline">スタッフ紹介を見る</a></p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:28px;max-width:560px;margin-left:auto;margin-right:auto">
+        <img src="/about/images/portrait-tsutsumi.jpg" alt="スタッフ（港にて）" width="800" height="534" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top;border-radius:12px">
+        <img src="/about/images/portrait-staff.jpg" alt="スタッフ（港にて）" width="800" height="534" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top;border-radius:12px">
+      </div>
+      <p style="text-align:center;margin-top:18px"><a href="/staff/" class="btn btn--outline">スタッフ紹介を見る</a></p>
     </div>
   </section>
 

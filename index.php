@@ -1269,7 +1269,7 @@ if (navToggle) {
   navToggle.addEventListener('click', () => {
     const isOpen = headerNav.style.display === 'flex';
     if (isOpen) { headerNav.style.display = 'none'; return; }
-    Object.assign(headerNav.style, { display: 'flex', flexDirection: 'column', position: 'absolute', top: '100%', left: '0', right: '0', background: 'rgba(21,112,158,0.98)', padding: '20px 24px', gap: '16px', boxShadow: '0 8px 24px rgba(0,0,0,0.15)' });
+    Object.assign(headerNav.style, { display: 'flex', flexDirection: 'column', position: 'absolute', top: '100%', left: '0', right: '0', background: 'rgba(21,112,158,0.98)', padding: '20px 24px 28px', gap: '16px', boxShadow: '0 8px 24px rgba(0,0,0,0.15)', maxHeight: 'calc(100dvh - 70px)', overflowY: 'auto', WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' });
   });
 }
 </script>
