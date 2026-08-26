@@ -19,6 +19,7 @@
       <ul>
         <li><a href="/about/">縁とは</a></li>
         <li><a href="/kuyou/">ご供養について</a></li>
+        <li><a href="/onayami/">供養のお悩み解決</a></li>
         <li><a href="/gokuyou/">よくあるご質問</a></li>
         <li><a href="/staff/">スタッフ紹介</a></li>
         <li><a href="/area/">対応エリア</a></li>

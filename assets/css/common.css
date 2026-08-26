@@ -157,3 +157,21 @@ details[open] summary{margin-bottom:8px}
 .site-nav__insta a{color:#fff;opacity:.9}
 .site-nav__insta a:hover{opacity:1}
 @media(min-width:769px){ .site-nav__insta-label{display:none} }
+
+/* ===== グローバルナビ：ドロップダウン（サブメニュー） ===== */
+.site-nav__list > li.has-subnav{position:relative}
+.subnav-caret{font-size:.6em;margin-left:4px;opacity:.8}
+.subnav{position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:230px;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(9,45,66,.18);padding:8px 0;margin:0;list-style:none;opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s;z-index:120}
+.subnav::before{content:'';position:absolute;top:-8px;left:0;right:0;height:8px} /* ホバー途切れ防止 */
+.has-subnav:hover .subnav,.has-subnav:focus-within .subnav{opacity:1;visibility:visible}
+.subnav li{display:block}
+.subnav a{display:block;padding:9px 18px;color:#1c3b40 !important;font-size:.85rem;font-weight:500;white-space:nowrap}
+.subnav a:hover{background:#eef5f4;color:#15709e !important}
+@media(max-width:768px){
+  /* SPのバーガーメニュー内では子項目を常時インライン表示 */
+  .site-nav__list > li.has-subnav{position:static}
+  .subnav{position:static;transform:none;opacity:1;visibility:visible;box-shadow:none;background:transparent;padding:0 0 4px 14px;min-width:0}
+  .subnav a{color:inherit !important;font-size:.85rem;opacity:.85;padding:7px 10px}
+  .subnav a:hover{background:rgba(255,255,255,.08);color:inherit !important}
+  .subnav-caret{display:none}
+}

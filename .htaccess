@@ -35,7 +35,6 @@
   RewriteRule ^letter/?$                 /kaiyou-sou/      [R=301,L]
   RewriteRule ^message/?$                /company/         [R=301,L]
   RewriteRule ^grave-test/?$             /ihinseiri/       [R=301,L]
-  RewriteRule ^onayami/?$                /grave/           [R=301,L]
   RewriteRule ^contact/contact-lec/?$    /contact/         [R=301,L]
   RewriteRule ^sample-page/?$            /                 [R=301,L]
 

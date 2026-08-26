@@ -112,6 +112,21 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .header-nav a { font-size: 0.82rem; font-weight: 400; color: var(--color-text); position: relative; }
 .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--color-gold); transition: var(--transition); }
 .header-nav a:hover::after { width: 100%; }
+.nav-dd { position: relative; display: inline-flex; align-items: center; }
+.nav-dd > a { display: inline-flex; align-items: center; }
+.nav-dd-caret { font-size: 0.6em; margin-left: 4px; opacity: 0.7; }
+.nav-dd-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); min-width: 220px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(9,45,66,0.18); padding: 8px 0; opacity: 0; visibility: hidden; transition: opacity 0.18s ease, visibility 0.18s; z-index: 120; display: block; }
+.nav-dd-menu::before { content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 10px; }
+.nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu { opacity: 1; visibility: visible; }
+.nav-dd-menu a { display: block; padding: 9px 18px; color: #1c3b40 !important; font-size: 0.85rem; white-space: nowrap; }
+.nav-dd-menu a::after { display: none; }
+.nav-dd-menu a:hover { background: #eef5f4; color: #15709e !important; }
+@media (max-width: 860px) {
+  .nav-dd { display: block; }
+  .nav-dd-menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; background: transparent; padding: 4px 0 0 14px; min-width: 0; }
+  .nav-dd-menu a { color: #fff !important; opacity: 0.9; padding: 6px 8px; }
+  .nav-dd-caret { display: none; }
+}
 .header-cta-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--color-green-mid) !important; padding: 9px 22px; border: 1px solid var(--color-deep-green); border-radius: var(--radius); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; box-shadow: none !important; }
 .header-cta-btn:hover { background: var(--color-deep-green); color: var(--color-white) !important; }
 .header-cta-btn::after { display: none !important; }
@@ -834,7 +849,7 @@ body { line-height: 1.8; }
 <header class="header" role="banner"><div class="header-inner">
   <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;margin-right:8px;vertical-align:middle;"><span class="header-logo-text">有限会社 縁</span></a>
   <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
-    <a href="/about/">縁とは</a><a href="/service/">サービス一覧</a><a href="/shindan/">供養の選び方</a><a href="/voice/">お客様の声</a><a href="/blog/">終活と供養の話</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
+    <a href="/about/">縁とは</a><span class="nav-dd"><a href="/service/">サービス一覧<span class="nav-dd-caret" aria-hidden="true">▾</span></a><span class="nav-dd-menu"><a href="/kaiyou-sou/">海洋葬（海洋散骨）</a><a href="/powder-cleaning/">粉骨・洗骨</a><a href="/grave/">お墓じまい</a><a href="/teien-sou/">樹木葬</a><a href="/temoto-kuyou/">お手元供養</a><a href="/jewelry-reform/">JEWELRYリフォーム</a><a href="/pet-kaiyou-sou/">ペット供養</a><a href="/ihinseiri/">遺品整理</a><a href="/hikkoshi/">お墓のお引越し</a><a href="/seizen/">海洋散骨 生前契約</a><a href="/area/">対応エリア</a></span></span><span class="nav-dd"><a href="/shindan/">供養の選び方<span class="nav-dd-caret" aria-hidden="true">▾</span></a><span class="nav-dd-menu"><a href="/shindan/">かんたん診断</a><a href="/onayami/">供養のお悩み解決</a><a href="/gokuyou/">よくあるご質問</a></span></span><a href="/voice/">お客様の声</a><a href="/blog/">終活と供養の話</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
     <a href="https://www.instagram.com/en1150en/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram" style="display:inline-flex;align-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.26.07 1.64.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.26.06-1.64.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05 0 8.3 0 8.7 0 12s0 3.7.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.3 24 8.7 24 12 24s3.7 0 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91C24 15.7 24 15.3 24 12s0-3.7-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.7 0 15.3 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg></a>
     <a href="/contact/" class="header-cta-btn">資料請求・ご相談</a>
   </nav>
@@ -961,6 +976,7 @@ body { line-height: 1.8; }
     <div class="worry-card"><span class="worry-check">✓</span><p><strong>粉骨</strong>をお願いしたいが、費用や手順がわからない</p></div>
     <div class="worry-card"><span class="worry-check">✓</span><p>お墓の引越し（<strong>改葬</strong>）の手続きがわからない</p></div>
   </div>
+  <p class="fade-up" style="text-align:center;margin-top:26px"><a href="/onayami/" class="btn-secondary" style="display:inline-block">お悩み別の解決策と実際の声を見る →</a></p>
   <div class="worry-answer fade-up">
   <div class="worry-answer-banner">
     <p class="worry-answer-text">そのお悩み、<em>縁</em>が<br>まるごと解決いたします。</p>
