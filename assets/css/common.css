@@ -45,6 +45,9 @@ a{color:inherit;text-decoration:none;transition:.3s}
 .site-nav__cta a:hover{background:#fff;color:var(--header-blue)}
 .site-nav__toggle{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer}
 .site-nav__toggle span{width:24px;height:2px;background:#fff;transition:.3s}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.site-nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ---- ページ見出し（下層共通ヒーロー：写真背景＋オーシャン色オーバーレイ＋波線） ----
    背景画像は --hero-image で指定（既定は hero-default.jpg）。各ページで

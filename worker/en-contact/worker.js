@@ -1,5 +1,5 @@
 /**
- * @version v0004 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（管理者宛2名に変更） | Cloudflare Workers
+ * @version v0005 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（稼働確認メールも2名宛に） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -25,7 +25,7 @@ var CONFIG = {
   AUTO_REPLY_SUBJECT: "【有限会社 縁】お問い合わせを承りました",
   AUTO_REPLY_NOTE: "※このメールは自動送信用メールアドレスです。返信はできません。お急ぎの場合はお電話（099-801-3637）でご連絡ください。",
   BREVO_LIST_ID: null,                    // コンタクト登録する場合のみリストID
-  MONITOR_TO: "info@en1150.co.jp",        // 毎日の稼働確認メール宛先
+  MONITOR_TO: ["info@en1150.co.jp", "mk@lu-m.co.jp"], // 毎日の稼働確認メール宛先（複数可）
   MONITOR_SUBJECT: "【自動稼働確認】en1150 お問い合わせフォーム 正常稼働中",
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
@@ -145,7 +145,7 @@ export default {
       : "";
     const body = {
       sender: { name: CONFIG.FROM_NAME, email: CONFIG.FROM_EMAIL },
-      to: [{ email: CONFIG.MONITOR_TO }],
+      to: (Array.isArray(CONFIG.MONITOR_TO) ? CONFIG.MONITOR_TO : [CONFIG.MONITOR_TO]).map((e) => ({ email: e })),
       subject: CONFIG.MONITOR_SUBJECT,
       htmlContent: `<div style="font-family:sans-serif;line-height:1.8;color:#222;"><p>フォームのメール送信機能は<b>正常に稼働しています</b>。</p>${formLink}<p>この自動確認メールが毎日届いていれば正常です。届かない日があれば要確認。</p><p style="font-size:12px;color:#888;">自動送信／${now} UTC</p></div>`
     };
