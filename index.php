@@ -123,6 +123,9 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .nav-dd-menu a:hover { background: #eef5f4; color: #15709e !important; }
 .nav-dd-menu .nav-dd-top { font-weight: 700; color: #15709e !important; border-bottom: 1px solid #e4ebee; margin-bottom: 6px; padding-bottom: 12px; }
 @media (max-width: 860px) {
+  .header-nav > a, .nav-dd > a { display: block; padding: 11px 2px; border-bottom: 1px solid rgba(255,255,255,0.16); font-size: 0.95rem; font-weight: 600; }
+  .header-nav .header-cta-btn { border: 1px solid rgba(255,255,255,0.8); border-radius: 999px; text-align: center; margin-top: 12px; font-weight: 700; }
+  .nav-dd-menu .nav-dd-top { display: none; }
   .nav-dd { display: block; }
   .nav-dd-menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; background: transparent; padding: 4px 0 0 14px; min-width: 0; }
   .nav-dd-menu a { color: #fff !important; opacity: 0.9; padding: 6px 8px; }
@@ -977,7 +980,7 @@ body { line-height: 1.8; }
     <div class="worry-card"><span class="worry-check">✓</span><p><strong>粉骨</strong>をお願いしたいが、費用や手順がわからない</p></div>
     <div class="worry-card"><span class="worry-check">✓</span><p>お墓の引越し（<strong>改葬</strong>）の手続きがわからない</p></div>
   </div>
-  <p class="fade-up" style="text-align:center;margin-top:26px"><a href="/onayami/" class="btn-secondary" style="display:inline-block">お悩み別の解決策と実際の声を見る →</a></p>
+  <p class="fade-up" style="text-align:center;margin-top:26px"><a href="/onayami/" class="btn-secondary" style="display:inline-flex;background:var(--color-ocean);color:#fff;border-color:var(--color-ocean);font-weight:600;box-shadow:0 4px 14px rgba(18,89,122,.25) !important">お悩み別の解決策と実際の声を見る →</a></p>
   <div class="worry-answer fade-up">
   <div class="worry-answer-banner">
     <p class="worry-answer-text">そのお悩み、<em>縁</em>が<br>まるごと解決いたします。</p>
@@ -1061,7 +1064,7 @@ body { line-height: 1.8; }
     <div class="testimonial-card"><div class="testimonial-quote">"</div><p>墓じまいから海洋散骨まで、すべてお任せできて本当に安心でした。料金も明瞭で、最初の相談から丁寧に対応していただきました。</p><div class="testimonial-meta"><div class="testimonial-avatar"></div><div class="testimonial-meta-text"><strong>S.T 様</strong><span>お墓じまい＋海洋葬をご利用</span><span class="testimonial-location"> 福岡県からご依頼</span></div></div></div>
     <div class="testimonial-card"><div class="testimonial-quote">"</div><p>大阪に住んでいますが、実家の墓じまいをお願いしました。改葬手続きから粉骨、散骨まですべてワンストップで対応してくださり、何度も鹿児島に行く必要がなく助かりました。</p><div class="testimonial-meta"><div class="testimonial-avatar"></div><div class="testimonial-meta-text"><strong>Y.K 様</strong><span>お墓じまい＋粉骨＋委託海洋葬</span><span class="testimonial-location"> 大阪府からご依頼</span></div></div></div>
   </div>
-  <div class="testimonials-more"><a href="/voice/" class="btn-secondary" style="color:var(--color-white);border-color:rgba(255,255,255,0.5);">お客様の声をもっと見る</a></div>
+  <div class="testimonials-more"><a href="/voice/" class="btn-secondary" style="background:var(--color-ocean);color:#fff;border-color:var(--color-ocean);font-weight:600;box-shadow:0 4px 14px rgba(18,89,122,.25) !important">お客様の声をもっと見る</a></div>
 </div></section>
 
 <!-- STRENGTHS -->
@@ -1279,11 +1282,11 @@ if (navToggle) {
 .side-finder{display:flex;flex-direction:column;align-items:center;gap:12px;background:linear-gradient(180deg,#1f8fce 0%,#15709e 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(18,89,122,.28);text-decoration:none;transition:.25s}
 .side-finder:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
 .side-finder .sf-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex:none}
-.side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em}
+.side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em;white-space:nowrap}
 @media(max-width:768px){.side-finder{padding:12px 8px;gap:9px}.side-finder .sf-label{font-size:.82rem;letter-spacing:.1em}.side-finder .sf-badge{width:22px;height:22px;font-size:.82rem}}
 .side-flow{display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#c9a25a 0%,#a88a4d 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(120,90,30,.28);text-decoration:none;transition:.25s}
 .side-flow:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
-.side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em}
+.side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em;white-space:nowrap}
 @media(max-width:768px){.side-flow{padding:12px 8px}.side-flow .sf-label{font-size:.78rem;letter-spacing:.08em}}
 </style>
 <!-- 右側固定・縦長タブ（供養の選び方／お申込みの流れ） -->
@@ -1296,6 +1299,7 @@ if (navToggle) {
     <span class="sf-label">お申込みの流れ</span>
   </a>
 </div>
+<?php require __DIR__ . '/includes/fontsize.php'; ?>
 <?= dev_badge_html() ?>
 </body>
 </html>

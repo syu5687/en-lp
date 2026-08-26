@@ -136,7 +136,7 @@ details[open] summary{margin-bottom:8px}
   text-decoration:none;transition:.25s}
 .side-finder:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
 .side-finder .sf-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex:none}
-.side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em}
+.side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em;white-space:nowrap}
 @media(max-width:768px){
   .side-finder{padding:12px 8px;gap:9px}
   .side-finder .sf-label{font-size:.82rem;letter-spacing:.1em}
@@ -182,5 +182,21 @@ details[open] summary{margin-bottom:8px}
 /* お申込みの流れ 固定タブ */
 .side-flow{display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#c9a25a 0%,#a88a4d 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(120,90,30,.28);text-decoration:none;transition:.25s}
 .side-flow:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
-.side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em}
+.side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em;white-space:nowrap}
 @media(max-width:768px){.side-flow{padding:12px 8px}.side-flow .sf-label{font-size:.78rem;letter-spacing:.08em}}
+
+/* ===== SPハンバーガーメニュー：整理されたデザイン ===== */
+@media(max-width:768px){
+  .site-nav__list{background:linear-gradient(180deg,#15709e 0%,#0e567d 100%);padding:6px 20px 22px;gap:0;border-radius:0 0 16px 16px}
+  .site-nav__list > li{border-bottom:1px solid rgba(255,255,255,.14)}
+  .site-nav__list > li.site-nav__insta,.site-nav__list > li.site-nav__cta{border-bottom:0}
+  .site-nav__list > li > a{display:flex;align-items:center;justify-content:space-between;padding:14px 4px;font-size:1rem;font-weight:700;color:#fff}
+  .subnav{padding:0 0 12px 8px}
+  .subnav .subnav__top{display:none} /* 親リンクと重複するため非表示 */
+  .subnav a{display:block;padding:9px 12px;font-size:.88rem;color:rgba(255,255,255,.94) !important;opacity:1;border-left:2px solid rgba(255,255,255,.3);margin-left:4px;font-weight:500}
+  .subnav a:active{background:rgba(255,255,255,.1)}
+  .site-nav__insta{padding:6px 0}
+  .site-nav__insta a{padding:10px 4px}
+  .site-nav__cta{margin-top:12px}
+  .site-nav__cta a{display:block;text-align:center;background:#fff;color:#15709e !important;font-weight:700;border-radius:999px;padding:13px;font-size:.98rem}
+}

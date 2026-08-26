@@ -112,7 +112,7 @@ require __DIR__ . '/head.php';
       <h2 class="section-title">作品例</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px">
         <?php foreach ($service['gallery'] as $g): ?>
-          <img src="<?= h($g['src']) ?>" alt="<?= h($g['alt']) ?>" loading="lazy"
+          <img src="<?= h($g['src']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($g['alt']) ?>" loading="lazy"
                style="width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)">
         <?php endforeach; ?>
       </div>
