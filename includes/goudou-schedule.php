@@ -30,6 +30,9 @@ $gd_fmt = static function (string $ymd): array {
             <?php if (!empty($g['sea'])): ?><p class="goudou-card__sea"><?= h($g['sea']) ?></p><?php endif; ?>
             <p class="goudou-card__status goudou-card__status--<?= ($g['status'] ?? '') === '受付終了' ? 'closed' : ((($g['status'] ?? '') === '残りわずか') ? 'few' : 'open') ?>"><?= h($g['status'] ?? '受付中') ?></p>
             <?php if (!empty($g['note'])): ?><p class="goudou-card__note"><?= h($g['note']) ?></p><?php endif; ?>
+            <?php if (($g['status'] ?? '受付中') !== '受付終了'): ?>
+              <a class="goudou-card__apply" href="/contact/?service=<?= rawurlencode('合同海洋葬') ?>&amp;date=<?= rawurlencode((string)($g['date'] ?? '')) ?>">この日に申し込む</a>
+            <?php endif; ?>
           </div>
         <?php endforeach; ?>
       </div>
@@ -60,6 +63,8 @@ $gd_fmt = static function (string $ymd): array {
 .goudou-card__status--few{background:#fff3e0;color:#c26400}
 .goudou-card__status--closed{background:#eee;color:#888}
 .goudou-card__note{font-size:.78rem;color:#789;margin-top:8px}
+.goudou-card__apply{display:block;margin-top:12px;background:var(--green,#1c6b52);color:#fff;font-size:.85rem;font-weight:700;padding:9px 10px;border-radius:999px;text-decoration:none;transition:.2s}
+.goudou-card__apply:hover{filter:brightness(1.12);color:#fff}
 .goudou-sched__caution{font-size:.8rem;color:rgba(255,255,255,.7);margin-top:16px}
 .goudou-sched__empty{background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.4);border-radius:12px;padding:22px;font-size:.95rem;max-width:640px;margin:0 auto}
 .goudou-sched__cta{margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:12px}

@@ -55,6 +55,10 @@ require __DIR__ . '/../includes/head.php';
           <option value="その他">その他</option>
         </select>
       </label>
+      <label id="goudou-date-field" hidden>合同海洋散骨 ご希望日
+        <input type="date" name="goudou_date">
+        <span style="font-weight:400;font-size:.8rem;color:var(--text-light)">実施予定日からお選びいただいた日付です。変更も可能です。</span>
+      </label>
       <label>お問い合わせ内容 <span class="req">必須</span>
         <textarea name="message" rows="6" required></textarea>
       </label>
@@ -114,6 +118,20 @@ let shindanService = '';
     sel.insertBefore(opt, sel.querySelector('option[value="その他"]'));
   }
   sel.value = opt.value;
+})();
+// 合同海洋散骨 実施予定日からの遷移：?date=YYYY-MM-DD をご希望日欄にセット
+(function () {
+  const params = new URLSearchParams(location.search);
+  const d = (params.get('date') || '').trim();
+  const field = document.getElementById('goudou-date-field');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
+  field.hidden = false;
+  field.querySelector('input[name="goudou_date"]').value = d;
+  const note = document.getElementById('shindan-note');
+  if (note.hidden) {
+    document.getElementById('shindan-service').textContent = '合同海洋散骨（ご希望日 ' + d.replace(/-/g, '/') + '）';
+    note.hidden = false;
+  }
 })();
 form.addEventListener('submit', async (e) => {
   e.preventDefault();

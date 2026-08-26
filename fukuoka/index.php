@@ -24,6 +24,8 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
       <p class="lead" style="line-height:2.1">「海に還りたい」という想いに、福岡でもお応えします。<br>
       有限会社 縁は<strong>福岡営業所（福岡市中央区春吉）</strong>を拠点に、<br class="pc-only">
       海洋散骨・粉骨・お墓じまい・生前契約のご相談を承っています。</p>
+      <img src="/fukuoka/images/fk-port.jpg?v=<?= h(asset_ver()) ?>" alt="福岡の港に停泊する海洋散骨のクルーズ船" width="1600" height="1067" loading="lazy"
+           style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.12);margin-top:28px">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:30px">
         <div class="card" style="text-align:center"><p style="font-size:1.7rem;font-weight:700;color:var(--green)">3,800<span style="font-size:.9rem">件以上</span></p><p style="font-size:.85rem;color:var(--text-light)">鹿児島・福岡を中心に<br>全国の対応実績</p></div>
         <div class="card" style="text-align:center"><p style="font-size:1.7rem;font-weight:700;color:var(--green)">10年<span style="font-size:.9rem">以上</span></p><p style="font-size:.85rem;color:var(--text-light)">海洋葬の実績</p></div>
@@ -77,6 +79,12 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
           <p style="font-size:.92rem">ご相談→お見積り（無料）→お申し込み→お預かり→施行→アフターサポートの6ステップをご案内します。</p>
         </a>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:30px">
+        <img src="/fukuoka/images/fk-ceremony.jpg?v=<?= h(asset_ver()) ?>" alt="船上に用意された献花と献酒のセレモニーセット" width="900" height="600" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
+        <img src="/fukuoka/images/fk-petals.jpg?v=<?= h(asset_ver()) ?>" alt="海へ花びらを手向ける散骨セレモニーの様子" width="900" height="600" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
+        <img src="/fukuoka/images/fk-kensui.jpg?v=<?= h(asset_ver()) ?>" alt="散骨後に海へ水を手向ける献水の様子" width="900" height="600" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
+      </div>
+      <p style="text-align:center;margin-top:12px;font-size:.85rem;color:var(--text-light)">実際の海洋散骨セレモニーの様子</p>
     </div>
   </section>
 
@@ -93,6 +101,10 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
         <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">最初から最後まで一貫対応</h3><p style="font-size:.92rem">ご遺骨のお引き取りから粉骨・散骨・その後の供養まで、一つの窓口でお手伝いします。</p></div>
         <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">散骨後も、会いに行ける</h3><p style="font-size:.92rem">散骨海域を再訪するメモリアルクルーズや、お手元供養など、「その後」のご供養もお手伝いします。</p></div>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:26px">
+        <img src="/fukuoka/images/fk-sea-flowers.jpg?v=<?= h(asset_ver()) ?>" alt="花びらが広がる海と散骨セレモニーを行う船上のスタッフ" width="1200" height="800" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
+        <img src="/fukuoka/images/fk-sankotsu.jpg?v=<?= h(asset_ver()) ?>" alt="海へご遺骨を還す散骨の様子" width="1200" height="800" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
+      </div>
       <blockquote style="margin:30px auto 0;max-width:680px;padding:18px 22px;border-left:4px solid var(--green);background:var(--cream);border-radius:0 12px 12px 0">
         <p style="font-size:.95rem;line-height:1.9">「海洋葬・散骨が明るい雰囲気でしたので、気が楽になりました。お世話になり、ありがとうございました。」</p>
         <cite style="display:block;margin-top:8px;font-style:normal;font-size:.82rem;color:var(--text-light)">—— 福岡県 60歳代 男性 Y様（粉骨・チャーター海洋葬／お墓じまい）</cite>
@@ -105,6 +117,8 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:860px">
       <h2 style="text-align:center;margin-bottom:26px">福岡営業所のご案内</h2>
+      <img src="/fukuoka/images/fk-staff.jpg?v=<?= h(asset_ver()) ?>" alt="福岡の港で笑顔で迎えるスタッフ" width="900" height="600" loading="lazy"
+           style="display:block;width:100%;max-width:560px;margin:0 auto 24px;aspect-ratio:3/2;object-fit:cover;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;align-items:start">
         <div class="card">
           <p style="font-weight:700;font-size:1.05rem;margin-bottom:10px"><?= h(SITE['name']) ?> <?= h($FUK['name']) ?></p>
