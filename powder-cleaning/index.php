@@ -35,7 +35,7 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
         <p>洗骨（ご遺骨のクリーニング）は、長年お墓に入っていて泥などで汚れているご遺骨を、アルカリ水を使いすべて手作業で洗浄すること。洗浄後は殺菌・乾燥まで丁寧に行います。</p>
         <p>粉骨のみのご依頼も承っております。お手元供養やご自宅での保管をお考えの方にもご利用いただけます。</p>
       </div>
-      <img src="<?= h($pc_img('pc-staff.jpg')) ?>" alt="乳鉢を使い、すべて手作業でご遺骨を粉骨するスタッフ" width="1400" height="933" loading="lazy"
+      <img src="<?= h($pc_img('pc-staff.jpg')) ?>" alt="乳鉢と乳棒を使い、両手で丁寧にご遺骨を粉骨する様子" width="1400" height="933" loading="lazy"
            style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.12);margin-top:30px">
       <p style="text-align:center;margin-top:10px;font-size:.85rem;color:var(--text-light)">当社の粉骨室での実際の作業風景。機械任せにせず、スタッフが心を込めて行います。</p>
     </div>

@@ -118,6 +118,18 @@ require __DIR__ . '/../includes/head.php';
         </div>
       </div>
     <?php endforeach; ?>
+
+    <!-- ご利用にあたってのご案内 -->
+    <div style="margin-top:52px;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 28px">
+      <p style="font-weight:700;color:var(--green-mid);margin-bottom:12px">ご利用にあたって</p>
+      <p style="font-size:.92rem;color:var(--text-light);line-height:1.9;margin-bottom:14px">どのサービスも、ご相談・お見積りは無料です。お申し込み後のキャンセル・日程変更の取り扱いは、キャンセルポリシーをご確認ください。</p>
+      <p style="display:flex;flex-wrap:wrap;gap:10px 24px">
+        <a href="/flow/" style="color:var(--green);font-weight:700;text-decoration:underline">お申込みの流れ →</a>
+        <a href="/policy/" style="color:var(--green);font-weight:700;text-decoration:underline">キャンセルポリシー →</a>
+        <a href="/area/" style="color:var(--green);font-weight:700;text-decoration:underline">対応エリア →</a>
+        <a href="/gokuyou/" style="color:var(--green);font-weight:700;text-decoration:underline">よくあるご質問 →</a>
+      </p>
+    </div>
   </div>
 </main>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

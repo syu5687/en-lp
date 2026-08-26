@@ -16,15 +16,20 @@
         <?php foreach (SERVICES as $s): ?>
           <li><a href="/<?= h($s['slug']) ?>/"><?= h($s['title']) ?></a></li>
         <?php endforeach; ?>
+        <li><a href="/seizen/">海洋散骨 生前契約</a></li>
+        <li><a href="/shindan/">供養の選び方（かんたん診断）</a></li>
       </ul>
       <ul>
         <li><a href="/about/">縁とは</a></li>
         <li><a href="/kuyou/">ご供養について</a></li>
         <li><a href="/onayami/">供養のお悩み解決</a></li>
+        <li><a href="/voice/">お客様の声</a></li>
+        <li><a href="/blog/">終活と供養の話</a></li>
         <li><a href="/flow/">お申込みの流れ</a></li>
         <li><a href="/gokuyou/">よくあるご質問</a></li>
         <li><a href="/staff/">スタッフ紹介</a></li>
         <li><a href="/area/">対応エリア</a></li>
+        <li><a href="/fukuoka/">福岡営業所</a></li>
         <li><a href="/company/">会社概要</a></li>
         <li><a href="/contact/">お問い合わせ</a></li>
         <li><a href="/policy/">キャンセルポリシー</a></li>
