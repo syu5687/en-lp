@@ -128,7 +128,8 @@ details[open] summary{margin-bottom:8px}
 .sticky-cta__line{background:#2f7d4f}
 
 /* ---- 右側固定・縦長「供養の選び方」タブ（全ページ常時表示） ---- */
-.side-finder{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;
+.side-tabs{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.side-finder{
   display:flex;flex-direction:column;align-items:center;gap:12px;
   background:linear-gradient(180deg,var(--green) 0%,var(--header-blue) 100%);color:#fff;
   padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(18,89,122,.28);
@@ -177,3 +178,9 @@ details[open] summary{margin-bottom:8px}
   .subnav a:hover{background:rgba(255,255,255,.08);color:inherit !important}
   .subnav-caret{display:none}
 }
+
+/* お申込みの流れ 固定タブ */
+.side-flow{display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#c9a25a 0%,#a88a4d 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(120,90,30,.28);text-decoration:none;transition:.25s}
+.side-flow:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
+.side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em}
+@media(max-width:768px){.side-flow{padding:12px 8px}.side-flow .sf-label{font-size:.78rem;letter-spacing:.08em}}

@@ -1275,16 +1275,27 @@ if (navToggle) {
 </script>
 <script src="/assets/js/track.js?v=<?= h(asset_ver()) ?>" defer></script>
 <style>
-.side-finder{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;align-items:center;gap:12px;background:linear-gradient(180deg,#1f8fce 0%,#15709e 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(18,89,122,.28);text-decoration:none;transition:.25s}
+.side-tabs{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.side-finder{display:flex;flex-direction:column;align-items:center;gap:12px;background:linear-gradient(180deg,#1f8fce 0%,#15709e 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(18,89,122,.28);text-decoration:none;transition:.25s}
 .side-finder:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
 .side-finder .sf-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex:none}
 .side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em}
 @media(max-width:768px){.side-finder{padding:12px 8px;gap:9px}.side-finder .sf-label{font-size:.82rem;letter-spacing:.1em}.side-finder .sf-badge{width:22px;height:22px;font-size:.82rem}}
+.side-flow{display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#c9a25a 0%,#a88a4d 100%);color:#fff;padding:16px 11px;border-radius:12px 0 0 12px;box-shadow:-4px 4px 16px rgba(120,90,30,.28);text-decoration:none;transition:.25s}
+.side-flow:hover{padding-right:17px;filter:brightness(1.06);color:#fff}
+.side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em}
+@media(max-width:768px){.side-flow{padding:12px 8px}.side-flow .sf-label{font-size:.78rem;letter-spacing:.08em}}
 </style>
-<a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
-  <span class="sf-badge" aria-hidden="true">?</span>
-  <span class="sf-label">供養の選び方</span>
-</a>
+<!-- 右側固定・縦長タブ（供養の選び方／お申込みの流れ） -->
+<div class="side-tabs">
+  <a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
+    <span class="sf-badge" aria-hidden="true">?</span>
+    <span class="sf-label">供養の選び方</span>
+  </a>
+  <a href="/flow/" class="side-flow" aria-label="お申込みの流れ">
+    <span class="sf-label">お申込みの流れ</span>
+  </a>
+</div>
 <?= dev_badge_html() ?>
 </body>
 </html>

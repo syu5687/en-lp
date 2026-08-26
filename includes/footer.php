@@ -20,6 +20,7 @@
         <li><a href="/about/">縁とは</a></li>
         <li><a href="/kuyou/">ご供養について</a></li>
         <li><a href="/onayami/">供養のお悩み解決</a></li>
+        <li><a href="/flow/">お申込みの流れ</a></li>
         <li><a href="/gokuyou/">よくあるご質問</a></li>
         <li><a href="/staff/">スタッフ紹介</a></li>
         <li><a href="/area/">対応エリア</a></li>
@@ -33,11 +34,16 @@
   <p class="site-footer__ver" style="margin-top:6px;font-size:.68rem;opacity:.55;letter-spacing:.05em;text-align:center"><?= h(APP_VERSION) ?></p>
 </footer>
 
-<!-- 右側固定・縦長「供養の選び方」タブ -->
-<a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
-  <span class="sf-badge" aria-hidden="true">?</span>
-  <span class="sf-label">供養の選び方</span>
-</a>
+<!-- 右側固定・縦長タブ（供養の選び方／お申込みの流れ） -->
+<div class="side-tabs">
+  <a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
+    <span class="sf-badge" aria-hidden="true">?</span>
+    <span class="sf-label">供養の選び方</span>
+  </a>
+  <a href="/flow/" class="side-flow" aria-label="お申込みの流れ">
+    <span class="sf-label">お申込みの流れ</span>
+  </a>
+</div>
 
 <!-- SP固定フッターCTA -->
 <div class="sticky-cta">
