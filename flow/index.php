@@ -7,7 +7,7 @@ $page_hero_image = '/assets/img/hero-contact.jpg';
 require __DIR__ . '/../includes/head.php';
 
 $steps = [
-  ['title' => 'ご相談（無料）', 'desc' => 'お電話・メールフォーム・LINEでお気軽にご相談ください。「まだ決めていない」「話を聞くだけ」でも大歓迎です。ご事情やご希望を伺いながら、供養の選択肢を一緒に考えます。急かすことは一切ありません。', 'note' => '電話 099-801-3637（月〜土 9:00〜18:00）／メール・LINEは24時間受付'],
+  ['title' => 'ご相談（無料）', 'desc' => 'お電話・メールフォーム・LINEでお気軽にご相談ください。「まだ決めていない」「話を聞くだけ」でも大歓迎です。ご事情やご希望を伺いながら、供養の選択肢を一緒に考えます。急かすことは一切ありません。', 'note' => '', 'contacts' => true],
   ['title' => 'お見積り（無料）', 'desc' => 'ご希望の内容に沿って、無料でお見積りをご提示します。金額はお見積りで確定し、あとから追加料金をいただくことはありません。お墓じまい等は現地確認のうえでお出しします。', 'note' => '相見積もりも歓迎です'],
   ['title' => 'お申し込み', 'desc' => '内容にご納得いただけたら、正式にお申し込みください。日程やプランの詳細を確定します。ご家族で改めてご検討いただいてからで構いません。', 'note' => ''],
   ['title' => 'ご遺骨・お品のお預かり', 'desc' => 'ご遺骨は「郵送」「お持ち込み」「お引き取り」からご都合のよい方法でお預かりします。遠方の方も郵送で全国からご依頼いただけます。火葬許可証（埋葬許可証）のコピー等、必要書類はご案内します。', 'note' => '梱包方法・送り方は丁寧にご案内しますのでご安心ください'],
@@ -37,6 +37,21 @@ $steps = [
           <div class="apply-step__body">
             <h2><?= h($st['title']) ?></h2>
             <p><?= h($st['desc']) ?></p>
+            <?php if (!empty($st['contacts'])): ?>
+              <div class="apply-contacts">
+                <div class="apply-contact">
+                  <p class="apply-contact__name">本社（鹿児島）</p>
+                  <a class="apply-contact__tel" href="tel:<?= h(str_replace('-', '', SITE['tel'])) ?>"><?= h(SITE['tel']) ?></a>
+                  <p class="apply-contact__hours"><?= h(SITE['hours_jp']) ?></p>
+                </div>
+                <div class="apply-contact">
+                  <p class="apply-contact__name"><?= h(SITE['fukuoka']['name']) ?></p>
+                  <a class="apply-contact__tel" href="tel:<?= h(str_replace('-', '', SITE['fukuoka']['tel'])) ?>"><?= h(SITE['fukuoka']['tel']) ?></a>
+                  <p class="apply-contact__hours"><?= h(SITE['hours_jp']) ?></p>
+                </div>
+              </div>
+              <p class="apply-step__note">※ <a href="/contact/" style="color:var(--green);font-weight:700">メールフォーム</a>・LINEは24時間受付しています</p>
+            <?php endif; ?>
             <?php if ($st['note']): ?><p class="apply-step__note">※ <?= h($st['note']) ?></p><?php endif; ?>
           </div>
         </li>
@@ -74,6 +89,12 @@ $steps = [
 .apply-step__body h2{font-size:1.08rem;margin-bottom:8px}
 .apply-step__body p{font-size:.95rem;line-height:1.95}
 .apply-step__note{margin-top:8px;font-size:.83rem !important;color:var(--text-light)}
+.apply-contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.apply-contact{background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center}
+.apply-contact__name{font-size:.82rem;font-weight:700;color:var(--green);margin-bottom:4px}
+.apply-contact__tel{display:block;font-size:1.3rem;font-weight:700;color:var(--green-mid);text-decoration:none;letter-spacing:.04em}
+.apply-contact__tel:hover{text-decoration:underline}
+.apply-contact__hours{font-size:.78rem;color:var(--text-light);margin-top:2px}
 .apply-links{display:flex;flex-wrap:wrap;gap:10px 22px}
 .apply-links a{color:var(--green);font-weight:700;font-size:.93rem;text-decoration:underline}
 </style>
