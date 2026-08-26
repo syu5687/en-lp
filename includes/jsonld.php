@@ -36,6 +36,7 @@ $org = [
   'department' => [[
     '@type' => 'LocalBusiness',
     'name'  => SITE['name'] . ' ' . SITE['fukuoka']['name'],
+    'hasMap' => 'https://maps.google.com/?cid=1235913108976072113',
     'telephone' => SITE['fukuoka']['tel'],
     'address' => [
       '@type' => 'PostalAddress',
@@ -51,6 +52,7 @@ $org = [
     'dayOfWeek' => ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
     'opens' => '09:00', 'closes' => '18:00',
   ]],
+  'hasMap' => 'https://maps.google.com/?cid=2494401172745547436',
   'sameAs' => ['https://www.instagram.com/en1150en/'],
   'memberOf' => ['@type' => 'Organization', 'name' => '一般社団法人日本海洋散骨協会'],
   'knowsAbout' => ['海洋散骨','粉骨','洗骨','お墓じまい','改葬','樹木葬','お手元供養','ペット供養','遺品整理','終活'],

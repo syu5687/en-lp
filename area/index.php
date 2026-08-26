@@ -27,14 +27,16 @@ require __DIR__ . '/../includes/head.php';
     <div class="card" style="margin-bottom:26px">
       <h2 style="color:var(--green);margin-bottom:12px">鹿児島県（本社）</h2>
       <p>本社を置く鹿児島は、私たちのホームグラウンドです。桜島を望む<strong>錦江湾</strong>を中心に、県内全域の海洋散骨・粉骨・お墓じまい・樹木葬に対応。<strong>種子島・屋久島・奄美群島などの離島</strong>のお墓じまい・海洋散骨のご相談も承ります。</p>
-      <p style="margin-top:10px;font-size:.92rem;color:var(--text-light)">本社：〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?>（TEL <?= h(SITE['tel']) ?>）</p>
+      <p style="margin-top:10px;font-size:.92rem;color:var(--text-light)">本社：〒<?= h(SITE['zip']) ?> <?= h(SITE['address']) ?>（TEL <?= h(SITE['tel']) ?>）<br>
+      <a href="https://maps.google.com/?cid=2494401172745547436" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">Googleマップで見る（口コミ ★4.9） →</a></p>
     </div>
 
     <!-- 福岡 -->
     <div class="card" style="margin-bottom:26px">
       <h2 style="color:var(--green);margin-bottom:12px">福岡県（福岡営業所）</h2>
       <p><strong>福岡営業所</strong>を拠点に、福岡・北部九州エリアのご相談に対応しています。福岡の海域での海洋散骨、<a href="/seizen/" style="color:var(--green);font-weight:600">海洋散骨の生前契約</a>、粉骨・お墓じまいのご相談まで。対面でのご相談をご希望の方もお気軽にお問い合わせください。</p>
-      <p style="margin-top:10px;font-size:.92rem;color:var(--text-light)"><?= h(SITE['fukuoka']['name']) ?>：〒<?= h(SITE['fukuoka']['zip']) ?> <?= h(SITE['fukuoka']['address']) ?>（TEL <?= h(SITE['fukuoka']['tel']) ?>）</p>
+      <p style="margin-top:10px;font-size:.92rem;color:var(--text-light)"><?= h(SITE['fukuoka']['name']) ?>：〒<?= h(SITE['fukuoka']['zip']) ?> <?= h(SITE['fukuoka']['address']) ?>（TEL <?= h(SITE['fukuoka']['tel']) ?>）<br>
+      <a href="https://maps.google.com/?cid=1235913108976072113" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">Googleマップで見る →</a>　<a href="https://g.page/r/CbF1xKls2CYREBM/review" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">口コミを書く →</a></p>
     </div>
 
     <!-- 九州全域 -->
