@@ -49,12 +49,7 @@ $blog_items = array_slice($blog_items, 0, 3);
 <meta name="twitter:image" content="https://en1150.co.jp/assets/og-image.jpg">
 <link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 <style>
-/* ============================================================
-   有限会社 縁 — TOP 改良版スタイル（静謐・和モダン / エディトリアル）
-   ※ クラス名は現行のまま維持。配色・書体・現行文言・画像は踏襲し、
-     「AIっぽさ」の要因（絵文字UI・カウントアップ・ピル多用・光る影・
-      過度なグラデ/ホバー浮遊・全面グラスモーフィズム）を整理。
-   ============================================================ */
+/* 有限会社 縁 — トップページ スタイル */
 :root {
   /* 海（ティール/藍緑）× 砂浜（生成り/金）× 波しぶき（白）— 緑ロゴと調和する海松色基調 */
   --color-deep-green: #275c58;   /* 深い海松色（sea green-teal） */
@@ -104,7 +99,7 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-/* HEADER（グラスモーフィズムを弱め、細罫で締める） */
+/* HEADER */
 .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(246,241,232,0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--color-line); transition: var(--transition); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1160px; margin: 0 auto; padding: 14px 32px; }
 .header-logo-text { font-family: var(--font-serif); font-size: 1.12rem; font-weight: 600; color: var(--color-green-mid); letter-spacing: 0.14em; }
@@ -229,7 +224,7 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .worry-answer-text { font-family: var(--font-serif); font-size: clamp(1.15rem, 2.5vw, 1.55rem); color: var(--color-green-mid); font-weight: 500; line-height: 1.9; letter-spacing: 0.05em; }
 .worry-answer-text em { font-style: normal; color: var(--color-gold); border-bottom: 1px solid var(--color-gold); padding-bottom: 2px; }
 
-/* SERVICES（カードの浮遊感を廃し、細罫のエディトリアル） */
+/* SERVICES */
 .services { padding: 100px 0; background: var(--color-white); }
 .services-header { text-align: center; margin-bottom: 56px; }
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--color-line); border-left: 1px solid var(--color-line); }
