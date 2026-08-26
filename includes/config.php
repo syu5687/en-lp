@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0101';
+const APP_VERSION = 'v20260713-0102';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -91,7 +91,7 @@ const SERVICES = [
   ['slug' => 'teien-sou',       'title' => '樹木葬',            'price' => 'お問合せ'],
   ['slug' => 'temoto-kuyou',    'title' => 'お手元供養',        'price' => '各種対応'],
   ['slug' => 'jewelry-reform',  'title' => 'JEWELRYリフォーム', 'price' => 'お見積り無料'],
-  ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => '54,450円'],
+  ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => 'お問い合わせ'],
   ['slug' => 'ihinseiri',       'title' => '遺品整理',          'price' => 'お問合せ'],
   ['slug' => 'hikkoshi',        'title' => 'お墓のお引越し',    'price' => 'ご相談無料'],
 ];

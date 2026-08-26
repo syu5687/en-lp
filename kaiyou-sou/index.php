@@ -23,7 +23,7 @@ $service = [
     ['name' => 'チャーター海洋葬', 'price' => '176,000円〜', 'img' => '/assets/img/plan-charter.jpg', 'desc' => '船を貸し切り、ご遺族様やご友人など親しい方だけで散骨を行います。'],
     ['name' => '合同海洋葬',       'price' => '148,500円〜', 'img' => '/assets/img/plan-goudou.jpg',  'desc' => '複数のご遺族様で乗り合わせ、または委託海洋葬の出港時に合わせて行います。'],
     ['name' => '委託海洋葬',       'price' => '54,450円',  'img' => '/assets/img/plan-itaku.jpg',   'desc' => 'ご遺族様に代わり、私たちスタッフが行う海洋葬です。'],
-    ['name' => 'ペット海洋葬',     'price' => '54,450円',  'img' => '/assets/img/hero-pet-kaiyou-sou.jpg', 'desc' => '鹿児島・錦江湾にて、半年に一度行うペット専用の委託海洋葬です。'],
+    ['name' => 'ペット海洋葬',     'price' => 'お問い合わせ',  'img' => '/assets/img/hero-pet-kaiyou-sou.jpg', 'desc' => '鹿児島・錦江湾にて、半年に一度行うペット専用の委託海洋葬です。'],
     ['name' => 'メモリアルクルーズ', 'price' => '176,000円', 'img' => '/assets/img/plan-cruise.jpg',  'desc' => '海洋葬を行なった海域で、ゆっくりとご供養いただけます。'],
     ['name' => '天国への手紙',     'price' => '無料',        'img' => '/assets/img/plan-tegami.jpg',  'desc' => '故人様への想いを手紙にしたため、海洋葬を行なった海域へお届けします。'],
   ],

@@ -8,7 +8,7 @@
 
 <!-- Primary Meta -->
 <title>ペットのご遺骨供養サポート｜粉骨・散骨・納骨のすべて｜有限会社縁（鹿児島）</title>
-<meta name="description" content="鹿児島の有限会社縁が運営するペット供養専門サービス。海洋葬セットプラン54,450円〜、手元供養セット30,000円〜、ペット粉骨1.5万円〜。完全個別管理・全国郵送対応・1mm以下のパウダー粉骨。犬・猫の遺骨に関するご相談、散骨・納骨・手元供養すべてワンストップで対応します。">
+<meta name="description" content="鹿児島の有限会社縁が運営するペット供養専門サービス。海洋葬（散骨）・粉骨・納骨・手元供養までワンストップ対応。完全個別管理・全国郵送対応・1mm以下のパウダー粉骨。犬・猫のご遺骨に関するご相談・料金はお気軽にお問い合わせください。">
 <meta name="keywords" content="ペット 散骨,ペット 粉骨,ペット 納骨,ペット 海洋散骨,ペット 手元供養,鹿児島 ペット供養,犬 散骨,猫 散骨,ペット 遺骨 カビ,ペット 散骨 費用,有限会社縁">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="有限会社縁">
@@ -107,7 +107,7 @@
     "@type": "GeoShape",
     "name": "日本全国（郵送対応）"
   },
-  "priceRange": "¥15,000〜¥106,700",
+  "priceRange": "お問い合わせください",
   "currenciesAccepted": "JPY",
   "paymentAccepted": "現金, 銀行振込, クレジットカード",
   "openingHoursSpecification": [{
@@ -128,9 +128,9 @@
     "ペット遺骨のカビ対策"
   ],
   "makesOffer": [
-    {"@type": "Offer", "name": "海洋葬セットプラン", "price": "54450", "priceCurrency": "JPY"},
-    {"@type": "Offer", "name": "手元供養プラン①", "price": "30000", "priceCurrency": "JPY"},
-    {"@type": "Offer", "name": "海洋葬＋手元供養セット③", "price": "85000", "priceCurrency": "JPY"}
+    {"@type": "Offer", "name": "海洋葬セットプラン"},
+    {"@type": "Offer", "name": "手元供養プラン①"},
+    {"@type": "Offer", "name": "海洋葬＋手元供養セット③"}
   ],
   "parentOrganization": {"@id": "https://en1150.co.jp/#corporation"},
   "sameAs": []
@@ -239,11 +239,6 @@
   "name": "ペット供養（粉骨・散骨・納骨）の流れ",
   "description": "ご遺骨をお預かりしてから、最終的な供養を完了するまでの3つの基本ステップです。",
   "totalTime": "P14D",
-  "estimatedCost": {
-    "@type": "MonetaryAmount",
-    "currency": "JPY",
-    "value": "54450"
-  },
   "step": [
     {
       "@type": "HowToStep",
@@ -355,7 +350,7 @@
     {
       "@type": "Question",
       "name": "ペットの散骨にかかる費用はどのくらいですか？",
-      "acceptedAnswer": {"@type": "Answer", "text": "縁の海洋葬セットプラン（委託海洋葬＋献花＋粉骨セット）は54,450円（税込）です。粉骨単独は1.5万円〜、手元供養品とのセットは3万円〜85,000円までご家族のご予算と希望に合わせてお選びいただけます。"}
+      "acceptedAnswer": {"@type": "Answer", "text": "縁の海洋葬セットプラン（委託海洋葬＋献花＋粉骨セット）をご用意しています。粉骨単独や手元供養品とのセットなど、ご家族のご希望に合わせてお選びいただけます。料金は現在準備中のため、詳しくはお問い合わせください。"}
     },
     {
       "@type": "Question",
@@ -415,7 +410,7 @@
     {
       "@type": "Question",
       "name": "散骨したら、もうお参りできないのですか？",
-      "acceptedAnswer": {"@type": "Answer", "text": "一部を小さなカプセルや骨壺に残す「分骨」をお勧めしております。散骨と手元供養の両方を実現できる人気のスタイルです。当社の海洋葬＋手元供養セットプランは50,000円〜ご用意しています。"}
+      "acceptedAnswer": {"@type": "Answer", "text": "一部を小さなカプセルや骨壺に残す「分骨」をお勧めしております。散骨と手元供養の両方を実現できる人気のスタイルです。当社では海洋葬＋手元供養のセットプランもご用意しています。料金はお問い合わせください。"}
     },
     {
       "@type": "Question",
@@ -460,49 +455,49 @@
       "position": 1,
       "name": "海洋葬セットプラン",
       "description": "委託海洋葬 ＋ 献花 ＋ 粉骨セット（粉骨作業・遺骨乾燥・骨壺処分込み）",
-      "offers": {"@type": "Offer", "price": "54450", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     },
     {
       "@type": "Product",
       "position": 2,
       "name": "手元供養プラン① たまごちゃん＋粉骨セット",
       "description": "手元供養品「たまごちゃん」と粉骨作業のお得なセットプラン",
-      "offers": {"@type": "Offer", "price": "30000", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     },
     {
       "@type": "Product",
       "position": 3,
       "name": "手元供養プラン② 琴柱／玉璽＋ステージ丸螺鈿＋粉骨セット",
       "description": "上質な手元供養品と専用ステージ、粉骨作業のセットプラン",
-      "offers": {"@type": "Offer", "price": "50000", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     },
     {
       "@type": "Product",
       "position": 4,
       "name": "手元供養プラン③ ガラス製骨壺＋手元供養台150＋エコー＋粉骨セット",
       "description": "プレミアムな手元供養品一式と粉骨作業のセットプラン",
-      "offers": {"@type": "Offer", "price": "65000", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     },
     {
       "@type": "Product",
       "position": 5,
       "name": "海洋葬＋手元供養セット① 海洋葬＋たまごちゃん",
       "description": "海洋葬と手元供養を両立する人気セットプラン",
-      "offers": {"@type": "Offer", "price": "50000", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     },
     {
       "@type": "Product",
       "position": 6,
       "name": "海洋葬＋手元供養セット② 海洋葬＋琴柱／玉璽＋ステージ丸螺鈿",
       "description": "海洋葬と上質な手元供養品のセットプラン",
-      "offers": {"@type": "Offer", "price": "70000", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     },
     {
       "@type": "Product",
       "position": 7,
       "name": "海洋葬＋手元供養セット③ 海洋葬＋ガラス製骨壺＋手元供養台150＋エコー",
       "description": "海洋葬とプレミアム手元供養品一式のセットプラン",
-      "offers": {"@type": "Offer", "price": "85000", "priceCurrency": "JPY", "availability": "https://schema.org/InStock"}
+      "offers": {"@type": "Offer", "availability": "https://schema.org/InStock"}
     }
   ]
 }
@@ -1693,6 +1688,8 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
   letter-spacing: 0.02em;
   line-height: 1;
 }
+.plan-card__price-num--ask{font-size:1.05rem;letter-spacing:.04em}
+.service__price-num--ask{font-size:1.05rem !important;letter-spacing:.04em}
 .plan-card__price-num small {
   font-size: 0.7rem;
   font-weight: 400;
@@ -2447,9 +2444,9 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             </tr>
             <tr>
               <th>費用目安</th>
-              <td><strong>1.5万円〜</strong></td>
-              <td><strong>3万円〜</strong></td>
-              <td><strong>5万円〜</strong><br><small>＋管理費</small></td>
+              <td>お問い合わせ<br>ください</td>
+              <td>お問い合わせ<br>ください</td>
+              <td>お問い合わせ<br>ください<br><small>＋管理費</small></td>
             </tr>
             <tr>
               <th>所要日数</th>
@@ -2518,7 +2515,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
       </div>
       <div class="service__price">
         <span class="service__price-label">料金目安</span>
-        <span class="service__price-num">¥15,000<small>〜</small></span>
+        <span class="service__price-num service__price-num--ask">お問い合わせください</span>
       </div>
       <a href="#contact" class="btn btn-primary">粉骨について相談する</a>
     </div>
@@ -2573,7 +2570,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
       </div>
       <div class="service__price">
         <span class="service__price-label">料金目安</span>
-        <span class="service__price-num">¥30,000<small>〜</small></span>
+        <span class="service__price-num service__price-num--ask">お問い合わせください</span>
       </div>
       <a href="#contact" class="btn btn-primary">散骨について相談する</a>
     </div>
@@ -2628,7 +2625,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
       </div>
       <div class="service__price">
         <span class="service__price-label">料金目安</span>
-        <span class="service__price-num">¥50,000<small>〜（＋管理費）</small></span>
+        <span class="service__price-num service__price-num--ask">お問い合わせください<small>（＋管理費）</small></span>
       </div>
       <a href="#contact" class="btn btn-primary">納骨について相談する</a>
     </div>
@@ -2713,7 +2710,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">実施証明書</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-num">¥54,450<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
           <a href="#contact" class="btn btn-primary" style="margin-top:1rem">このプランで相談する</a>
         </article>
@@ -2736,8 +2733,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">粉骨セット</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-strike">¥35,200</span>
-            <span class="plan-card__price-num">¥30,000<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
         </article>
 
@@ -2753,8 +2749,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">粉骨セット</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-strike">¥53,460</span>
-            <span class="plan-card__price-num">¥50,000<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
         </article>
 
@@ -2771,8 +2766,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">粉骨セット</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-strike">¥88,000</span>
-            <span class="plan-card__price-num">¥65,000<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
         </article>
       </div>
@@ -2794,8 +2788,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">たまごちゃん</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-strike">¥53,900</span>
-            <span class="plan-card__price-num">¥50,000<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
         </article>
 
@@ -2811,8 +2804,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">ステージ丸螺鈿</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-strike">¥72,160</span>
-            <span class="plan-card__price-num">¥70,000<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
         </article>
 
@@ -2829,15 +2821,14 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
             <span class="plan-card__include">エコー</span>
           </div>
           <div class="plan-card__price">
-            <span class="plan-card__price-strike">¥106,700</span>
-            <span class="plan-card__price-num">¥85,000<small>（税込）</small></span>
+            <span class="plan-card__price-num plan-card__price-num--ask">お問い合わせください</span>
           </div>
         </article>
       </div>
     </div>
 
     <p class="setplan__note reveal">
-      ※ すべての価格は税込・粉骨作業（遺骨乾燥・骨壺処分含む）込みの一括金額です。<br>
+      ※ 各プランの料金は現在準備中です。詳しくはお問い合わせください。<br>
       ※ ご遺骨の状態（カビ・湿気・水濡れ等）によっては別途洗骨費用がかかる場合があります。事前のお見積もりは無料です。<br>
       ※ 上記以外のご要望（個別海洋葬、特定の手元供養品の組み合わせ等）もお気軽にご相談ください。
     </p>
@@ -3202,7 +3193,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
           </span>
         </summary>
         <div class="faq-item__body">
-          縁の<strong>海洋葬セットプラン（委託海洋葬＋献花＋粉骨セット）は54,450円（税込）</strong>です。粉骨単独は1.5万円〜、手元供養品とのセットは3万円〜85,000円までご家族のご予算と希望に合わせてお選びいただけます。すべて粉骨作業・遺骨乾燥・骨壺処分込みの安心価格です。
+          縁の<strong>海洋葬セットプラン（委託海洋葬＋献花＋粉骨セット）</strong>をご用意しています。粉骨単独や手元供養品とのセットなど、ご家族のご希望に合わせてお選びいただけます。すべて粉骨作業・遺骨乾燥・骨壺処分込みの安心プランです。<strong>料金は現在準備中のため、詳しくはお問い合わせください。</strong>
         </div>
       </details>
 
@@ -3358,7 +3349,7 @@ a.diag-row { color: inherit; text-decoration: none; cursor: pointer; }
           </span>
         </summary>
         <div class="faq-item__body">
-          <strong>「分骨」をお勧めしております。</strong>お骨の一部を手元供養用として残し、残りを散骨することで、自然に還す気持ちと、いつでも手を合わせられる安心感の両方を実現できます。当社の<strong>海洋葬＋手元供養セットプランは50,000円〜</strong>ご用意しています。
+          <strong>「分骨」をお勧めしております。</strong>お骨の一部を手元供養用として残し、残りを散骨することで、自然に還す気持ちと、いつでも手を合わせられる安心感の両方を実現できます。当社では<strong>海洋葬＋手元供養のセットプラン</strong>もご用意しています（料金はお問い合わせください）。
         </div>
       </details>
 
