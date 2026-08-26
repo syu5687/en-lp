@@ -62,7 +62,8 @@ if (!empty($_GET['edit'])) {
 </header>
 <main class="admin-main">
   <h1>合同海洋散骨 実施予定日</h1>
-  <p style="font-size:.9rem;color:#667;margin-bottom:18px">ここで登録した開催日が、トップページと福岡ページの「合同海洋散骨 実施予定日」枠に表示されます（公開中かつ本日以降の日付のみ）。</p>
+  <p style="font-size:.9rem;color:#667;margin-bottom:18px">ここで登録した開催日が、トップページと海洋葬ページの「合同海洋散骨 実施予定日」枠に表示されます（公開中かつ本日以降の日付のみ）。<br>
+  <strong>福岡ページには、「海域・出航地」に「福岡」の文字を含む開催日だけが表示されます</strong>（例：「福岡・博多湾」）。</p>
   <?php if ($msg): ?><p class="gd-msg"><?= h($msg) ?></p><?php endif; ?>
   <?php if ($fs_error): ?><p class="gd-msg" style="background:#fdecea;color:#c0392b">データ取得エラー: <?= h($fs_error) ?></p><?php endif; ?>
 

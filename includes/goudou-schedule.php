@@ -3,12 +3,24 @@
  * 合同海洋散骨 実施予定日ブロック（TOP・福岡LPで共用）
  * 管理画面（/admin/goudou/）で登録した「公開中・本日以降」の日付を表示する。
  * 事前に admin/includes/store.php が読み込まれている前提（未読込なら読み込む）。
+ *
+ * $gd_filter（任意）: 読み込み前にセットすると「海域・出航地」にその文字列を含む
+ *                     開催日だけを表示する（例: 福岡LPでは $gd_filter = '福岡';）。
+ * $gd_area_label（任意）: 見出し・空表示に使う地域名（例: '福岡'）。
  */
 if (!function_exists('goudou_upcoming')) {
   require_once __DIR__ . '/../admin/includes/store.php';
 }
+$gd_filter = $gd_filter ?? '';
+$gd_area_label = $gd_area_label ?? '';
 $gd_items = [];
 try { $gd_items = goudou_upcoming(); } catch (Throwable $e) { $gd_items = []; }
+if ($gd_filter !== '') {
+  $gd_items = array_values(array_filter(
+    $gd_items,
+    static fn($g) => mb_strpos((string)($g['sea'] ?? ''), $gd_filter) !== false
+  ));
+}
 
 $gd_fmt = static function (string $ymd): array {
   $ts = strtotime($ymd);
@@ -20,7 +32,7 @@ $gd_fmt = static function (string $ymd): array {
 <section class="goudou-sched" id="goudou-schedule">
   <div class="goudou-sched__inner">
     <p class="goudou-sched__eyebrow">SCHEDULE</p>
-    <h2 class="goudou-sched__title">合同海洋散骨 実施予定日</h2>
+    <h2 class="goudou-sched__title">合同海洋散骨 実施予定日<?= $gd_area_label !== '' ? '（' . h($gd_area_label) . '開催）' : '' ?></h2>
     <p class="goudou-sched__lead">複数のご家族で乗り合わせて行う「合同海洋葬」の出航予定日です。<br class="pc-only">委託海洋葬（立ち会い不要）もこの日程で心を込めてお送りします。</p>
     <?php if ($gd_items): ?>
       <div class="goudou-sched__grid">
@@ -38,7 +50,7 @@ $gd_fmt = static function (string $ymd): array {
       </div>
       <p class="goudou-sched__caution">※ 天候・海況により日程が変更となる場合があります。</p>
     <?php else: ?>
-      <p class="goudou-sched__empty">次回の開催日程は調整中です。ご希望の時期がありましたら、お気軽にお問い合わせください。</p>
+      <p class="goudou-sched__empty"><?= $gd_area_label !== '' ? h($gd_area_label) . 'での' : '' ?>次回の開催日程は調整中です。ご希望の時期がありましたら、お気軽にお問い合わせください。</p>
     <?php endif; ?>
     <p class="goudou-sched__cta">
       <a href="/contact/?service=<?= rawurlencode('合同海洋葬') ?>" class="goudou-sched__btn">合同海洋散骨に申し込む・相談する</a>

@@ -88,8 +88,8 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     </div>
   </section>
 
-  <!-- 実施予定日（管理画面から更新） -->
-  <?php require __DIR__ . '/../includes/goudou-schedule.php'; ?>
+  <!-- 実施予定日（管理画面から更新・福岡開催のみ表示） -->
+  <?php $gd_filter = '福岡'; $gd_area_label = '福岡'; require __DIR__ . '/../includes/goudou-schedule.php'; ?>
 
   <!-- 選ばれる理由 -->
   <section class="section">
