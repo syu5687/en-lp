@@ -1,5 +1,5 @@
 /**
- * @version v0003 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（ボット対策追加） | Cloudflare Workers
+ * @version v0004 | 2026-08-26 | en1150.co.jp お問い合わせフォーム送信Worker（管理者宛2名に変更） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -11,7 +11,7 @@
 
 var CONFIG = {
   TO: "info@en1150.co.jp",                // 担当者宛
-  CC: [],                                 // CC（複数可）
+  CC: ["mk@lu-m.co.jp"],                  // CC（複数可）
   BCC: [],                                // BCC（複数可）
   FROM_NAME: "有限会社 縁",
   FROM_EMAIL: "noreply@nfz33.com",        // ★ Brevo認証済みドメインのアドレス
