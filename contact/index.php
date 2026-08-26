@@ -89,6 +89,13 @@ form.addEventListener('submit', async (e) => {
   msg.className = ''; msg.textContent = '';
   if (!form.checkValidity()) { form.reportValidity(); return; }
   const data = Object.fromEntries(new FormData(form).entries());
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || '')) {
+    msg.className = 'ng';
+    msg.textContent = 'メールアドレスの形式をご確認ください。';
+    return;
+  }
+  data.source = location.href;
+  data.formName = 'en1150.co.jp お問い合わせフォーム';
   btn.disabled = true; btn.textContent = '送信中…';
   try {
     const res = await fetch(WORKER_URL, {

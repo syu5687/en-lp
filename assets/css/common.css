@@ -124,6 +124,7 @@ details[open] summary{margin-bottom:8px}
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200}
 .sticky-cta a{flex:1;text-align:center;padding:14px 0;font-weight:600;color:var(--white)}
 .sticky-cta__tel{background:var(--header-blue)}
+.sticky-cta__mail{background:var(--green-mid)}
 .sticky-cta__line{background:#2f7d4f}
 
 /* ---- 右側固定・縦長「供養の選び方」タブ（全ページ常時表示） ---- */

@@ -35,8 +35,9 @@
 
 <!-- SP固定フッターCTA -->
 <div class="sticky-cta">
-  <a href="tel:<?= h(SITE['tel']) ?>" class="sticky-cta__tel">電話で相談</a>
-  <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="sticky-cta__line">LINEで相談</a>
+  <a href="tel:<?= h(SITE['tel']) ?>" class="sticky-cta__tel">電話相談</a>
+  <a href="/contact/" class="sticky-cta__mail">メール相談</a>
+  <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="sticky-cta__line">LINE相談</a>
 </div>
 
 <script src="/assets/js/common.js?v=<?= h(asset_ver()) ?>" defer></script>

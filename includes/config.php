@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0102';
+const APP_VERSION = 'v20260713-0103';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -53,9 +53,9 @@ const GA4_MEASUREMENT_ID = 'G-BST60JN5FD'; // 例: 'G-XXXXXXXXXX'
 // プロパティID（GA4 Data API / レポート参照用の数値ID）
 const GA4_PROPERTY_ID = '399545209';
 
-// ---- お問い合わせ（Cloudflare Worker + Resend）----
-// Workerをデプロイ後、その公開URLをここに設定。
-const CONTACT_WORKER_URL = 'https://en-contact.YOUR-SUBDOMAIN.workers.dev';
+// ---- お問い合わせ（Cloudflare Worker + Brevo）----
+// Workerのソースは /worker/en-contact/（デプロイ: npx wrangler deploy ＋ npx wrangler secret put BREVO_API_KEY）。
+const CONTACT_WORKER_URL = 'https://en-contact.mk-cbe.workers.dev';
 
 // ---- サイト基本情報（NAP / ブランド）----
 const SITE = [
