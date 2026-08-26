@@ -11,7 +11,7 @@ $nav_sub = [
     ]
   ),
   '/shindan/' => [
-    ['label' => 'かんたん診断',       'href' => '/shindan/'],
+    ['label' => '供養の選び方（かんたん診断）', 'href' => '/shindan/', 'top' => true],
     ['label' => '供養のお悩み解決',   'href' => '/onayami/'],
     ['label' => 'よくあるご質問',     'href' => '/gokuyou/'],
   ],
