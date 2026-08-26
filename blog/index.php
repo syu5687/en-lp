@@ -154,6 +154,57 @@ if ($blog_id !== '') {
   </div>
 </section>
 
+<!-- 記事画像のポップアップ拡大表示（ライトボックス） -->
+<div id="post-lightbox" hidden>
+  <button type="button" id="post-lightbox-close" aria-label="閉じる">×</button>
+  <img src="" alt="拡大表示">
+</div>
+<style>
+  /* 記事内の画像はクリックで拡大できることを示す */
+  .post-zoomable{cursor:zoom-in;transition:opacity .15s}
+  .post-zoomable:hover{opacity:.88}
+  #post-lightbox{position:fixed;inset:0;z-index:1000;background:rgba(10,20,26,.86);display:flex;align-items:center;justify-content:center;padding:4vmin;cursor:zoom-out;animation:plb-in .18s ease}
+  #post-lightbox[hidden]{display:none}
+  #post-lightbox img{max-width:94vw;max-height:90vh;width:auto;height:auto;border-radius:10px;box-shadow:0 18px 60px rgba(0,0,0,.5);cursor:default}
+  #post-lightbox-close{position:absolute;top:14px;right:16px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
+  #post-lightbox-close:hover{background:rgba(255,255,255,.28)}
+  @keyframes plb-in{from{opacity:0}to{opacity:1}}
+</style>
+<script>
+(function () {
+  var lb    = document.getElementById('post-lightbox');
+  var lbImg = lb.querySelector('img');
+  var close = document.getElementById('post-lightbox-close');
+  function open(src, alt) {
+    lbImg.alt = alt || '拡大表示';
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    // 旧WordPressの縮小版URL（…-300x225.jpg）は、まず元サイズ（…-300x225 を除いたURL）を試し、
+    // 無ければ縮小版にフォールバックする
+    var full = src.replace(/-\d{2,4}x\d{2,4}(\.\w+)$/, '$1');
+    if (full !== src) {
+      lbImg.onerror = function () { lbImg.onerror = null; lbImg.src = src; };
+      lbImg.src = full;
+    } else {
+      lbImg.onerror = null;
+      lbImg.src = src;
+    }
+  }
+  function shut() {
+    lb.hidden = true;
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+  // 記事内のすべての画像（本文中・メイン・ギャラリー）を対象にする
+  document.querySelectorAll('main article img').forEach(function (img) {
+    img.classList.add('post-zoomable');
+    img.addEventListener('click', function () { open(img.currentSrc || img.src, img.alt); });
+  });
+  lb.addEventListener('click', function (e) { if (e.target !== lbImg) shut(); });
+  close.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) shut(); });
+})();
+</script>
 <script type="application/ld+json"><?= json_encode($article_ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
 <?php
