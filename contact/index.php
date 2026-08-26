@@ -29,8 +29,6 @@ require __DIR__ . '/../includes/head.php';
       「供養の選び方」診断の結果：<strong id="shindan-service" style="color:var(--green-mid)"></strong> についてのご相談ですね。<br>下記フォームにそのまま入力してお送りください。
     </div>
 
-    <div id="form-msg" role="status" aria-live="polite"></div>
-
     <form id="contact-form" class="contact-form" novalidate>
       <!-- ハニーポット（人間には見えない欄。ボットが入力したら弾く） -->
       <div class="hp-field" aria-hidden="true">
@@ -65,6 +63,7 @@ require __DIR__ . '/../includes/head.php';
         <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
       </label>
       <button type="submit" class="btn" id="submit-btn">送信する</button>
+      <div id="form-msg" role="status" aria-live="polite"></div>
     </form>
 
     <p style="margin-top:24px;font-size:.9rem;color:var(--text-light)">
@@ -82,7 +81,7 @@ require __DIR__ . '/../includes/head.php';
 .contact-consent input[type=checkbox]{width:18px;height:18px;padding:0!important;margin:0;flex:none;accent-color:var(--green)}
 .contact-consent span{white-space:nowrap}
 .contact-consent a{color:var(--green);font-weight:600;text-decoration:underline}
-#form-msg:not(:empty){padding:14px;border-radius:8px;margin-bottom:20px;font-size:.95rem}
+#form-msg:not(:empty){padding:14px;border-radius:8px;margin-top:4px;font-size:.95rem;text-align:center}
 #form-msg.ok{background:#e8f5e9;color:#2e7d32}
 #form-msg.ng{background:#fdecea;color:#c0392b}
 .hp-field{position:absolute !important;left:-9999px !important;top:-9999px !important;height:1px;width:1px;overflow:hidden}
@@ -141,6 +140,14 @@ form.addEventListener('submit', async (e) => {
     msg.className = 'ok';
     msg.textContent = 'お問い合わせを送信しました。担当者より折り返しご連絡いたします。';
     form.reset();
+    // CV測定（GA4）：キーイベント用に generate_lead を送信
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        form_name: 'contact',
+        category: data.category || '(未選択)',
+        shindan: data.shindan || '(なし)'
+      });
+    }
   } catch (err) {
     msg.className = 'ng';
     msg.textContent = '送信に失敗しました。お手数ですがお電話（<?= h(SITE['tel']) ?>）またはLINEでご連絡ください。';
