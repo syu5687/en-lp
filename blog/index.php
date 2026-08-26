@@ -264,7 +264,7 @@ require __DIR__ . '/../includes/head.php';
         <?php foreach ($items as $it): ?>
           <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
             <?php if (!empty($it['image'])): ?>
-              <span class="card-thumb"><img src="<?= h($it['image']) ?>" alt="" loading="lazy"
+              <span class="card-thumb"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy"
                 onerror="var t=this.closest('.card-thumb');if(t)t.remove()"></span>
             <?php endif; ?>
             <span style="display:flex;flex-direction:column;padding:18px 20px;flex:1">

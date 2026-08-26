@@ -51,7 +51,7 @@
 
 <!-- Theme & Icon -->
 <meta name="theme-color" content="#FAF6EF">
-<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 
 <!-- Preconnect for Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,21 +71,22 @@
   "url": "https://en1150.co.jp/pet-kaiyou-sou/",
   "logo": {
     "@type": "ImageObject",
-    "url": "https://en1150.co.jp/pet-kaiyou-sou/images/en_logo.svg",
-    "contentUrl": "https://en1150.co.jp/pet-kaiyou-sou/images/en_logo.svg",
+    "url": "https://en1150.co.jp/assets/img/en.svg",
+    "contentUrl": "https://en1150.co.jp/assets/img/en.svg",
     "width": 408,
     "height": 185
   },
   "image": [
-    "https://en1150.co.jp/assets/img/hero-pet-kaiyou-sou.jpg",
-    "https://en1150.co.jp/pet-kaiyou-sou/images/hero-pet.jpg"
+    "https://en1150.co.jp/assets/img/hero-pet-kaiyou-sou.jpg"
   ],
   "telephone": "+81-99-801-3637",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "JP",
     "addressRegion": "鹿児島県",
-    "addressLocality": "鹿児島市"
+    "addressLocality": "鹿児島市",
+    "streetAddress": "坂之上7丁目7-3",
+    "postalCode": "891-0150"
   },
   "geo": {
     "@type": "GeoCoordinates",
@@ -133,7 +134,7 @@
     {"@type": "Offer", "name": "海洋葬＋手元供養セット③"}
   ],
   "parentOrganization": {"@id": "https://en1150.co.jp/#corporation"},
-  "sameAs": []
+  "sameAs": ["https://www.instagram.com/en1150en/","https://www.facebook.com/en1150/"]
 }
 </script>
 
@@ -147,13 +148,15 @@
   "name": "有限会社縁",
   "alternateName": "縁",
   "url": "https://en1150.co.jp/",
-  "logo": "https://en1150.co.jp/pet-kaiyou-sou/images/en_logo.svg",
+  "logo": "https://en1150.co.jp/assets/img/en.svg",
   "telephone": "+81-99-801-3637",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "JP",
     "addressRegion": "鹿児島県",
-    "addressLocality": "鹿児島市"
+    "addressLocality": "鹿児島市",
+    "streetAddress": "坂之上7丁目7-3",
+    "postalCode": "891-0150"
   },
   "areaServed": "JP",
   "knowsLanguage": "ja-JP",

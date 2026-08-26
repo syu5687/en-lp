@@ -27,20 +27,21 @@
 <meta property="og:title" content="鹿児島のお墓じまい 基本プラン33万円（税込）｜撤去〜納骨まで一括対応｜縁">
 <meta property="og:description" content="鹿児島のお墓じまい、撤去から納骨まで一括対応。基本プラン33万円（税込）。離島対応可。創業20年以上の有限会社縁が責任を持って担当します。">
 <meta property="og:url" content="https://en1150.co.jp/grave/">
-<meta property="og:image" content="https://en1150.co.jp/grave/images/hero-family.jpg">
-<meta property="og:image:width" content="780">
-<meta property="og:image:height" content="450">
-<meta property="og:image:alt" content="3世代家族の集合写真：鹿児島のお墓じまい">
+<meta property="og:image" content="https://en1150.co.jp/assets/img/hero-grave.jpg">
+<meta property="og:image:width" content="2000">
+<meta property="og:image:height" content="1333">
+<meta property="og:image:alt" content="鹿児島のお墓じまい（有限会社 縁）">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="鹿児島のお墓じまい 基本プラン33万円（税込）｜撤去〜納骨まで一括対応｜縁">
 <meta name="twitter:description" content="撤去〜納骨まで基本プラン33万円（税込）。鹿児島県内全域＋離島対応。">
-<meta name="twitter:image" content="https://en1150.co.jp/grave/images/hero-family.jpg">
-<meta name="twitter:image:alt" content="3世代家族の集合写真：鹿児島のお墓じまい">
+<meta name="twitter:image" content="https://en1150.co.jp/assets/img/hero-grave.jpg">
+<meta name="twitter:image:alt" content="鹿児島のお墓じまい（有限会社 縁）">
 
 <!-- Preload -->
 <link rel="preload" as="image" href="images/en_logo.png" fetchpriority="high">
-<link rel="preload" as="image" href="images/hero-family.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/img/hero-grave.jpg" fetchpriority="high">
+<link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 
 <!-- Preconnect / Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +58,7 @@
   "alternateName":"えん",
   "url":"https://en1150.co.jp",
   "logo":"https://en1150.co.jp/grave/images/en_logo.png",
-  "image":"https://en1150.co.jp/grave/images/hero-family.jpg",
+  "image":"https://en1150.co.jp/assets/img/hero-grave.jpg",
   "telephone":"+81-99-801-3637",
   "email":"info@en1150.co.jp",
   "priceRange":"¥330,000",
@@ -218,7 +219,7 @@
   "@id":"https://en1150.co.jp/grave/#article",
   "headline":"鹿児島のお墓じまい 基本プラン33万円（税込） — 撤去〜納骨まで一括対応",
   "description":"鹿児島の有限会社縁が運営。撤去から納骨まで一括対応・基本プラン33万円（税込）のお墓じまいサービス。離島対応可。改葬手続きはオプションで対応。",
-  "image":["https://en1150.co.jp/grave/images/hero-family.jpg"],
+  "image":["https://en1150.co.jp/assets/img/hero-grave.jpg"],
   "datePublished":"2026-05-01T00:00:00+09:00",
   "dateModified":"2026-05-02T00:00:00+09:00",
   "author":{"@id":"https://en1150.co.jp/#representative"},

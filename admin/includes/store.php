@@ -9,9 +9,8 @@ require_once __DIR__ . '/../../includes/firestore.php';
 const NEWS_COLLECTION = 'news';
 
 function news_all(): array {
-  $res = fs_request('GET', 'documents/' . NEWS_COLLECTION);
   $items = [];
-  foreach (($res['documents'] ?? []) as $doc) $items[] = fs_from_doc($doc);
+  foreach (fs_list_all(NEWS_COLLECTION) as $doc) $items[] = fs_from_doc($doc);
   return $items;
 }
 
@@ -52,9 +51,8 @@ function news_published(int $limit = 0): array {
 const VOICES_COLLECTION = 'voices';
 
 function voices_all(): array {
-  $res = fs_request('GET', 'documents/' . VOICES_COLLECTION);
   $items = [];
-  foreach (($res['documents'] ?? []) as $doc) $items[] = fs_from_doc($doc);
+  foreach (fs_list_all(VOICES_COLLECTION) as $doc) $items[] = fs_from_doc($doc);
   return $items;
 }
 

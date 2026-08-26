@@ -24,5 +24,20 @@ $item = [
   'link'      => $_POST['link'] ?? '',
   'published' => !empty($_POST['published']),
 ];
+
+// 既存記事（旧WordPress移行分など）が持つ body_html（整形済みHTML本文）を保全する。
+// Firestore の PATCH は全置換のため、ここで引き継がないと編集のたびに消えてしまう。
+// ただし管理画面で本文（body）が書き換えられた場合は、古い body_html を表示し続けると
+// 編集が反映されないため body_html を破棄し、新しい body（プレーンテキスト）を採用する。
+$existing = null;
+try { $existing = news_find($id); } catch (Throwable $e) { $existing = null; }
+if ($existing) {
+  $bodyChanged = trim((string)($existing['body'] ?? '')) !== trim((string)$item['body']);
+  foreach ($existing as $k => $v) {
+    if (!array_key_exists($k, $item)) $item[$k] = $v; // 未知フィールドは引き継ぐ
+  }
+  if ($bodyChanged) unset($item['body_html']);
+}
+
 news_upsert($item);
 header('Location: /admin/news/');

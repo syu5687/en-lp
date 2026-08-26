@@ -42,8 +42,12 @@ $blog_items = array_slice($blog_items, 0, 3);
 <meta property="og:url" content="https://en1150.co.jp/">
 <meta property="og:site_name" content="有限会社 縁｜鹿児島の供養トータルサポート">
 <meta property="og:locale" content="ja_JP">
-<!-- <meta property="og:image" content="https://en1150.co.jp/assets/og-image.jpg"> -->
+<meta property="og:image" content="https://en1150.co.jp/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://en1150.co.jp/assets/og-image.jpg">
+<link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 <style>
 /* ============================================================
    有限会社 縁 — TOP 改良版スタイル（静謐・和モダン / エディトリアル）
@@ -1154,11 +1158,11 @@ body { line-height: 1.8; }
   $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
   $bhref = !empty($it['id']) ? '/blog/?id=' . rawurlencode($it['id']) : '/blog/';
 ?>
-    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><img src="<?= h(!empty($it['image']) ? $it['image'] : '/assets/img/hero-default.jpg') ?>" alt="" class="blog-card-img" loading="lazy" onerror="this.src='/assets/img/hero-default.jpg';this.onerror=null"></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?><?php if(!empty($it['category'])): ?> <span class="blog-card-cat"><?= h($it['category']) ?></span><?php endif; ?></p><h4><?= h($it['title']) ?></h4></div></a>
+    <a href="<?= h($bhref) ?>" class="blog-card"><div class="blog-card-img-wrap"><img src="<?= h(!empty($it['image']) ? $it['image'] : '/assets/img/hero-default.jpg') ?>" alt="<?= h($it['title'] ?? '') ?>" class="blog-card-img" loading="lazy" onerror="this.src='/assets/img/hero-default.jpg';this.onerror=null"></div><div class="blog-card-body"><p class="blog-card-date"><?= h($bdate) ?><?php if(!empty($it['category'])): ?> <span class="blog-card-cat"><?= h($it['category']) ?></span><?php endif; ?></p><h4><?= h($it['title']) ?></h4></div></a>
 <?php endforeach; else: ?>
-    <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
-    <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>
-    <a href="https://en1150.co.jp/post-4916/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/IMG_1924.jpg" alt="" class="blog-card-img"></div><div class="blog-card-body"><p class="blog-card-date">2026.01</p><h4>なぜ今、海洋葬を選ぶ人が増えているのか</h4></div></a>
+    <a href="https://en1150.co.jp/post-5116/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_tex9b1tex9b1tex9.png" alt="墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>墓じまい後の遺骨、どうすれば？『委託海洋葬』という選択肢</h4></div></a>
+    <a href="https://en1150.co.jp/post-5083/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/Gemini_Generated_Image_f1yt8rf1yt8rf1yt.png" alt="【動画添付あり】必見！1分でわかるお墓じまい" class="blog-card-img"><span class="blog-card-new">NEW</span></div><div class="blog-card-body"><p class="blog-card-date">2026.04</p><h4>【動画添付あり】必見！1分でわかるお墓じまい</h4></div></a>
+    <a href="https://en1150.co.jp/post-4916/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/IMG_1924.jpg" alt="なぜ今、海洋葬を選ぶ人が増えているのか" class="blog-card-img"></div><div class="blog-card-body"><p class="blog-card-date">2026.01</p><h4>なぜ今、海洋葬を選ぶ人が増えているのか</h4></div></a>
 <?php endif; ?>
   </div>
   <div class="blog-more fade-up"><a href="/blog/">お知らせ一覧を見る</a></div>

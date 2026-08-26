@@ -71,6 +71,18 @@ function fs_token(): string {
   throw new RuntimeException('Firestore: アクセストークンを取得できませんでした。');
 }
 
+/** コレクション全件取得（ページング対応）。documents.list は1回最大300件のため pageToken を辿る。 */
+function fs_list_all(string $collection): array {
+  $docs = []; $token = '';
+  do {
+    $qs = 'documents/' . $collection . '?pageSize=300' . ($token !== '' ? '&pageToken=' . rawurlencode($token) : '');
+    $res = fs_request('GET', $qs);
+    foreach (($res['documents'] ?? []) as $d) $docs[] = $d;
+    $token = (string)($res['nextPageToken'] ?? '');
+  } while ($token !== '');
+  return $docs;
+}
+
 /** Firestore REST 呼び出し。$path 例: "documents/news" / "documents/news/ID" */
 function fs_request(string $method, string $path, ?array $body = null) {
   $base = 'https://firestore.googleapis.com/v1/projects/' . fs_project_id()

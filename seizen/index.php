@@ -8,12 +8,19 @@ require_once __DIR__ . '/../includes/config.php';
 <title>海洋散骨 生前契約｜「海洋散骨をしたい」という想いを託す｜<?= h(SITE['name']) ?></title>
 <meta name="description" content="海洋散骨の生前契約。生前にご希望を契約して託すことで、ご自身の意思に沿った海洋散骨が実現し、ご家族の負担も軽くなります。鹿児島・福岡対応、有限会社縁。">
 <link rel="canonical" href="https://en1150.co.jp/seizen/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 <meta property="og:title" content="海洋散骨 生前契約｜有限会社 縁">
 <meta property="og:description" content="「海洋散骨をしたい」という想いを生前に契約して託す。鹿児島・福岡の海洋散骨生前契約。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://en1150.co.jp/seizen/">
-<meta property="og:image" content="https://en1150.co.jp/assets/img/plan-goudou.jpg">
+<meta property="og:image" content="https://en1150.co.jp/seizen/images/ogp.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="有限会社 縁｜鹿児島の供養トータルサポート">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://en1150.co.jp/seizen/images/ogp.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
@@ -42,6 +49,7 @@ require_once __DIR__ . '/../includes/config.php';
 </script>
 
 <link rel="stylesheet" href="/assets/css/common.css?v=<?= h(asset_ver()) ?>">
+<?php require __DIR__ . '/../includes/ga4.php'; ?>
 
 <style>
   :root{
