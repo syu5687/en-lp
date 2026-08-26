@@ -5,7 +5,7 @@
  */
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0107';
+const APP_VERSION = 'v20260713-0108';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
@@ -127,11 +127,7 @@ function asset_ver(): string {
   return DEV_MODE ? (string)time() : APP_VERSION;
 }
 
-/** 構築中バージョンバッジ（画面右上・DEV_MODE時のみ表示） */
+/** バージョン表示はフッター（Copyright下）のみ。右上の固定バッジは廃止。 */
 function dev_badge_html(): string {
-  if (!DEV_MODE) return '';
-  return '<div id="dev-ver-badge" style="position:fixed;top:8px;right:8px;z-index:99999;'
-       . 'background:rgba(21,112,158,.88);color:#fff;font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;'
-       . 'letter-spacing:.04em;padding:4px 9px;border-radius:6px;pointer-events:none;'
-       . 'box-shadow:0 1px 4px rgba(0,0,0,.28)">' . h(APP_VERSION) . '</div>';
+  return '';
 }
