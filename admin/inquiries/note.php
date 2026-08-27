@@ -24,7 +24,7 @@ $id    = trim((string)($d['id'] ?? ''));
 $memo  = mb_substr(trim((string)($d['memo'] ?? '')), 0, 5000);
 $staff = mb_substr(trim((string)($d['staff'] ?? '')), 0, 40);
 
-if (!preg_match('/^inq[0-9]{14}-[0-9a-f]{6}$/', $id)) iqn_fail(400, 'bad id');
+if (!preg_match('/^[A-Za-z0-9_-]{4,120}$/', $id)) iqn_fail(400, 'bad id');
 if ($memo === '') iqn_fail(400, 'メモを入力してください');
 if ($staff === '') iqn_fail(400, '担当者名を入力してください');
 

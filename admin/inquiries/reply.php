@@ -27,7 +27,7 @@ $subject = mb_substr(trim((string)($d['subject'] ?? '')), 0, 200);
 $body    = mb_substr(trim((string)($d['body'] ?? '')), 0, 10000);
 $staff   = mb_substr(trim((string)($d['staff'] ?? '')), 0, 40);
 
-if (!preg_match('/^inq[0-9]{14}-[0-9a-f]{6}$/', $id)) iqr_fail(400, 'bad id');
+if (!preg_match('/^[A-Za-z0-9_-]{4,120}$/', $id)) iqr_fail(400, 'bad id');
 if (!filter_var($to, FILTER_VALIDATE_EMAIL)) iqr_fail(400, '宛先メールアドレスが不正です');
 if ($subject === '') iqr_fail(400, '件名を入力してください');
 if ($body === '') iqr_fail(400, '本文を入力してください');

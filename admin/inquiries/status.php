@@ -24,7 +24,7 @@ $id     = trim((string)($d['id'] ?? ''));
 $status = trim((string)($d['status'] ?? ''));
 $staff  = trim((string)($d['staff'] ?? ''));
 
-if ($id === '' || !preg_match('/^inq[0-9]{14}-[0-9a-f]{6}$/', $id)) iqs_fail(400, 'bad id');
+if ($id === '' || !preg_match('/^[A-Za-z0-9_-]{4,120}$/', $id)) iqs_fail(400, 'bad id');
 if (!in_array($status, INQUIRY_STATUSES, true)) iqs_fail(400, 'bad status');
 if ($status !== '未対応' && $staff === '') iqs_fail(400, '担当者名を入力してください');
 

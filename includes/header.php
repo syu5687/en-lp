@@ -58,4 +58,5 @@ $nav_sub = [
     </nav>
   </div>
 </header>
+<?php require __DIR__ . '/back-bar.php'; ?>
 <?php require __DIR__ . '/fontsize.php'; ?>

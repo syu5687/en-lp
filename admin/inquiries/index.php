@@ -258,13 +258,7 @@ function iq_bars(array $data, int $top = 8): string {
       cell.classList.add('is-saving');
       note.textContent = '保存中…';
       try {
-        var res = await fetch('/admin/inquiries/status.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
-          body: JSON.stringify({ id: cell.dataset.id, status: status, staff: name })
-        });
-        var j = await res.json();
-        if (!res.ok || !j.ok) throw new Error(j.error || '保存に失敗しました');
+        var j = await iqPost('/admin/inquiries/status.php', { id: cell.dataset.id, status: status, staff: name }, CSRF);
         if (name) lastStaff = name;
         note.textContent = j.at + ' 更新';
         cell.classList.add('is-saved');
@@ -388,6 +382,27 @@ function iq_bars(array $data, int $top = 8): string {
   .iqd-result.ng{color:#c0392b}
 </style>
 <script>
+async function iqPost(url, payload, csrf) {
+  var res;
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    throw new Error('通信に失敗しました。ネットワークをご確認ください。');
+  }
+  var text = await res.text();
+  var j = null;
+  try { j = JSON.parse(text); } catch (e) {
+    if (res.status === 404) throw new Error('保存用プログラムが見つかりません（HTTP 404）。最新版のデプロイが完了しているかご確認ください。');
+    if (res.redirected || /login/.test(res.url)) throw new Error('ログインの有効期限が切れています。ページを再読み込みして、もう一度ログインしてください。');
+    throw new Error('サーバーの応答が不正です（HTTP ' + res.status + '）。ページを再読み込みしてお試しください。');
+  }
+  if (!res.ok || !j.ok) throw new Error((j && j.error) || '処理に失敗しました（HTTP ' + res.status + '）');
+  return j;
+}
 (function () {
   var CSRF = <?= json_encode(csrf_token()) ?>;
   var SIGNATURE = <?= json_encode("\n\n――――――――――――――――\n有限会社 縁\n鹿児島県鹿児島市坂之上7丁目7-3\nTEL 099-801-3637（月〜土 9:00〜18:00）\nhttps://en1150.co.jp") ?>;
@@ -486,13 +501,7 @@ function iq_bars(array $data, int $top = 8): string {
     lastStaff = staff;
     this.disabled = true; this.textContent = '送信中…';
     try {
-      var res = await fetch('/admin/inquiries/reply.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
-        body: JSON.stringify({ id: cur.id, to: $('iqd-to').value, subject: $('iqd-subject').value, body: body, staff: staff })
-      });
-      var j = await res.json();
-      if (!res.ok || !j.ok) throw new Error(j.error || '送信に失敗しました');
+      var j = await iqPost('/admin/inquiries/reply.php', { id: cur.id, to: $('iqd-to').value, subject: $('iqd-subject').value, body: body, staff: staff }, CSRF);
       markResult(true, j.warn || 'メールを送信しました。対応履歴に記録済みです。');
       afterSaved({ t: 'email', at: j.at || '', staff: staff, to: $('iqd-to').value, subject: $('iqd-subject').value, body: body });
     } catch (err) {
@@ -510,13 +519,7 @@ function iq_bars(array $data, int $top = 8): string {
     lastStaff = staff;
     this.disabled = true; this.textContent = '保存中…';
     try {
-      var res = await fetch('/admin/inquiries/note.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
-        body: JSON.stringify({ id: cur.id, memo: memo, staff: staff })
-      });
-      var j = await res.json();
-      if (!res.ok || !j.ok) throw new Error(j.error || '保存に失敗しました');
+      var j = await iqPost('/admin/inquiries/note.php', { id: cur.id, memo: memo, staff: staff }, CSRF);
       markResult(true, '電話メモを保存しました。対応履歴に記録済みです。');
       afterSaved({ t: 'tel', at: j.at || '', staff: staff, body: memo });
       $('iqd-memo').value = '';

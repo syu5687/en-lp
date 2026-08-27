@@ -544,7 +544,7 @@ body { background: #f7f5ef; }
 [class]{ }
 .hero-badge, .header-cta-btn, .btn-primary, .btn-secondary, .btn-line,
 .service-card-price, .staff-badge, .staff-cert, .testimonial-location,
-.media-card-tag, .area-nationwide-badge, .th-en-badge, .blog-card-new,
+.media-card-tag, .area-nationwide-badge, .th-en-badge, .blog-card-new { border-radius: 999px; }
 /* .sticky-btn は下層と同じフラットデザイン（丸ピル化しない） */
 
 /* ボタン：オーシャンブルー */
@@ -893,6 +893,7 @@ body { line-height: 1.8; }
   </nav>
   <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
 </div></header>
+<?php require __DIR__ . '/includes/back-bar.php'; ?>
 
 <!-- HERO -->
 <section class="hero"><div class="hero-bg"></div><div class="hero-wave-lines" aria-hidden="true"><svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="none"><path d="M0,38 C240,10 480,58 720,34 C960,12 1200,54 1440,30" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.4"/><path d="M0,52 C240,26 480,72 720,48 C960,26 1200,66 1440,44" stroke="#d0b78f" stroke-opacity="0.5" stroke-width="1.2"/></svg></div><div class="hero-inner">
