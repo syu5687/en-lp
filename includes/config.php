@@ -8,10 +8,14 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0188';
+const APP_VERSION = 'v20260713-0189';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
+
+// PageSpeed Insights APIキー（任意）。未設定でも動作するが、計測回数の上限に達する場合は
+// Cloud Console で「PageSpeed Insights API」を有効化しAPIキーを作成してここに設定する。
+const PSI_API_KEY = '';
 
 // ---- 開発モード（構築中フラグ）----
 // true の間は「ブラウザキャッシュを無効化」し「画面右上に小さくバージョンを表示」します。
