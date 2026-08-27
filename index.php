@@ -1219,10 +1219,10 @@ body { line-height: 1.8; }
 <section class="media"><div class="container">
   <div class="media-header fade-up"><p class="section-label">Track Record</p><h2 class="section-title">セミナー・活動実績</h2><p class="section-desc" style="margin:0 auto;">終活セミナーや供養相談会の開催、業界団体への参加を通じて、正しい知識の普及に努めています。</p></div>
   <div class="media-grid fade-up">
-    <a href="/post-5043/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar1.jpg" alt="終活セミナーの様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">セミナー</span><h4>寺院と地域防災を考える「ゆかりの会」</h4><p>2026.03</p></div></a>
-    <a href="/post-4896/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar2.jpg" alt="供養相談会の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">相談会</span><h4>マルヤガーデンズ供養の無料相談会</h4><p>2026.01</p></div></a>
-    <a href="/post-4743/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar3.jpg" alt="活動の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">法要</span><h4>博多湾にて法要クルーズ</h4><p>2025.09</p></div></a>
-    <a href="/post-4959/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar4.jpg" alt="研修会の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">研修会</span><h4>かくれ念仏を学ぶ研修会レポート</h4><p>2026.02</p></div></a>
+    <a href="/post-5043/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar1.jpg?v=<?= h(asset_ver()) ?>" alt="寺院と地域防災を考える「ゆかりの会」の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">セミナー</span><h4>寺院と地域防災を考える「ゆかりの会」</h4><p>2026.03</p></div></a>
+    <a href="/post-4896/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar2.jpg?v=<?= h(asset_ver()) ?>" alt="マルヤガーデンズ 供養の無料相談会の案内" loading="lazy" style="object-fit:contain;background:#f5f2ea"></div><div class="media-card-body"><span class="media-card-tag">相談会</span><h4>マルヤガーデンズ供養の無料相談会</h4><p>2026.01</p></div></a>
+    <a href="/post-4743/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar3.jpg?v=<?= h(asset_ver()) ?>" alt="博多湾での法要クルーズの様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">法要</span><h4>博多湾にて法要クルーズ</h4><p>2025.09</p></div></a>
+    <a href="/post-4959/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar4.jpg?v=<?= h(asset_ver()) ?>" alt="かくれ念仏を学ぶ研修会の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">研修会</span><h4>かくれ念仏を学ぶ研修会レポート</h4><p>2026.02</p></div></a>
   </div>
 </div></section>
 
