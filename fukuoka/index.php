@@ -45,6 +45,12 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
 <section class="page-hero">
   <h1>福岡の海洋散骨・粉骨・お墓じまい</h1>
   <p>有限会社 縁 福岡営業所（福岡市中央区春吉）</p>
+  <p style="margin-top:16px">
+    <span style="display:inline-flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:10px 18px;box-shadow:0 4px 14px rgba(0,0,0,.18)">
+      <img src="/assets/img/jmas-logo.png?v=<?= h(asset_ver()) ?>" alt="一般社団法人 日本海洋散骨協会 ロゴ" width="360" height="454" style="width:44px;height:auto">
+      <span style="font-size:.82rem;line-height:1.6;color:#4a5a58;text-align:left;font-weight:600">一般社団法人<br><strong style="color:#2a5a7a;font-size:.95rem">日本海洋散骨協会</strong> 加盟事業者</span>
+    </span>
+  </p>
 </section>
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ 福岡営業所</nav>
 
@@ -124,6 +130,84 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
       <p style="text-align:center;margin-top:12px;font-size:.85rem;color:var(--text-light)">実際の海洋散骨セレモニーの様子</p>
     </div>
   </section>
+
+  <!-- 料金のご案内 -->
+  <section class="section" id="price" style="background:var(--cream)">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">PRICE</p>
+      <h2 style="text-align:center;margin-bottom:12px">料金のご案内</h2>
+      <p style="text-align:center;max-width:680px;margin:0 auto 28px;line-height:2;font-size:.95rem">
+        料金はすべて税込です。金額は<strong>無料のお見積りで確定</strong>し、ご納得いただいてからのご契約となります。<br class="pc-only">
+        <strong>あとから追加料金をいただくことはありません。</strong>
+      </p>
+      <div class="fk-price-plans">
+        <?php
+          $fk_plans = [
+            ['name' => '委託海洋散骨',       'price' => '54,450',  'unit' => '円〜', 'img' => '/assets/img/plan-itaku.jpg',   'badge' => '期間限定価格（通常66,000円）',
+             'desc' => 'ご遺族様に代わり、スタッフが心を込めて散骨します。立ち会い不要・ご遺骨の郵送OKで、全国からご利用いただけます。'],
+            ['name' => '合同海洋散骨',       'price' => '148,500', 'unit' => '円〜', 'img' => '/assets/img/plan-goudou.jpg',  'badge' => null,
+             'desc' => '複数のご遺族様で乗り合わせて行う海洋散骨です。費用を抑えながら、船上でのお見送りに立ち会えます。'],
+            ['name' => 'チャーター海洋散骨', 'price' => '176,000', 'unit' => '円〜', 'img' => '/assets/img/plan-charter.jpg', 'badge' => null,
+             'desc' => '船を貸し切り、ご遺族様やご友人など親しい方だけでゆっくりとお見送りいただけるプランです。'],
+          ];
+        ?>
+        <?php foreach ($fk_plans as $pl): ?>
+          <div class="fk-price-plan">
+            <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8">
+              <img src="<?= h($pl['img']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($pl['name']) ?>のイメージ" width="1200" height="675" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+            </span>
+            <div class="fk-price-plan__body">
+              <h3><?= h($pl['name']) ?></h3>
+              <p class="fk-price-plan__price"><span><?= h($pl['price']) ?></span><?= h($pl['unit']) ?><small>（税込）</small></p>
+              <?php if ($pl['badge']): ?><p class="fk-price-plan__badge"><?= h($pl['badge']) ?></p><?php endif; ?>
+              <p class="fk-price-plan__desc"><?= h($pl['desc']) ?></p>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <div class="fk-price-etc">
+        <?php
+          $fk_etc = [
+            ['粉骨（パウダー化）', '24,200円〜', '乳鉢を使いすべて手作業で丁寧に。真空パック＋桐箱でお返しします。郵送でのご利用も可能です。'],
+            ['洗骨（クリーニング）', '27,500円〜', '長年の保管や墓じまいで汚れたご遺骨を、洗浄・殺菌・乾燥まで丁寧にクリーニングします。'],
+            ['お墓じまい', '基本プラン 330,000円', '墓石の撤去から納骨まで一括対応。改葬許可申請（役所手続き）はオプション（25,000円〜）です。'],
+            ['ペット海洋散骨', 'お問い合わせください', '大切な家族の一員の粉骨・海洋散骨・手元供養。内容に応じてお見積りいたします。'],
+          ];
+        ?>
+        <?php foreach ($fk_etc as [$t, $p, $d]): ?>
+          <div class="fk-price-etc__row">
+            <h3><?= h($t) ?></h3>
+            <p class="fk-price-etc__price"><?= h($p) ?></p>
+            <p class="fk-price-etc__desc"><?= h($d) ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-light)">
+        ※ 海域や出港場所、ご遺骨の状態などにより金額が変わる場合があります。まずは無料のお見積りでご確認ください。
+      </p>
+      <div style="text-align:center;margin-top:16px">
+        <a href="/contact/" class="btn">無料でお見積りを依頼する</a>
+        <a href="/kaiyou-sou/" class="btn btn--outline" style="margin-left:10px">海洋散骨のプランを詳しく見る</a>
+      </div>
+    </div>
+  </section>
+  <style>
+    .fk-price-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .fk-price-plan{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .fk-price-plan__body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+    .fk-price-plan__body h3{color:var(--green-mid);font-size:1.05rem;margin-bottom:6px}
+    .fk-price-plan__price{color:var(--green);font-weight:700;margin-bottom:6px}
+    .fk-price-plan__price span{font-size:1.7rem}
+    .fk-price-plan__price small{font-size:.75rem;color:var(--text-light);font-weight:400;margin-left:2px}
+    .fk-price-plan__badge{display:inline-block;align-self:flex-start;background:#d8b46a;color:#1c2b33;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:8px}
+    .fk-price-plan__desc{font-size:.88rem;line-height:1.8}
+    .fk-price-etc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .fk-price-etc__row{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 20px}
+    .fk-price-etc__row h3{font-size:.98rem;color:var(--green-mid);margin-bottom:4px}
+    .fk-price-etc__price{color:var(--green);font-weight:700;margin-bottom:6px}
+    .fk-price-etc__desc{font-size:.85rem;line-height:1.75;color:var(--text)}
+    @media(max-width:860px){.fk-price-plans{grid-template-columns:1fr}.fk-price-etc{grid-template-columns:1fr}}
+  </style>
 
   <!-- 安心・信頼・安全 -->
   <section class="section" style="background:linear-gradient(180deg,#f2f8fa,#e8f2f6)">
