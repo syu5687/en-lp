@@ -203,6 +203,19 @@ function iq_bars(array $data, int $top = 8): string {
             </select>
             <input type="text" class="iq-status__staff" placeholder="担当者名" value="<?= h((string)($i['staff'] ?? '')) ?>" maxlength="40">
             <span class="iq-status__note"><?= !empty($i['status_updated_at']) ? h(substr((string)$i['status_updated_at'], 0, 16)) . ' 更新' : '' ?></span>
+            <?php
+              $histRaw = array_values(array_filter((array)($i['history'] ?? []), 'is_string'));
+              $histCnt = count($histRaw);
+              $iqData = json_encode([
+                'id'      => (string)($i['id'] ?? ''),
+                'name'    => (string)($i['name'] ?? ''),
+                'email'   => (string)($i['email'] ?? ''),
+                'tel'     => (string)($i['tel'] ?? ''),
+                'message' => (string)($i['message'] ?? ''),
+                'history' => $histRaw,
+              ], JSON_UNESCAPED_UNICODE);
+            ?>
+            <button type="button" class="iq-open admin-btn admin-btn--outline" data-iq="<?= h($iqData) ?>" style="width:100%;padding:6px 8px;font-size:.78rem">✉ 返信・対応履歴<?= $histCnt ? '（' . $histCnt . '）' : '' ?></button>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -269,6 +282,206 @@ function iq_bars(array $data, int $top = 8): string {
     }
     sel.addEventListener('change', save);
     staff.addEventListener('change', function () { if (sel.value !== '未対応' || staff.value.trim()) save(); });
+  });
+})();
+</script>
+
+<!-- 返信・対応履歴モーダル -->
+<dialog id="iq-dialog">
+  <div class="iqd-head">
+    <div>
+      <b id="iqd-name"></b>
+      <span id="iqd-contact"></span>
+    </div>
+    <button type="button" id="iqd-close" aria-label="閉じる">×</button>
+  </div>
+  <details class="iqd-orig"><summary>お問い合わせ内容を見る</summary><p id="iqd-message"></p></details>
+
+  <h3 class="iqd-h">対応履歴</h3>
+  <div id="iqd-history" class="iqd-history"></div>
+
+  <div class="iqd-tabs">
+    <button type="button" class="iqd-tab is-active" data-pane="mail">✉ メール返信</button>
+    <button type="button" class="iqd-tab" data-pane="tel">☎ 電話メモ</button>
+  </div>
+
+  <div class="iqd-pane" id="iqd-pane-mail">
+    <p class="iqd-note" id="iqd-mail-na" hidden>この受信データにはメールアドレスがないため、メール返信はできません。</p>
+    <div id="iqd-mail-form">
+      <label>宛先<input type="email" id="iqd-to" readonly></label>
+      <label>件名<input type="text" id="iqd-subject" maxlength="200"></label>
+      <label>本文<textarea id="iqd-body" rows="12"></textarea></label>
+      <label>担当者名<input type="text" id="iqd-staff-mail" maxlength="40" placeholder="例：田中"></label>
+      <p class="iqd-note">送信元は noreply@nfz33.com（有限会社 縁）、お客様が返信すると info@en1150.co.jp に届きます。控えが info@ にBCCで残ります。</p>
+      <button type="button" class="admin-btn" id="iqd-send">メールを送信する</button>
+    </div>
+  </div>
+
+  <div class="iqd-pane" id="iqd-pane-tel" hidden>
+    <label>電話で伝えた内容・会話メモ<textarea id="iqd-memo" rows="6" placeholder="例：お電話にて合同散骨の日程と費用をご案内。資料送付を希望されたため本日発送。"></textarea></label>
+    <label>担当者名<input type="text" id="iqd-staff-tel" maxlength="40" placeholder="例：田中"></label>
+    <button type="button" class="admin-btn" id="iqd-save-note">メモを保存する</button>
+  </div>
+
+  <p id="iqd-result" class="iqd-result"></p>
+</dialog>
+
+<style>
+  #iq-dialog{border:none;border-radius:14px;padding:0;width:min(680px,94vw);max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);margin:auto;inset:0;position:fixed}
+  #iq-dialog::backdrop{background:rgba(10,30,40,.45)}
+  .iqd-head{display:flex;justify-content:space-between;align-items:center;background:#0a3852;color:#fff;padding:14px 18px;position:sticky;top:0;z-index:2}
+  .iqd-head b{font-size:1rem}
+  .iqd-head span{display:block;font-size:.76rem;color:#bcd;margin-top:2px}
+  #iqd-close{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1}
+  .iqd-orig{margin:14px 18px 0}
+  .iqd-orig summary{cursor:pointer;color:#15709e;font-size:.82rem}
+  .iqd-orig p{white-space:pre-wrap;font-size:.84rem;background:#f7f9fa;border-radius:8px;padding:10px;margin-top:6px}
+  .iqd-h{font-size:.85rem;color:#0a3852;margin:16px 18px 8px}
+  .iqd-history{margin:0 18px;display:grid;gap:8px}
+  .iqd-entry{border:1px solid #e3eaee;border-radius:10px;padding:10px 12px;font-size:.82rem;background:#fff}
+  .iqd-entry--email{border-left:4px solid #15709e}
+  .iqd-entry--tel{border-left:4px solid #b07a1e}
+  .iqd-entry__meta{color:#678;font-size:.74rem;margin-bottom:4px}
+  .iqd-entry__meta b{color:#0a3852}
+  .iqd-entry__body{white-space:pre-wrap;color:#334}
+  .iqd-empty{font-size:.8rem;color:#99a;margin:0 0 4px}
+  .iqd-tabs{display:flex;gap:8px;margin:16px 18px 10px}
+  .iqd-tab{flex:1;padding:9px;border:1px solid #cdd8de;background:#f2f6f8;border-radius:9px;font-size:.85rem;cursor:pointer;color:#456}
+  .iqd-tab.is-active{background:#15709e;border-color:#15709e;color:#fff;font-weight:700}
+  .iqd-pane{margin:0 18px 18px;display:grid;gap:10px}
+  .iqd-pane label{display:block;font-size:.76rem;color:#456;font-weight:700}
+  .iqd-pane input,.iqd-pane textarea{display:block;width:100%;box-sizing:border-box;margin-top:4px;padding:9px 10px;border:1px solid #cdd8de;border-radius:8px;font-size:.86rem;font-weight:400;font-family:inherit;background:#fff}
+  .iqd-pane input[readonly]{background:#f2f6f8;color:#567}
+  .iqd-note{font-size:.74rem;color:#889;line-height:1.6}
+  .iqd-result{margin:0 18px 18px;font-size:.84rem;font-weight:700;min-height:1.2em}
+  .iqd-result.ok{color:#1d7a3e}
+  .iqd-result.ng{color:#c0392b}
+</style>
+<script>
+(function () {
+  var CSRF = <?= json_encode(csrf_token()) ?>;
+  var SIGNATURE = <?= json_encode("\n\n――――――――――――――――\n有限会社 縁\n鹿児島県鹿児島市坂之上7丁目7-3\nTEL 099-801-3637（月〜土 9:00〜18:00）\nhttps://en1150.co.jp") ?>;
+  var dlg = document.getElementById('iq-dialog');
+  var cur = null;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function renderHistory(list) {
+    var wrap = $('iqd-history');
+    wrap.innerHTML = '';
+    if (!list.length) { wrap.innerHTML = '<p class="iqd-empty">まだ対応履歴がありません。</p>'; return; }
+    list.forEach(function (s) {
+      var e; try { e = JSON.parse(s); } catch (_) { return; }
+      var div = document.createElement('div');
+      div.className = 'iqd-entry iqd-entry--' + (e.t === 'email' ? 'email' : 'tel');
+      var kind = e.t === 'email' ? '✉ メール返信' : '☎ 電話メモ';
+      var meta = '<div class="iqd-entry__meta"><b>' + kind + '</b>　' + (e.at || '') + '　担当: ' + (e.staff || '—')
+               + (e.subject ? '<br>件名: ' + e.subject : '') + '</div>';
+      var body = document.createElement('div');
+      body.className = 'iqd-entry__body';
+      body.textContent = e.body || '';
+      div.innerHTML = meta;
+      div.appendChild(body);
+      wrap.appendChild(div);
+    });
+  }
+
+  function switchTab(pane) {
+    document.querySelectorAll('.iqd-tab').forEach(function (t) { t.classList.toggle('is-active', t.dataset.pane === pane); });
+    $('iqd-pane-mail').hidden = pane !== 'mail';
+    $('iqd-pane-tel').hidden = pane !== 'tel';
+  }
+  document.querySelectorAll('.iqd-tab').forEach(function (t) {
+    t.addEventListener('click', function () { switchTab(t.dataset.pane); });
+  });
+
+  document.querySelectorAll('.iq-open').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      cur = JSON.parse(btn.dataset.iq);
+      cur._btn = btn;
+      $('iqd-name').textContent = (cur.name || '（お名前なし）') + ' 様';
+      $('iqd-contact').textContent = [cur.email, cur.tel].filter(Boolean).join('　');
+      $('iqd-message').textContent = cur.message || '（本文なし）';
+      renderHistory(cur.history || []);
+      var hasMail = !!cur.email;
+      $('iqd-mail-na').hidden = hasMail;
+      $('iqd-mail-form').style.display = hasMail ? '' : 'none';
+      $('iqd-to').value = cur.email || '';
+      $('iqd-subject').value = 'お問い合わせありがとうございます｜有限会社 縁';
+      $('iqd-body').value = (cur.name ? cur.name + ' 様\n\n' : '')
+        + 'この度はお問い合わせいただき、誠にありがとうございます。\n有限会社 縁でございます。\n\n（ここに返信内容をご記入ください）\n'
+        + SIGNATURE;
+      $('iqd-result').textContent = '';
+      $('iqd-result').className = 'iqd-result';
+      switchTab(hasMail ? 'mail' : 'tel');
+      dlg.showModal();
+    });
+  });
+  $('iqd-close').addEventListener('click', function () { dlg.close(); });
+
+  function markResult(ok, msg) {
+    var r = $('iqd-result');
+    r.textContent = msg;
+    r.className = 'iqd-result ' + (ok ? 'ok' : 'ng');
+  }
+  function afterSaved(entry) {
+    cur.history.push(JSON.stringify(entry));
+    renderHistory(cur.history);
+    cur._btn.dataset.iq = JSON.stringify({ id: cur.id, name: cur.name, email: cur.email, tel: cur.tel, message: cur.message, history: cur.history });
+    cur._btn.textContent = '✉ 返信・対応履歴（' + cur.history.length + '）';
+    // ステータス欄の見た目も更新（未対応→対応中）
+    var row = cur._btn.closest('tr');
+    var sel = row.querySelector('.iq-status__sel');
+    if (sel && sel.value === '未対応') {
+      sel.value = '対応中';
+      row.className = 'iq-row iq-row--doing';
+      var badge = row.querySelector('.iq-stale-badge');
+      if (badge) badge.remove();
+    }
+  }
+
+  $('iqd-send').addEventListener('click', async function () {
+    var staff = $('iqd-staff-mail').value.trim();
+    if (!$('iqd-body').value.trim() || !staff) { markResult(false, '本文と担当者名を入力してください'); return; }
+    if (!confirm($('iqd-to').value + ' 宛にメールを送信します。よろしいですか？')) return;
+    this.disabled = true; this.textContent = '送信中…';
+    try {
+      var res = await fetch('/admin/inquiries/reply.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
+        body: JSON.stringify({ id: cur.id, to: $('iqd-to').value, subject: $('iqd-subject').value, body: $('iqd-body').value, staff: staff })
+      });
+      var j = await res.json();
+      if (!res.ok || !j.ok) throw new Error(j.error || '送信に失敗しました');
+      markResult(true, j.warn || 'メールを送信しました（履歴に記録済み）');
+      afterSaved({ t: 'email', at: j.at || '', staff: staff, to: $('iqd-to').value, subject: $('iqd-subject').value, body: $('iqd-body').value });
+    } catch (err) {
+      markResult(false, err.message);
+    } finally {
+      this.disabled = false; this.textContent = 'メールを送信する';
+    }
+  });
+
+  $('iqd-save-note').addEventListener('click', async function () {
+    var staff = $('iqd-staff-tel').value.trim();
+    var memo = $('iqd-memo').value.trim();
+    if (!memo || !staff) { markResult(false, 'メモと担当者名を入力してください'); return; }
+    this.disabled = true; this.textContent = '保存中…';
+    try {
+      var res = await fetch('/admin/inquiries/note.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
+        body: JSON.stringify({ id: cur.id, memo: memo, staff: staff })
+      });
+      var j = await res.json();
+      if (!res.ok || !j.ok) throw new Error(j.error || '保存に失敗しました');
+      markResult(true, '電話メモを保存しました');
+      afterSaved({ t: 'tel', at: j.at || '', staff: staff, body: memo });
+      $('iqd-memo').value = '';
+    } catch (err) {
+      markResult(false, err.message);
+    } finally {
+      this.disabled = false; this.textContent = 'メモを保存する';
+    }
   });
 })();
 </script>

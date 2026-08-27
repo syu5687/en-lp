@@ -1,5 +1,5 @@
 /**
- * @version v0010 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（営業メールフィルタ・3日以上未対応の通知を追加） | Cloudflare Workers
+ * @version v0011 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（管理画面からの返信送信 /reply を追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -32,6 +32,9 @@ var CONFIG = {
   STALE_DAYS: 3,                                           // この日数ステータスが動かなければ通知
   STALE_TO: ["info@en1150.co.jp", "mk@lu-m.co.jp"],        // 未対応通知の宛先
   ADMIN_INQUIRIES_URL: "https://en1150.co.jp/admin/inquiries/",
+  REPLY_SUBJECT_NOTE: "",                                  // 返信件名に付ける接頭辞（不要なら空）
+  REPLY_REPLYTO: "info@en1150.co.jp",                      // お客様が返信したときの届き先
+  REPLY_BCC: ["info@en1150.co.jp"],                        // 控えのBCC（送信履歴をメールでも残す）
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
@@ -91,6 +94,44 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { headers: cors });
     if (request.method !== "POST") return new Response("Method not allowed", { status: 405, headers: cors });
     const json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json", ...cors } });
+
+    // ---- 管理画面からの返信送信（サーバー間・HMAC署名で認証。Originチェックは行わない） ----
+    if (new URL(request.url).pathname === "/reply") {
+      try {
+        if (!env.BREVO_API_KEY) return json({ ok: false, error: "BREVO_API_KEY 未設定" }, 500);
+        const raw = await request.text();
+        if (!raw || raw.length > 32768) return json({ ok: false, error: "bad payload" }, 400);
+        const sig = request.headers.get("X-Signature") || "";
+        const key = await crypto.subtle.importKey(
+          "raw", new TextEncoder().encode(CONFIG.LOG_SECRET),
+          { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+        );
+        const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(raw));
+        const expect = [...new Uint8Array(mac)].map((b) => b.toString(16).padStart(2, "0")).join("");
+        if (sig !== expect) return json({ ok: false, error: "bad signature" }, 403);
+
+        const r = JSON.parse(raw);
+        const esc2 = (s) => String(s ?? "").replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(r.to || ""))) return json({ ok: false, error: "bad to" }, 400);
+        if (!r.subject || !r.body) return json({ ok: false, error: "missing subject/body" }, 400);
+
+        const replyHtml = `<div style="font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.9;font-size:15px;white-space:pre-wrap;">${esc2(r.body)}</div>`;
+        const mail = {
+          sender: { name: CONFIG.FROM_NAME, email: CONFIG.FROM_EMAIL },
+          to: [{ email: r.to, name: r.toName || undefined }],
+          subject: `${CONFIG.REPLY_SUBJECT_NOTE}${r.subject}`,
+          htmlContent: replyHtml,
+          textContent: String(r.body),
+          replyTo: { email: CONFIG.REPLY_REPLYTO, name: CONFIG.FROM_NAME },
+        };
+        if (CONFIG.REPLY_BCC.length) mail.bcc = CONFIG.REPLY_BCC.map((e) => ({ email: e }));
+        const br = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify(mail) });
+        const bres = await br.json().catch(() => ({}));
+        return json({ ok: br.ok, ...bres }, br.ok ? 200 : 502);
+      } catch (e) {
+        return json({ ok: false, error: e.message }, 500);
+      }
+    }
 
     try {
       if (!env.BREVO_API_KEY) return json({ ok: false, error: "BREVO_API_KEY 未設定" }, 500);

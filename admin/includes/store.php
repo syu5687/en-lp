@@ -197,6 +197,38 @@ function inquiry_update_status(string $id, string $status, string $staff): bool 
   return empty($res['error']);
 }
 
+/** 受信1件を取得 */
+function inquiry_find(string $id): ?array {
+  $res = fs_request('GET', 'documents/' . INQUIRIES_COLLECTION . '/' . rawurlencode($id));
+  if (!is_array($res) || !empty($res['error']) || empty($res['fields'])) return null;
+  return fs_from_doc($res);
+}
+
+/**
+ * 対応履歴を1件追記し、ステータスも同時更新する。
+ *  $entry 例: ['t'=>'email'|'tel', 'at'=>'Y-m-d H:i', 'staff'=>..., 'subject'=>..., 'to'=>..., 'body'=>...]
+ *  - history は JSON文字列の配列として保存（既存の fs_to_fields の arrayValue をそのまま利用）
+ *  - ステータスが「未対応」の場合は「対応中」へ自動で進める
+ */
+function inquiry_append_history(string $id, array $entry, string $staff): bool {
+  $doc = inquiry_find($id);
+  if ($doc === null) return false;
+  $history = array_values(array_filter((array)($doc['history'] ?? []), 'is_string'));
+  $history[] = json_encode($entry, JSON_UNESCAPED_UNICODE);
+  if (count($history) > 100) $history = array_slice($history, -100);   // 念のため上限
+  $status = (string)($doc['status'] ?? '');
+  if (!in_array($status, INQUIRY_STATUSES, true) || $status === '未対応') $status = '対応中';
+  $path = 'documents/' . INQUIRIES_COLLECTION . '/' . rawurlencode($id)
+        . '?updateMask.fieldPaths=history&updateMask.fieldPaths=status&updateMask.fieldPaths=staff&updateMask.fieldPaths=status_updated_at';
+  $res = fs_request('PATCH', $path, ['fields' => fs_to_fields([
+    'history'           => $history,
+    'status'            => $status,
+    'staff'             => mb_substr(trim($staff), 0, 40),
+    'status_updated_at' => date('Y-m-d H:i:s'),
+  ])]);
+  return empty($res['error']);
+}
+
 /**
  * 一定日数ステータスが動いていない未完了案件（通知用）
  *  - 「対応済み」と営業ブロック分は除外
