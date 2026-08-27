@@ -1,5 +1,5 @@
 /**
- * @version v0008 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（受信内容のDB保存連携・任意属性欄を追加） | Cloudflare Workers
+ * @version v0009 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（営業メールフィルタを追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -32,7 +32,22 @@ var CONFIG = {
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
   FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
-  REQUIRED: ["name", "email", "message"]  // 最低限の必須チェック
+  REQUIRED: ["name", "email", "message"],  // 最低限の必須チェック
+
+  // ---- 営業メールフィルタ ----
+  // BLOCK_WORDS: 本文・名前・会社系欄にこの語が含まれたら即ブロック（静かに破棄）。営業が来るたびにここへ追加。
+  BLOCK_WORDS: ["キーマンノック", "AIコールセンター", "timerex.net", "テレアポ", "アポ代行", "営業代行", "商談を設定", "アポイントの獲得"],
+  // BLOCK_EMAILS / BLOCK_DOMAINS: 差出人メールでのブロック（例: "spam@example.com" / "example.com"）
+  BLOCK_EMAILS: [],
+  BLOCK_DOMAINS: [],
+  // 営業らしさのスコア判定に使う語（1グループ=1点）。供養のお客様が使いそうな語は入れないこと。
+  SALES_WORDS: [
+    "テレアポ", "アポイント", "商談", "営業マン", "セールス",
+    "集客", "マーケティング", "広告運用", "リスティング", "SEO対策", "MEO",
+    "コンサルティング", "採用支援", "人材紹介", "求人広告",
+    "補助金", "助成金", "LP制作", "ホームページ制作", "WEB制作", "システム開発", "DX支援", "AI活用",
+    "オンラインでお話", "お打ち合わせの候補", "ご都合のよい日時", "情報収集レベル",
+  ],
 };
 
 var BREVO_EMAIL = "https://api.brevo.com/v3/smtp/email";
@@ -87,6 +102,29 @@ export default {
       // ④ 内容の異常な長さを拒否（緩い上限）
       if (String(d.message || "").length > 8000 || String(d.name || "").length > 100) return json({ ok: false, error: "too long" }, 400);
 
+      // ⑤ 営業メールフィルタ
+      //    - ブロックリスト該当 → 本物っぽく応答して静かに破棄（メール送信なし・DB保存のみ）
+      //    - スコア判定: URL入り本文+営業ワード等で加点。4点以上=破棄 / 2〜3点=件名に【営業？】を付けて自動返信なしで通知
+      const hay = [d.message, d.name, d.kana, d.category].map((x) => String(x || "")).join("\n");
+      const mailAddr = String(d.email || "").toLowerCase();
+      const mailDom = mailAddr.split("@")[1] || "";
+      const hardBlock =
+        CONFIG.BLOCK_WORDS.some((w) => hay.includes(w)) ||
+        CONFIG.BLOCK_EMAILS.includes(mailAddr) ||
+        CONFIG.BLOCK_DOMAINS.some((dom) => mailDom === dom || mailDom.endsWith("." + dom));
+      let salesScore = 0;
+      if (/https?:\/\//.test(String(d.message || ""))) salesScore += 2;          // 本文にURL（一般のお客様はまず貼らない）
+      salesScore += CONFIG.SALES_WORDS.filter((w) => hay.includes(w)).length;      // 営業ワード 1語=1点
+      if (/株式会社|合同会社|Inc\.|Co\.,/.test(String(d.name || ""))) salesScore += 1; // 名前欄が社名
+      const isSpam = hardBlock || salesScore >= 4;
+      const isSuspect = !isSpam && salesScore >= 2;
+      if (isSpam) {
+        // 記録だけ残して破棄（管理画面の受信ログで後から確認・誤判定の救済ができる）
+        const spamLog = logInquiry({ ...d, category: "[営業ブロック] " + (d.category || "") }).catch(() => {});
+        if (ctx && ctx.waitUntil) ctx.waitUntil(spamLog); else await spamLog;
+        return json({ ok: true });
+      }
+
       for (const k of CONFIG.REQUIRED) if (!d[k]) return json({ ok: false, error: `missing ${k}` }, 400);
 
       const esc = (s) => String(s ?? "").replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
@@ -122,7 +160,7 @@ export default {
 
       const adminBody = {
         sender, to: [{ email: CONFIG.TO }],
-        subject: `${CONFIG.SUBJECT_PREFIX}${esc(d.name || "")}様${d.category ? "（" + esc(d.category) + "）" : ""}`,
+        subject: `${isSuspect ? "【営業？】" : ""}${CONFIG.SUBJECT_PREFIX}${esc(d.name || "")}様${d.category ? "（" + esc(d.category) + "）" : ""}`,
         htmlContent: adminHtml,
         replyTo: emailOk ? { email: d.email, name: d.name } : undefined
       };
@@ -133,7 +171,7 @@ export default {
       const adminResult = await adminRes.json().catch(() => ({}));
 
       let autoReplyOk = null;
-      if (CONFIG.AUTO_REPLY && emailOk) {
+      if (CONFIG.AUTO_REPLY && emailOk && !isSuspect) {
         const custHtml = `
           <div style="font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.8;">
             <p>${esc(d.name || "")} 様</p>

@@ -458,6 +458,11 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
           </div>
         <?php endforeach; ?>
       </div>
+      <figure style="margin:26px auto 0;max-width:270px;text-align:center">
+        <img src="/assets/img/certificate.jpg?v=<?= h(asset_ver()) ?>" alt="緯度・経度入りの海洋葬証明書" width="800" height="1074" loading="lazy"
+             style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border);box-shadow:0 8px 22px rgba(40,60,50,.12);background:#f2efe8">
+        <figcaption style="margin-top:10px;font-size:.82rem;color:var(--text-light)">実際にお渡ししている「海洋葬証明書」。散骨海域の緯度・経度と当日のお写真入りです。</figcaption>
+      </figure>
       <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
         お墓じまい（改葬手続き・墓石の撤去）からご遺骨の受け入れ、海洋散骨までまとめてのご依頼も可能です。<br class="pc-only">
         「何から始めればいいかわからない」という段階でも、どうぞお気軽にご相談ください。

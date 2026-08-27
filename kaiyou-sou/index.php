@@ -252,7 +252,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
             ['ご遺骨のお引取り・お預かり', 'お持ち込みのほか、ご郵送（ゆうパック）にも対応。お引取りにうかがうこともできます。大切に、丁寧にお預かりします。', $ks_img('ks-kotsubako.jpg'), '丁寧にお預かりしたご遺骨'],
             ['粉骨（パウダー化）', '海洋散骨のルールに沿って、ご遺骨を専用の設備でパウダー状にします。立ち会いをご希望の場合はご相談ください。', '/assets/img/svc-funkotsu.jpg', '粉骨作業の様子'],
             ['海洋葬の実施', '献花・献水・鐘の音とともに、心を込めてご遺骨を海へお還しします。当日の様子は撮影し、お届けします。', $ks_img('ks-maku.jpg'), '花びらとともに行う海洋散骨セレモニー'],
-            ['散骨証明書のお渡し・アフターサポート', '緯度・経度入りの散骨証明書をお渡しします。メモリアルクルーズや手元供養など、「その後」のご供養もお手伝いします。', $ks_img('ks-sea-flowers.jpg'), '散骨海域に広がる花びら'],
+            ['散骨証明書のお渡し・アフターサポート', '緯度・経度入りの散骨証明書をお渡しします。メモリアルクルーズや手元供養など、「その後」のご供養もお手伝いします。', '/assets/img/certificate.jpg', '緯度・経度入りの海洋葬証明書'],
           ];
         ?>
         <?php foreach ($ks_flow as $i => [$t, $d, $img, $alt]): ?>
@@ -263,7 +263,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
               <p><?= h($d) ?></p>
             </div>
             <?php if ($img): ?>
-              <img src="<?= h($img) ?><?= str_starts_with($img, '/assets/') ? '?v=' . h(asset_ver()) : '' ?>" alt="<?= h($alt) ?>" width="900" height="600" loading="lazy" class="ks-flow__img">
+              <img src="<?= h($img) ?><?= str_starts_with($img, '/assets/') ? '?v=' . h(asset_ver()) : '' ?>" alt="<?= h($alt) ?>" width="900" height="600" loading="lazy" class="ks-flow__img<?= str_contains((string)$img, 'certificate') ? ' ks-flow__img--cert' : '' ?>">
             <?php else: ?>
               <div class="ks-flow__img ks-flow__img--ph" aria-hidden="true">無料<br>見積り</div>
             <?php endif; ?>
@@ -280,11 +280,13 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     .ks-flow__body h3{font-size:1.02rem;color:var(--green-mid);margin-bottom:6px}
     .ks-flow__body p{font-size:.9rem;line-height:1.85}
     .ks-flow__img{width:200px;aspect-ratio:3/2;object-fit:cover;border-radius:10px}
+    .ks-flow__img--cert{aspect-ratio:3/4;object-fit:cover;object-position:center 42%;background:#f2efe8;border:1px solid var(--border)}
     .ks-flow__img--ph{display:grid;place-items:center;background:var(--sea-light);color:var(--green);font-weight:700;font-size:.9rem;text-align:center;line-height:1.5}
     @media(max-width:640px){
       .ks-flow__step{grid-template-columns:36px 1fr}
       .ks-flow__num{width:36px;height:36px;font-size:1rem}
       .ks-flow__img{grid-column:1/-1;width:100%}
+      .ks-flow__img--cert{width:min(68%,250px);margin:0 auto}
     }
   </style>
 
@@ -324,6 +326,11 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
           </div>
         <?php endforeach; ?>
       </div>
+      <figure style="margin:26px auto 0;max-width:270px;text-align:center">
+        <img src="/assets/img/certificate.jpg?v=<?= h(asset_ver()) ?>" alt="緯度・経度入りの海洋葬証明書" width="800" height="1074" loading="lazy"
+             style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border);box-shadow:0 8px 22px rgba(40,60,50,.12);background:#f2efe8">
+        <figcaption style="margin-top:10px;font-size:.82rem;color:var(--text-light)">実際にお渡ししている「海洋葬証明書」。散骨海域の緯度・経度と当日のお写真入りです。</figcaption>
+      </figure>
       <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
         お墓じまい（改葬手続き・墓石の撤去）からご遺骨の受け入れ、海洋散骨までまとめてのご依頼も可能です。<br class="pc-only">
         「何から始めればいいかわからない」という段階でも、どうぞお気軽にご相談ください。
