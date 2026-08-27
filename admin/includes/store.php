@@ -180,3 +180,36 @@ function inquiries_all(): array {
   usort($items, fn($a, $b) => strcmp($b['received_at'] ?? '', $a['received_at'] ?? ''));
   return $items;
 }
+
+/** 対応ステータスの選択肢（表示順） */
+const INQUIRY_STATUSES = ['未対応', '対応中', '対応済み'];
+
+/** 対応ステータスを更新（status / staff / status_updated_at のみ書き換え） */
+function inquiry_update_status(string $id, string $status, string $staff): bool {
+  if (!in_array($status, INQUIRY_STATUSES, true)) return false;
+  $path = 'documents/' . INQUIRIES_COLLECTION . '/' . rawurlencode($id)
+        . '?updateMask.fieldPaths=status&updateMask.fieldPaths=staff&updateMask.fieldPaths=status_updated_at';
+  $res = fs_request('PATCH', $path, ['fields' => fs_to_fields([
+    'status'            => $status,
+    'staff'             => mb_substr(trim($staff), 0, 40),
+    'status_updated_at' => date('Y-m-d H:i:s'),
+  ])]);
+  return empty($res['error']);
+}
+
+/**
+ * 一定日数ステータスが動いていない未完了案件（通知用）
+ *  - 「対応済み」と営業ブロック分は除外
+ *  - 基準時刻 = status_updated_at（無ければ received_at）
+ */
+function inquiries_stale(int $days = 3): array {
+  $limit = date('Y-m-d H:i:s', time() - $days * 86400);
+  $out = [];
+  foreach (inquiries_all() as $i) {
+    if ((string)($i['status'] ?? '') === '対応済み') continue;
+    if (str_starts_with((string)($i['category'] ?? ''), '[営業ブロック]')) continue;
+    $last = (string)($i['status_updated_at'] ?? '') ?: (string)($i['received_at'] ?? '');
+    if ($last !== '' && $last <= $limit) $out[] = $i;
+  }
+  return $out;
+}

@@ -1,5 +1,5 @@
 /**
- * @version v0009 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（営業メールフィルタを追加） | Cloudflare Workers
+ * @version v0010 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（営業メールフィルタ・3日以上未対応の通知を追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -28,6 +28,10 @@ var CONFIG = {
   LOG_SECRET: "fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2", // サイト側と共有のHMAC鍵
   MONITOR_TO: ["info@en1150.co.jp", "mk@lu-m.co.jp"], // 毎日の稼働確認メール宛先（複数可）
   MONITOR_SUBJECT: "【自動稼働確認】en1150 お問い合わせフォーム 正常稼働中",
+  STALE_URL: "https://en1150.co.jp/api/inquiry-stale.php", // 3日以上未対応の案件一覧API
+  STALE_DAYS: 3,                                           // この日数ステータスが動かなければ通知
+  STALE_TO: ["info@en1150.co.jp", "mk@lu-m.co.jp"],        // 未対応通知の宛先
+  ADMIN_INQUIRIES_URL: "https://en1150.co.jp/admin/inquiries/",
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
@@ -214,5 +218,51 @@ export default {
       htmlContent: `<div style="font-family:sans-serif;line-height:1.8;color:#222;"><p>フォームのメール送信機能は<b>正常に稼働しています</b>。</p>${formLink}<p>この自動確認メールが毎日届いていれば正常です。届かない日があれば要確認。</p><p style="font-size:12px;color:#888;">自動送信／${now} UTC</p></div>`
     };
     ctx.waitUntil(fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify(body) }));
+
+    // ---- 3日以上ステータスが動いていない問い合わせの通知 ----
+    ctx.waitUntil((async () => {
+      try {
+        const reqBody = JSON.stringify({ days: CONFIG.STALE_DAYS });
+        const key = await crypto.subtle.importKey(
+          "raw", new TextEncoder().encode(CONFIG.LOG_SECRET),
+          { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+        );
+        const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(reqBody));
+        const sig = [...new Uint8Array(mac)].map((b) => b.toString(16).padStart(2, "0")).join("");
+        const res = await fetch(CONFIG.STALE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-Signature": sig },
+          body: reqBody,
+        });
+        const j = await res.json().catch(() => null);
+        if (!j || !j.ok || !j.count) return;   // 対象なし・エラー時は何も送らない
+
+        let trows = "";
+        for (const it of j.items.slice(0, 30)) {
+          trows += `<tr>
+            <td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:bold;">${escM(it.name)} 様</td>
+            <td style="padding:6px 10px;border-bottom:1px solid #eee;">${escM(it.category || "—")}</td>
+            <td style="padding:6px 10px;border-bottom:1px solid #eee;white-space:nowrap;">${escM((it.received_at || "").slice(0, 16))}</td>
+            <td style="padding:6px 10px;border-bottom:1px solid #eee;">${escM(it.status)}${it.staff ? "（" + escM(it.staff) + "）" : ""}</td>
+          </tr>`;
+        }
+        const alertBody = {
+          sender: { name: CONFIG.FROM_NAME, email: CONFIG.FROM_EMAIL },
+          to: (Array.isArray(CONFIG.STALE_TO) ? CONFIG.STALE_TO : [CONFIG.STALE_TO]).map((e) => ({ email: e })),
+          subject: `【要対応】お問い合わせ ${j.count}件が${CONFIG.STALE_DAYS}日以上対応されていません`,
+          htmlContent: `<div style="font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.7;">
+            <h2 style="color:#c0392b;border-bottom:2px solid #c0392b;padding-bottom:8px;">対応が止まっているお問い合わせがあります</h2>
+            <p>ステータスが「対応済み」にならないまま<b>${CONFIG.STALE_DAYS}日以上</b>経過したお問い合わせが <b>${j.count}件</b> あります。</p>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <tr><th style="text-align:left;padding:6px 10px;background:#f2f6f8;">お名前</th><th style="text-align:left;padding:6px 10px;background:#f2f6f8;">種別</th><th style="text-align:left;padding:6px 10px;background:#f2f6f8;">受信日時</th><th style="text-align:left;padding:6px 10px;background:#f2f6f8;">状況（担当）</th></tr>
+              ${trows}
+            </table>
+            <p style="margin-top:16px;"><a href="${escM(CONFIG.ADMIN_INQUIRIES_URL)}" style="color:#15709e;font-weight:bold;">→ 管理画面で確認・ステータスを更新する</a></p>
+            <p style="font-size:12px;color:#888;">対応後は一覧のステータスを「対応済み」にすると、この通知は止まります（毎日1回の自動チェック）。</p>
+          </div>`,
+        };
+        await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify(alertBody) });
+      } catch (e) { /* 通知失敗は握りつぶす（翌日再試行） */ }
+    })());
   }
 };

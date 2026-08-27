@@ -19,18 +19,32 @@ if ($range !== 'all') {
   $items = array_values(array_filter($items, fn($i) => substr((string)($i['received_at'] ?? ''), 0, 10) >= $limitDate));
 }
 
+// ---- 対応ステータス集計 ----
+$iq_status = static fn(array $i): string => in_array((string)($i['status'] ?? ''), INQUIRY_STATUSES, true) ? (string)$i['status'] : '未対応';
+$staleLimit = date('Y-m-d H:i:s', time() - 3 * 86400);
+$iq_is_stale = static function (array $i) use ($iq_status, $staleLimit): bool {
+  if ($iq_status($i) === '対応済み') return false;
+  if (str_starts_with((string)($i['category'] ?? ''), '[営業ブロック]')) return false;
+  $last = (string)($i['status_updated_at'] ?? '') ?: (string)($i['received_at'] ?? '');
+  return $last !== '' && $last <= $staleLimit;
+};
+$stCount = ['未対応' => 0, '対応中' => 0, '対応済み' => 0];
+$staleCount = 0;
+foreach ($items as $i) { $stCount[$iq_status($i)]++; if ($iq_is_stale($i)) $staleCount++; }
+
 // ---- CSV出力（Excelで開ける UTF-8 BOM 付き） ----
 if (!empty($_GET['export'])) {
   header('Content-Type: text/csv; charset=UTF-8');
   header('Content-Disposition: attachment; filename="inquiries_' . date('Ymd') . '.csv"');
   echo "\xEF\xBB\xBF";
   $out = fopen('php://output', 'w');
-  fputcsv($out, ['受信日時', 'お名前', 'ふりがな', 'メール', '電話', '種別', 'お住まい', '年代', '性別', '合同散骨希望日', '診断結果', '送信元ページ', '内容']);
+  fputcsv($out, ['受信日時', 'お名前', 'ふりがな', 'メール', '電話', '種別', 'お住まい', '年代', '性別', '合同散骨希望日', '診断結果', '送信元ページ', '内容', 'ステータス', '担当者', 'ステータス更新日時']);
   foreach ($items as $i) {
     fputcsv($out, [
       $i['received_at'] ?? '', $i['name'] ?? '', $i['kana'] ?? '', $i['email'] ?? '', $i['tel'] ?? '',
       $i['category'] ?? '', $i['pref'] ?? '', $i['age_group'] ?? '', $i['gender'] ?? '',
       $i['goudou_date'] ?? '', $i['shindan'] ?? '', $i['source'] ?? '', $i['message'] ?? '',
+      $iq_status($i), $i['staff'] ?? '', $i['status_updated_at'] ?? '',
     ]);
   }
   fclose($out);
@@ -140,6 +154,10 @@ function iq_bars(array $data, int $top = 8): string {
     <div class="iq-sum"><b><?= $total ?>件</b><span><?= h($ranges[$range]) ?>の受信</span></div>
     <div class="iq-sum"><b><?= $thisMonth ?>件</b><span>今月</span></div>
     <div class="iq-sum"><b><?= $lastMonth ?>件</b><span>先月</span></div>
+    <div class="iq-sum"><b style="color:#c0392b"><?= $stCount['未対応'] ?>件</b><span>未対応</span></div>
+    <div class="iq-sum"><b style="color:#b07a1e"><?= $stCount['対応中'] ?>件</b><span>対応中</span></div>
+    <div class="iq-sum"><b style="color:#1d7a3e"><?= $stCount['対応済み'] ?>件</b><span>対応済み</span></div>
+    <?php if ($staleCount): ?><div class="iq-sum" style="outline:2px solid #e74c3c"><b style="color:#c0392b"><?= $staleCount ?>件</b><span>3日以上動きなし（要対応）</span></div><?php endif; ?>
   </div>
 
   <div class="iq-grid">
@@ -161,9 +179,9 @@ function iq_bars(array $data, int $top = 8): string {
   <h2 style="font-size:1rem;color:#0a3852;margin-bottom:10px">受信一覧（新しい順・最大100件表示）</h2>
   <div style="overflow-x:auto">
     <table class="iq-table">
-      <tr><th>受信日時</th><th>お名前</th><th>種別</th><th>属性</th><th>連絡先</th><th>内容ほか</th></tr>
-      <?php foreach (array_slice($items, 0, 100) as $i): ?>
-        <tr>
+      <tr><th>受信日時</th><th>お名前</th><th>種別</th><th>属性</th><th>連絡先</th><th>内容ほか</th><th>対応ステータス</th></tr>
+      <?php foreach (array_slice($items, 0, 100) as $i): $st = $iq_status($i); $stale = $iq_is_stale($i); ?>
+        <tr class="iq-row iq-row--<?= $st === '未対応' ? 'todo' : ($st === '対応中' ? 'doing' : 'done') ?><?= $stale ? ' iq-row--stale' : '' ?>">
           <td style="white-space:nowrap"><?= h($i['received_at'] ?? '') ?></td>
           <td style="font-weight:700"><?= h($i['name'] ?? '') ?><br><span style="font-weight:400;color:#89a;font-size:.76rem"><?= h($i['kana'] ?? '') ?></span></td>
           <td><?= h($i['category'] ?? '') ?><?= !empty($i['goudou_date']) ? '<br><span style="font-size:.76rem;color:#567">希望日 ' . h($i['goudou_date']) . '</span>' : '' ?></td>
@@ -176,11 +194,82 @@ function iq_bars(array $data, int $top = 8): string {
             <?php if (!empty($i['shindan'])): ?><p style="font-size:.76rem;color:#567">診断: <?= h($i['shindan']) ?></p><?php endif; ?>
             <?php if (!empty($i['source'])): ?><p style="font-size:.72rem;color:#9ab"><?= h((string)(parse_url((string)$i['source'], PHP_URL_PATH) ?? '')) ?></p><?php endif; ?>
           </td>
+          <td class="iq-status" data-id="<?= h((string)($i['id'] ?? '')) ?>">
+            <?php if ($stale): ?><span class="iq-stale-badge">3日以上動きなし</span><?php endif; ?>
+            <select class="iq-status__sel">
+              <?php foreach (INQUIRY_STATUSES as $s): ?>
+                <option value="<?= h($s) ?>"<?= $s === $st ? ' selected' : '' ?>><?= h($s) ?></option>
+              <?php endforeach; ?>
+            </select>
+            <input type="text" class="iq-status__staff" placeholder="担当者名" value="<?= h((string)($i['staff'] ?? '')) ?>" maxlength="40">
+            <span class="iq-status__note"><?= !empty($i['status_updated_at']) ? h(substr((string)$i['status_updated_at'], 0, 16)) . ' 更新' : '' ?></span>
+          </td>
         </tr>
       <?php endforeach; ?>
       <?php if (!$items && !$fs_error): ?><tr><td colspan="6" style="color:#888">まだ受信データがありません。フォームから送信があると自動で記録されます。</td></tr><?php endif; ?>
     </table>
   </div>
-  <p style="font-size:.76rem;color:#99a;margin-top:14px">※ 個人情報を含むため、取り扱いにご注意ください。表示・CSVのデータは管理画面にログインした方のみ閲覧できます。</p>
+  <p style="font-size:.76rem;color:#99a;margin-top:14px">※ 個人情報を含むため、取り扱いにご注意ください。表示・CSVのデータは管理画面にログインした方のみ閲覧できます。<br>
+  ※ ステータスか担当者を変更すると自動保存されます。「対応済み」以外のまま3日以上変更がない案件は、毎日の自動チェックで管理者宛にメール通知されます。</p>
 </main>
+<style>
+  .iq-row--todo{background:#fff}
+  .iq-row--doing{background:#fffdf4}
+  .iq-row--done{background:#f6fbf7}
+  .iq-row--done td{color:#7a8a80}
+  .iq-row--stale td:first-child{box-shadow:inset 4px 0 0 #e74c3c}
+  .iq-status{min-width:170px}
+  .iq-status select,.iq-status input{width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid #cdd8de;border-radius:7px;font-size:.8rem;margin-bottom:6px;background:#fff}
+  .iq-status__note{display:block;font-size:.68rem;color:#9ab;min-height:1em}
+  .iq-stale-badge{display:inline-block;background:#fdecea;color:#c0392b;font-size:.68rem;font-weight:700;border-radius:99px;padding:2px 8px;margin-bottom:6px}
+  .iq-status.is-saving select,.iq-status.is-saving input{opacity:.5;pointer-events:none}
+  .iq-status.is-saved .iq-status__note{color:#1d7a3e;font-weight:700}
+  .iq-status.is-error .iq-status__note{color:#c0392b;font-weight:700}
+</style>
+<script>
+(function () {
+  var CSRF = <?= json_encode(csrf_token()) ?>;
+  var lastStaff = '';
+  document.querySelectorAll('.iq-status').forEach(function (cell) {
+    var sel = cell.querySelector('.iq-status__sel');
+    var staff = cell.querySelector('.iq-status__staff');
+    var note = cell.querySelector('.iq-status__note');
+    async function save() {
+      var status = sel.value;
+      var name = staff.value.trim();
+      if (status !== '未対応' && !name) {
+        if (lastStaff) { staff.value = name = lastStaff; }  // 直前に入力した担当者名を自動補完
+        else { note.textContent = '担当者名を入力してください'; cell.classList.add('is-error'); staff.focus(); return; }
+      }
+      cell.classList.remove('is-saved', 'is-error');
+      cell.classList.add('is-saving');
+      note.textContent = '保存中…';
+      try {
+        var res = await fetch('/admin/inquiries/status.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
+          body: JSON.stringify({ id: cell.dataset.id, status: status, staff: name })
+        });
+        var j = await res.json();
+        if (!res.ok || !j.ok) throw new Error(j.error || '保存に失敗しました');
+        if (name) lastStaff = name;
+        note.textContent = j.at + ' 更新';
+        cell.classList.add('is-saved');
+        var row = cell.closest('tr');
+        row.className = row.className.replace(/iq-row--(todo|doing|done|stale)/g, '').trim();
+        row.classList.add('iq-row', status === '未対応' ? 'iq-row--todo' : (status === '対応中' ? 'iq-row--doing' : 'iq-row--done'));
+        var badge = cell.querySelector('.iq-stale-badge');
+        if (badge) badge.remove();
+      } catch (err) {
+        note.textContent = err.message;
+        cell.classList.add('is-error');
+      } finally {
+        cell.classList.remove('is-saving');
+      }
+    }
+    sel.addEventListener('change', save);
+    staff.addEventListener('change', function () { if (sel.value !== '未対応' || staff.value.trim()) save(); });
+  });
+})();
+</script>
 </body></html>
