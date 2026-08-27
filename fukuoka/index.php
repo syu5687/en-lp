@@ -209,6 +209,45 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     @media(max-width:860px){.fk-price-plans{grid-template-columns:1fr}.fk-price-etc{grid-template-columns:1fr}}
   </style>
 
+  <!-- 価格だけで選ばないで（比較チェックポイント） -->
+  <section class="section" style="background:var(--white)">
+    <div class="container" style="max-width:960px">
+      <h2 style="text-align:center;margin-bottom:14px">料金の安さだけで選ばないでください</h2>
+      <p style="text-align:center;max-width:720px;margin:0 auto 26px;line-height:2">
+        福岡でも、格安をうたう散骨サービスが増えています。しかし「実際にどの海域で散骨されたのかわからない」「証明書が発行されない」「あとから追加料金を請求された」——そんなケースも報告されています。<br>
+        大切な方をお見送りする一度きりのご供養だからこそ、<strong>他社さまとご比較の際は次のポイント</strong>をご確認ください。
+      </p>
+      <div class="fk-quality-list">
+        <?php
+          $fk_quality = [
+            ['協会加盟', '日本海洋散骨協会の加盟事業者。ガイドラインと海域ルールを順守します。'],
+            ['丁寧な粉骨', 'ご遺骨は一件ずつ丁寧にパウダー化。真空パック・桐箱でのお返しにも対応。'],
+            ['散骨証明書', '緯度・経度入りの証明書と当日のお写真をお届け。お見送りがかたちで残ります。'],
+            ['追加料金なし', '金額は無料見積りで確定。ご納得いただいてからのご契約です。'],
+            ['アフターサポート', 'メモリアルクルーズや手元供養など、散骨後のご供養まで一貫対応。'],
+            ['実績', '鹿児島・福岡を中心に全国3,800件以上・10年以上、Google口コミ★4.9。'],
+          ];
+        ?>
+        <?php foreach ($fk_quality as [$t, $d]): ?>
+          <div class="fk-quality-item">
+            <h3><span>✓</span><?= h($t) ?></h3>
+            <p><?= h($d) ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:20px;font-size:.9rem;color:var(--text-light)">「見積りだけ」「話を聞くだけ」でも歓迎です。どうぞ納得のいくまでご比較ください。</p>
+    </div>
+  </section>
+  <style>
+    .fk-quality-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .fk-quality-item{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+    .fk-quality-item h3{font-size:.98rem;color:var(--green-mid);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+    .fk-quality-item h3 span{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:.75rem;flex:none}
+    .fk-quality-item p{font-size:.85rem;line-height:1.8}
+    @media(max-width:860px){.fk-quality-list{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.fk-quality-list{grid-template-columns:1fr}}
+  </style>
+
   <!-- 安心・信頼・安全 -->
   <section class="section" style="background:linear-gradient(180deg,#f2f8fa,#e8f2f6)">
     <div class="container" style="max-width:960px">
@@ -375,6 +414,40 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     @media(max-width:520px){.fk-kengai-steps{grid-template-columns:1fr}}
   </style>
 
+  <!-- よくあるご質問 -->
+  <?php
+    $fk_faq = [
+      ['q' => '博多湾など、福岡の海で散骨できますか？',
+       'a' => 'はい。博多湾をはじめ福岡の海域での海洋散骨に対応しています。故人様やご家族にゆかりのある海でのお見送りをご希望の場合も、海域についてお気軽にご相談ください。'],
+      ['q' => '福岡営業所ではどのような相談ができますか？',
+       'a' => '海洋散骨（チャーター・合同・委託）、粉骨・洗骨、お墓じまい、生前契約、ペット供養のご相談を対面で承っています。福岡市中央区春吉にございますので、資料を見ながらゆっくりお話しいただけます。ご相談・お見積りは無料です。'],
+      ['q' => '福岡県外に住んでいますが、依頼できますか？',
+       'a' => 'ご依頼いただけます。ご遺骨はゆうパックでのご郵送でお預かりでき、立ち会い不要の委託海洋葬（54,450円〜）なら帰省せずにすべてお任せいただけます。散骨後は緯度・経度入りの散骨証明書と当日のお写真をご自宅へお届けします。'],
+      ['q' => '海洋散骨は法律的に問題ありませんか？',
+       'a' => '法務省は「節度をもって葬送の一つとして行われる限り違法ではない」との見解を示しており、厚生労働省のガイドラインも公表されています。当社は日本海洋散骨協会の加盟事業者として、ルールに沿って適切な海域・方法で散骨を行いますのでご安心ください。'],
+      ['q' => '費用はいくらかかりますか？あとから追加料金はありませんか？',
+       'a' => '海洋散骨は委託54,450円〜・合同148,500円〜・チャーター176,000円〜（いずれも税込）、粉骨は24,200円〜です。金額は無料のお見積りで確定し、ご納得いただいてからのご契約となりますので、あとから追加料金をいただくことはありません。'],
+      ['q' => 'お墓じまいから海洋散骨までまとめて頼めますか？',
+       'a' => 'はい。墓石の撤去から納骨まで一括対応するお墓じまい（基本プラン330,000円・税込）と、取り出したご遺骨の粉骨・海洋散骨までワンストップで承ります。改葬許可申請（役所手続き）のサポートはオプション（25,000円〜）でご利用いただけます。',
+       'link' => ['/grave/', 'お墓じまいについて詳しく見る']],
+      ['q' => '生前に自分の散骨を申し込んでおくことはできますか？',
+       'a' => '承れます。福岡営業所でも生前契約のご相談を受け付けています。ご家族とよく話し合ったうえで、遺言書やエンディングノートに残しておくことをおすすめします。',
+       'link' => ['/seizen/', '海洋散骨 生前契約について詳しく見る']],
+    ];
+  ?>
+  <section class="section">
+    <div class="container" style="max-width:820px">
+      <h2 style="text-align:center;margin-bottom:8px">よくあるご質問</h2>
+      <p style="text-align:center;font-size:.9rem;color:var(--text-light);margin-bottom:24px">福岡でのご供養についてよくいただくご質問です。<a href="/kaiyou-sou/" style="color:var(--green);text-decoration:underline">海洋散骨のよくあるご質問</a>もあわせてご覧ください。</p>
+      <?php foreach ($fk_faq as $f): ?>
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
+          <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. <?= h($f['q']) ?></summary>
+          <p style="margin-top:10px;font-size:.95rem;line-height:1.9">A. <?= h($f['a']) ?><?php if (!empty($f['link'])): ?> <a href="<?= h($f['link'][0]) ?>" style="color:var(--green);text-decoration:underline"><?= h($f['link'][1]) ?> →</a><?php endif; ?></p>
+        </details>
+      <?php endforeach; ?>
+    </div>
+  </section>
+
   <!-- 営業所案内 -->
   <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:860px">
@@ -435,5 +508,17 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],
   "description":"福岡の海洋散骨・粉骨・お墓じまい・生前契約のご相談窓口。博多湾など福岡の海域での散骨に対応。"
 }
+</script>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'FAQPage',
+  'mainEntity' => array_map(fn($f) => [
+    '@type' => 'Question',
+    'name' => $f['q'],
+    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+  ], $fk_faq),
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
+
 </script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

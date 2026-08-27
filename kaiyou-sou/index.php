@@ -344,22 +344,97 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     @media(max-width:520px){.ks-kengai-steps{grid-template-columns:1fr}}
   </style>
 
+  <!-- 選ばれる品質（価格だけで選ばないで） -->
+  <section class="section" style="background:var(--white)">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">QUALITY</p>
+      <h2 style="text-align:center;margin-bottom:14px">料金の安さだけで選ばないでください</h2>
+      <p style="text-align:center;max-width:720px;margin:0 auto 28px;line-height:2">
+        海洋散骨を行う業者は年々増え、なかには格安をうたうサービスもあります。<br class="pc-only">
+        しかし「実際にどの海域で散骨されたのかわからない」「証明書が発行されない」「あとから追加料金を請求された」——そんなケースも報告されています。<br class="pc-only">
+        大切な方のご遺骨を託す、一度きりのご供養だからこそ、<strong>料金だけでなく「どこで・誰が・どのように」散骨するのか</strong>をご確認ください。
+      </p>
+      <div class="ks-quality-grid">
+        <?php
+          $ks_quality = [
+            ['協会加盟の事業者か', '縁は一般社団法人日本海洋散骨協会の加盟事業者。ガイドラインと海域のルールを順守し、環境に配慮した散骨を行います。'],
+            ['粉骨の品質', 'ご遺骨は一件ずつ丁寧にパウダー化。お手元供養用に真空パック・桐箱でのお返しにも対応しています。'],
+            ['散骨の証明', '散骨海域の緯度・経度入りの「散骨証明書」と当日のお写真をお届け。どこでお見送りしたかが、かたちで残ります。'],
+            ['料金の明確さ', '金額は無料のお見積りで確定。ご納得いただいてからのご契約で、あとから追加料金をいただくことはありません。'],
+            ['散骨後のご供養', 'メモリアルクルーズ、天国への手紙（無料）、手元供養など、「その後」のご供養まで自社で一貫してお手伝いします。'],
+            ['実績と信頼', '鹿児島・福岡を中心に全国3,800件以上・10年以上の実績。Google口コミ評価★4.9をいただいています。'],
+          ];
+        ?>
+        <?php foreach ($ks_quality as $i => [$t, $d]): ?>
+          <div class="ks-quality-item">
+            <h3><span>✓</span><?= h($t) ?></h3>
+            <p><?= h($d) ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
+        他社さまとご比較の際は、上の6点をチェックリストとしてご活用ください。<br class="pc-only">
+        「見積りだけ」「話を聞くだけ」でも歓迎です。どうぞ納得のいくまでご比較ください。
+      </p>
+    </div>
+  </section>
+  <style>
+    .ks-quality-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .ks-quality-item{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:20px 22px}
+    .ks-quality-item h3{font-size:1rem;color:var(--green-mid);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+    .ks-quality-item h3 span{width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:.8rem;flex:none}
+    .ks-quality-item p{font-size:.88rem;line-height:1.85}
+    @media(max-width:900px){.ks-quality-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.ks-quality-grid{grid-template-columns:1fr}}
+  </style>
+
   <!-- よくあるご質問 -->
+  <?php
+    $ks_faq = [
+      ['q' => '海洋散骨はどのような方に選ばれていますか？',
+       'a' => '「海が好きだった」「自然に還りたい」という故人様やご本人の希望のほか、「お墓を継ぐ人がいない」「ご遺骨のことで家族に負担を残したくない」という承継の事情、「お墓や納骨堂の費用を抑えたい」という経済的な理由で選ばれる方が増えています。お墓を持たないご供養の方法なので、従来のかたちにとらわれず自由に故人様をお見送りしたい方に向いています。'],
+      ['q' => '海にご遺骨を撒くことは法律的に問題ありませんか？',
+       'a' => '法務省は「節度をもって葬送の一つとして行われる限り違法ではない」との見解を示しており、2021年には厚生労働省から散骨に関するガイドラインも公表されています。当社は一般社団法人日本海洋散骨協会の加盟事業者として、ガイドラインと協会ルールに沿って適切な海域・方法で散骨を行いますのでご安心ください。なお、ご遺骨を粉骨せずそのまま海に撒くことはできません。当社では散骨前に必ず専用の設備で丁寧にパウダー化します。'],
+      ['q' => 'お墓に納骨されているご遺骨を取り出して散骨できますか？',
+       'a' => 'できます。墓地の管理者への連絡や、改葬（かいそう）の手続きが必要になる場合がありますが、手続きのご案内からお手伝いします。お墓からすべてのご遺骨を取り出して墓石を解体・撤去する場合は「お墓じまい」となります。当社はお墓じまいから粉骨・海洋散骨まで一括で承れますので、まとめてご相談ください。',
+       'link' => ['/grave/', 'お墓じまいについて詳しく見る']],
+      ['q' => '散骨はいつ行うのがよいですか？時期に決まりはありますか？',
+       'a' => '決まりはありません。お墓への納骨は四十九日を目安に行うことが多いですが、宗教・宗派を問わない海洋散骨は、どのタイミングで行っても問題ありません。ご家族が集まりやすい日程や、海が穏やかな季節に合わせて決められる方が多いです。'],
+      ['q' => '忙しくて乗船できません。委託散骨だと故人に申し訳ない気もするのですが…',
+       'a' => 'そのようにお感じになる方は少なくありませんが、どうぞご安心ください。委託海洋葬では、経験を積んだスタッフがご遺族様に代わり、献花・献水とともに心を込めてお見送りします。散骨後は海域の緯度・経度入りの散骨証明書と当日のお写真をお届けしますので、どのようにお見送りしたかをご確認いただけます。後日、メモリアルクルーズで同じ海域を訪れてご供養いただくこともできます。'],
+      ['q' => 'ご遺骨と一緒にお花や思い出の品を撒くことはできますか？',
+       'a' => '海に撒けるのは、花びらなど自然に還るものに限られます（環境保護のため、包装やリボンは外していただきます）。金属・プラスチック製品など自然に還らないものは撒くことができません。ご遺品の供養についても別途ご相談いただけます。'],
+      ['q' => '小さな子どもや高齢の家族も乗船できますか？',
+       'a' => 'ご乗船いただけます。小さなお子様は必ず大人の方が付き添い、目を離さないようお願いします。ご高齢の方は船の揺れに十分ご注意ください。車いすをご利用の方やお体のご事情がある方は、安全にご案内するため事前にお知らせください。'],
+      ['q' => '献酒や読経など、セレモニーの希望は伝えられますか？',
+       'a' => 'チャーター海洋葬では、事前のお打ち合わせでご要望をうかがいます。故人様がお好きだったお酒の献酒など、お気軽にお聞かせください。僧侶に読経をお願いしたい場合もご相談いただけます。合同海洋葬は複数のご家族様との乗り合わせのため、ご希望に添えない場合があります。'],
+      ['q' => '当日はどのような服装がよいですか？喪服は必要ですか？',
+       'a' => '平服（普段のお出かけ着）でお越しください。乗船場所には一般の方もいらっしゃるため、喪服は着用されないのが一般的です。船上は揺れることがありますので、動きやすい服装と、ヒールを避けた歩きやすいお履きものをおすすめします。'],
+      ['q' => '天候が悪い場合はどうなりますか？',
+       'a' => '安全な出航ができないと判断した場合は中止とし、キャンセル料をいただかずに日程を振り替えます（出航可否は原則として出航2日前までにご連絡します）。',
+       'link' => ['/policy/', 'キャンセルポリシーを見る']],
+      ['q' => '生前に自分の海洋散骨を申し込んでおくことはできますか？',
+       'a' => '承れます。「亡くなったあと家族に負担をかけたくない」と生前に契約される方が増えています。ただし、ご家族に伝えていないと実現されない場合もありますので、ご家族・ご親族とよく話し合い、遺言書やエンディングノートにも残しておくことをおすすめします。',
+       'link' => ['/seizen/', '海洋散骨 生前契約について詳しく見る']],
+      ['q' => '希望日の何日前までに申し込めばよいですか？',
+       'a' => '粉骨や船の手配がありますので、お日にちに余裕をもってご相談いただくのがおすすめです。お急ぎのご事情がある場合もできる限り調整いたしますので、まずはお電話・LINEでご相談ください。'],
+      ['q' => 'ご遺骨を預かってもらうことはできますか？',
+       'a' => 'はい。粉骨から散骨までの間、責任をもって大切にお預かりします。ご自宅にご遺骨を置くスペースがない場合などもご相談ください。遠方の方はゆうパックでのご郵送でもお預かりできます。'],
+      ['q' => '申し込み後のキャンセルはできますか？',
+       'a' => 'キャンセルは可能です。ただし、実施日が近づいてからのキャンセルには所定のキャンセル料がかかる場合があります。天候不良による中止の場合は、キャンセル料なしで日程を振り替えます。',
+       'link' => ['/policy/', 'キャンセルポリシーを見る']],
+    ];
+  ?>
   <section class="section">
     <div class="container" style="max-width:820px">
-      <h2>よくあるご質問</h2>
-      <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
-        <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. 海洋葬にふさわしい服装はありますか？</summary>
-        <p style="margin-top:10px;font-size:.95rem">A. 船上にて執り行いますので、動きやすい服装、滑りにくく歩きやすいお履きものでお願いしております。協会の注意事項（海洋散骨ルールブック）もあわせてご一読ください。</p>
-      </details>
-      <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
-        <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. 海洋葬の生前申し込みは可能ですか？</summary>
-        <p style="margin-top:10px;font-size:.95rem">A. 生前のお申込みを承ることは可能です。<a href="/seizen/" style="color:var(--green);text-decoration:underline">海洋散骨 生前契約</a>のページもご覧ください。</p>
-      </details>
-      <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
-        <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. 天候が悪い場合はどうなりますか？</summary>
-        <p style="margin-top:10px;font-size:.95rem">A. 安全な出航ができないと判断した場合は中止とし、キャンセル料をいただかずに日程を振り替えます（出航可否は原則として出航2日前までにご連絡します）。詳しくは<a href="/policy/" style="color:var(--green);text-decoration:underline">キャンセルポリシー</a>をご覧ください。</p>
-      </details>
+      <h2 style="text-align:center;margin-bottom:8px">よくあるご質問</h2>
+      <p style="text-align:center;font-size:.9rem;color:var(--text-light);margin-bottom:24px">海洋散骨についてよくいただくご質問をまとめました。このほかのご質問もお気軽にお問い合わせください。</p>
+      <?php foreach ($ks_faq as $f): ?>
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
+          <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. <?= h($f['q']) ?></summary>
+          <p style="margin-top:10px;font-size:.95rem;line-height:1.9">A. <?= h($f['a']) ?><?php if (!empty($f['link'])): ?> <a href="<?= h($f['link'][0]) ?>" style="color:var(--green);text-decoration:underline"><?= h($f['link'][1]) ?> →</a><?php endif; ?></p>
+        </details>
+      <?php endforeach; ?>
     </div>
   </section>
 
@@ -399,5 +474,17 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     {"@type":"ListItem","position":3,"name":"海洋葬（海洋散骨）","item":"https://en1150.co.jp/kaiyou-sou/"}
   ]
 }
+</script>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'FAQPage',
+  'mainEntity' => array_map(fn($f) => [
+    '@type' => 'Question',
+    'name' => $f['q'],
+    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+  ], $ks_faq),
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
+
 </script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
