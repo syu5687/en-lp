@@ -203,3 +203,127 @@ function ga_reports_sync(int $max = 3): array {
   krsort($stored);
   return [$stored, $err];
 }
+
+/* ============================================================
+   GA4 詳細解析（/admin/ga4/ 用）
+   - batchRunReports を3回（計12レポート）呼び、プロ向けの分析データ一式を返す
+   - en_cache（15分）で期間ごとにキャッシュ。管理画面専用のためPV比例の呼び出しは無い
+   ============================================================ */
+
+/** 汎用: batchRunReports（最大5件）を1回実行して reports 配列を返す */
+function ga4_batch(array $requests): array {
+  $url = 'https://analyticsdata.googleapis.com/v1beta/properties/' . rawurlencode(GA4_PROPERTY_ID) . ':batchRunReports';
+  $resp = @file_get_contents($url, false, stream_context_create(['http' => [
+    'method'  => 'POST',
+    'header'  => "Authorization: Bearer " . fs_token() . "\r\nContent-Type: application/json\r\n",
+    'content' => json_encode(['requests' => $requests]),
+    'timeout' => 25,
+    'ignore_errors' => true,
+  ]]));
+  $j = json_decode((string)$resp, true);
+  if (!is_array($j) || !empty($j['error'])) {
+    throw new RuntimeException($j['error']['message'] ?? 'GA4 Data API へ接続できませんでした');
+  }
+  return $j['reports'] ?? [];
+}
+
+/** 行→[dim値..., metric値...] の変換ヘルパー */
+function ga4_rows(array $report, int $dims, int $mets): array {
+  $out = [];
+  foreach (($report['rows'] ?? []) as $r) {
+    $row = [];
+    for ($i = 0; $i < $dims; $i++) $row[] = (string)($r['dimensionValues'][$i]['value'] ?? '');
+    for ($i = 0; $i < $mets; $i++) $row[] = (float)($r['metricValues'][$i]['value'] ?? 0);
+    $out[] = $row;
+  }
+  return $out;
+}
+
+/**
+ * 詳細解析データ一式（当期間＋前期間比較）
+ * $days: 集計日数（昨日までのN日間）
+ */
+function ga4_pro_fetch(int $days): array {
+  $end   = date('Y-m-d', strtotime('-1 day'));
+  $start = date('Y-m-d', strtotime("-{$days} days"));
+  $pEnd   = date('Y-m-d', strtotime("-" . ($days + 1) . " days"));
+  $pStart = date('Y-m-d', strtotime("-" . ($days * 2) . " days"));
+  $cur  = [['startDate' => $start, 'endDate' => $end]];
+  $both = [['startDate' => $start, 'endDate' => $end], ['startDate' => $pStart, 'endDate' => $pEnd]];
+  $CV = ['generate_lead', 'tel_click', 'line_click'];
+  $cvFilter = ['filter' => ['fieldName' => 'eventName', 'inListFilter' => ['values' => $CV]]];
+  $m = fn(...$n) => array_map(fn($x) => ['name' => $x], $n);
+  $d = fn(...$n) => array_map(fn($x) => ['name' => $x], $n);
+  $descBy = fn($name) => [['metric' => ['metricName' => $name], 'desc' => true]];
+
+  // ---- バッチ1 ----
+  $b1 = ga4_batch([
+    ['dateRanges' => $both, 'metrics' => $m('sessions','totalUsers','newUsers','screenPageViews','engagementRate','bounceRate','averageSessionDuration','sessionsPerUser')],
+    ['dateRanges' => $both, 'dimensions' => $d('eventName'), 'metrics' => $m('eventCount'), 'dimensionFilter' => $cvFilter],
+    ['dateRanges' => $cur, 'dimensions' => $d('date'), 'metrics' => $m('sessions','totalUsers','screenPageViews'), 'orderBys' => [['dimension' => ['dimensionName' => 'date']]], 'limit' => 100],
+    ['dateRanges' => $cur, 'dimensions' => $d('sessionDefaultChannelGroup'), 'metrics' => $m('sessions','totalUsers','engagementRate','bounceRate'), 'orderBys' => $descBy('sessions'), 'limit' => 12],
+    ['dateRanges' => $cur, 'dimensions' => $d('sessionSource','sessionMedium'), 'metrics' => $m('sessions','engagementRate'), 'orderBys' => $descBy('sessions'), 'limit' => 15],
+  ]);
+  // ---- バッチ2 ----
+  $b2 = ga4_batch([
+    ['dateRanges' => $cur, 'dimensions' => $d('landingPage'), 'metrics' => $m('sessions','engagementRate','bounceRate'), 'orderBys' => $descBy('sessions'), 'limit' => 15],
+    ['dateRanges' => $cur, 'dimensions' => $d('pagePath'), 'metrics' => $m('screenPageViews','activeUsers'), 'orderBys' => $descBy('screenPageViews'), 'limit' => 20],
+    ['dateRanges' => $cur, 'dimensions' => $d('deviceCategory'), 'metrics' => $m('sessions','engagementRate')],
+    ['dateRanges' => $cur, 'dimensions' => $d('region'), 'metrics' => $m('sessions','totalUsers'), 'orderBys' => $descBy('sessions'), 'limit' => 12],
+    ['dateRanges' => $cur, 'dimensions' => $d('city'), 'metrics' => $m('sessions'), 'orderBys' => $descBy('sessions'), 'limit' => 12],
+  ]);
+  // ---- バッチ3 ----
+  $b3 = ga4_batch([
+    ['dateRanges' => $cur, 'dimensions' => $d('hour'), 'metrics' => $m('sessions'), 'orderBys' => [['dimension' => ['dimensionName' => 'hour']]], 'limit' => 24],
+    ['dateRanges' => $cur, 'dimensions' => $d('dayOfWeekName'), 'metrics' => $m('sessions')],
+    ['dateRanges' => $cur, 'dimensions' => $d('newVsReturning'), 'metrics' => $m('sessions','engagementRate','averageSessionDuration')],
+    ['dateRanges' => $cur, 'dimensions' => $d('eventName','pagePath'), 'metrics' => $m('eventCount'), 'dimensionFilter' => $cvFilter, 'orderBys' => $descBy('eventCount'), 'limit' => 15],
+    ['dateRanges' => $cur, 'dimensions' => $d('browser'), 'metrics' => $m('sessions'), 'orderBys' => $descBy('sessions'), 'limit' => 8],
+  ]);
+
+  // ---- パース ----
+  // KPI（dateRange別: 行に dateRange dimension が自動付与される）
+  $kpiRows = $b1[0]['rows'] ?? [];
+  $kpi = ['cur' => array_fill(0, 8, 0.0), 'prev' => array_fill(0, 8, 0.0)];
+  foreach ($kpiRows as $r) {
+    $which = (($r['dimensionValues'][0]['value'] ?? 'date_range_0') === 'date_range_0') ? 'cur' : 'prev';
+    foreach ($r['metricValues'] as $i => $v) $kpi[$which][$i] = (float)$v['value'];
+  }
+  // CVイベント（期間別）
+  $cv = ['cur' => array_fill_keys($CV, 0), 'prev' => array_fill_keys($CV, 0)];
+  foreach (($b1[1]['rows'] ?? []) as $r) {
+    $dv = $r['dimensionValues'];
+    // dims: eventName + dateRange（順序はレスポンス依存のため名前で判定）
+    $ev = null; $which = 'cur';
+    foreach ($dv as $x) {
+      $val = (string)($x['value'] ?? '');
+      if (in_array($val, $CV, true)) $ev = $val;
+      if ($val === 'date_range_1') $which = 'prev';
+    }
+    if ($ev !== null) $cv[$which][$ev] += (float)($r['metricValues'][0]['value'] ?? 0);
+  }
+
+  return [
+    'range' => ['start' => $start, 'end' => $end, 'pstart' => $pStart, 'pend' => $pEnd, 'days' => $days],
+    'kpi' => $kpi,
+    'cv' => $cv,
+    'daily'    => ga4_rows($b1[2], 1, 3),
+    'channels' => ga4_rows($b1[3], 1, 4),
+    'sources'  => ga4_rows($b1[4], 2, 2),
+    'landing'  => ga4_rows($b2[0], 1, 3),
+    'pages'    => ga4_rows($b2[1], 1, 2),
+    'devices'  => ga4_rows($b2[2], 1, 2),
+    'regions'  => ga4_rows($b2[3], 1, 2),
+    'cities'   => ga4_rows($b2[4], 1, 1),
+    'hours'    => ga4_rows($b3[0], 1, 1),
+    'weekdays' => ga4_rows($b3[1], 1, 1),
+    'newret'   => ga4_rows($b3[2], 1, 3),
+    'cvpages'  => ga4_rows($b3[3], 2, 1),
+    'browsers' => ga4_rows($b3[4], 1, 1),
+  ];
+}
+
+/** キャッシュ付き（15分）。管理画面専用 */
+function ga4_pro(int $days): array {
+  return en_cache('ga4_pro_' . $days, 900, fn() => ga4_pro_fetch($days));
+}
