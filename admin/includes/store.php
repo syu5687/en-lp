@@ -8,6 +8,38 @@ require_once __DIR__ . '/../../includes/firestore.php';
 
 const NEWS_COLLECTION = 'news';
 
+
+/* ============================================================
+   読み取りキャッシュ（Firestore無料枠の節約）
+   公開ページ向けの一覧取得を一時ファイルにキャッシュし、
+   Firestoreの読み取り回数を大幅に削減する。
+   - 通常: TTL内はFirestoreへアクセスしない
+   - 障害時（クォータ超過等）: 期限切れキャッシュがあればそれを表示（サイトを止めない）
+   - 管理画面で保存・削除すると該当キャッシュは即時破棄
+   ============================================================ */
+function en_cache(string $key, int $ttl, callable $fn) {
+  $f = sys_get_temp_dir() . '/en-fscache-' . preg_replace('/[^a-zA-Z0-9_\-]/', '_', $key) . '.json';
+  $mt = @filemtime($f);
+  if ($mt !== false && time() - $mt < $ttl) {
+    $d = @json_decode((string)@file_get_contents($f), true);
+    if (is_array($d) && array_key_exists('v', $d)) return $d['v'];
+  }
+  try {
+    $v = $fn();
+  } catch (Throwable $e) {
+    $d = @json_decode((string)@file_get_contents($f), true); // 障害時は古いキャッシュで継続
+    if (is_array($d) && array_key_exists('v', $d)) return $d['v'];
+    throw $e;
+  }
+  @file_put_contents($f, json_encode(['v' => $v], JSON_UNESCAPED_UNICODE), LOCK_EX);
+  return $v;
+}
+function en_cache_bust(string ...$keys): void {
+  foreach ($keys as $k) {
+    @unlink(sys_get_temp_dir() . '/en-fscache-' . preg_replace('/[^a-zA-Z0-9_\-]/', '_', $k) . '.json');
+  }
+}
+
 function news_all(): array {
   $items = [];
   foreach (fs_list_all(NEWS_COLLECTION) as $doc) $items[] = fs_from_doc($doc);
@@ -15,9 +47,11 @@ function news_all(): array {
 }
 
 function news_find(string $id): ?array {
-  $res = fs_request('GET', 'documents/' . NEWS_COLLECTION . '/' . rawurlencode($id));
-  if (!empty($res['error']) || empty($res['fields'])) return null;
-  return fs_from_doc($res);
+  return en_cache('news_one_' . $id, 900, function () use ($id) {
+    $res = fs_request('GET', 'documents/' . NEWS_COLLECTION . '/' . rawurlencode($id));
+    if (!empty($res['error']) || empty($res['fields'])) return null;
+    return fs_from_doc($res);
+  });
 }
 
 function news_upsert(array $item): bool {
@@ -28,18 +62,23 @@ function news_upsert(array $item): bool {
     'documents/' . NEWS_COLLECTION . '/' . rawurlencode($id),
     ['fields' => fs_to_fields($item)]
   );
+  en_cache_bust('news_published', 'news_one_' . $id);
   return empty($res['error']);
 }
 
 function news_delete(string $id): bool {
   $res = fs_request('DELETE', 'documents/' . NEWS_COLLECTION . '/' . rawurlencode($id));
+  en_cache_bust('news_published', 'news_one_' . $id);
   return empty($res['error']);
 }
 
 /** 公開記事のみ（日付降順）— 公開ページ用 */
 function news_published(int $limit = 0): array {
-  $items = array_values(array_filter(news_all(), fn($i) => !empty($i['published'])));
-  usort($items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+  $items = en_cache('news_published', 900, function () {
+    $x = array_values(array_filter(news_all(), fn($i) => !empty($i['published'])));
+    usort($x, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+    return $x;
+  });
   return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
 
@@ -66,18 +105,23 @@ function voice_upsert(array $item): bool {
   $id = $item['id'] ?? '';
   unset($item['id']);
   $res = fs_request('PATCH', 'documents/' . VOICES_COLLECTION . '/' . rawurlencode($id), ['fields' => fs_to_fields($item)]);
+  en_cache_bust('voices_published');
   return empty($res['error']);
 }
 
 function voice_delete(string $id): bool {
   $res = fs_request('DELETE', 'documents/' . VOICES_COLLECTION . '/' . rawurlencode($id));
+  en_cache_bust('voices_published');
   return empty($res['error']);
 }
 
 /** 公開のみ（日付降順）— 公開ページ用 */
 function voices_published(int $limit = 0): array {
-  $items = array_values(array_filter(voices_all(), fn($i) => !empty($i['published'])));
-  usort($items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+  $items = en_cache('voices_published', 900, function () {
+    $x = array_values(array_filter(voices_all(), fn($i) => !empty($i['published'])));
+    usort($x, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
+    return $x;
+  });
   return $limit > 0 ? array_slice($items, 0, $limit) : $items;
 }
 
@@ -99,19 +143,21 @@ function goudou_upsert(array $item): bool {
   $id = $item['id'] ?? '';
   unset($item['id']);
   $res = fs_request('PATCH', 'documents/' . GOUDOU_COLLECTION . '/' . rawurlencode($id), ['fields' => fs_to_fields($item)]);
+  en_cache_bust('goudou_all_pub');
   return empty($res['error']);
 }
 
 function goudou_delete(string $id): bool {
   $res = fs_request('DELETE', 'documents/' . GOUDOU_COLLECTION . '/' . rawurlencode($id));
+  en_cache_bust('goudou_all_pub');
   return empty($res['error']);
 }
 
 /** 公開中かつ本日以降の開催日（日付昇順）— 公開ページ用 */
 function goudou_upcoming(): array {
   $today = date('Y-m-d');
-  return array_values(array_filter(goudou_all(),
-    fn($i) => !empty($i['published']) && (($i['date'] ?? '') >= $today)));
+  $items = en_cache('goudou_all_pub', 300, fn() => array_values(array_filter(goudou_all(), fn($i) => !empty($i['published']))));
+  return array_values(array_filter($items, fn($i) => ($i['date'] ?? '') >= $today));
 }
 
 /* ===== お問い合わせ受信（inquiries） ===== */
