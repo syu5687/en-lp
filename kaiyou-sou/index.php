@@ -57,9 +57,15 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
   <!-- 縁の海洋散骨の魅力 -->
   <section class="section">
     <div class="container" style="max-width:1000px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">OUR STRENGTH</p>
-      <h2 style="text-align:center;margin-bottom:10px">縁の海洋散骨、5つの魅力</h2>
-      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:32px">安心・信頼・安全・価格・充実のオプション。<br class="sp-only">選ばれ続けるのには、理由があります。</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:30px;margin-bottom:32px;text-align:left" class="ks-st-head">
+        <div>
+          <p style="font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">OUR STRENGTH</p>
+          <h2 style="margin:0 0 8px">縁の海洋散骨、5つの魅力</h2>
+          <p style="color:var(--text-light);font-size:.95rem">安心・信頼・安全・価格・充実のオプション。<br class="sp-only">選ばれ続けるのには、理由があります。</p>
+        </div>
+        <img src="/assets/img/daihyo-guide.jpg?v=<?= h(asset_ver()) ?>" alt="ご相談を案内する代表" width="360" height="360" loading="lazy" style="width:150px;height:150px;flex:none;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 24px rgba(18,89,122,.16);background:#fff;object-fit:cover" class="ks-st-photo">
+      </div>
+      <style>@media(max-width:640px){.ks-st-head{gap:12px !important}.ks-st-photo{width:98px !important;height:98px !important;border-width:3px !important}}</style>
       <div class="ks-strength">
         <div class="ks-st">
           <img src="<?= h($ks_img('ks-staff-sea.jpg')) ?>" alt="船上から海を見つめ、故人を偲ぶスタッフ" width="900" height="600" loading="lazy">

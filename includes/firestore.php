@@ -77,10 +77,33 @@ function fs_list_all(string $collection): array {
   do {
     $qs = 'documents/' . $collection . '?pageSize=300' . ($token !== '' ? '&pageToken=' . rawurlencode($token) : '');
     $res = fs_request('GET', $qs);
+    if (!is_array($res)) {
+      throw new RuntimeException('Firestore: 一覧取得に失敗しました（応答なし・タイムアウトの可能性）: ' . $collection);
+    }
+    if (!empty($res['error'])) {
+      throw new RuntimeException('Firestore: ' . ($res['error']['message'] ?? 'unknown error') . '（' . $collection . '）');
+    }
     foreach (($res['documents'] ?? []) as $d) $docs[] = $d;
     $token = (string)($res['nextPageToken'] ?? '');
   } while ($token !== '');
   return $docs;
+}
+
+/** コレクションの件数だけを軽量に取得（本文を読まない集計クエリ・1回で完了） */
+function fs_count(string $collection): int {
+  $res = fs_request('POST', 'documents:runAggregationQuery', [
+    'structuredAggregationQuery' => [
+      'aggregations'    => [['count' => new stdClass(), 'alias' => 'c']],
+      'structuredQuery' => ['from' => [['collectionId' => $collection]]],
+    ],
+  ]);
+  if (!is_array($res)) throw new RuntimeException('Firestore: 件数取得に失敗しました（' . $collection . '）');
+  foreach ($res as $row) {
+    $v = $row['result']['aggregateFields']['c']['integerValue'] ?? null;
+    if ($v !== null) return (int)$v;
+  }
+  if (!empty($res['error']['message'])) throw new RuntimeException('Firestore: ' . $res['error']['message']);
+  return 0;
 }
 
 /** Firestore REST 呼び出し。$path 例: "documents/news" / "documents/news/ID" */
@@ -91,7 +114,7 @@ function fs_request(string $method, string $path, ?array $body = null) {
     'method'        => $method,
     'header'        => "Authorization: Bearer " . fs_token() . "\r\nContent-Type: application/json\r\n",
     'ignore_errors' => true,
-    'timeout'       => 10,
+    'timeout'       => 30,
   ]];
   if ($body !== null) $opts['http']['content'] = json_encode($body, JSON_UNESCAPED_UNICODE);
   $raw = file_get_contents($base, false, stream_context_create($opts));

@@ -57,9 +57,15 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
   <!-- 縁の粉骨・洗骨 5つのこだわり -->
   <section class="section">
     <div class="container" style="max-width:1000px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">OUR COMMITMENT</p>
-      <h2 style="text-align:center;margin-bottom:10px">縁の粉骨・洗骨、5つのこだわり</h2>
-      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:32px">大切な方のご遺骨だからこそ、一件ずつ・すべて手作業で。<br class="pc-only">お預かりからお返しまでの品質に妥協しません。</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:30px;margin-bottom:32px;text-align:left" class="pc-st-head">
+        <div>
+          <p style="font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">OUR COMMITMENT</p>
+          <h2 style="margin:0 0 8px">縁の粉骨・洗骨、5つのこだわり</h2>
+          <p style="color:var(--text-light);font-size:.95rem">大切な方のご遺骨だからこそ、一件ずつ・すべて手作業で。<br class="pc-only">お預かりからお返しまでの品質に妥協しません。</p>
+        </div>
+        <img src="/assets/img/daihyo-guide.jpg?v=<?= h(asset_ver()) ?>" alt="ご相談を案内する代表" width="360" height="360" loading="lazy" style="width:150px;height:150px;flex:none;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 24px rgba(18,89,122,.16);background:#fff;object-fit:cover" class="pc-st-photo">
+      </div>
+      <style>@media(max-width:640px){.pc-st-head{gap:12px !important}.pc-st-photo{width:98px !important;height:98px !important;border-width:3px !important}}</style>
       <div class="pc-strength">
         <div class="pc-st">
           <img src="<?= h($pc_img('pc-funkotsu-hands.jpg')) ?>" alt="乳鉢と乳棒で丁寧に行う手作業の粉骨" width="1000" height="666" loading="lazy">

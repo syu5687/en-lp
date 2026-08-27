@@ -86,8 +86,14 @@ require __DIR__ . '/head.php';
   <?php if (!empty($service['strength'])): ?>
   <section class="section">
     <div class="container" style="max-width:1000px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">OUR STRENGTH</p>
-      <h2 style="text-align:center;margin-bottom:28px"><?= h($service['strength_title'] ?? '私たちのこだわり') ?></h2>
+      <div class="svc-strength__head">
+        <div>
+          <p style="font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">OUR STRENGTH</p>
+          <h2 style="margin:0"><?= h($service['strength_title'] ?? '私たちのこだわり') ?></h2>
+          <p style="margin-top:10px;font-size:.92rem;color:var(--text-light)">どんな小さなことでも、お気軽にご相談ください。</p>
+        </div>
+        <img src="/assets/img/daihyo-guide.jpg?v=<?= h(asset_ver()) ?>" alt="ご相談を案内する代表" width="360" height="360" class="svc-strength__photo" loading="lazy">
+      </div>
       <div class="svc-strength">
         <?php foreach ($service['strength'] as $st): ?>
           <div class="svc-st">
@@ -103,6 +109,9 @@ require __DIR__ . '/head.php';
     </div>
   </section>
   <style>
+    .svc-strength__head{display:flex;align-items:center;justify-content:center;gap:30px;margin-bottom:28px;text-align:left}
+    .svc-strength__photo{width:150px;height:150px;flex:none;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 24px rgba(18,89,122,.16);background:#fff;object-fit:cover}
+    @media(max-width:640px){.svc-strength__head{gap:12px}.svc-strength__photo{width:98px;height:98px;border-width:3px}}
     .svc-strength{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
     .svc-st{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
     .svc-st img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}

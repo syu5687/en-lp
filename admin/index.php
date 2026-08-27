@@ -1,8 +1,10 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 require __DIR__ . '/includes/store.php';
-try { $news_count  = count(news_all()); }   catch (Throwable $e) { $news_count  = 0; }
-try { $voice_count = count(voices_all()); } catch (Throwable $e) { $voice_count = 0; }
+// 件数は軽量な集計クエリで取得（本文を読まないためタイムアウトしない）
+$news_err = $voice_err = '';
+try { $news_count  = fs_count(NEWS_COLLECTION); }   catch (Throwable $e) { $news_count  = null; $news_err  = $e->getMessage(); }
+try { $voice_count = fs_count(VOICES_COLLECTION); } catch (Throwable $e) { $voice_count = null; $voice_err = $e->getMessage(); }
 ?>
 <!DOCTYPE html>
 <html lang="ja"><head>
@@ -17,14 +19,15 @@ try { $voice_count = count(voices_all()); } catch (Throwable $e) { $voice_count 
 </header>
 <main class="admin-main">
   <h1>ダッシュボード</h1>
+  <?php if ($news_err || $voice_err): ?><p style="background:#fdecea;color:#c0392b;padding:10px 16px;border-radius:8px;margin-bottom:14px;font-size:.85rem"><?= h($news_err ?: $voice_err) ?></p><?php endif; ?>
   <div class="admin-cards">
     <a class="admin-card" href="/admin/news/">
       <span class="admin-card__label">ブログ・お知らせ</span>
-      <span class="admin-card__num"><?= $news_count ?> 件</span>
+      <span class="admin-card__num"><?= $news_count === null ? '取得エラー' : $news_count . ' 件' ?></span>
     </a>
     <a class="admin-card" href="/admin/voice/">
       <span class="admin-card__label">お客様の声</span>
-      <span class="admin-card__num"><?= $voice_count ?> 件</span>
+      <span class="admin-card__num"><?= $voice_count === null ? '取得エラー' : $voice_count . ' 件' ?></span>
     </a>
     <a class="admin-card" href="/admin/goudou/">
       <span class="admin-card__label">合同散骨 実施予定日</span>

@@ -214,7 +214,12 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 /* WORRY */
 .worry { padding: 100px 0 80px; background: var(--color-cream); position: relative; }
 .worry::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 54px; background: linear-gradient(to bottom, var(--color-gold), transparent); }
-.worry-header { text-align: center; margin-bottom: 52px; }
+.worry-header { display: flex; align-items: center; justify-content: center; gap: 34px; text-align: left; margin-bottom: 52px; }
+.worry-header .section-label { justify-content: flex-start; }
+.worry-header .section-title::before { margin: 0 0 16px; }
+.worry-header__photo { width: 172px; height: 172px; flex: none; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 8px 24px rgba(18,89,122,0.16); background: #fff; object-fit: cover; }
+.worry-header__note { margin-top: 12px; font-size: 0.92rem; color: #5a6b69; }
+@media (max-width: 640px) { .worry-header { gap: 12px; } .worry-header__photo { width: 104px; height: 104px; border-width: 3px; } .worry-header__note { font-size: 0.8rem; } }
 .worry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0; max-width: 900px; margin: 0 auto 44px; border-top: 1px solid var(--color-line); border-left: 1px solid var(--color-line); }
 .worry-card { background: none; border-radius: 0; padding: 24px 26px; display: flex; align-items: flex-start; gap: 15px; transition: var(--transition); border: none; border-right: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
 .worry-card:hover { border-color: var(--color-line); box-shadow: none; background: var(--color-white); }
@@ -1010,7 +1015,7 @@ body { line-height: 1.8; }
 
 <!-- WORRY -->
 <section class="worry"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><svg class="wave-bottom" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,22 C180,44 360,44 540,24 C720,4 900,4 1080,24 C1260,42 1380,34 1440,26 L1440,0 L0,0 Z"/></svg><div class="container">
-  <div class="worry-header fade-up"><p class="section-label">Worries</p><h2 class="section-title">こんなお悩みはありませんか？</h2></div>
+  <div class="worry-header fade-up"><div class="worry-header__txt"><p class="section-label">Worries</p><h2 class="section-title">こんなお悩みはありませんか？</h2><p class="worry-header__note">どんな小さなことでも、お気軽にご相談ください。</p></div><img src="/assets/img/daihyo-guide.jpg?v=<?= h(asset_ver()) ?>" alt="ご相談を案内する代表" width="360" height="360" class="worry-header__photo" loading="lazy"></div>
   <div class="worry-grid fade-up">
     <div class="worry-card"><span class="worry-check">✓</span><p>お墓の管理が難しくなり、<strong>墓じまい</strong>を考えている</p></div>
     <div class="worry-card"><span class="worry-check">✓</span><p>故人の希望で<strong>海洋散骨</strong>をしたいが、どこに頼めばいいかわからない</p></div>
