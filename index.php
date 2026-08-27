@@ -926,9 +926,9 @@ body { line-height: 1.8; }
   <span class="cam-banner__cta">詳しく見る →</span>
 </a>
 <style>
-.cam-banner{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;background:linear-gradient(90deg,#8a2b2b,#b0483f);color:#fff;padding:16px 20px;text-decoration:none;transition:.2s}
+.cam-banner{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;background:linear-gradient(90deg,#0a3852,#12557a);color:#fff;padding:16px 20px;text-decoration:none;transition:.2s;border-bottom:3px solid #d8b46a}
 .cam-banner:hover{filter:brightness(1.07);color:#fff}
-.cam-banner__badge{background:#ffd77a;color:#5c2a12;font-weight:700;font-size:.8rem;padding:5px 16px;border-radius:999px;letter-spacing:.08em;flex:none}
+.cam-banner__badge{background:#ffd77a;color:#3a2c10;font-weight:700;font-size:.8rem;padding:5px 16px;border-radius:999px;letter-spacing:.08em;flex:none}
 .cam-banner__body{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
 .cam-banner__name{font-size:1.15rem;font-weight:700;letter-spacing:.06em}
 .cam-banner__prices{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
