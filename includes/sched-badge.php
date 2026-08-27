@@ -24,7 +24,10 @@ if ($sb_next):
   @keyframes sched-shine{0%{left:-80%}18%{left:130%}100%{left:130%}}
   @media (prefers-reduced-motion: reduce){.fixed-sched-badge::after{animation:none;display:none}}
   .fixed-sched-badge:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(40,60,50,.24)}
-  .fixed-sched-badge__eyebrow{display:block;font-size:.6rem;letter-spacing:.22em;color:#b08b3e;font-weight:700;margin-bottom:3px}
+  .fixed-sched-badge__photo{position:absolute;top:12px;right:12px;width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:62% 55%;border:2px solid #e6cf9a;box-shadow:0 2px 8px rgba(40,60,50,.2)}
+  .fixed-sched-badge__eyebrow{display:block;font-size:.6rem;letter-spacing:.22em;color:#b08b3e;font-weight:700;margin-bottom:3px;padding-right:52px}
+  .fixed-sched-badge__label{padding-right:52px}
+  @media(max-width:960px){.fixed-sched-badge__photo{width:40px;height:40px;top:10px;right:10px}}
   .fixed-sched-badge__label{display:block;font-size:.72rem;font-weight:700;color:#2e5030;margin-bottom:3px;line-height:1.4}
   .fixed-sched-badge__date{display:block;font-size:1.12rem;font-weight:700;line-height:1.3;color:#1c3b2a;font-family:"Shippori Mincho","Yu Mincho",serif}
   .fixed-sched-badge__sea{display:block;font-size:.68rem;color:#8a8578;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -33,6 +36,7 @@ if ($sb_next):
   @media print{.fixed-sched-badge{display:none}}
 </style>
 <a class="fixed-sched-badge" href="/kaiyou-sou/#goudou-schedule" aria-label="合同海洋散骨の実施予定日一覧を見る">
+  <img src="/assets/img/goudou-photo.jpg?v=<?= h(asset_ver()) ?>" alt="" width="1400" height="933" loading="lazy" class="fixed-sched-badge__photo">
   <span class="fixed-sched-badge__eyebrow">SCHEDULE</span>
   <span class="fixed-sched-badge__label">次回の合同海洋散骨</span>
   <span class="fixed-sched-badge__date"><?= $sb_ts ? date('n月j日', $sb_ts) . '（' . h($sb_w) . '）' : h((string)$sb_next['date']) ?></span>

@@ -31,6 +31,7 @@ $gd_fmt = static function (string $ymd): array {
 ?>
 <section class="goudou-sched" id="goudou-schedule">
   <div class="goudou-sched__inner">
+    <img src="/assets/img/goudou-photo.jpg?v=<?= h(asset_ver()) ?>" alt="合同海洋散骨の乗船風景。スタッフがご遺族を船へご案内する様子" width="1400" height="933" loading="lazy" class="goudou-sched__photo">
     <p class="goudou-sched__eyebrow">SCHEDULE</p>
     <h2 class="goudou-sched__title">合同海洋散骨 実施予定日<?= $gd_area_label !== '' ? '（' . h($gd_area_label) . '開催）' : '' ?></h2>
     <p class="goudou-sched__lead">複数のご家族で乗り合わせて行う「合同海洋葬」の出航予定日です。<br class="pc-only">委託海洋葬（立ち会い不要）もこの日程で心を込めてお送りします。</p>
@@ -61,6 +62,8 @@ $gd_fmt = static function (string $ymd): array {
 <style>
 .goudou-sched{background:linear-gradient(180deg,#0a3852,#0f4d70);padding:56px 20px;color:#fff}
 .goudou-sched__inner{max-width:960px;margin:0 auto;text-align:center}
+.goudou-sched__photo{width:170px;height:170px;border-radius:50%;object-fit:cover;object-position:62% 55%;border:6px solid rgba(255,255,255,.92);box-shadow:0 10px 30px rgba(0,0,0,.28);margin:0 auto 18px;display:block}
+@media(max-width:600px){.goudou-sched__photo{width:120px;height:120px;border-width:4px}}
 .goudou-sched__eyebrow{font-size:.78rem;letter-spacing:.28em;color:#d8b46a;font-weight:700;margin-bottom:10px}
 .goudou-sched__title{color:#fff;font-size:1.6rem;margin-bottom:14px}
 .goudou-sched__lead{color:rgba(255,255,255,.85);font-size:.95rem;line-height:1.9;margin-bottom:26px}

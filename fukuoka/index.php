@@ -248,6 +248,54 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     @media(max-width:540px){.fk-quality-list{grid-template-columns:1fr}}
   </style>
 
+
+  <!-- 他社と比較して、縁が選ばれる理由（TOPと共通） -->
+  <section class="section fkc-comparison">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">COMPARISON</p>
+      <h2 style="text-align:center;margin-bottom:12px">他社と比較して、縁が選ばれる理由</h2>
+      <p style="text-align:center;max-width:680px;margin:0 auto 32px;line-height:2;font-size:.95rem">同じ「ご供養サポート」でも、対応範囲・価格・サポート体制には大きな違いがあります。</p>
+      <div class="fkc-table-wrap">
+        <table class="fkc-table">
+          <thead><tr><th>比較項目</th><th class="fkc-th-other">一般的な業者</th><th class="fkc-th-en">有限会社 縁 <span class="fkc-th-badge">おすすめ</span></th></tr></thead>
+          <tbody>
+            <tr><td>粉骨の料金</td><td class="fkc-td-other"><span class="fkc-icon">△</span>1万5,000円〜3万円が相場</td><td class="fkc-td-en"><span class="fkc-icon">◎</span><strong>24,200円〜</strong>の明瞭価格</td></tr>
+            <tr><td>海洋散骨の料金</td><td class="fkc-td-other"><span class="fkc-icon">△</span>5万円〜15万円が一般的</td><td class="fkc-td-en"><span class="fkc-icon">◎</span><strong>54,450円〜</strong>で明瞭価格</td></tr>
+            <tr><td>対応範囲</td><td class="fkc-td-other"><span class="fkc-icon">△</span>散骨のみ、粉骨のみなど<br>個別サービスが中心</td><td class="fkc-td-en"><span class="fkc-icon">◎</span>改葬・粉骨・散骨・納骨<br><strong>ワンストップ</strong>で完結</td></tr>
+            <tr><td>墓じまいの<br>手続きサポート</td><td class="fkc-td-other"><span class="fkc-icon">✕</span>行政手続きは自己対応<br>または別途費用</td><td class="fkc-td-en"><span class="fkc-icon">◎</span>改葬許可申請〜撤去まで<br><strong>すべてサポート</strong></td></tr>
+            <tr><td>資格・認定</td><td class="fkc-td-other"><span class="fkc-icon">△</span>無資格の業者も存在</td><td class="fkc-td-en"><span class="fkc-icon">◎</span>終活カウンセラー/散骨プロデューサー<br><strong>日本海洋散骨協会加盟</strong></td></tr>
+            <tr><td>宗教・宗派</td><td class="fkc-td-other"><span class="fkc-icon">△</span>寺院系は宗派制限あり</td><td class="fkc-td-en"><span class="fkc-icon">◎</span><strong>宗教・宗派一切不問</strong></td></tr>
+            <tr><td>遠方からの依頼</td><td class="fkc-td-other"><span class="fkc-icon">△</span>対面が必要な場合が多い</td><td class="fkc-td-en"><span class="fkc-icon">◎</span>ご遺骨の<strong>郵送受付OK</strong><br>委託散骨で立会い不要</td></tr>
+            <tr><td>追加料金</td><td class="fkc-td-other"><span class="fkc-icon">✕</span>出張費・手数料等あり</td><td class="fkc-td-en"><span class="fkc-icon">◎</span><strong>追加料金なし</strong>の明瞭会計</td></tr>
+            <tr><td>相談のしやすさ</td><td class="fkc-td-other"><span class="fkc-icon">△</span>電話・メールのみ</td><td class="fkc-td-en"><span class="fkc-icon">◎</span>電話・メール・<strong>LINE対応</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="text-align:center;margin-top:18px;font-size:.78rem;color:var(--text-light)">※ 一般的な業者の情報は当社調べによる相場・傾向です。</p>
+      <div style="text-align:center;margin-top:28px"><a href="/contact/" class="btn">まずは無料で相談してみる</a></div>
+    </div>
+  </section>
+  <style>
+    .fkc-comparison{background:#eef3f2}
+    .fkc-table-wrap{max-width:900px;margin:0 auto;border-radius:14px;overflow-x:auto;background:#fff;border:1px solid rgba(39,92,88,.16);box-shadow:0 10px 30px rgba(20,40,50,.08)}
+    .fkc-table{width:100%;min-width:640px;border-collapse:collapse}
+    .fkc-table thead tr{background:#1f8fce}
+    .fkc-table th{padding:16px 18px;font-size:.9rem;font-weight:600;color:#fff;text-align:center;vertical-align:middle;letter-spacing:.04em}
+    .fkc-table th:first-child{text-align:left;width:26%;background:rgba(0,0,0,.12)}
+    .fkc-table th.fkc-th-other{width:32%;background:rgba(0,0,0,.06);color:rgba(255,255,255,.75);font-weight:400}
+    .fkc-table th.fkc-th-en{width:42%;background:rgba(169,134,95,.32)}
+    .fkc-th-badge{display:inline-block;background:#b18e63;color:#fff;font-size:.58rem;font-weight:600;padding:2px 9px;border-radius:6px;margin-left:6px;vertical-align:middle}
+    .fkc-table tbody tr{border-bottom:1px solid rgba(34,32,27,.1)}
+    .fkc-table tbody tr:last-child{border-bottom:none}
+    .fkc-table td{padding:16px 18px;font-size:.85rem;vertical-align:middle;line-height:1.75}
+    .fkc-table td:first-child{font-weight:600;color:#1b413f;font-size:.88rem;background:rgba(246,241,232,.6);border-right:1px solid rgba(34,32,27,.1)}
+    .fkc-td-other{text-align:center;color:#7a7668;border-right:1px solid rgba(34,32,27,.1)}
+    .fkc-icon{display:block;font-size:1.15rem;margin-bottom:4px}
+    .fkc-td-en{text-align:center;color:#1b413f;background:rgba(169,134,95,.05)}
+    .fkc-td-en strong{color:#b18e63;font-weight:700}
+    @media(max-width:768px){.fkc-table th,.fkc-table td{padding:12px 10px;font-size:.75rem}.fkc-th-badge{display:block;margin:4px auto 0}}
+  </style>
+
   <!-- 安心・信頼・安全 -->
   <section class="section" style="background:linear-gradient(180deg,#f2f8fa,#e8f2f6)">
     <div class="container" style="max-width:960px">
@@ -360,6 +408,22 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     </div>
   </section>
   <?php endif; ?>
+
+
+  <!-- 海へ還る、あたらしいお見送りのかたち。（TOPと共通） -->
+  <section class="fkc-fullbleed" style="background-image:url('/assets/img/top/fullbleed-bg.jpg?v=<?= h(asset_ver()) ?>')">
+    <div class="fkc-fb-inner">
+      <span class="fkc-fb-kicker">En — Ocean Memorial</span>
+      <h2>海へ還る、<br>あたらしいお見送りのかたち。</h2>
+    </div>
+  </section>
+  <style>
+    .fkc-fullbleed{position:relative;width:100%;min-height:clamp(260px,38vw,440px);background-position:center;background-size:cover;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;text-align:center}
+    .fkc-fullbleed::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,58,78,.30) 0%,rgba(12,58,78,.12) 55%,rgba(12,58,78,.22) 100%)}
+    .fkc-fb-inner{position:relative;z-index:1;color:#fff;padding:0 24px}
+    .fkc-fb-kicker{font-family:'Cormorant Garamond',serif;letter-spacing:.34em;text-transform:uppercase;font-size:.8rem;color:#fff;opacity:.9;display:block;margin-bottom:14px}
+    .fkc-fullbleed h2{font-family:'Shippori Mincho','Yu Mincho',serif;font-weight:500;font-size:clamp(1.4rem,3.2vw,2.2rem);line-height:1.9;letter-spacing:.08em;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.25)}
+  </style>
 
   <!-- 県外にお住まいの方へ -->
   <section class="section" id="kengai" style="background:linear-gradient(180deg,#f4f9fb,#e9f3f7)">
