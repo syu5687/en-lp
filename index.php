@@ -22,7 +22,7 @@ foreach (['/data/news.json', '/data/blog-posts.json'] as $src) {
 }
 $blog_items = array_values($by_key);
 usort($blog_items, fn($a, $b) => strcmp($b['date'] ?? '', $a['date'] ?? ''));
-$blog_items = array_slice($blog_items, 0, 3);
+$blog_items = array_slice($blog_items, 0, 6);
 ?>
 <!DOCTYPE html>
 <html lang="ja" prefix="og: https://ogp.me/ns#">
@@ -394,7 +394,17 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 /* BLOG */
 .blog { padding: 100px 0; background: var(--color-cream); }
 .blog-header { text-align: center; margin-bottom: 56px; }
-.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.blog-grid { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 4px 4px 14px; scrollbar-width: none; }
+.blog-grid::-webkit-scrollbar { display: none; }
+.blog-card { flex: 0 0 300px; scroll-snap-align: start; }
+.tpb-wrap { position: relative; }
+.tpb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-border); background: rgba(255,255,255,.95); color: var(--color-green-mid, #2e5030); font-size: 1.5rem; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(40,60,50,.18); display: grid; place-items: center; padding: 0 0 3px; }
+.tpb-arrow:hover { background: #fff; }
+.tpb-arrow--prev { left: -14px; }
+.tpb-arrow--next { right: -14px; }
+.tpb-arrow[disabled] { opacity: .3; cursor: default; }
+.tpb-hint { text-align: center; font-size: .74rem; color: var(--color-text-light, #7c8a88); margin-top: 2px; }
+@media (max-width: 768px) { .blog-card { flex-basis: min(78vw, 300px); } .tpb-arrow { display: none; } }
 .blog-card { background: var(--color-white); border-radius: 0; overflow: hidden; border: 1px solid var(--color-border); transition: var(--transition); cursor: pointer; }
 .blog-card:hover { transform: none; box-shadow: none; background: var(--color-white); border-color: var(--color-gold-light); }
 .blog-card-img { width: 100%; height: 190px; object-fit: cover; transition: var(--transition); filter: saturate(0.92); }
@@ -481,7 +491,7 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
   .comparison-table th, .comparison-table td { padding: 14px 10px; font-size: 0.75rem; }
   .comparison-table th:first-child { width: 26%; } .th-en-badge { display: block; margin: 4px auto 0; }
   .comparison-table-wrap { margin: 0 -8px; }
-  .blog-grid { grid-template-columns: 1fr; }
+
   .media-grid { grid-template-columns: 1fr 1fr; }
   .footer-nav-grid { grid-template-columns: 1fr 1fr; }
   .sticky-cta { display: block; } .footer { padding-bottom: 80px; } body { padding-bottom: 64px; }
@@ -1230,7 +1240,9 @@ body { line-height: 1.8; }
 <!-- ⑤ BLOG -->
 <section class="blog"><div class="container">
   <div class="blog-header fade-up"><p class="section-label">News &amp; Blog</p><h2 class="section-title">お知らせ＆終活と供養の話</h2></div>
-  <div class="blog-grid fade-up">
+  <div class="tpb-wrap fade-up">
+  <button type="button" class="tpb-arrow tpb-arrow--prev" aria-label="前の記事へ">‹</button>
+  <div class="blog-grid" id="tpb-track">
 <?php if ($blog_items): foreach ($blog_items as $it):
   $bdate = !empty($it['date']) ? str_replace('-', '.', substr($it['date'],0,7)) : '';
   $bhref = !empty($it['id']) ? '/blog/?id=' . rawurlencode($it['id']) : '/blog/';
@@ -1242,6 +1254,27 @@ body { line-height: 1.8; }
     <a href="https://en1150.co.jp/post-4916/" class="blog-card"><div class="blog-card-img-wrap"><img src="/assets/img/IMG_1924.jpg" alt="なぜ今、海洋葬を選ぶ人が増えているのか" class="blog-card-img"></div><div class="blog-card-body"><p class="blog-card-date">2026.01</p><h4>なぜ今、海洋葬を選ぶ人が増えているのか</h4></div></a>
 <?php endif; ?>
   </div>
+  <button type="button" class="tpb-arrow tpb-arrow--next" aria-label="次の記事へ">›</button>
+  </div>
+  <p class="tpb-hint">← 横にスワイプすると他の記事もご覧いただけます →</p>
+  <script>
+    (function () {
+      var track = document.getElementById('tpb-track');
+      var prev = document.querySelector('.tpb-arrow--prev');
+      var next = document.querySelector('.tpb-arrow--next');
+      if (!track || !prev || !next) return;
+      var step = function () { return (track.querySelector('.blog-card') ? track.querySelector('.blog-card').offsetWidth : 300) + 24; };
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      var sync = function () {
+        prev.disabled = track.scrollLeft <= 4;
+        next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+      };
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    })();
+  </script>
   <div class="blog-more fade-up"><a href="/blog/">お知らせ一覧を見る</a></div>
 </div></section>
 

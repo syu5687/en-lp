@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../admin/includes/store.php'; // news_published() / voices_published()（キャッシュ済み・読み取り増なし）
 
-/* ---- 海洋散骨レポート（ブログ「海洋葬(海洋散骨)」カテゴリの最新3件） ---- */
+/* ---- 海洋散骨レポート（ブログ「海洋葬(海洋散骨)」カテゴリの最新6件・横スワイプ表示） ---- */
 $fk_reports = [];
 try {
   $cat_alias  = ['海洋葬' => '海洋葬(海洋散骨)', '海洋散骨' => '海洋葬(海洋散骨)'];
@@ -12,7 +12,7 @@ try {
   foreach (news_published() as $it) {
     if (in_array('海洋葬(海洋散骨)', $split_cats($it['category'] ?? ''), true)) {
       $fk_reports[] = $it;
-      if (count($fk_reports) >= 3) break;
+      if (count($fk_reports) >= 6) break;
     }
   }
 } catch (Throwable $e) { $fk_reports = []; }
@@ -387,21 +387,61 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
       <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">REPORT</p>
       <h2 style="text-align:center;margin-bottom:10px">海洋散骨レポート</h2>
       <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:28px">実際の海洋散骨の様子を、ブログでご紹介しています。<br class="sp-only">当日の雰囲気づくりの参考にご覧ください。</p>
-      <div class="card-grid">
-        <?php foreach ($fk_reports as $it): ?>
-        <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
-          <?php if (!empty($it['image'])): ?>
-            <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="var t=this.parentNode;if(t)t.remove()"></span>
-          <?php endif; ?>
-          <span style="display:flex;flex-direction:column;padding:18px 20px;flex:1">
-            <p style="font-size:.8rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ 海洋葬(海洋散骨)</p>
-            <h3 style="font-size:1rem;line-height:1.7"><?= h($it['title'] ?? '') ?></h3>
-            <?php if (!empty($it['body'])): ?><p style="font-size:.88rem;flex:1;margin-top:6px"><?= h(mb_strimwidth(preg_replace('/\s+/u', ' ', strip_tags((string)$it['body'])), 0, 76, '…')) ?></p><?php endif; ?>
-            <span style="margin-top:12px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">詳しく読む →</span>
-          </span>
-        </a>
-        <?php endforeach; ?>
+      <div class="fkr-wrap">
+        <button type="button" class="fkr-arrow fkr-arrow--prev" aria-label="前のレポートへ">‹</button>
+        <div class="fkr-track" id="fkr-track">
+          <?php foreach ($fk_reports as $it): ?>
+          <a class="card fkr-card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>">
+            <?php if (!empty($it['image'])): ?>
+              <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="var t=this.parentNode;if(t)t.remove()"></span>
+            <?php endif; ?>
+            <span style="display:flex;flex-direction:column;padding:16px 18px;flex:1">
+              <p style="font-size:.78rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ 海洋葬(海洋散骨)</p>
+              <h3 style="font-size:.96rem;line-height:1.7"><?= h($it['title'] ?? '') ?></h3>
+              <?php if (!empty($it['body'])): ?><p style="font-size:.85rem;flex:1;margin-top:6px"><?= h(mb_strimwidth(preg_replace('/\s+/u', ' ', strip_tags((string)$it['body'])), 0, 68, '…')) ?></p><?php endif; ?>
+              <span style="margin-top:10px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">詳しく読む →</span>
+            </span>
+          </a>
+          <?php endforeach; ?>
+        </div>
+        <button type="button" class="fkr-arrow fkr-arrow--next" aria-label="次のレポートへ">›</button>
       </div>
+      <p class="fkr-hint">← 横にスワイプすると他のレポートもご覧いただけます →</p>
+      <style>
+        .fkr-wrap{position:relative}
+        .fkr-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 4px 14px;scrollbar-width:none}
+        .fkr-track::-webkit-scrollbar{display:none}
+        .fkr-card{flex:0 0 300px;display:flex;flex-direction:column;padding:0;overflow:hidden;scroll-snap-align:start}
+        .fkr-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.95);color:var(--green-mid);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(40,60,50,.18);display:grid;place-items:center;padding:0 0 3px}
+        .fkr-arrow:hover{background:#fff}
+        .fkr-arrow--prev{left:-14px}
+        .fkr-arrow--next{right:-14px}
+        .fkr-arrow[disabled]{opacity:.3;cursor:default}
+        .fkr-hint{text-align:center;font-size:.74rem;color:var(--text-light);margin-top:2px}
+        @media(max-width:768px){
+          .fkr-card{flex:0 0 min(78vw,300px)}
+          .fkr-arrow{display:none}
+          .fkr-track{padding-bottom:10px}
+        }
+      </style>
+      <script>
+        (function () {
+          var track = document.getElementById('fkr-track');
+          var prev = document.querySelector('.fkr-arrow--prev');
+          var next = document.querySelector('.fkr-arrow--next');
+          if (!track || !prev || !next) return;
+          var step = function () { return (track.querySelector('.fkr-card')?.offsetWidth || 300) + 16; };
+          prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+          next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+          var sync = function () {
+            prev.disabled = track.scrollLeft <= 4;
+            next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+          };
+          track.addEventListener('scroll', sync, { passive: true });
+          window.addEventListener('resize', sync);
+          sync();
+        })();
+      </script>
       <p style="text-align:center;margin-top:28px">
         <a href="/blog/?cat=<?= h(rawurlencode('海洋葬(海洋散骨)')) ?>" class="btn">海洋散骨レポート一覧はこちら</a>
       </p>
