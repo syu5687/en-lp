@@ -261,4 +261,15 @@ require __DIR__ . '/head.php';
 
 <script type="application/ld+json"><?= json_encode($jsonld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
 <script type="application/ld+json"><?= json_encode($breadcrumb, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
+<?php if (!empty($service['faq'])): ?>
+<script type="application/ld+json"><?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'FAQPage',
+  'mainEntity' => array_map(fn($f) => [
+    '@type' => 'Question',
+    'name' => $f['q'],
+    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+  ], $service['faq']),
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
+<?php endif; ?>
 <?php require __DIR__ . '/footer.php'; ?>

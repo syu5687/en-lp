@@ -426,6 +426,40 @@ require_once __DIR__ . '/../includes/config.php';
     </div>
   </section>
 
+  <!-- よくあるご質問 -->
+  <?php
+    $sz_faq = [
+      ['q' => '生前契約の時点で費用はかかりますか？',
+       'a' => 'かかりません。生前契約（お申し込み）の段階では費用は発生せず、キャンセル料も0円です。料金のお支払いは、利用者様の没後に代表遺族の方が海洋散骨を正式にお申し込みされた時点となります。'],
+      ['q' => '契約には家族の同意が必要ですか？',
+       'a' => '生前契約は利用者様と代表遺族（となる予定の方）の連名でお申し込みいただきます（必要書類：海洋散骨生前申込書）。後のトラブルを防ぐため、お一人で抱えずご親族の皆さまで想いを共有したうえでのご契約をおすすめしています。'],
+      ['q' => '契約後に内容の変更やキャンセルはできますか？',
+       'a' => 'できます。契約後もプランやご希望はいつでも見直しいただけ、キャンセル料もかかりません。代表遺族の方が変わった場合は、当社までご連絡ください。'],
+      ['q' => '亡くなった後は、どのような流れになりますか？',
+       'a' => '代表遺族の方が当社へご連絡→散骨を行う時期のご相談→正式なお申し込みとお支払い→ご遺骨のお預かり（郵送・お持ち込み・出張預かり※費用別途）→海洋散骨の実施、という流れです。散骨後は緯度・経度入りの海洋散骨証明書を発行します。'],
+      ['q' => '散骨の時期は決まっていますか？',
+       'a' => '決まっていません。ご逝去後すぐに行う方もいれば、しばらくご自宅でお手元供養をされてから、あるいは回忌の節目まで納骨してから、という方もいらっしゃいます。ご遺族のお気持ちに合わせてお決めください。'],
+      ['q' => '料金は契約時の金額で確定しますか？',
+       'a' => '料金は、海洋散骨を正式にお申し込みいただく時点のサービス費用が請求金額となります。契約時点でのお支払いや積み立ては不要です。'],
+      ['q' => 'プランは選べますか？',
+       'a' => 'はい。チャーター・合同・委託など、ご希望のプランを生前契約の際にお選びいただき、利用者様のご希望どおりの形で海洋散骨を行います。契約後の変更も可能です。'],
+      ['q' => 'お寺への納骨と海洋散骨を組み合わせることはできますか？',
+       'a' => 'できます。ご遺骨の少量を提携寺院の納骨堂に納めて永代供養とし、残りを九州の海へ散骨する形もご提案しています。ご希望をお聞かせください。'],
+    ];
+  ?>
+  <section class="section">
+    <p class="section-eyebrow">FAQ</p>
+    <h2 class="section-title">よくあるご質問</h2>
+    <div style="max-width:820px;margin:24px auto 0">
+      <?php foreach ($sz_faq as $f): ?>
+        <details style="background:#fff;border:1px solid #e5ded2;border-radius:10px;padding:16px 20px;margin-bottom:12px">
+          <summary style="font-weight:600;cursor:pointer;color:#2e5030">Q. <?= h($f['q']) ?></summary>
+          <p style="margin-top:10px;font-size:.95rem;line-height:1.9">A. <?= h($f['a']) ?></p>
+        </details>
+      <?php endforeach; ?>
+    </div>
+  </section>
+
   <!-- 最終CTA -->
   <section class="sz-final" id="contact">
     <p class="sz-final__eyebrow">CONTACT</p>
@@ -452,6 +486,18 @@ require_once __DIR__ . '/../includes/config.php';
 
 </main>
 
+<script type="application/ld+json">
+<?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'FAQPage',
+  'mainEntity' => array_map(fn($f) => [
+    '@type' => 'Question',
+    'name' => $f['q'],
+    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+  ], $sz_faq),
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
+
+</script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>

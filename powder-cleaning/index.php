@@ -285,21 +285,42 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
   </style>
 
   <!-- よくあるご質問 -->
+  <?php
+    $pc_faq = [
+      ['q' => 'なぜ粉骨（パウダー化）が必要なのですか？',
+       'a' => '海洋散骨や樹木葬などの自然葬を行う際は、ご遺骨をパウダー状にすることがルールとされています。また、粉骨するとご遺骨の容積が小さくなるため、ミニ骨壷でのお手元供養や納骨スペースの節約にも役立ちます。'],
+      ['q' => 'パウダー化して手元に戻るまで、どのくらいかかりますか？',
+       'a' => 'ご郵送いただいてからお返しまで、約1週間ほどお時間をいただいております。ご相談内容によっては短縮も可能ですので、お急ぎの場合はお申し付けください。'],
+      ['q' => '機械で処理するのですか？',
+       'a' => 'いいえ。当社は乳鉢と乳棒を使い、すべて手作業で一件ずつ丁寧にパウダー化しています。機械任せにせず、スタッフが心を込めて行うのが当社のこだわりです。'],
+      ['q' => '洗骨（クリーニング）はどのような場合に必要ですか？',
+       'a' => 'お墓じまいなどで長年お墓に入っていたご遺骨は、泥や湿気で汚れていることがほとんどです。当社ではアルカリ水を使いすべて手作業で洗浄し、殺菌・乾燥まで丁寧に行ってから粉骨します。古いご遺骨もあきらめずにご相談ください。'],
+      ['q' => 'どんな書類の提出が必要ですか？',
+       'a' => '火葬許可証（または埋葬許可証など）と、当社指定の書類（同意書等）をいただいております。書類がお手元にない場合の手続きもご案内しますので、まずはご相談ください。'],
+      ['q' => 'ご遺骨の郵送はどのようにすればよいですか？',
+       'a' => '日本郵便のゆうパックでお送りいただけます（ご遺骨を送れるのは日本郵便のみです）。梱包の方法や必要書類は、お申し込み時に写真付きの資料で分かりやすくご案内しますのでご安心ください。'],
+      ['q' => '直接持ち込むことはできますか？',
+       'a' => 'はい。鹿児島本社・福岡営業所へのお持ち込みを承っています。ご訪問の日時は事前にご連絡ください。遠方の方はご郵送が便利です。'],
+      ['q' => '粉骨後のご遺骨はどのような状態で戻ってきますか？',
+       'a' => '真空パックで密封し、桐箱に納めてお返しします。湿気からご遺骨を守れるため、ご自宅での保管も安心です。散骨用の水溶性袋など、その後のご供養に合わせた仕上げにも対応します。'],
+      ['q' => '分骨して一部だけ手元に残すことはできますか？',
+       'a' => 'できます。パウダー化したご遺骨の一部をミニ骨壷やメモリアルジュエリーに、残りを散骨・納骨に、という形も承ります。ご希望をお聞かせください。'],
+      ['q' => '費用はいくらですか？あとから追加料金はありませんか？',
+       'a' => '粉骨24,200円〜・洗骨（クリーニング）27,500円〜（いずれも税込）です。ご遺骨の状態や骨壺の大きさにより異なる場合がありますので、無料のお見積りで金額を確定します。お見積り後の追加料金はありません。'],
+      ['q' => '粉骨だけ頼んで、あとから散骨をお願いすることもできますか？',
+       'a' => 'もちろんできます。まず粉骨してご自宅で供養し、お気持ちの整理がついてから海洋散骨をご依頼いただく方も多くいらっしゃいます。粉骨から散骨・証明書発行まで同じ窓口でお手伝いします。'],
+    ];
+  ?>
   <section class="section">
     <div class="container" style="max-width:820px">
-      <h2>よくあるご質問</h2>
-      <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
-        <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. パウダー化して手元に戻るまで、どのくらいかかりますか？</summary>
-        <p style="margin-top:10px;font-size:.95rem">A. ご郵送いただいてからお返しまで、約1週間ほどお時間をいただいております。ご相談内容によっては短縮も可能です。</p>
-      </details>
-      <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
-        <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. どんな書類の提出が必要ですか？</summary>
-        <p style="margin-top:10px;font-size:.95rem">A. 火葬許可証・当社指定の書類（同意書等）をいただいております。</p>
-      </details>
-      <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
-        <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. ご遺骨の郵送はどのようにすればよいですか？</summary>
-        <p style="margin-top:10px;font-size:.95rem">A. 日本郵便のゆうパックでお送りいただけます（ご遺骨を送れるのは日本郵便のみです）。梱包の方法や必要書類は、お申し込み時に分かりやすくご案内しますのでご安心ください。</p>
-      </details>
+      <h2 style="text-align:center;margin-bottom:8px">よくあるご質問</h2>
+      <p style="text-align:center;font-size:.9rem;color:var(--text-light);margin-bottom:24px">粉骨・洗骨についてよくいただくご質問をまとめました。このほかのご質問もお気軽にお問い合わせください。</p>
+      <?php foreach ($pc_faq as $f): ?>
+        <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
+          <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. <?= h($f['q']) ?></summary>
+          <p style="margin-top:10px;font-size:.95rem;line-height:1.9">A. <?= h($f['a']) ?></p>
+        </details>
+      <?php endforeach; ?>
     </div>
   </section>
 
@@ -339,5 +360,17 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
     {"@type":"ListItem","position":3,"name":"粉骨・洗骨","item":"https://en1150.co.jp/powder-cleaning/"}
   ]
 }
+</script>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'FAQPage',
+  'mainEntity' => array_map(fn($f) => [
+    '@type' => 'Question',
+    'name' => $f['q'],
+    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+  ], $pc_faq),
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
+
 </script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
