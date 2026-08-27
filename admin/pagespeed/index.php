@@ -122,8 +122,81 @@ function psi_score_class(int $s): string {
 <script>
 (function () {
   var CSRF = <?= json_encode(csrf_token()) ?>;
+  var SITE_URL = <?= json_encode(rtrim(SITE['url'], '/')) ?>;
+  var PSI_KEY = <?= json_encode(defined('PSI_API_KEY') ? PSI_API_KEY : '') ?>;
   var CLASSMAP = function (s) { return s >= 90 ? 'good' : (s >= 50 ? 'mid' : 'bad'); };
   var FIELD_JA = { FAST: '速い', AVERAGE: 'ふつう', SLOW: '遅い' };
+
+  // 計測はブラウザからPSI APIを直接呼ぶ（CORS対応・サーバーのタイムアウトを受けない）
+  async function runPsi(path, strategy) {
+    var api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
+      + '?url=' + encodeURIComponent(SITE_URL + path)
+      + '&strategy=' + encodeURIComponent(strategy)
+      + '&category=performance&locale=ja'
+      + (PSI_KEY ? '&key=' + encodeURIComponent(PSI_KEY) : '');
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 120000);
+    var res;
+    try {
+      res = await fetch(api, { signal: ctrl.signal });
+    } catch (e) {
+      throw new Error('PageSpeed Insights APIに接続できませんでした（時間をおいて再度お試しください）');
+    } finally {
+      clearTimeout(timer);
+    }
+    var j = await res.json().catch(function () { return null; });
+    if (!j) throw new Error('APIの応答を読み取れませんでした');
+    if (j.error) {
+      var msg = j.error.message || 'APIエラー';
+      if (res.status === 429 || /quota/i.test(msg)) {
+        msg = '計測回数の上限に達しました。時間をおくか、includes/config.php の PSI_API_KEY にAPIキーを設定してください。';
+      }
+      throw new Error(msg);
+    }
+    var lh = j.lighthouseResult || {};
+    var audits = lh.audits || {};
+    var dv = function (k) { return (audits[k] && audits[k].displayValue) || '—'; };
+    var opps = [];
+    Object.keys(audits).forEach(function (k) {
+      var a = audits[k];
+      var save = (a.details && a.details.type === 'opportunity') ? (a.details.overallSavingsMs || 0) : 0;
+      if (save >= 100) opps.push({ t: a.title || '', s: save });
+    });
+    opps.sort(function (x, y) { return y.s - x.s; });
+    opps = opps.slice(0, 5).map(function (o) { return o.t + '｜約' + (Math.round(o.s / 100) / 10).toFixed(1) + '秒短縮'; });
+    return {
+      path: path,
+      strategy: strategy,
+      score: Math.round(((lh.categories && lh.categories.performance && lh.categories.performance.score) || 0) * 100),
+      fcp: dv('first-contentful-paint'),
+      lcp: dv('largest-contentful-paint'),
+      cls: dv('cumulative-layout-shift'),
+      tbt: dv('total-blocking-time'),
+      si: dv('speed-index'),
+      opps: opps,
+      field_overall: (j.loadingExperience && j.loadingExperience.overall_category) || ''
+    };
+  }
+
+  function render(col, r) {
+    var oppsHtml = '';
+    if (r.opps && r.opps.length) {
+      oppsHtml = '<details class="ps-opps"><summary>改善できる項目（' + r.opps.length + '件）</summary><ul>'
+        + r.opps.map(function (o) { var li = document.createElement('li'); li.textContent = o; return li.outerHTML; }).join('')
+        + '</ul></details>';
+    }
+    var fieldHtml = '';
+    if (r.field_overall) {
+      fieldHtml = '<p style="margin-top:6px"><span class="ps-field ps-field--' + r.field_overall + '">実ユーザー体感: ' + (FIELD_JA[r.field_overall] || r.field_overall) + '</span></p>';
+    }
+    col.querySelector('.ps-body').innerHTML =
+      '<div class="ps-result"><div class="ps-score ps-score--' + CLASSMAP(r.score) + '">' + r.score + '</div>'
+      + '<div><div class="ps-metrics">'
+      + '<span>LCP <b>' + r.lcp + '</b></span><span>CLS <b>' + r.cls + '</b></span>'
+      + '<span>FCP <b>' + r.fcp + '</b></span><span>TBT <b>' + r.tbt + '</b></span>'
+      + '</div>' + fieldHtml + '<p class="ps-meta">' + (r.measured_at || 'たった今') + ' 計測</p></div></div>' + oppsHtml;
+  }
+
   document.querySelectorAll('.ps-col').forEach(function (col) {
     var btn = col.querySelector('.ps-btn');
     var err = col.querySelector('.ps-err');
@@ -132,32 +205,20 @@ function psi_score_class(int $s): string {
       btn.textContent = '計測中…（30〜60秒お待ちください）';
       err.textContent = '';
       try {
-        var res = await fetch('/admin/pagespeed/api.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
-          body: JSON.stringify({ path: col.dataset.path, strategy: col.dataset.strategy })
-        });
-        var text = await res.text();
-        var j;
-        try { j = JSON.parse(text); } catch (e) { throw new Error('サーバー応答が不正です（HTTP ' + res.status + '）'); }
-        if (!res.ok || !j.ok) throw new Error(j.error || '計測に失敗しました');
-        var r = j.result;
-        var oppsHtml = '';
-        if (r.opps && r.opps.length) {
-          oppsHtml = '<details class="ps-opps"><summary>改善できる項目（' + r.opps.length + '件）</summary><ul>'
-            + r.opps.map(function (o) { var li = document.createElement('li'); li.textContent = o; return li.outerHTML; }).join('')
-            + '</ul></details>';
+        var r = await runPsi(col.dataset.path, col.dataset.strategy);
+        render(col, r);
+        // 結果をサーバーに保存（軽量・失敗しても計測表示はそのまま）
+        try {
+          var res = await fetch('/admin/pagespeed/api.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': CSRF },
+            body: JSON.stringify(r)
+          });
+          var j = await res.json().catch(function () { return null; });
+          if (!j || !j.ok) err.textContent = '※ 計測は成功しましたが保存に失敗しました' + (j && j.error ? '：' + j.error : '');
+        } catch (e2) {
+          err.textContent = '※ 計測は成功しましたが保存に失敗しました';
         }
-        var fieldHtml = '';
-        if (r.field_overall) {
-          fieldHtml = '<p style="margin-top:6px"><span class="ps-field ps-field--' + r.field_overall + '">実ユーザー体感: ' + (FIELD_JA[r.field_overall] || r.field_overall) + '</span></p>';
-        }
-        col.querySelector('.ps-body').innerHTML =
-          '<div class="ps-result"><div class="ps-score ps-score--' + CLASSMAP(r.score) + '">' + r.score + '</div>'
-          + '<div><div class="ps-metrics">'
-          + '<span>LCP <b>' + r.lcp + '</b></span><span>CLS <b>' + r.cls + '</b></span>'
-          + '<span>FCP <b>' + r.fcp + '</b></span><span>TBT <b>' + r.tbt + '</b></span>'
-          + '</div>' + fieldHtml + '<p class="ps-meta">' + r.measured_at + ' 計測</p></div></div>' + oppsHtml;
       } catch (e) {
         err.textContent = e.message;
       } finally {

@@ -35,67 +35,43 @@ function psi_all(): array {
   });
 }
 
-/** PSI APIで1ページを計測し、結果をFirestoreへ保存して返す */
-function psi_run(string $path, string $strategy): array {
-  $url = rtrim(SITE['url'], '/') . $path;
-  $api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
-       . '?url=' . rawurlencode($url)
-       . '&strategy=' . rawurlencode($strategy)
-       . '&category=performance&locale=ja';
-  if (defined('PSI_API_KEY') && PSI_API_KEY !== '') $api .= '&key=' . rawurlencode(PSI_API_KEY);
+/**
+ * ブラウザ側で計測したPSI結果を検証してFirestoreへ保存する。
+ * （PSI APIはCORS対応のため、計測は管理画面のブラウザから直接行う。
+ *   サーバー経由だと計測30〜60秒でゲートウェイに切断され502になるための構成変更）
+ */
+function psi_save(array $d): array {
+  $path     = (string)($d['path'] ?? '');
+  $strategy = (string)($d['strategy'] ?? '');
+  if (!array_key_exists($path, PSI_PAGES)) throw new InvalidArgumentException('対象外のページです');
+  if (!in_array($strategy, ['mobile', 'desktop'], true)) throw new InvalidArgumentException('bad strategy');
 
-  $raw = @file_get_contents($api, false, stream_context_create(['http' => [
-    'timeout' => 120, 'ignore_errors' => true,
-  ]]));
-  $j = json_decode((string)$raw, true);
-  if (!is_array($j)) throw new RuntimeException('PageSpeed Insights APIに接続できませんでした（時間をおいて再度お試しください）');
-  if (!empty($j['error'])) {
-    $msg = (string)($j['error']['message'] ?? 'APIエラー');
-    if (stripos($msg, 'quota') !== false || (int)($j['error']['code'] ?? 0) === 429) {
-      $msg .= '／計測回数の上限に達しました。時間をおくか、includes/config.php の PSI_API_KEY にAPIキーを設定してください。';
-    }
-    throw new RuntimeException($msg);
-  }
-
-  $lh = $j['lighthouseResult'] ?? [];
-  $audits = $lh['audits'] ?? [];
-  $dv = static fn(string $k): string => (string)($audits[$k]['displayValue'] ?? '—');
-
-  // 改善提案（節約効果の大きい順・上位5件）を「タイトル｜短縮効果」の文字列で保存
+  $s = static fn($k, $max) => mb_substr(trim((string)($d[$k] ?? '')), 0, $max);
   $opps = [];
-  foreach ($audits as $a) {
-    $savings = (float)($a['details']['overallSavingsMs'] ?? 0);
-    if (($a['details']['type'] ?? '') === 'opportunity' && $savings >= 100) {
-      $opps[] = ['t' => (string)($a['title'] ?? ''), 's' => $savings];
-    }
+  foreach ((array)($d['opps'] ?? []) as $o) {
+    if (is_string($o) && trim($o) !== '') $opps[] = mb_substr(trim($o), 0, 200);
+    if (count($opps) >= 5) break;
   }
-  usort($opps, fn($x, $y) => $y['s'] <=> $x['s']);
-  $opps = array_map(
-    fn($o) => $o['t'] . '｜約' . number_format($o['s'] / 1000, 1) . '秒短縮',
-    array_slice($opps, 0, 5)
-  );
+  $field = strtoupper($s('field_overall', 20));
+  if (!in_array($field, ['FAST', 'AVERAGE', 'SLOW', ''], true)) $field = '';
 
   $result = [
     'path'          => $path,
     'strategy'      => $strategy,
     'measured_at'   => date('Y-m-d H:i'),
-    'score'         => (int)round(((float)($lh['categories']['performance']['score'] ?? 0)) * 100),
-    'fcp'           => $dv('first-contentful-paint'),
-    'lcp'           => $dv('largest-contentful-paint'),
-    'cls'           => $dv('cumulative-layout-shift'),
-    'tbt'           => $dv('total-blocking-time'),
-    'si'            => $dv('speed-index'),
+    'score'         => max(0, min(100, (int)($d['score'] ?? 0))),
+    'fcp'           => $s('fcp', 40),
+    'lcp'           => $s('lcp', 40),
+    'cls'           => $s('cls', 40),
+    'tbt'           => $s('tbt', 40),
+    'si'            => $s('si', 40),
     'opps'          => $opps,
-    // 実ユーザーデータ（CrUX・十分なアクセスがあるページのみ返る）
-    'field_overall' => (string)($j['loadingExperience']['overall_category'] ?? ''),
+    'field_overall' => $field,
   ];
 
   $res = fs_request('PATCH', 'documents/' . PSI_COLLECTION . '/' . psi_doc_id($path, $strategy),
                     ['fields' => fs_to_fields($result)]);
-  if (!empty($res['error'])) {
-    // 保存に失敗しても計測結果自体は返す（画面には表示できる）
-    error_log('[psi] save failed: ' . json_encode($res['error']));
-  }
+  if (!empty($res['error'])) throw new RuntimeException('保存に失敗しました: ' . (string)($res['error']['message'] ?? ''));
   en_cache_bust('psi_all');
   return $result;
 }
