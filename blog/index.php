@@ -139,7 +139,40 @@ if ($blog_id !== '') {
     <?php if (!empty($post['link'])): ?>
       <p style="margin-top:22px;font-size:.9rem;color:var(--text-light)">参考リンク：<a href="<?= h($post['link']) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:600"><?= h($post['link']) ?></a></p>
     <?php endif; ?>
-    <div style="margin-top:38px;text-align:center">
+    <?php
+      /* ===== 関連サービスへの誘導（カテゴリ・タイトルから自動判定） ===== */
+      $rel_src = (string)($post['category'] ?? '') . ' ' . (string)($post['title'] ?? '');
+      $rel_map = [
+        ['kw' => ['海洋', '散骨', 'クルーズ'],            'href' => '/kaiyou-sou/',      'label' => '海洋葬（海洋散骨）',        'desc' => '委託海洋葬 54,450円〜。鹿児島・福岡・九州の海域に対応、全国からご利用いただけます。'],
+        ['kw' => ['粉骨', '洗骨', 'パウダー'],            'href' => '/powder-cleaning/', 'label' => '粉骨・洗骨',                'desc' => 'すべて手作業で一件ずつ丁寧に。粉骨24,200円〜、ご遺骨の郵送で全国対応。'],
+        ['kw' => ['墓じまい', 'お墓・納骨堂', '改葬', '納骨'], 'href' => '/grave/',       'label' => 'お墓じまい',                'desc' => '撤去から納骨・改葬手続きの代行まで一括対応。その後の供養もご提案します。'],
+        ['kw' => ['手元', 'ジュエリー'],                  'href' => '/temoto-kuyou/',    'label' => 'お手元供養',                'desc' => 'ミニ骨壷・ミニ仏壇・メモリアルジュエリーで、いつも身近にご供養を。'],
+        ['kw' => ['樹木葬', '庭苑'],                      'href' => '/teien-sou/',       'label' => '樹木葬（庭苑葬）',          'desc' => '草花に囲まれて眠る自然葬。個別墓・永代供養墓もご提案します。'],
+        ['kw' => ['遺品'],                                'href' => '/ihinseiri/',       'label' => '遺品整理',                  'desc' => '形見の仕分けからご供養・お焚き上げまで、心を込めて対応します。'],
+        ['kw' => ['生前', '終活', 'セミナー'],            'href' => '/seizen/',          'label' => '海洋散骨 生前契約',         'desc' => '「海に還りたい」という想いを、お元気なうちに契約して託せます。'],
+      ];
+      $rel = [];
+      foreach ($rel_map as $m) {
+        foreach ($m['kw'] as $kw) {
+          if (mb_strpos($rel_src, $kw) !== false) { $rel[] = $m; break; }
+        }
+        if (count($rel) >= 2) break;
+      }
+      if (!$rel) $rel[] = ['href' => '/shindan/', 'label' => '供養の選び方（かんたん診断）', 'desc' => 'いくつかの質問に答えるだけで、あなたに合ったご供養の形をご提案します。'];
+    ?>
+    <div style="margin-top:40px;background:var(--sea-light);border-radius:14px;padding:22px 24px">
+      <p style="font-weight:700;color:var(--green-mid);margin-bottom:14px">この記事に関連するサービス</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+        <?php foreach ($rel as $r): ?>
+          <a href="<?= h($r['href']) ?>" style="display:block;background:#fff;border-radius:12px;padding:16px 18px;text-decoration:none;box-shadow:0 4px 14px rgba(18,89,122,.08)">
+            <span style="display:block;font-weight:700;color:var(--green);margin-bottom:6px"><?= h($r['label']) ?> →</span>
+            <span style="display:block;font-size:.85rem;color:var(--text-light);line-height:1.7"><?= h($r['desc']) ?></span>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;text-align:center">
       <a href="/blog/" class="btn btn--outline">← 終活と供養の話一覧へ</a>
     </div>
   </article>
@@ -151,6 +184,10 @@ if ($blog_id !== '') {
     <p style="opacity:.92;margin-bottom:22px">供養に関するお悩みは、お気軽にお問い合わせください。宗教・宗派は問いません。</p>
     <a href="/contact/" class="btn" style="background:#fff;color:var(--green-mid)">お問い合わせ</a>
     <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn" style="background:#06C755;margin-left:10px">LINEで相談</a>
+    <p style="margin-top:18px">
+      本社（鹿児島）<a href="tel:<?= h(str_replace('-', '', SITE['tel'])) ?>" style="color:#fff;font-weight:700;font-size:1.2rem"><?= h(SITE['tel']) ?></a><br>
+      <span style="font-size:.9rem"><?= h(SITE['fukuoka']['name']) ?> <a href="tel:<?= h(str_replace('-', '', SITE['fukuoka']['tel'])) ?>" style="color:#fff;font-weight:700"><?= h(SITE['fukuoka']['tel']) ?></a></span>
+    </p>
   </div>
 </section>
 
