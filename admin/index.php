@@ -41,6 +41,10 @@ try { $voice_count = fs_count(VOICES_COLLECTION); } catch (Throwable $e) { $voic
       <span class="admin-card__label">アクセス解析</span>
       <span class="admin-card__num">表示 →</span>
     </a>
+    <a class="admin-card" href="/admin/report/">
+      <span class="admin-card__label">効果測定レポート（GA4・15日ごと）</span>
+      <span class="admin-card__num">表示 →</span>
+    </a>
     <a class="admin-card" href="/admin/health.php">
       <span class="admin-card__label">Firestore接続検証</span>
       <span class="admin-card__num">確認 →</span>

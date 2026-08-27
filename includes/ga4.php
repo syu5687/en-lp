@@ -14,5 +14,22 @@ if (defined('GA4_MEASUREMENT_ID') && GA4_MEASUREMENT_ID):
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', '<?= h(GA4_MEASUREMENT_ID) ?>');
+
+  // ---- CVイベント自動計測（電話タップ・LINEタップ）----
+  // tel_click / line_click を全ページで自動送信。
+  // フォーム送信の generate_lead は /contact/ 側で送信済み。
+  // GA4管理画面でこの3つを「キーイベント」に設定するとCVとして集計されます。
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    try {
+      if (href.indexOf('tel:') === 0) {
+        gtag('event', 'tel_click', { phone_number: href.slice(4), page_path: location.pathname });
+      } else if (/(^|\.)line\.me\/|lin\.ee\//.test(href)) {
+        gtag('event', 'line_click', { page_path: location.pathname });
+      }
+    } catch (err) {}
+  }, true);
 </script>
 <?php endif; ?>

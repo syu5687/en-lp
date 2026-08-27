@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0154';
+const APP_VERSION = 'v20260713-0155';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
@@ -58,6 +58,8 @@ const GCS_BUCKET = 'en-hp-lp-media';
 const GA4_MEASUREMENT_ID = 'G-BST60JN5FD'; // 例: 'G-XXXXXXXXXX'
 // プロパティID（GA4 Data API / レポート参照用の数値ID）
 const GA4_PROPERTY_ID = '399545209';
+// 効果測定レポートの起点日（リニューアル公開日）。この日から15日ごとに1期間として集計する。
+const GA4_REPORT_ANCHOR = '2026-07-13';
 
 // ---- お問い合わせ（Cloudflare Worker + Brevo）----
 // Workerのソースは /worker/en-contact/（デプロイ: npx wrangler deploy ＋ npx wrangler secret put BREVO_API_KEY）。
