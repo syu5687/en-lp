@@ -55,8 +55,20 @@
 <!-- SP固定フッターCTA -->
 <div class="sticky-cta">
   <a href="tel:<?= h(SITE['tel']) ?>" class="sticky-cta__tel">電話相談</a>
-  <a href="/contact/" class="sticky-cta__mail">メール相談</a>
+  <a href="/contact/" class="sticky-cta__mail">メール・LINE相談</a>
+<?php
+  // 第3枠: 次回の合同海洋散骨（予定が無いときはLINE相談に戻す）
+  $sc_next = null;
+  try { if (!function_exists('goudou_upcoming')) require_once __DIR__ . '/../admin/includes/store.php'; $x = goudou_upcoming(); $sc_next = $x[0] ?? null; } catch (Throwable $e) { $sc_next = null; }
+  if ($sc_next): $sc_ts = strtotime((string)($sc_next['date'] ?? '')); $sc_w = $sc_ts ? ['日','月','火','水','木','金','土'][(int)date('w', $sc_ts)] : '';
+?>
+  <a href="/kaiyou-sou/#goudou-schedule" class="sticky-cta__sched" aria-label="次回の合同海洋散骨の予定日一覧を見る">
+    <img src="/assets/img/goudou-photo.jpg?v=<?= h(asset_ver()) ?>" alt="" class="sticky-cta__sched-photo">
+    <span class="sticky-cta__sched-txt"><span class="sticky-cta__sched-label">次回の合同散骨</span><span class="sticky-cta__sched-date"><?= $sc_ts ? date('n/j', $sc_ts) . '（' . h($sc_w) . '）' : '' ?></span></span>
+  </a>
+<?php else: ?>
   <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="sticky-cta__line">LINE相談</a>
+<?php endif; ?>
 </div>
 
 <?php require __DIR__ . '/sched-badge.php'; ?>

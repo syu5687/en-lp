@@ -10,3 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// SP: スクロール時にヘッダーを縮小して画面領域を確保
+(function () {
+  var header = document.querySelector('.site-header') || document.querySelector('.header');
+  if (!header) return;
+  var mq = window.matchMedia('(max-width: 768px)');
+  var last = false;
+  function onScroll() {
+    if (!mq.matches) { if (last) { header.classList.remove('is-shrink'); last = false; } return; }
+    var shrink = window.scrollY > 80;
+    if (shrink !== last) { header.classList.toggle('is-shrink', shrink); last = shrink; }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();

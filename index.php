@@ -101,7 +101,13 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 
 /* HEADER */
 .header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(246,241,232,0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-bottom: 1px solid var(--color-line); transition: var(--transition); }
-.header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1160px; margin: 0 auto; padding: 14px 32px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1160px; margin: 0 auto; padding: 14px 32px; transition: padding 0.25s ease; }
+@media (max-width: 768px) {
+  .header.is-shrink .header-inner { padding: 5px 20px; }
+  .header.is-shrink .header-logo img { height: 28px !important; }
+  .header.is-shrink .header-logo-text { font-size: 0.92rem; }
+  .header-logo img, .header-logo-text { transition: all 0.25s ease; }
+}
 .header-logo-text { font-family: var(--font-serif); font-size: 1.12rem; font-weight: 600; color: var(--color-green-mid); letter-spacing: 0.14em; }
 .header-nav { display: flex; align-items: center; gap: clamp(12px, 1.5vw, 28px); }
 .header-nav a { font-size: 0.82rem; font-weight: 400; color: var(--color-text); position: relative; white-space: nowrap; }
@@ -435,6 +441,11 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .sticky-btn-tel { background: var(--color-green-mid); color: var(--color-white); }
 .sticky-btn-mail { background: var(--color-green-mid); color: var(--color-white); }
 .sticky-btn-line { background: #2f7d4f; color: var(--color-white); }
+.sticky-btn-sched { background: linear-gradient(135deg,#fffdf9,#fdf3dd); border: 1.5px solid #e6cf9a; padding: 6px 8px; gap: 7px; }
+.sticky-sched-photo { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; object-position: 62% 55%; border: 1.5px solid #e6cf9a; flex: none; }
+.sticky-sched-txt { display: flex; flex-direction: column; line-height: 1.25; text-align: left; }
+.sticky-sched-label { font-size: 0.56rem; font-weight: 700; color: #b08b3e; letter-spacing: 0.03em; white-space: nowrap; }
+.sticky-sched-date { font-size: 0.92rem; font-weight: 700; color: #1c3b2a; font-family: var(--font-serif); white-space: nowrap; }
 
 /* SP専用ナビリンク（PCのヘッダーには表示しない） */
 .nav-sp-only { display: none; }
@@ -1261,12 +1272,39 @@ body { line-height: 1.8; }
 
 <div class="sticky-cta"><div class="sticky-cta-inner">
   <a href="tel:099-801-3637" class="sticky-btn sticky-btn-tel">電話相談</a>
-  <a href="/contact/" class="sticky-btn sticky-btn-mail">メール相談</a>
+  <a href="/contact/" class="sticky-btn sticky-btn-mail">メール・LINE相談</a>
+<?php
+  $tp_next = null;
+  try { $tpx = goudou_upcoming(); $tp_next = $tpx[0] ?? null; } catch (Throwable $e) { $tp_next = null; }
+  if ($tp_next): $tp_ts = strtotime((string)($tp_next['date'] ?? '')); $tp_w = $tp_ts ? ['日','月','火','水','木','金','土'][(int)date('w', $tp_ts)] : '';
+?>
+  <a href="#goudou-schedule" class="sticky-btn sticky-btn-sched" aria-label="次回の合同海洋散骨の予定日一覧を見る">
+    <img src="/assets/img/goudou-photo.jpg?v=<?= h(asset_ver()) ?>" alt="" class="sticky-sched-photo">
+    <span class="sticky-sched-txt"><span class="sticky-sched-label">次回の合同散骨</span><span class="sticky-sched-date"><?= $tp_ts ? date('n/j', $tp_ts) . '（' . h($tp_w) . '）' : '' ?></span></span>
+  </a>
+<?php else: ?>
   <a href="https://line.me/R/ti/p/%40bkx9825r" class="sticky-btn sticky-btn-line" target="_blank" rel="noopener">LINE相談</a>
+<?php endif; ?>
 </div></div>
 
 <?php require __DIR__ . '/includes/sched-badge.php'; ?>
 
+<script>
+// SP: スクロール時にヘッダーを縮小して画面領域を確保
+(function () {
+  var header = document.querySelector('.header');
+  if (!header) return;
+  var mq = window.matchMedia('(max-width: 768px)');
+  var last = false;
+  function onScroll() {
+    if (!mq.matches) { if (last) { header.classList.remove('is-shrink'); last = false; } return; }
+    var shrink = window.scrollY > 80;
+    if (shrink !== last) { header.classList.toggle('is-shrink', shrink); last = shrink; }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 <script>
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });

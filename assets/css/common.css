@@ -35,6 +35,12 @@ a{color:inherit;text-decoration:none;transition:.3s}
 /* ---- ヘッダー（青系） ---- */
 .site-header{position:sticky;top:0;z-index:100;background:var(--header-blue);border-bottom:1px solid rgba(255,255,255,.14)}
 .site-header__inner{max-width:1160px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.site-header__inner,.site-logo__img,.site-logo__text{transition:all .25s ease}
+@media(max-width:768px){
+  .site-header.is-shrink .site-header__inner{padding:5px 24px}
+  .site-header.is-shrink .site-logo__img{height:28px}
+  .site-header.is-shrink .site-logo__text{font-size:.92rem}
+}
 .site-logo{display:inline-flex;align-items:center;gap:10px}
 .site-logo__img{height:40px;width:auto;display:block}
 .site-logo__text{font-family:var(--serif);font-size:1.12rem;font-weight:600;color:#fff;letter-spacing:.14em;line-height:1}
@@ -125,10 +131,15 @@ details[open] summary{margin-bottom:8px}
 
 /* ---- SP固定CTA ---- */
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200}
-.sticky-cta a{flex:1;text-align:center;padding:14px 0;font-weight:600;color:var(--white)}
+.sticky-cta a{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px 2px;font-weight:600;font-size:.88rem;color:var(--white);white-space:nowrap}
 .sticky-cta__tel{background:var(--header-blue)}
 .sticky-cta__mail{background:var(--green-mid)}
 .sticky-cta__line{background:#2f7d4f}
+.sticky-cta__sched{flex:1;display:flex !important;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#fffdf9,#fdf3dd);border-top:3px solid #c9a25a;padding:6px 4px !important;text-decoration:none}
+.sticky-cta__sched-photo{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:62% 55%;border:1.5px solid #e6cf9a;flex:none}
+.sticky-cta__sched-txt{display:flex;flex-direction:column;line-height:1.25;text-align:left}
+.sticky-cta__sched-label{font-size:.58rem;font-weight:700;color:#b08b3e;letter-spacing:.04em;white-space:nowrap}
+.sticky-cta__sched-date{font-size:.95rem;font-weight:700;color:#1c3b2a;font-family:"Shippori Mincho","Yu Mincho",serif;white-space:nowrap}
 
 /* ---- 右側固定・縦長「供養の選び方」タブ（全ページ常時表示） ---- */
 .side-tabs{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
@@ -141,6 +152,7 @@ details[open] summary{margin-bottom:8px}
 .side-finder .sf-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex:none}
 .side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em;white-space:nowrap}
 @media(max-width:768px){
+  .side-tabs{top:40%}
   .side-finder{padding:12px 8px;gap:9px}
   .side-finder .sf-label{font-size:.82rem;letter-spacing:.1em}
   .side-finder .sf-badge{width:22px;height:22px;font-size:.82rem}

@@ -32,20 +32,17 @@ if ($sb_next):
   .fixed-sched-badge__date{display:block;font-size:1.12rem;font-weight:700;line-height:1.3;color:#1c3b2a;font-family:"Shippori Mincho","Yu Mincho",serif}
   .fixed-sched-badge__sea{display:block;font-size:.68rem;color:#8a8578;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fixed-sched-badge__more{display:block;margin-top:7px;padding-top:6px;border-top:1px solid #eee5d4;font-size:.7rem;font-weight:700;color:#b08b3e;text-align:right}
-  .fixed-sched-badge__mini{display:none}
-  /* SP: コンテンツを隠さないミニ円形バッジ（丸写真＋日付）。タップで予定日一覧へ */
-  @media(max-width:960px){
-    .fixed-sched-badge{bottom:150px;right:10px;width:62px;height:62px;padding:0;border-radius:50%;border:2px solid #e6cf9a;background:#fffdf9;box-shadow:0 6px 18px rgba(40,60,50,.28)}
-    .fixed-sched-badge::before{display:none}
-    .fixed-sched-badge__photo{position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:50%;box-shadow:none}
-    .fixed-sched-badge__mini{display:block;position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);background:linear-gradient(90deg,#c9a25a,#b08b3e);color:#fff;font-size:.68rem;font-weight:700;line-height:1;padding:4px 9px;border-radius:999px;box-shadow:0 2px 8px rgba(40,60,50,.3);white-space:nowrap;letter-spacing:.02em}
-    .fixed-sched-badge__eyebrow,.fixed-sched-badge__label,.fixed-sched-badge__date,.fixed-sched-badge__sea,.fixed-sched-badge__more{display:none}
-  }
+  .fixed-sched-badge__minibox{display:none}
+  /* SP: フッターバー第3枠に組み込むため、浮遊ウィジェットは非表示 */
+  @media(max-width:960px){.fixed-sched-badge{display:none}}
   @media print{.fixed-sched-badge{display:none}}
 </style>
 <a class="fixed-sched-badge" href="/kaiyou-sou/#goudou-schedule" aria-label="合同海洋散骨の実施予定日一覧を見る">
   <img src="/assets/img/goudou-photo.jpg?v=<?= h(asset_ver()) ?>" alt="" width="1400" height="933" loading="lazy" class="fixed-sched-badge__photo">
-  <span class="fixed-sched-badge__mini"><?= $sb_ts ? date('n/j', $sb_ts) : '' ?></span>
+  <span class="fixed-sched-badge__minibox">
+    <span class="fixed-sched-badge__minilabel">次回の合同散骨</span>
+    <span class="fixed-sched-badge__mini"><?= $sb_ts ? date('n/j', $sb_ts) . '（' . h($sb_w) . '）' : '' ?></span>
+  </span>
   <span class="fixed-sched-badge__eyebrow">SCHEDULE</span>
   <span class="fixed-sched-badge__label">次回の合同海洋散骨</span>
   <span class="fixed-sched-badge__date"><?= $sb_ts ? date('n月j日', $sb_ts) . '（' . h($sb_w) . '）' : h((string)$sb_next['date']) ?></span>
