@@ -179,16 +179,6 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInRight { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-/* FIXED SCHEDULE BADGE（次回の合同海洋散骨予定日） */
-.fixed-sched-badge { position: fixed; bottom: 24px; right: 24px; z-index: 98; display: block; width: 168px; background: linear-gradient(135deg, var(--color-green-dark, #1c3b2a), var(--color-green-mid, #2e5030)); color: #fff; border-radius: 14px; padding: 12px 14px 10px; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: transform .25s ease, box-shadow .25s ease; }
-.fixed-sched-badge:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.3); }
-.fixed-sched-badge__eyebrow { display: block; font-size: 0.62rem; letter-spacing: 0.18em; color: #d8b46a; font-weight: 700; margin-bottom: 3px; }
-.fixed-sched-badge__label { display: block; font-size: 0.72rem; font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
-.fixed-sched-badge__date { display: block; font-size: 1.06rem; font-weight: 700; line-height: 1.3; color: #fff; }
-.fixed-sched-badge__sea { display: block; font-size: 0.68rem; color: rgba(255,255,255,0.82); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.fixed-sched-badge__more { display: block; margin-top: 7px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.22); font-size: 0.7rem; font-weight: 700; color: #d8b46a; text-align: right; }
-@media (max-width: 960px) { .fixed-sched-badge { bottom: 150px; right: 8px; width: 148px; padding: 10px 12px 8px; } .fixed-sched-badge__date { font-size: 0.95rem; } }
-
 /* STATS（重なり・カウントアップ演出を廃し、静かな数字帯に） */
 .stats { position: relative; z-index: 10; margin-top: 0; background: var(--color-green-mid); }
 .stats-inner { max-width: 1000px; margin: 0 auto; padding: 54px 32px; }
@@ -1275,22 +1265,7 @@ body { line-height: 1.8; }
   <a href="https://line.me/R/ti/p/%40bkx9825r" class="sticky-btn sticky-btn-line" target="_blank" rel="noopener">LINE相談</a>
 </div></div>
 
-<?php
-  // 右下フローティング：次回の合同海洋散骨予定日（登録が無い場合は表示しない）
-  $fx_next = null;
-  try { $fx = goudou_upcoming(); $fx_next = $fx[0] ?? null; } catch (Throwable $e) { $fx_next = null; }
-  if ($fx_next):
-    $fx_ts = strtotime((string)($fx_next['date'] ?? ''));
-    $fx_w  = $fx_ts ? ['日','月','火','水','木','金','土'][(int)date('w', $fx_ts)] : '';
-?>
-<a class="fixed-sched-badge" href="#goudou-schedule" aria-label="合同海洋散骨の実施予定日一覧を見る">
-  <span class="fixed-sched-badge__eyebrow">SCHEDULE</span>
-  <span class="fixed-sched-badge__label">次回の合同海洋散骨</span>
-  <span class="fixed-sched-badge__date"><?= $fx_ts ? date('n月j日', $fx_ts) . '（' . h($fx_w) . '）' : h((string)$fx_next['date']) ?></span>
-  <?php if (!empty($fx_next['sea'])): ?><span class="fixed-sched-badge__sea"><?= h((string)$fx_next['sea']) ?></span><?php endif; ?>
-  <span class="fixed-sched-badge__more">予定日一覧 →</span>
-</a>
-<?php endif; ?>
+<?php require __DIR__ . '/includes/sched-badge.php'; ?>
 
 <script>
 const observer = new IntersectionObserver((entries) => {

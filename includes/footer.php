@@ -59,6 +59,7 @@
   <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="sticky-cta__line">LINE相談</a>
 </div>
 
+<?php require __DIR__ . '/sched-badge.php'; ?>
 <script src="/assets/js/common.js?v=<?= h(asset_ver()) ?>" defer></script>
 <script src="/assets/js/track.js?v=<?= h(asset_ver()) ?>" defer></script>
 <?= dev_badge_html() ?>
