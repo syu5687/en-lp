@@ -22,6 +22,16 @@ if ($gd_filter !== '') {
   ));
 }
 
+/* 出港場所（合同海洋葬の集合場所）。$gd_filter がある場合は該当地域のみ表示 */
+$gd_ports = [
+  ['area' => '鹿児島', 'name' => 'いおワールド鹿児島水族館 しおかぜ通り横', 'addr' => '鹿児島市本港新町35', 'map' => 'https://maps.app.goo.gl/hauXyNG3seQ4QWCu9'],
+  ['area' => '福岡',   'name' => '姪浜旅客待合所',                       'addr' => '福岡市西区愛宕浜3丁目1-1', 'map' => 'https://maps.app.goo.gl/ssPvPegY1qikqrEz9'],
+];
+if ($gd_filter !== '') {
+  $gd_ports_f = array_values(array_filter($gd_ports, static fn($p) => mb_strpos($p['area'], $gd_filter) !== false));
+  if ($gd_ports_f) $gd_ports = $gd_ports_f;
+}
+
 $gd_fmt = static function (string $ymd): array {
   $ts = strtotime($ymd);
   if (!$ts) return [$ymd, ''];
@@ -53,6 +63,19 @@ $gd_fmt = static function (string $ymd): array {
     <?php else: ?>
       <p class="goudou-sched__empty"><?= $gd_area_label !== '' ? h($gd_area_label) . 'での' : '' ?>次回の開催日程は調整中です。ご希望の時期がありましたら、お気軽にお問い合わせください。</p>
     <?php endif; ?>
+    <div class="goudou-ports">
+      <p class="goudou-ports__title">出港場所（集合場所）</p>
+      <div class="goudou-ports__grid">
+        <?php foreach ($gd_ports as $pt): ?>
+          <div class="goudou-port">
+            <p class="goudou-port__area"><?= h($pt['area']) ?></p>
+            <p class="goudou-port__name"><?= h($pt['name']) ?></p>
+            <p class="goudou-port__addr"><?= h($pt['addr']) ?></p>
+            <a class="goudou-port__map" href="<?= h($pt['map']) ?>" target="_blank" rel="noopener">Googleマップで見る →</a>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
     <p class="goudou-sched__cta">
       <a href="/contact/?service=<?= rawurlencode('合同海洋葬') ?>" class="goudou-sched__btn">合同海洋散骨に申し込む・相談する</a>
       <a href="/kaiyou-sou/" class="goudou-sched__link">海洋葬のプラン・料金を見る →</a>
@@ -82,6 +105,15 @@ $gd_fmt = static function (string $ymd): array {
 .goudou-card__apply:hover{filter:brightness(1.12);color:#fff}
 .goudou-sched__caution{font-size:.8rem;color:rgba(255,255,255,.7);margin-top:16px}
 .goudou-sched__empty{background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.4);border-radius:12px;padding:22px;font-size:.95rem;max-width:640px;margin:0 auto}
+.goudou-ports{margin-top:30px}
+.goudou-ports__title{font-size:.95rem;font-weight:700;color:#d8b46a;letter-spacing:.12em;margin-bottom:14px}
+.goudou-ports__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;max-width:720px;margin:0 auto}
+.goudou-port{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:16px 18px;text-align:center}
+.goudou-port__area{display:inline-block;background:#d8b46a;color:#1c2b33;font-size:.76rem;font-weight:700;border-radius:999px;padding:2px 14px;margin-bottom:8px}
+.goudou-port__name{font-size:.95rem;font-weight:700;color:#fff;line-height:1.6}
+.goudou-port__addr{font-size:.82rem;color:rgba(255,255,255,.8);margin-top:4px}
+.goudou-port__map{display:inline-block;margin-top:10px;font-size:.84rem;font-weight:700;color:#fff;text-decoration:underline}
+.goudou-port__map:hover{color:#d8b46a}
 .goudou-sched__cta{margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .goudou-sched__btn{display:inline-block;background:#d8b46a;color:#1c2b33;font-weight:700;padding:14px 34px;border-radius:999px;text-decoration:none;font-size:1rem;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:.2s}
 .goudou-sched__btn:hover{filter:brightness(1.07);color:#1c2b33}
