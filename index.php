@@ -926,17 +926,17 @@ body { line-height: 1.8; }
   <span class="cam-banner__cta">詳しく見る →</span>
 </a>
 <style>
-.cam-banner{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;background:linear-gradient(100deg,#e2bd6b,#cfa044 55%,#c1953f);color:#123;padding:16px 20px;text-decoration:none;transition:.2s;border-top:1px solid rgba(255,255,255,.55);border-bottom:3px solid #a87f2c}
+.cam-banner{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;background:linear-gradient(100deg,#1f8fce,#0f6a96);color:#fff;padding:16px 20px;text-decoration:none;transition:.2s;border-bottom:3px solid #d8b46a}
 .cam-banner:hover{filter:brightness(1.07);color:#fff}
-.cam-banner__badge{background:#0a3852;color:#ffe9a8;font-weight:700;font-size:.8rem;padding:5px 16px;border-radius:999px;letter-spacing:.08em;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.cam-banner__badge{background:#ffd77a;color:#4a3410;font-weight:700;font-size:.8rem;padding:5px 16px;border-radius:999px;letter-spacing:.08em;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .cam-banner__body{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
-.cam-banner__name{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:#1c2b33}
+.cam-banner__name{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:#fff}
 .cam-banner__prices{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.cam-banner__old{font-size:.85rem;color:#5a4a26;text-decoration:line-through}
-.cam-banner__arrow{font-size:.9rem;color:#5a4a26}
-.cam-banner__new{font-size:1.7rem;font-weight:700;color:#0a3852;line-height:1;text-shadow:0 1px 0 rgba(255,255,255,.4)}
+.cam-banner__old{font-size:.85rem;color:rgba(255,255,255,.85);text-decoration:line-through}
+.cam-banner__arrow{font-size:.9rem;color:rgba(255,255,255,.85)}
+.cam-banner__new{font-size:1.7rem;font-weight:700;color:#ffe08a;line-height:1;text-shadow:0 1px 6px rgba(0,0,0,.18)}
 .cam-banner__new small{font-size:.85rem;font-weight:600;margin-left:2px}
-.cam-banner__cta{border:none;background:#0a3852;color:#fff;border-radius:999px;padding:8px 20px;font-size:.85rem;font-weight:700;flex:none;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.cam-banner__cta{border:none;background:#fff;color:#0f6a96;border-radius:999px;padding:8px 20px;font-size:.85rem;font-weight:700;flex:none;box-shadow:0 3px 10px rgba(0,0,0,.18)}
 @media(max-width:600px){.cam-banner{gap:10px;padding:14px 14px}.cam-banner__name{font-size:1rem}.cam-banner__new{font-size:1.45rem}.cam-banner__cta{display:none}}
 </style>
 
