@@ -27,6 +27,17 @@ if (empty($_SESSION[ADMIN_SESSION_KEY])) {
   exit;
 }
 
+// 管理画面に入室した端末はアクセス解析（自前計測・GA4）から除外する。
+// IPは回線により変動するため、端末単位のCookie方式で確実に除外する（有効期間1年・来訪ごとに延長）。
+setcookie('en_nt', '1', [
+  'expires'  => time() + 365 * 86400,
+  'path'     => '/',
+  'samesite' => 'Lax',
+  'httponly' => false, // GA4のタグ出力判定はサーバー側で行うが、明示的にJSからも参照可能にしておく
+  'secure'   => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+             || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https'),
+]);
+
 // 無操作タイムアウト（8時間）
 if (!defined('ADMIN_IDLE_TIMEOUT')) define('ADMIN_IDLE_TIMEOUT', 8 * 3600);
 $now = time();

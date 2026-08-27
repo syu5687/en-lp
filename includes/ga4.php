@@ -5,6 +5,8 @@
  * head.php と index.php の <head> 内で require する。
  */
 require_once __DIR__ . '/config.php';
+// 管理画面に入室したことのある端末（運営者）にはGA4タグを出力しない（自己アクセスの除外）
+if (!empty($_COOKIE['en_nt'])) return;
 if (defined('GA4_MEASUREMENT_ID') && GA4_MEASUREMENT_ID):
 ?>
 <!-- Google tag (gtag.js) -->

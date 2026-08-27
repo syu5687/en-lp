@@ -20,6 +20,9 @@ $d   = json_decode((string)$raw, true) ?: [];
 $path = substr((string)($d['path'] ?? ''), 0, 300);
 if ($path === '' || strpos($path, '/admin') === 0 || strpos($path, '/api') === 0) exit;
 
+// 管理画面に入室したことのある端末（運営者）は計測から除外
+if (!empty($_COOKIE['en_nt'])) exit;
+
 $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
 if ($ua !== '' && preg_match('/bot|crawler|spider|slurp|bingpreview|facebookexternalhit/i', $ua)) exit;
 
