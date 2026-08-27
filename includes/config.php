@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0157';
+const APP_VERSION = 'v20260713-0158';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';

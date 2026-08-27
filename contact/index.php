@@ -187,7 +187,9 @@ form.addEventListener('submit', async (e) => {
     msg.textContent = 'お問い合わせを送信しました。担当者より折り返しご連絡いたします。';
     form.reset();
     // CV測定（GA4）：キーイベント用に generate_lead を送信
-    if (typeof gtag === 'function') {
+    // ボットによる送信をCVに数えないため、「表示から5秒以上経過・ハニーポット空・メール形式OK」の場合のみ発火
+    var looksHuman = data.elapsedMs >= 5000 && !data.website && /@.+\./.test(data.email || '');
+    if (typeof gtag === 'function' && looksHuman) {
       gtag('event', 'generate_lead', {
         form_name: 'contact',
         category: data.category || '(未選択)',

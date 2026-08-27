@@ -7,6 +7,9 @@
 require_once __DIR__ . '/config.php';
 // 管理画面に入室したことのある端末（運営者）にはGA4タグを出力しない（自己アクセスの除外）
 if (!empty($_COOKIE['en_nt'])) return;
+// 本番ドメイン以外（ローカル開発・プレビュー・Cloud Run直URL）では出力しない（テスト閲覧の混入防止）
+$ga4_host = $_SERVER['HTTP_HOST'] ?? '';
+if ($ga4_host !== 'en1150.co.jp' && $ga4_host !== 'www.en1150.co.jp') return;
 if (defined('GA4_MEASUREMENT_ID') && GA4_MEASUREMENT_ID):
 ?>
 <!-- Google tag (gtag.js) -->
