@@ -1,5 +1,36 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../admin/includes/store.php'; // news_published() / voices_published()（キャッシュ済み・読み取り増なし）
+
+/* ---- 海洋散骨レポート（ブログ「海洋葬(海洋散骨)」カテゴリの最新3件） ---- */
+$fk_reports = [];
+try {
+  $cat_alias  = ['海洋葬' => '海洋葬(海洋散骨)', '海洋散骨' => '海洋葬(海洋散骨)'];
+  $split_cats = fn(?string $s): array =>
+    array_map(fn($c) => $cat_alias[$c] ?? $c,
+      array_values(array_filter(array_map('trim', preg_split('/[、,\/／]/u', (string)$s)))));
+  foreach (news_published() as $it) {
+    if (in_array('海洋葬(海洋散骨)', $split_cats($it['category'] ?? ''), true)) {
+      $fk_reports[] = $it;
+      if (count($fk_reports) >= 3) break;
+    }
+  }
+} catch (Throwable $e) { $fk_reports = []; }
+
+/* ---- お客様の声（福岡・海洋葬関連を優先して3件） ---- */
+$fk_voices = [];
+try { $fk_voices = voices_published(); } catch (Throwable $e) { $fk_voices = []; }
+if (!$fk_voices) {
+  $seed = @json_decode((string)@file_get_contents(__DIR__ . '/../data/voices.json'), true);
+  foreach (($seed['items'] ?? []) as $v) if (!empty($v['published'])) $fk_voices[] = $v;
+}
+usort($fk_voices, function ($a, $b) {
+  $score = fn($v) => (int)(mb_strpos(($v['who'] ?? '') . ($v['service'] ?? ''), '福岡') !== false) * 2
+                   + (int)(mb_strpos(($v['service'] ?? '') . ($v['title'] ?? ''), '海洋') !== false);
+  return $score($b) <=> $score($a);
+});
+$fk_voices = array_slice($fk_voices, 0, 3);
+
 $page_title     = '福岡の海洋散骨・粉骨・お墓じまい｜有限会社 縁 福岡営業所';
 $page_desc      = '福岡で海洋散骨・粉骨・お墓じまい・生前契約のご相談なら、有限会社 縁 福岡営業所（福岡市中央区春吉）へ。博多湾など福岡の海域での散骨に対応。鹿児島・福岡を中心に全国3,800件以上の実績、日本海洋散骨協会加盟。ご相談・お見積り無料。';
 $page_canonical = SITE['url'] . '/fukuoka/';
@@ -38,7 +69,15 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   <!-- こんなお悩みに -->
   <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:820px">
-      <h2 style="text-align:center;margin-bottom:26px">福岡で、こんなお悩みはありませんか？</h2>
+      <div class="fk-worry-head" style="display:flex;align-items:center;justify-content:center;gap:30px;margin-bottom:26px;text-align:left">
+        <div>
+          <h2 style="margin:0 0 8px">福岡で、こんなお悩みはありませんか？</h2>
+          <p style="color:var(--text-light);font-size:.92rem;margin:0">どんな小さなことでも、代表・スタッフが直接お答えします。</p>
+        </div>
+        <img src="/assets/img/daihyo-guide.jpg?v=<?= h(asset_ver()) ?>" alt="ご相談を案内する代表" width="360" height="360" loading="lazy"
+             class="fk-worry-photo" style="width:150px;height:150px;flex:none;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 24px rgba(18,89,122,.16);background:#fff;object-fit:cover">
+      </div>
+      <style>@media(max-width:640px){.fk-worry-head{gap:12px !important}.fk-worry-photo{width:98px !important;height:98px !important;border-width:3px !important}}</style>
       <ul style="list-style:none;display:grid;gap:12px;padding:0;max-width:680px;margin:0 auto">
         <li style="padding:14px 18px;background:#fff;border-radius:10px;border-left:4px solid var(--green)">故人の「海に散骨してほしい」という希望を、福岡の海で叶えたい</li>
         <li style="padding:14px 18px;background:#fff;border-radius:10px;border-left:4px solid var(--green)">お墓を継ぐ人がおらず、お墓じまいと今後の供養をまとめて相談したい</li>
@@ -53,31 +92,29 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   <section class="section">
     <div class="container" style="max-width:960px">
       <h2 style="text-align:center;margin-bottom:30px">福岡営業所でできること</h2>
+      <?php
+        $fk_services = [
+          ['href' => '/kaiyou-sou/',      'img' => '/assets/img/svc-kaiyou.jpg',          'alt' => '海洋散骨セレモニーで花びらが広がる海',      'w' => 1200, 'h' => 750,  'title' => '海洋散骨（海洋葬）',   'desc' => '博多湾など福岡の海域での散骨に対応。チャーター・合同・委託（立ち会い不要）の3プラン。緯度・経度入りの散骨証明書を発行します。'],
+          ['href' => '/seizen/',          'img' => '/seizen/images/omoi-boat.webp',       'alt' => '海洋散骨の生前契約を託すクルーズ船',        'w' => 1200, 'h' => 800,  'title' => '海洋散骨 生前契約',    'desc' => '「海洋散骨をしたい」という想いを生前に契約して託せます。テレビでも紹介された、福岡対応のサービスです。'],
+          ['href' => '/powder-cleaning/', 'img' => '/assets/img/svc-funkotsu.jpg',        'alt' => 'ご遺骨を丁寧にパウダー化する粉骨作業',      'w' => 1200, 'h' => 750,  'title' => '粉骨・洗骨',           'desc' => 'ご遺骨のパウダー化（24,200円〜）・クリーニング。お持ち込みのご相談のほか、郵送でもご利用いただけます。'],
+          ['href' => '/grave/',           'img' => '/assets/img/hero-grave.jpg',          'alt' => '手を合わせてお参りするお墓',                'w' => 2000, 'h' => 1333, 'title' => 'お墓じまい',           'desc' => '撤去から納骨まで一括対応。改葬の行政手続きの代行も承ります。まずは現状をお聞かせください。'],
+          ['href' => '/pet-kaiyou-sou/',  'img' => '/assets/img/hero-pet-kaiyou-sou.jpg', 'alt' => '大切な家族の一員を見送る穏やかな海',        'w' => 2000, 'h' => 1333, 'title' => 'ペット供養',           'desc' => '大切な家族の一員の粉骨・海洋散骨・手元供養。福岡からの郵送・ご相談に対応しています。'],
+          ['href' => '/flow/',            'img' => '/assets/img/svc-soudan.jpg',          'alt' => 'スタッフが丁寧にご相談を伺う様子',          'w' => 1200, 'h' => 750,  'title' => 'お申込みの流れ',       'desc' => 'ご相談→お見積り（無料）→お申し込み→お預かり→施行→アフターサポートの6ステップをご案内します。'],
+        ];
+      ?>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
-        <a class="card" href="/kaiyou-sou/" style="display:block">
-          <h3 style="color:var(--green);margin-bottom:8px">海洋散骨（海洋葬）</h3>
-          <p style="font-size:.92rem">博多湾など福岡の海域での散骨に対応。チャーター・合同・委託（立ち会い不要）の3プラン。緯度・経度入りの散骨証明書を発行します。</p>
+        <?php foreach ($fk_services as $s): ?>
+        <a class="card" href="<?= h($s['href']) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+          <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8">
+            <img src="<?= h($s['img']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($s['alt']) ?>" width="<?= (int)$s['w'] ?>" height="<?= (int)$s['h'] ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          </span>
+          <span style="display:flex;flex-direction:column;flex:1;padding:18px 20px 20px">
+            <h3 style="color:var(--green);margin-bottom:8px"><?= h($s['title']) ?></h3>
+            <p style="font-size:.92rem;flex:1"><?= h($s['desc']) ?></p>
+            <span style="margin-top:12px;color:var(--green);font-weight:600;font-size:.85rem">詳しく見る →</span>
+          </span>
         </a>
-        <a class="card" href="/seizen/" style="display:block">
-          <h3 style="color:var(--green);margin-bottom:8px">海洋散骨 生前契約</h3>
-          <p style="font-size:.92rem">「海洋散骨をしたい」という想いを生前に契約して託せます。テレビでも紹介された、福岡対応のサービスです。</p>
-        </a>
-        <a class="card" href="/powder-cleaning/" style="display:block">
-          <h3 style="color:var(--green);margin-bottom:8px">粉骨・洗骨</h3>
-          <p style="font-size:.92rem">ご遺骨のパウダー化（24,200円〜）・クリーニング。お持ち込みのご相談のほか、郵送でもご利用いただけます。</p>
-        </a>
-        <a class="card" href="/grave/" style="display:block">
-          <h3 style="color:var(--green);margin-bottom:8px">お墓じまい</h3>
-          <p style="font-size:.92rem">撤去から納骨まで一括対応。改葬の行政手続きの代行も承ります。まずは現状をお聞かせください。</p>
-        </a>
-        <a class="card" href="/pet-kaiyou-sou/" style="display:block">
-          <h3 style="color:var(--green);margin-bottom:8px">ペット供養</h3>
-          <p style="font-size:.92rem">大切な家族の一員の粉骨・海洋散骨・手元供養。福岡からの郵送・ご相談に対応しています。</p>
-        </a>
-        <a class="card" href="/flow/" style="display:block">
-          <h3 style="color:var(--green);margin-bottom:8px">お申込みの流れ</h3>
-          <p style="font-size:.92rem">ご相談→お見積り（無料）→お申し込み→お預かり→施行→アフターサポートの6ステップをご案内します。</p>
-        </a>
+        <?php endforeach; ?>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:30px">
         <img src="/fukuoka/images/fk-ceremony.jpg?v=<?= h(asset_ver()) ?>" alt="船上に用意された献花と献酒のセレモニーセット" width="900" height="600" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
@@ -85,6 +122,42 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
         <img src="/fukuoka/images/fk-kensui.jpg?v=<?= h(asset_ver()) ?>" alt="散骨後に海へ水を手向ける献水の様子" width="900" height="600" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
       </div>
       <p style="text-align:center;margin-top:12px;font-size:.85rem;color:var(--text-light)">実際の海洋散骨セレモニーの様子</p>
+    </div>
+  </section>
+
+  <!-- 安心・信頼・安全 -->
+  <section class="section" style="background:linear-gradient(180deg,#f2f8fa,#e8f2f6)">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">PROMISE</p>
+      <h2 style="text-align:center;margin-bottom:10px">縁がお約束する「安心・信頼・安全」</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:30px">大切な方をお任せいただくからこそ。<br class="sp-only">福岡でも変わらない、縁の基準です。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <span style="display:block;aspect-ratio:16/10;overflow:hidden"><img src="/fukuoka/images/fk-staff.jpg?v=<?= h(asset_ver()) ?>" alt="笑顔でご相談を迎えるスタッフ" width="900" height="600" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+          <div style="padding:20px 22px 22px;flex:1">
+            <p style="display:inline-block;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.15em;padding:3px 14px;border-radius:999px;margin-bottom:10px">安心</p>
+            <h3 style="margin-bottom:8px;font-size:1.05rem">寄り添う、専門スタッフ</h3>
+            <p style="font-size:.9rem;line-height:1.9">事前のご相談から当日、アフターケアまで専門スタッフが寄り添い丁寧に対応。宗教・宗派を問わず、「話を聞くだけ」のご相談も歓迎です。</p>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <span style="display:block;aspect-ratio:16/10;overflow:hidden"><img src="/fukuoka/images/fk-sea-flowers.jpg?v=<?= h(asset_ver()) ?>" alt="花びらが広がる海と散骨セレモニーの船上" width="1200" height="800" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+          <div style="padding:20px 22px 22px;flex:1">
+            <p style="display:inline-block;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.15em;padding:3px 14px;border-radius:999px;margin-bottom:10px">信頼</p>
+            <h3 style="margin-bottom:8px;font-size:1.05rem">実績3,800件以上・口コミ★4.9</h3>
+            <p style="font-size:.9rem;line-height:1.9">鹿児島で最初に海洋葬へ取り組み10年以上。鹿児島・福岡を中心に全国3,800件以上の実績と、Google口コミ★4.9の評価をいただいています。</p>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <span style="display:block;aspect-ratio:16/10;overflow:hidden"><img src="/fukuoka/images/fk-kensui.jpg?v=<?= h(asset_ver()) ?>" alt="安全に配慮しながら行う船上セレモニー" width="900" height="600" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></span>
+          <div style="padding:20px 22px 22px;flex:1">
+            <p style="display:inline-block;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.15em;padding:3px 14px;border-radius:999px;margin-bottom:10px">安全</p>
+            <h3 style="margin-bottom:8px;font-size:1.05rem">協会ルールを順守した運航</h3>
+            <p style="font-size:.9rem;line-height:1.9">日本海洋散骨協会の加盟事業者として、散骨海域の選定や環境への配慮などルールを順守。天候・海況を見極め、安全第一の運航を行います。</p>
+            <p style="margin-top:12px"><span style="display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 14px"><img src="/assets/img/jmas-logo.png?v=<?= h(asset_ver()) ?>" alt="一般社団法人 日本海洋散骨協会 ロゴ" width="360" height="454" loading="lazy" style="width:36px;height:auto"><span style="font-size:.74rem;line-height:1.6;color:#4a5a58">一般社団法人<br><strong style="color:#2a5a7a">日本海洋散骨協会</strong> 加盟事業者</span></span></p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -105,13 +178,65 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
         <img src="/fukuoka/images/fk-sea-flowers.jpg?v=<?= h(asset_ver()) ?>" alt="花びらが広がる海と散骨セレモニーを行う船上のスタッフ" width="1200" height="800" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
         <img src="/fukuoka/images/fk-sankotsu.jpg?v=<?= h(asset_ver()) ?>" alt="海へご遺骨を還す散骨の様子" width="1200" height="800" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1)">
       </div>
-      <blockquote style="margin:30px auto 0;max-width:680px;padding:18px 22px;border-left:4px solid var(--green);background:var(--cream);border-radius:0 12px 12px 0">
-        <p style="font-size:.95rem;line-height:1.9">「海洋葬・散骨が明るい雰囲気でしたので、気が楽になりました。お世話になり、ありがとうございました。」</p>
-        <cite style="display:block;margin-top:8px;font-style:normal;font-size:.82rem;color:var(--text-light)">—— 福岡県 60歳代 男性 Y様（粉骨・チャーター海洋葬／お墓じまい）</cite>
-      </blockquote>
-      <p style="text-align:center;margin-top:16px"><a href="/voice/" style="color:var(--green);font-weight:700;text-decoration:underline">お客様の声をもっと見る →</a></p>
     </div>
   </section>
+
+  <!-- お客様の声 -->
+  <section class="section" style="background:var(--cream)">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">VOICE</p>
+      <h2 style="text-align:center;margin-bottom:14px">お客様の声</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:22px">船上で、故人さまへのお手紙を書かれるご家族。<br class="sp-only">その想いのそばに、私たちはいます。</p>
+      <img src="/fukuoka/images/fk-koe.jpg?v=<?= h(asset_ver()) ?>" alt="船上で故人さまへのメッセージカードを書くご家族" width="1200" height="800" loading="lazy"
+           style="display:block;width:100%;max-width:680px;margin:0 auto 28px;aspect-ratio:3/2;object-fit:cover;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.12)">
+      <?php if ($fk_voices): ?>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+        <?php foreach ($fk_voices as $v): ?>
+        <div class="card" style="display:flex;flex-direction:column">
+          <p style="display:inline-block;align-self:flex-start;background:var(--sea-light);color:var(--green);font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px"><?= h($v['service'] ?? '') ?></p>
+          <h3 style="margin:12px 0 10px;line-height:1.6;font-size:1rem">「<?= h($v['title'] ?? '') ?>」</h3>
+          <?php if (!empty($v['impression'])): ?><p style="font-size:.88rem;line-height:1.9;flex:1"><?= h(mb_strimwidth(preg_replace('/\s+/u', ' ', (string)$v['impression']), 0, 150, '…')) ?></p><?php endif; ?>
+          <p style="text-align:right;font-size:.8rem;color:var(--text-light);margin-top:12px">（<?= h($v['who'] ?? '') ?>）</p>
+        </div>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin-top:26px">
+        <p style="font-size:1.1rem;font-weight:700;color:#f4b400;margin:0">★4.9 <span style="font-size:.8rem;color:var(--text-light);font-weight:400">Google口コミ評価</span></p>
+        <a href="/voice/" class="btn btn--outline" style="font-size:.9rem">お客様の声をもっと見る</a>
+        <a href="<?= h($FUK_REVIEW) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:700;text-decoration:underline;font-size:.9rem">口コミを書く →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 海洋散骨レポート -->
+  <?php if ($fk_reports): ?>
+  <section class="section">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">REPORT</p>
+      <h2 style="text-align:center;margin-bottom:10px">海洋散骨レポート</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:28px">実際の海洋散骨の様子を、ブログでご紹介しています。<br class="sp-only">当日の雰囲気づくりの参考にご覧ください。</p>
+      <div class="card-grid">
+        <?php foreach ($fk_reports as $it): ?>
+        <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+          <?php if (!empty($it['image'])): ?>
+            <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="var t=this.parentNode;if(t)t.remove()"></span>
+          <?php endif; ?>
+          <span style="display:flex;flex-direction:column;padding:18px 20px;flex:1">
+            <p style="font-size:.8rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ 海洋葬(海洋散骨)</p>
+            <h3 style="font-size:1rem;line-height:1.7"><?= h($it['title'] ?? '') ?></h3>
+            <?php if (!empty($it['body'])): ?><p style="font-size:.88rem;flex:1;margin-top:6px"><?= h(mb_strimwidth(preg_replace('/\s+/u', ' ', strip_tags((string)$it['body'])), 0, 76, '…')) ?></p><?php endif; ?>
+            <span style="margin-top:12px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">詳しく読む →</span>
+          </span>
+        </a>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:28px">
+        <a href="/blog/?cat=<?= h(rawurlencode('海洋葬(海洋散骨)')) ?>" class="btn">海洋散骨レポート一覧はこちら</a>
+      </p>
+    </div>
+  </section>
+  <?php endif; ?>
 
   <!-- 営業所案内 -->
   <section class="section" style="background:var(--cream)">
