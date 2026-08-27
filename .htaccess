@@ -41,6 +41,9 @@
   # ---- 2b) 画像配信（Cloud Storage プロキシ・管理画面アップロード分）----
   RewriteRule ^img/(.+)$ /img.php?p=$1 [L,B]
 
+  # ---- 2c) サイトマップ（検索エンジン登録用の正式URL）----
+  RewriteRule ^sitemap\.xml$ /sitemap.php [L]
+
   # ---- 3) 旧・ブログ記事（ルート直下 /<slug>/）→ blog-redirect.php で 301 判定 ----
   # 実ファイル／実ディレクトリが存在しない「単一セグメント」のみ委譲する。
   RewriteCond %{REQUEST_FILENAME} !-f

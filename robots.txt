@@ -28,4 +28,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://en1150.co.jp/sitemap.php
+Sitemap: https://en1150.co.jp/sitemap.xml
