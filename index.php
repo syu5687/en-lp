@@ -439,7 +439,7 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .sticky-cta-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; max-width: 520px; margin: 0 auto; }
 .sticky-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 13px; border-radius: var(--radius); font-size: 0.82rem; font-weight: 600; text-align: center; border: none; cursor: pointer; letter-spacing: 0.04em; }
 .sticky-btn-tel { background: var(--color-green-mid); color: var(--color-white); }
-.sticky-btn-mail { background: var(--color-green-mid); color: var(--color-white); }
+.sticky-btn-mail { background: var(--color-green-mid); color: var(--color-white); font-size: 0.72rem; letter-spacing: 0; white-space: nowrap; padding: 13px 4px; }
 .sticky-btn-line { background: #2f7d4f; color: var(--color-white); }
 .sticky-btn-sched { background: linear-gradient(135deg,#fffdf9,#fdf3dd); border: 1.5px solid #e6cf9a; padding: 6px 8px; gap: 7px; }
 .sticky-sched-photo { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; object-position: 62% 55%; border: 1.5px solid #e6cf9a; flex: none; }
