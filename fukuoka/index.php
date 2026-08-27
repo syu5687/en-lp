@@ -238,6 +238,59 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   </section>
   <?php endif; ?>
 
+  <!-- 県外にお住まいの方へ -->
+  <section class="section" id="kengai" style="background:linear-gradient(180deg,#f4f9fb,#e9f3f7)">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">NATIONWIDE</p>
+      <h2 style="text-align:center;margin-bottom:14px">県外にお住まいの方へ</h2>
+      <p style="text-align:center;max-width:720px;margin:0 auto 26px;line-height:2">
+        「実家が福岡にある」「故郷の海に還してあげたい」——<br class="pc-only">
+        そんな方のために、<strong>帰省しなくてもご利用いただける委託海洋葬（54,450円〜）</strong>をご用意しています。<br class="pc-only">
+        ご遺骨はゆうパックでのご郵送でお預かりし、粉骨から散骨、証明書のお届けまで当社がすべて代行。<strong>全国どこにお住まいでもご利用いただけます。</strong>
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px">
+        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">帰省・立ち会い不要</span>
+        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">ご遺骨は郵送でOK</span>
+        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">お墓じまいからワンストップ</span>
+        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">散骨証明書を発行</span>
+      </div>
+      <div class="fk-kengai-steps">
+        <?php
+          $fk_kengai = [
+            ['お電話・LINE・メールでご相談', '全国からご相談いただけます。ご事情やご希望をうかがい、お見積りを無料でご案内します。'],
+            ['ご遺骨をゆうパックでご郵送', '梱包の方法や送り方は、写真付きの資料でわかりやすくご案内。日本郵便のゆうパックで安全にお送りいただけます。'],
+            ['粉骨〜海洋散骨を当社が代行', '協会ルールに沿って丁寧に粉骨し、博多湾など福岡の海域で心を込めて散骨いたします。'],
+            ['証明書とお写真をお届け', '散骨海域の緯度・経度入りの散骨証明書と、当日のセレモニーのお写真をご自宅へお届けします。'],
+          ];
+        ?>
+        <?php foreach ($fk_kengai as $i => [$t, $d]): ?>
+          <div class="fk-kengai-step">
+            <div class="fk-kengai-step__num"><?= $i + 1 ?></div>
+            <h3><?= h($t) ?></h3>
+            <p><?= h($d) ?></p>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
+        お墓じまい（改葬手続き・墓石の撤去）からご遺骨の受け入れ、海洋散骨までまとめてのご依頼も可能です。<br class="pc-only">
+        「何から始めればいいかわからない」という段階でも、どうぞお気軽にご相談ください。
+      </p>
+      <div style="text-align:center;margin-top:18px">
+        <a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn">県外からのご相談はこちら</a>
+        <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
+      </div>
+    </div>
+  </section>
+  <style>
+    .fk-kengai-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .fk-kengai-step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);text-align:center}
+    .fk-kengai-step__num{width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.05rem;margin:0 auto 12px}
+    .fk-kengai-step h3{font-size:.98rem;color:var(--green-mid);margin-bottom:8px;line-height:1.5}
+    .fk-kengai-step p{font-size:.85rem;line-height:1.8;text-align:left}
+    @media(max-width:900px){.fk-kengai-steps{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.fk-kengai-steps{grid-template-columns:1fr}}
+  </style>
+
   <!-- 営業所案内 -->
   <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:860px">
