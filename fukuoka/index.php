@@ -272,7 +272,8 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
         </table>
       </div>
       <p style="text-align:center;margin-top:18px;font-size:.78rem;color:var(--text-light)">※ 一般的な業者の情報は当社調べによる相場・傾向です。</p>
-      <div style="text-align:center;margin-top:28px"><a href="/contact/" class="btn">まずは無料で相談してみる</a></div>
+      <div style="text-align:center;margin-top:28px"><a href="/contact/" class="btn cta-sunset-fk">まずは無料で相談してみる</a></div>
+      <style>.cta-sunset-fk{background:linear-gradient(135deg,#d8a24a,#c9822a) !important;border-color:transparent !important;color:#fff !important;box-shadow:0 6px 20px rgba(201,130,42,.35)}.cta-sunset-fk:hover{background:linear-gradient(135deg,#cc9640,#bb7722) !important;color:#fff !important}</style>
     </div>
   </section>
   <style>

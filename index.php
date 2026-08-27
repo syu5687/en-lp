@@ -549,6 +549,8 @@ body { background: #f7f5ef; }
 
 /* ボタン：オーシャンブルー */
 .btn-primary { background: var(--color-ocean); }
+.cta-sunset { background: linear-gradient(135deg, #d8a24a, #c9822a) !important; color: #fff !important; box-shadow: 0 6px 20px rgba(201,130,42,.35) !important; }
+.cta-sunset:hover { background: linear-gradient(135deg, #cc9640, #bb7722) !important; transform: translateY(-1px); }
 .btn-primary:hover { background: var(--color-ocean-dark); }
 .header-cta-btn { border-color: var(--color-ocean); color: var(--color-ocean) !important; }
 .header-cta-btn:hover { background: var(--color-ocean); color: #fff !important; }
@@ -1171,7 +1173,7 @@ body { line-height: 1.8; }
     <tr><td>相談のしやすさ</td><td class="td-other"><span class="td-icon">△</span>電話・メールのみ</td><td class="td-en"><span class="td-icon">◎</span>電話・メール・<strong>LINE対応</strong></td></tr>
   </tbody></table></div>
   <p class="comparison-note fade-up">※ 一般的な業者の情報は当社調べによる相場・傾向です。</p>
-  <div class="comparison-cta fade-up"><a href="/contact/" class="btn-primary" style="background:var(--color-deep-green);box-shadow:0 4px 20px rgba(80,159,70,0.25);">まずは無料で相談してみる</a></div>
+  <div class="comparison-cta fade-up"><a href="/contact/" class="btn-primary cta-sunset">まずは無料で相談してみる</a></div>
 </div></section>
 
 <!-- ③ AREA -->
