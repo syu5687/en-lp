@@ -13,6 +13,10 @@ if (!in_array($days, [7, 14, 28, 90], true)) $days = 28;
 $D = null; $err = '';
 try { $D = ga4_pro($days); } catch (Throwable $e) { $err = $e->getMessage(); }
 
+// 検索キーワード（Search Console）— GA4本体とは独立して取得
+$KW = null; $kw_err = '';
+try { $KW = gsc_keywords($days); } catch (Throwable $e) { $kw_err = $e->getMessage(); }
+
 function pct($v, int $dec = 1): string { return number_format((float)$v * 100, $dec) . '%'; }
 function dur($sec): string { $sec = (int)round((float)$sec); return floor($sec / 60) . '分' . ($sec % 60) . '秒'; }
 function delta($cur, $prev): string {
@@ -189,9 +193,36 @@ function barTable(array $rows, array $headers, int $barCol = 1, array $fmt = [])
       </div>
     </div>
 
+    <!-- 検索キーワード（Search Console） -->
+    <div class="gcard" style="margin-top:18px">
+      <h2>検索キーワード（Google自然検索・Search Console）</h2>
+      <?php if ($kw_err): ?>
+        <div class="rp-setup" style="background:#fdecea;border:1px solid #f0b9b3;border-radius:10px;padding:12px 16px;font-size:.82rem;line-height:1.9;margin-top:8px">
+          <strong>Search Consoleに接続できませんでした：</strong><?= h($kw_err) ?><br>
+          初回は次の2つの設定が必要です：<br>
+          ① <a href="https://console.cloud.google.com/apis/library/searchconsole.googleapis.com?project=412102088439" target="_blank" rel="noopener">Search Console API を有効化</a>（1クリック）<br>
+          ② <a href="https://search.google.com/search-console/users?resource_id=sc-domain:en1150.co.jp" target="_blank" rel="noopener">GSCのユーザーと権限</a> → 「ユーザーを追加」→ <code><?= h(ga4_sa_email()) ?></code> を権限「制限付き」で追加<br>
+          設定後、このページを再読み込みしてください。
+        </div>
+      <?php elseif ($KW): ?>
+        <p class="gnote">対象期間：<?= h($KW['start']) ?> 〜 <?= h($KW['end']) ?>（GSCのデータは3日遅れで確定するため終端が異なります）</p>
+        <div class="gwrap" style="margin-top:8px">
+          <div>
+            <h2 style="font-size:.85rem">検索クエリ TOP20</h2>
+            <?php barTable($KW['queries'], ['キーワード', 'クリック', '表示回数', 'CTR', '平均掲載順位'], 1,
+              [2 => fn($v) => number_format((float)$v), 3 => fn($v) => pct($v), 4 => fn($v) => number_format((float)$v, 1) . '位']); ?>
+          </div>
+          <div>
+            <h2 style="font-size:.85rem">キーワード × 流入ページ TOP15</h2>
+            <?php barTable($KW['qpages'], ['キーワード', 'ページ', 'クリック', '表示回数'], 2,
+              [3 => fn($v) => number_format((float)$v)]); ?>
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
+
     <p style="font-size:.78rem;color:#8a948a;margin-top:16px">
-      ※ 検索キーワード（検索クエリ）はGA4では取得できないため、<a href="https://search.google.com/search-console" target="_blank" rel="noopener" style="color:#2e5030">Google Search Console</a> の「検索パフォーマンス」をご覧ください。
-      ／ 広告の検索語句は Google広告の「検索語句レポート」で確認できます。
+      ※ 広告の検索語句は Google広告の「検索語句レポート」で確認できます。
     </p>
   <?php endif; ?>
 </main>

@@ -107,7 +107,7 @@ function ga4_fetch(string $start, string $end): array {
   $url = 'https://analyticsdata.googleapis.com/v1beta/properties/' . rawurlencode(GA4_PROPERTY_ID) . ':batchRunReports';
   $resp = @file_get_contents($url, false, stream_context_create(['http' => [
     'method'  => 'POST',
-    'header'  => "Authorization: Bearer " . fs_token() . "\r\nContent-Type: application/json\r\n",
+    'header'  => "Authorization: Bearer " . ga4_scoped_token('https://www.googleapis.com/auth/analytics.readonly') . "\r\nContent-Type: application/json\r\n",
     'content' => json_encode($body),
     'timeout' => 20,
     'ignore_errors' => true,
@@ -215,7 +215,7 @@ function ga4_batch(array $requests): array {
   $url = 'https://analyticsdata.googleapis.com/v1beta/properties/' . rawurlencode(GA4_PROPERTY_ID) . ':batchRunReports';
   $resp = @file_get_contents($url, false, stream_context_create(['http' => [
     'method'  => 'POST',
-    'header'  => "Authorization: Bearer " . fs_token() . "\r\nContent-Type: application/json\r\n",
+    'header'  => "Authorization: Bearer " . ga4_scoped_token('https://www.googleapis.com/auth/analytics.readonly') . "\r\nContent-Type: application/json\r\n",
     'content' => json_encode(['requests' => $requests]),
     'timeout' => 25,
     'ignore_errors' => true,
@@ -326,4 +326,68 @@ function ga4_pro_fetch(int $days): array {
 /** キャッシュ付き（15分）。管理画面専用 */
 function ga4_pro(int $days): array {
   return en_cache('ga4_pro_' . $days, 900, fn() => ga4_pro_fetch($days));
+}
+
+/* ============================================================
+   Search Console（検索キーワード）連携
+   - GA4には自然検索クエリが存在しないため、GSC APIから取得して補完する
+   - 認証: Cloud Runメタデータサーバの ?scopes= でwebmasters.readonlyスコープの
+           トークンを取得（鍵ファイル不要・同じサービスアカウント）
+   - 事前設定: ①Search Console APIをプロジェクトで有効化
+              ②GSCの「設定→ユーザーと権限」でSAメールを追加（権限:制限付きでOK）
+   ============================================================ */
+
+/** 指定スコープのアクセストークン（Cloud Runメタデータ経由・リクエスト内キャッシュ） */
+function ga4_scoped_token(string $scope): string {
+  static $cache = [];
+  if (isset($cache[$scope])) return $cache[$scope];
+  $meta = @file_get_contents(
+    'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token?scopes=' . rawurlencode($scope),
+    false,
+    stream_context_create(['http' => ['header' => "Metadata-Flavor: Google\r\n", 'timeout' => 3]])
+  );
+  $j = json_decode((string)$meta, true);
+  if (!empty($j['access_token'])) return $cache[$scope] = $j['access_token'];
+  return $cache[$scope] = fs_token(); // フォールバック（ローカル等）
+}
+
+const GSC_SITE = 'sc-domain:en1150.co.jp';
+
+/** GSC Search Analytics API 呼び出し */
+function gsc_query_api(array $body): array {
+  $url = 'https://searchconsole.googleapis.com/webmasters/v3/sites/' . rawurlencode(GSC_SITE) . '/searchAnalytics/query';
+  $resp = @file_get_contents($url, false, stream_context_create(['http' => [
+    'method'  => 'POST',
+    'header'  => "Authorization: Bearer " . ga4_scoped_token('https://www.googleapis.com/auth/webmasters.readonly') . "\r\nContent-Type: application/json\r\n",
+    'content' => json_encode($body),
+    'timeout' => 20,
+    'ignore_errors' => true,
+  ]]));
+  $j = json_decode((string)$resp, true);
+  if (!is_array($j) || !empty($j['error'])) {
+    throw new RuntimeException($j['error']['message'] ?? 'Search Console API へ接続できませんでした');
+  }
+  return $j['rows'] ?? [];
+}
+
+/**
+ * 検索キーワードデータ（15分キャッシュ）
+ * 戻り値: ['queries'=>[[query,clicks,impr,ctr,pos]...], 'qpages'=>[[query,page,clicks,impr]...]]
+ * ※ GSCのデータは2〜3日遅れで確定するため、期間は3日前を終端にする
+ */
+function gsc_keywords(int $days): array {
+  return en_cache('gsc_kw_' . $days, 900, function () use ($days) {
+    $end   = date('Y-m-d', strtotime('-3 days'));
+    $start = date('Y-m-d', strtotime('-' . ($days + 3) . ' days'));
+    $queries = [];
+    foreach (gsc_query_api(['startDate' => $start, 'endDate' => $end, 'dimensions' => ['query'], 'rowLimit' => 20]) as $r) {
+      $queries[] = [(string)($r['keys'][0] ?? ''), (float)($r['clicks'] ?? 0), (float)($r['impressions'] ?? 0), (float)($r['ctr'] ?? 0), (float)($r['position'] ?? 0)];
+    }
+    $qpages = [];
+    foreach (gsc_query_api(['startDate' => $start, 'endDate' => $end, 'dimensions' => ['query', 'page'], 'rowLimit' => 15]) as $r) {
+      $page = preg_replace('#^https?://[^/]+#', '', (string)($r['keys'][1] ?? ''));
+      $qpages[] = [(string)($r['keys'][0] ?? ''), $page, (float)($r['clicks'] ?? 0), (float)($r['impressions'] ?? 0)];
+    }
+    return ['start' => $start, 'end' => $end, 'queries' => $queries, 'qpages' => $qpages];
+  });
 }
