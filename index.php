@@ -435,13 +435,13 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; text-align: center; font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
 
 /* STICKY */
-.sticky-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 99; background: var(--color-white); box-shadow: 0 -2px 16px rgba(0,0,0,0.08); padding: 10px 16px; border-top: 1px solid var(--color-line); }
-.sticky-cta-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; max-width: 520px; margin: 0 auto; }
-.sticky-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 13px; border-radius: var(--radius); font-size: 0.82rem; font-weight: 600; text-align: center; border: none; cursor: pointer; letter-spacing: 0.04em; }
-.sticky-btn-tel { background: var(--color-green-mid); color: var(--color-white); }
-.sticky-btn-mail { background: var(--color-green-mid); color: var(--color-white); font-size: 0.72rem; letter-spacing: 0; white-space: nowrap; padding: 13px 4px; }
+.sticky-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 99; }
+.sticky-cta-inner { display: flex; }
+.sticky-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 14px 2px; border-radius: 0 !important; font-size: 0.88rem; font-weight: 600; text-align: center; border: none; cursor: pointer; letter-spacing: 0.04em; white-space: nowrap; }
+.sticky-btn-tel { background: #15709e; color: var(--color-white); }
+.sticky-btn-mail { background: #2b7d76; color: var(--color-white); }
 .sticky-btn-line { background: #2f7d4f; color: var(--color-white); }
-.sticky-btn-sched { background: linear-gradient(135deg,#fffdf9,#fdf3dd); border: 1.5px solid #e6cf9a; padding: 6px 8px; gap: 7px; }
+.sticky-btn-sched { background: linear-gradient(135deg,#fffdf9,#fdf3dd); border-top: 3px solid #c9a25a; padding: 6px 4px; gap: 7px; }
 .sticky-sched-photo { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; object-position: 62% 55%; border: 1.5px solid #e6cf9a; flex: none; }
 .sticky-sched-txt { display: flex; flex-direction: column; line-height: 1.25; text-align: left; }
 .sticky-sched-label { font-size: 0.56rem; font-weight: 700; color: #b08b3e; letter-spacing: 0.03em; white-space: nowrap; }
@@ -535,7 +535,7 @@ body { background: #f7f5ef; }
 .hero-badge, .header-cta-btn, .btn-primary, .btn-secondary, .btn-line,
 .service-card-price, .staff-badge, .staff-cert, .testimonial-location,
 .media-card-tag, .area-nationwide-badge, .th-en-badge, .blog-card-new,
-.sticky-btn { border-radius: 999px; }
+/* .sticky-btn は下層と同じフラットデザイン（丸ピル化しない） */
 
 /* ボタン：オーシャンブルー */
 .btn-primary { background: var(--color-ocean); }
@@ -543,7 +543,7 @@ body { background: #f7f5ef; }
 .header-cta-btn { border-color: var(--color-ocean); color: var(--color-ocean) !important; }
 .header-cta-btn:hover { background: var(--color-ocean); color: #fff !important; }
 .service-card-price { background: var(--color-ocean); border-radius: 999px; }
-.sticky-btn-tel { background: var(--color-ocean); }
+/* .sticky-btn-tel は共通バー色（#15709e）を使用 */
 .testimonials-more .btn-secondary { color: var(--color-ocean); border-color: var(--color-ocean); }
 .testimonials-more .btn-secondary:hover { background: rgba(31,143,206,0.08); border-color: var(--color-ocean); }
 /* 塗りつぶしオーシャンブルーのCTAボタン（背景と同化しない強調用） */
