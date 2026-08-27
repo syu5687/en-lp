@@ -188,8 +188,13 @@ details[open] summary{margin-bottom:8px}
 .side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em;white-space:nowrap}
 @media(max-width:768px){.side-flow{padding:12px 8px}.side-flow .sf-label{font-size:.78rem;letter-spacing:.08em}}
 
+/* SP専用の追加リンク（PCナビでは非表示） */
+.sp-nav-extra{display:none}
+
 /* ===== SPハンバーガーメニュー：整理されたデザイン ===== */
 @media(max-width:768px){
+  .sp-nav-extra{display:block}
+  .sp-nav-extra--sub > a{font-size:.85rem !important;font-weight:500 !important;opacity:.85}
   .site-nav__list{background:linear-gradient(180deg,#15709e 0%,#0e567d 100%);padding:6px 20px 90px;gap:0;border-radius:0 0 16px 16px;align-items:stretch;text-align:left}
   .site-nav__list > li{border-bottom:1px solid rgba(255,255,255,.14);width:100%}
   /* メニュー展開中は右固定タブ・文字サイズボタンを隠して重なりを防ぐ */

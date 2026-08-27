@@ -179,12 +179,15 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInRight { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-/* FIXED NHK BADGE（シャイン演出を停止） */
-.fixed-media-badge { position: fixed; bottom: 24px; right: 24px; z-index: 98; width: 104px; height: auto; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.16)); transition: var(--transition); cursor: pointer; overflow: hidden; }
-.fixed-media-badge:hover { transform: none; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.22)); }
-.fixed-media-badge img { width: 100%; height: auto; display: block; }
-.fixed-media-badge::after { display: none !important; }
-@media (max-width: 768px) { .fixed-media-badge { bottom: 76px; right: 12px; width: 72px; } }
+/* FIXED SCHEDULE BADGE（次回の合同海洋散骨予定日） */
+.fixed-sched-badge { position: fixed; bottom: 24px; right: 24px; z-index: 98; display: block; width: 168px; background: linear-gradient(135deg, var(--color-green-dark, #1c3b2a), var(--color-green-mid, #2e5030)); color: #fff; border-radius: 14px; padding: 12px 14px 10px; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: transform .25s ease, box-shadow .25s ease; }
+.fixed-sched-badge:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.3); }
+.fixed-sched-badge__eyebrow { display: block; font-size: 0.62rem; letter-spacing: 0.18em; color: #d8b46a; font-weight: 700; margin-bottom: 3px; }
+.fixed-sched-badge__label { display: block; font-size: 0.72rem; font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
+.fixed-sched-badge__date { display: block; font-size: 1.06rem; font-weight: 700; line-height: 1.3; color: #fff; }
+.fixed-sched-badge__sea { display: block; font-size: 0.68rem; color: rgba(255,255,255,0.82); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fixed-sched-badge__more { display: block; margin-top: 7px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.22); font-size: 0.7rem; font-weight: 700; color: #d8b46a; text-align: right; }
+@media (max-width: 960px) { .fixed-sched-badge { bottom: 150px; right: 8px; width: 148px; padding: 10px 12px 8px; } .fixed-sched-badge__date { font-size: 0.95rem; } }
 
 /* STATS（重なり・カウントアップ演出を廃し、静かな数字帯に） */
 .stats { position: relative; z-index: 10; margin-top: 0; background: var(--color-green-mid); }
@@ -442,6 +445,11 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .sticky-btn-tel { background: var(--color-green-mid); color: var(--color-white); }
 .sticky-btn-mail { background: var(--color-green-mid); color: var(--color-white); }
 .sticky-btn-line { background: #2f7d4f; color: var(--color-white); }
+
+/* SP専用ナビリンク（PCのヘッダーには表示しない） */
+.nav-sp-only { display: none; }
+.header-nav.is-open .nav-sp-only { display: flex; }
+.header-nav.is-open .nav-sp-only--sub { font-size: 0.85rem; opacity: 0.85; }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
@@ -868,6 +876,7 @@ body { line-height: 1.8; }
   <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;margin-right:8px;vertical-align:middle;"><span class="header-logo-text">有限会社 縁</span></a>
   <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
     <a href="/about/">縁とは</a><span class="nav-dd"><a href="/service/">サービス一覧<span class="nav-dd-caret" aria-hidden="true">▾</span></a><span class="nav-dd-menu"><a href="/service/" class="nav-dd-top">サービス一覧を見る</a><a href="/kaiyou-sou/">海洋葬（海洋散骨）</a><a href="/powder-cleaning/">粉骨・洗骨</a><a href="/grave/">お墓じまい</a><a href="/teien-sou/">樹木葬</a><a href="/temoto-kuyou/">お手元供養</a><a href="/jewelry-reform/">JEWELRYリフォーム</a><a href="/pet-kaiyou-sou/">ペット供養</a><a href="/ihinseiri/">遺品整理</a><a href="/hikkoshi/">お墓のお引越し</a><a href="/seizen/">海洋散骨 生前契約</a><a href="/area/">対応エリア</a></span></span><span class="nav-dd"><a href="/shindan/">供養の選び方<span class="nav-dd-caret" aria-hidden="true">▾</span></a><span class="nav-dd-menu"><a href="/shindan/" class="nav-dd-top">供養の選び方（かんたん診断）</a><a href="/onayami/">供養のお悩み解決</a><a href="/gokuyou/">よくあるご質問</a></span></span><a href="/voice/">お客様の声</a><a href="/blog/">終活と供養の話</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
+    <a href="/flow/" class="nav-sp-only">お申込みの流れ</a><a href="/fukuoka/" class="nav-sp-only">福岡営業所</a><a href="/kuyou/" class="nav-sp-only">ご供養について</a><a href="/company/" class="nav-sp-only">会社概要</a><a href="/contact/" class="nav-sp-only">お問い合わせ</a><a href="/policy/" class="nav-sp-only nav-sp-only--sub">キャンセルポリシー</a><a href="/privacy/" class="nav-sp-only nav-sp-only--sub">プライバシーポリシー</a>
     <a href="https://www.instagram.com/en1150en/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram" style="display:inline-flex;align-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.26.07 1.64.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.26.06-1.64.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05 0 8.3 0 8.7 0 12s0 3.7.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.3 24 8.7 24 12 24s3.7 0 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91C24 15.7 24 15.3 24 12s0-3.7-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.7 0 15.3 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg></a>
     <a href="/contact/" class="header-cta-btn">資料請求・ご相談</a>
   </nav>
@@ -1266,7 +1275,22 @@ body { line-height: 1.8; }
   <a href="https://line.me/R/ti/p/%40bkx9825r" class="sticky-btn sticky-btn-line" target="_blank" rel="noopener">LINE相談</a>
 </div></div>
 
-<div class="fixed-media-badge"><img src="/assets/img/top/media-badge.png?v=<?= h(asset_ver()) ?>" alt="NHKで紹介されました。あさイチ・シブ5時・NHKスペシャル"></div>
+<?php
+  // 右下フローティング：次回の合同海洋散骨予定日（登録が無い場合は表示しない）
+  $fx_next = null;
+  try { $fx = goudou_upcoming(); $fx_next = $fx[0] ?? null; } catch (Throwable $e) { $fx_next = null; }
+  if ($fx_next):
+    $fx_ts = strtotime((string)($fx_next['date'] ?? ''));
+    $fx_w  = $fx_ts ? ['日','月','火','水','木','金','土'][(int)date('w', $fx_ts)] : '';
+?>
+<a class="fixed-sched-badge" href="#goudou-schedule" aria-label="合同海洋散骨の実施予定日一覧を見る">
+  <span class="fixed-sched-badge__eyebrow">SCHEDULE</span>
+  <span class="fixed-sched-badge__label">次回の合同海洋散骨</span>
+  <span class="fixed-sched-badge__date"><?= $fx_ts ? date('n月j日', $fx_ts) . '（' . h($fx_w) . '）' : h((string)$fx_next['date']) ?></span>
+  <?php if (!empty($fx_next['sea'])): ?><span class="fixed-sched-badge__sea"><?= h((string)$fx_next['sea']) ?></span><?php endif; ?>
+  <span class="fixed-sched-badge__more">予定日一覧 →</span>
+</a>
+<?php endif; ?>
 
 <script>
 const observer = new IntersectionObserver((entries) => {

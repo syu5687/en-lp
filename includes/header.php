@@ -42,6 +42,14 @@ $nav_sub = [
             <li><a href="<?= h($item['href']) ?>"><?= h($item['label']) ?></a></li>
           <?php endif; ?>
         <?php endforeach; ?>
+        <?php /* SPハンバーガー専用の追加リンク（PCナビには表示しない） */ ?>
+        <li class="sp-nav-extra"><a href="/flow/">お申込みの流れ</a></li>
+        <li class="sp-nav-extra"><a href="/fukuoka/">福岡営業所</a></li>
+        <li class="sp-nav-extra"><a href="/kuyou/">ご供養について</a></li>
+        <li class="sp-nav-extra"><a href="/company/">会社概要</a></li>
+        <li class="sp-nav-extra"><a href="/contact/">お問い合わせ</a></li>
+        <li class="sp-nav-extra sp-nav-extra--sub"><a href="/policy/">キャンセルポリシー</a></li>
+        <li class="sp-nav-extra sp-nav-extra--sub"><a href="/privacy/">プライバシーポリシー</a></li>
         <li class="site-nav__insta"><a href="https://www.instagram.com/en1150en/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram" style="display:inline-flex;align-items:center;gap:6px"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.26.07 1.64.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.26.06-1.64.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05 0 8.3 0 8.7 0 12s0 3.7.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.3 24 8.7 24 12 24s3.7 0 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91C24 15.7 24 15.3 24 12s0-3.7-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.7 0 15.3 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg><span class="site-nav__insta-label">Instagram</span></a></li>
         <li class="site-nav__cta">
           <a href="/contact/">資料請求・ご相談</a>
