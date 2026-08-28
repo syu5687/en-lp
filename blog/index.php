@@ -197,6 +197,23 @@ if ($blog_id !== '') {
   <img src="" alt="拡大表示">
 </div>
 <style>
+  /* ===== 記事本文（body_html）の整形。一覧側にも同名の定義があるが、詳細ページはこちらが担う ===== */
+  .prose--html img{max-width:100%;height:auto;border-radius:10px;margin:8px 0;box-shadow:0 6px 18px rgba(18,89,122,.10)}
+  .prose--html h2,.prose--html h3,.prose--html h4,.prose--html h5{margin:1.6em 0 .6em;line-height:1.5}
+  .prose--html h3{padding-left:12px;border-left:4px solid var(--green,#1c6b52);color:var(--green-mid,#12597a)}
+  .prose--html p{margin:0 0 1em;line-height:1.95}
+  .prose--html a{color:var(--green);font-weight:600;word-break:break-all}
+  .prose--html ul,.prose--html ol{margin:0 0 1em;padding-left:1.4em}
+  .prose--html li{margin:.35em 0;line-height:1.85}
+  .prose--html table{width:100%;border-collapse:collapse;margin:1.2em 0;font-size:.92rem;line-height:1.75;background:#fff}
+  .prose--html th{background:var(--green-mid,#12597a);color:#fff;font-weight:700;text-align:left;padding:10px 12px;border:1px solid var(--green-mid,#12597a)}
+  .prose--html td{border:1px solid #d8e6ec;padding:10px 12px;vertical-align:top}
+  .prose--html tr:nth-child(even) td{background:#f4f9fb}
+  .prose--html th a,.prose--html td a{word-break:normal}
+  @media (max-width:640px){
+    .prose--html table{font-size:.83rem;line-height:1.65}
+    .prose--html th,.prose--html td{padding:7px 8px}
+  }
   /* 記事内の画像はクリックで拡大できることを示す */
   .post-zoomable{cursor:zoom-in;transition:opacity .15s}
   .post-zoomable:hover{opacity:.88}
