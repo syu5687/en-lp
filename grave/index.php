@@ -8,13 +8,13 @@
 <meta name="theme-color" content="#234d3a">
 
 <!-- SEO Primary -->
-<title>鹿児島のお墓じまい 基本プラン33万円（税込）｜撤去〜納骨まで一括対応｜縁（えん）</title>
-<meta name="description" content="鹿児島のお墓じまい、撤去から納骨まで一括対応。墓石撤去工事・写真報告・遺骨引き出し・新しい納骨先への納骨まで、基本プラン33万円（税込）。離島対応可。改葬手続きオプション¥25,000〜。創業20年以上、追加料金のない安心価格の有限会社縁。無料相談・LINE相談受付中。">
+<title>墓じまい 鹿児島｜撤去〜納骨まで一括 基本プラン33万円（税込）｜縁（えん）</title>
+<meta name="description" content="鹿児島の墓じまい（お墓じまい）は撤去から納骨まで一括対応、基本プラン33万円（税込）。墓石撤去工事・写真報告・遺骨引き出し・新しい納骨先への納骨まで。改葬手続きオプション¥25,000〜、離島対応可。取り出したご遺骨は粉骨24,200円〜・海洋散骨54,450円〜までワンストップ。無料相談・LINE相談受付中。">
 <meta name="keywords" content="お墓じまい,墓じまい,鹿児島,鹿児島市,鹿児島県,離島,改葬,33万円,墓石撤去,納骨,粉骨,洗骨,散骨,海洋葬,樹木葬,お手元供養,縁,en1150">
 <meta name="author" content="有限会社 縁（えん）">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="article:published_time" content="2026-05-01T00:00:00+09:00">
-<meta name="article:modified_time" content="2026-05-02T00:00:00+09:00">
+<meta name="article:modified_time" content="2026-08-28T00:00:00+09:00">
 <link rel="canonical" href="https://en1150.co.jp/grave/">
 
 <!-- hreflang -->
@@ -24,7 +24,7 @@
 <!-- OGP / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="有限会社 縁（えん）">
-<meta property="og:title" content="鹿児島のお墓じまい 基本プラン33万円（税込）｜撤去〜納骨まで一括対応｜縁">
+<meta property="og:title" content="墓じまい 鹿児島｜撤去〜納骨まで一括 基本プラン33万円（税込）｜縁">
 <meta property="og:description" content="鹿児島のお墓じまい、撤去から納骨まで一括対応。基本プラン33万円（税込）。離島対応可。創業20年以上の有限会社縁が責任を持って担当します。">
 <meta property="og:url" content="https://en1150.co.jp/grave/">
 <meta property="og:image" content="https://en1150.co.jp/assets/img/hero-grave.jpg">
@@ -33,7 +33,7 @@
 <meta property="og:image:alt" content="鹿児島のお墓じまい（有限会社 縁）">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="鹿児島のお墓じまい 基本プラン33万円（税込）｜撤去〜納骨まで一括対応｜縁">
+<meta name="twitter:title" content="墓じまい 鹿児島｜撤去〜納骨まで一括 基本プラン33万円（税込）｜縁">
 <meta name="twitter:description" content="撤去〜納骨まで基本プラン33万円（税込）。鹿児島県内全域＋離島対応。">
 <meta name="twitter:image" content="https://en1150.co.jp/assets/img/hero-grave.jpg">
 <meta name="twitter:image:alt" content="鹿児島のお墓じまい（有限会社 縁）">
@@ -206,6 +206,16 @@
       "@type":"Question",
       "name":"閉眼供養はどうしたらいいですか？",
       "acceptedAnswer":{"@type":"Answer","text":"ご希望に応じて寺院をご紹介いたします。すでに菩提寺がある場合はそちらでの対応も可能です。お気軽にご相談ください。"}
+    },
+    {
+      "@type":"Question",
+      "name":"墓じまいで取り出したご遺骨は、その後どうすればいいですか？",
+      "acceptedAnswer":{"@type":"Answer","text":"主な行き先は「永代供養墓」「樹木葬」「海洋散骨」「お手元供養」の4つです。縁では粉骨（24,200円〜）から海洋散骨（委託54,450円〜）、お手元供養まで一社で完結できるため、撤去後にご遺骨の行き先で悩む必要がありません。ご希望・ご予算に合わせて最適な組み合わせをご提案します。"}
+    },
+    {
+      "@type":"Question",
+      "name":"鹿児島市の改葬許可申請は代行してもらえますか？",
+      "acceptedAnswer":{"@type":"Answer","text":"はい。鹿児島市をはじめ県内各市町村の改葬許可申請を、オプション¥25,000（最下層を含む場合は¥35,000）でお手伝いします。申請書の作成・現在の墓地管理者の証明取得・提出まで対応します。"}
     }
   ]
 }
@@ -217,11 +227,11 @@
   "@context":"https://schema.org",
   "@type":"Article",
   "@id":"https://en1150.co.jp/grave/#article",
-  "headline":"鹿児島のお墓じまい 基本プラン33万円（税込） — 撤去〜納骨まで一括対応",
+  "headline":"墓じまい 鹿児島｜基本プラン33万円（税込） — 撤去〜納骨まで一括対応",
   "description":"鹿児島の有限会社縁が運営。撤去から納骨まで一括対応・基本プラン33万円（税込）のお墓じまいサービス。離島対応可。改葬手続きはオプションで対応。",
   "image":["https://en1150.co.jp/assets/img/hero-grave.jpg"],
   "datePublished":"2026-05-01T00:00:00+09:00",
-  "dateModified":"2026-05-02T00:00:00+09:00",
+  "dateModified":"2026-08-28T00:00:00+09:00",
   "author":{"@id":"https://en1150.co.jp/#representative"},
   "publisher":{"@id":"https://en1150.co.jp/#organization"},
   "mainEntityOfPage":{"@type":"WebPage","@id":"https://en1150.co.jp/grave/"},
@@ -274,7 +284,7 @@
   "@type":"BreadcrumbList",
   "itemListElement":[
     {"@type":"ListItem","position":1,"name":"ホーム","item":"https://en1150.co.jp/"},
-    {"@type":"ListItem","position":2,"name":"鹿児島のお墓じまい","item":"https://en1150.co.jp/grave/"}
+    {"@type":"ListItem","position":2,"name":"鹿児島の墓じまい","item":"https://en1150.co.jp/grave/"}
   ]
 }
 </script>
@@ -1678,7 +1688,7 @@
   <section class="hero" aria-labelledby="hero-title">
     <p class="hero-eyebrow">安心できるお墓じまい</p>
     <h1 id="hero-title" class="hero-title">
-      鹿児島のお墓じまい、<br>
+      鹿児島の墓じまい、<br>
       <span class="accent">撤去から納骨まで</span><br>
       一括対応
     </h1>
@@ -1691,7 +1701,7 @@
     <p class="hero-tax">事前見積もりで金額を確定（追加料金なし）</p>
 
     <p class="hero-entity-def" itemprop="description">
-      <strong>お墓じまい</strong>とは、現在のお墓を撤去し、ご遺骨を新しい納骨先へお移しすること。縁は鹿児島の専門業者として、見積もり取得から納骨までを<strong>基本プラン33万円（税込）</strong>で一括対応します。
+      <strong>墓じまい（お墓じまい）</strong>とは、現在のお墓を撤去し、ご遺骨を新しい納骨先へお移しすること。縁は鹿児島の専門業者として、見積もり取得から納骨までを<strong>基本プラン33万円（税込）</strong>で一括対応します。
     </p>
 
     <div class="hero-img-frame">
@@ -2086,6 +2096,12 @@
     <h2 id="support-title" class="section-title with-line">お墓じまい後も<br>しっかりサポート</h2>
     <p style="text-align:center;font-size:.95rem;margin-bottom:22px">お客様お一人おひとりにあったご供養のカタチをご提案</p>
     <div class="case-card">
+      <h3 class="case-title">まずはご遺骨を清め、コンパクトに… 粉骨・洗骨</h3>
+      <ul class="case-actions">
+        <li><a href="https://en1150.co.jp/powder-cleaning/" style="color:inherit;text-decoration:underline">粉骨・洗骨（24,200円〜）</a>　— 墓じまいで取り出したご遺骨の土や水分を丁寧に処理し、供養の選択肢を広げます</li>
+      </ul>
+    </div>
+    <div class="case-card">
       <h3 class="case-title">身近に置いて供養されたい方は… お手元供養</h3>
       <ul class="case-actions">
         <li><a href="https://en1150.co.jp/temoto-kuyou/" style="color:inherit;text-decoration:underline">ご自宅供養・アクセサリー</a></li>
@@ -2094,10 +2110,11 @@
     <div class="case-card">
       <h3 class="case-title">自然に還したい・自然の中で眠らせてあげたい方は… 自然葬</h3>
       <ul class="case-actions">
-        <li><a href="https://en1150.co.jp/kaiyou-sou/" style="color:inherit;text-decoration:underline">海洋葬（海洋散骨）</a></li>
+        <li><a href="https://en1150.co.jp/kaiyou-sou/" style="color:inherit;text-decoration:underline">海洋散骨・海洋葬（委託54,450円〜）</a>　— 鹿児島・錦江湾ほか九州の海へ。立ち会い不要の委託にも対応</li>
         <li><a href="https://en1150.co.jp/teien-sou/" style="color:inherit;text-decoration:underline">樹木葬（庭苑葬）</a></li>
       </ul>
     </div>
+    <p style="text-align:center;font-size:.9rem;margin-top:18px">墓じまいの撤去工事から、粉骨・海洋散骨・お手元供養まで——<strong>鹿児島で一社完結（ワンストップ）</strong>できるのが縁の強みです。</p>
   </section>
 
   <!-- =====================================
@@ -2154,6 +2171,22 @@
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </summary>
         <div class="faq-a">ご希望に応じて寺院をご紹介いたします。すでに菩提寺がある場合はそちらでの対応も可能です。お気軽にご相談ください。</div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          墓じまいで取り出したご遺骨は、その後どうすればいいですか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">主な行き先は「永代供養墓」「樹木葬」「海洋散骨」「お手元供養」の4つです。縁では粉骨（24,200円〜）から海洋散骨（委託54,450円〜）、お手元供養まで一社で完結できるため、撤去後にご遺骨の行き先で悩む必要がありません。ご希望・ご予算に合わせて最適な組み合わせをご提案します。</div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          鹿児島市の改葬許可申請は代行してもらえますか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">はい。鹿児島市をはじめ県内各市町村の改葬許可申請を、オプション¥25,000（最下層を含む場合は¥35,000）でお手伝いします。申請書の作成・現在の墓地管理者の証明取得・提出まで、平日に役所へ行く時間が取れない方もお任せください。</div>
       </details>
     </div>
   </section>

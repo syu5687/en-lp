@@ -5,8 +5,8 @@
  */
 require_once __DIR__ . '/../includes/config.php';
 
-$page_title     = '海洋葬（海洋散骨）｜鹿児島・福岡・九州対応｜有限会社 縁';
-$page_desc      = '海洋葬（海洋散骨）は、ご遺骨を母なる海へ還すご供養です。鹿児島・錦江湾を中心に福岡・九州全域の海域に対応、立ち会い不要の委託海洋葬（54,450円〜）は全国からご利用いただけます。有限会社 縁（日本海洋散骨協会加盟）。';
+$page_title     = '海洋散骨 鹿児島｜海洋葬・散骨なら有限会社 縁｜委託54,450円〜・福岡・九州対応';
+$page_desc      = '鹿児島で散骨・海洋散骨をお考えなら、日本海洋散骨協会加盟の有限会社縁へ。海洋葬は錦江湾を中心に福岡・九州全域の海域に対応、立ち会い不要の委託海洋葬（54,450円〜）は全国からご利用いただけます。粉骨・墓じまいもワンストップ。';
 $page_canonical = SITE['url'] . '/kaiyou-sou/';
 $page_hero_image = '/assets/img/hero-kaiyou-sou.jpg';
 require __DIR__ . '/../includes/head.php';
@@ -17,7 +17,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
 <?php require __DIR__ . '/../includes/header.php'; ?>
 
 <section class="page-hero">
-  <h1>海洋葬（海洋散骨）</h1>
+  <h1>鹿児島の海洋散骨（海洋葬）</h1>
   <p>「海に包まれて眠りたい」——大切な方の想いを、母なる海へ</p>
   <p style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
     <span style="display:inline-block;background:#d8b46a;color:#1c2b33;padding:6px 18px;border-radius:999px;font-weight:700">委託海洋葬 54,450円〜（期間限定・通常66,000円）</span>
@@ -32,7 +32,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
   <section class="section">
     <div class="container" style="max-width:860px">
       <div class="prose" style="max-width:820px;margin:0 auto">
-        <p class="lead">海洋葬（海洋散骨）は、亡くなられた方のご遺骨を母なる海へ還すこと。大自然の一部として、命あるものの自然な還り方でもあります。</p>
+        <p class="lead">鹿児島で散骨・海洋散骨をお考えの方へ。海洋葬（海洋散骨）は、亡くなられた方のご遺骨を母なる海へ還すこと。大自然の一部として、命あるものの自然な還り方でもあります。</p>
         <p>死後、自然にご遺骨を還してほしいという想いの方へ最適の方法です。ただし、海にまくご遺骨は細かく砕く（粉骨）こと、散骨する場所を選ぶことなど、配慮が必要です。</p>
         <p>当社は一般社団法人日本海洋散骨協会に加盟し、協会で取り決められているルールを順守。環境にも配慮した海洋葬（散骨）を行っておりますので、安心してご相談ください。</p>
       </div>
@@ -50,6 +50,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">お墓の継承者がいない、管理の負担を残したくない方</li>
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">故人が海を愛していた、自然に還してあげたい方</li>
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">遠方にお住まいで、立ち会いが難しい方（委託海洋葬に対応）</li>
+        <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)"><a href="/grave/" style="color:inherit">墓じまい（お墓じまい）</a>とあわせて、取り出したご遺骨の行き先をお探しの方——撤去から散骨まで一社で完結できます</li>
       </ul>
     </div>
   </section>
