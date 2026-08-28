@@ -31,7 +31,11 @@ if (defined('GA4_MEASUREMENT_ID') && GA4_MEASUREMENT_ID):
     try {
       if (href.indexOf('tel:') === 0) {
         gtag('event', 'tel_click', { phone_number: href.slice(4), page_path: location.pathname });
-      } else if (/(^|\.)line\.me\/|lin\.ee\//.test(href)) {
+        return;
+      }
+      var host = '';
+      try { host = new URL(href, location.href).hostname.toLowerCase(); } catch (e2) {}
+      if (host === 'line.me' || host === 'lin.ee' || (host && host.slice(-8) === '.line.me')) {
         gtag('event', 'line_click', { page_path: location.pathname });
       }
     } catch (err) {}
