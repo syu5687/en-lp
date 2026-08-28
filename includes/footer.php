@@ -27,6 +27,7 @@
         <li><a href="/blog/">終活と供養の話</a></li>
         <li><a href="/flow/">お申込みの流れ</a></li>
         <li><a href="/gokuyou/">よくあるご質問</a></li>
+        <li><a href="/glossary/">供養用語辞典</a></li>
         <li><a href="/staff/">スタッフ紹介</a></li>
         <li><a href="/area/">対応エリア</a></li>
         <li><a href="/fukuoka/">福岡営業所</a></li>
