@@ -7,8 +7,8 @@
 <meta name="format-detection" content="telephone=no">
 
 <!-- Primary Meta -->
-<title>ペットのご遺骨供養サポート｜粉骨・散骨・納骨のすべて｜有限会社縁（鹿児島）</title>
-<meta name="description" content="鹿児島の有限会社縁が運営するペット供養専門サービス。海洋葬（散骨）・粉骨・納骨・手元供養までワンストップ対応。完全個別管理・全国郵送対応・1mm以下のパウダー粉骨。犬・猫のご遺骨に関するご相談・料金はお気軽にお問い合わせください。">
+<title>ペット散骨・ペット供養 鹿児島｜海洋散骨・粉骨・納骨・手元供養まで一括｜有限会社縁</title>
+<meta name="description" content="鹿児島でペットの散骨・供養なら有限会社縁。大切な家族（犬・猫など）のご遺骨を、海洋散骨・粉骨・納骨・手元供養までワンストップでお手伝い。完全個別管理・全国郵送対応・1mm以下のパウダー粉骨。ペット火葬後のご遺骨のご相談・料金はお気軽にどうぞ。">
 <meta name="keywords" content="ペット 散骨,ペット 粉骨,ペット 納骨,ペット 海洋散骨,ペット 手元供養,鹿児島 ペット供養,犬 散骨,猫 散骨,ペット 遺骨 カビ,ペット 散骨 費用,有限会社縁">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="有限会社縁">
@@ -38,14 +38,14 @@
 
 <!-- OGP / Twitter -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="ペットのご遺骨供養サポート｜粉骨・散骨・納骨｜有限会社縁">
+<meta property="og:title" content="ペット散骨・ペット供養 鹿児島｜海洋散骨・粉骨・手元供養まで一括｜有限会社縁">
 <meta property="og:description" content="「ありがとう」を、あたたかな形に。最愛のご家族のために、後悔しない供養の形を一緒に見つけます。鹿児島・全国郵送対応。">
 <meta property="og:url" content="https://en1150.co.jp/pet-kaiyou-sou/">
 <meta property="og:image" content="https://en1150.co.jp/assets/img/hero-pet-kaiyou-sou.jpg">
 <meta property="og:site_name" content="有限会社縁 ペット供養サポート">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ペットのご遺骨供養サポート｜有限会社縁">
+<meta name="twitter:title" content="ペット散骨・ペット供養 鹿児島｜有限会社縁">
 <meta name="twitter:description" content="「ありがとう」を、あたたかな形に。粉骨・散骨・納骨をワンストップでお手伝い。">
 <meta name="twitter:image" content="https://en1150.co.jp/assets/img/hero-pet-kaiyou-sou.jpg">
 
