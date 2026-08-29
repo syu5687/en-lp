@@ -880,8 +880,9 @@ body { line-height: 1.8; }
 
 /* --- 背景写真（現行画像を保持） --- */
 .hero-bg { position: absolute; inset: 0; overflow: hidden; }
-.hero-slide { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; opacity: 0; transition: opacity 1.8s ease-in-out; transform: scale(1); }
-.hero-slide.on { opacity: 1; animation: heroZoom 9s ease-out forwards; }
+.hero-slide { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; opacity: 0; transition: opacity 1.8s ease-in-out; transform: scale(1); animation: heroZoom 16s ease-in-out infinite alternate; }
+/* ズームは常時ゆっくり往復（.on付け外しでアニメがリセットされて「カクッ」となるのを防ぐ） */
+.hero-slide.on { opacity: 1; }
 @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
 .hero-veil { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.88) 100%); }
 @media (prefers-reduced-motion: reduce) { .hero-slide { transition: none; animation: none !important; } }
