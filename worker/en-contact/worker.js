@@ -46,7 +46,7 @@ var CONFIG = {
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）", shindan_path: "診断で選ばれた回答" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）", shindan_path: "診断で選ばれた回答", country: "居住国（Country）", ashes_now: "ご遺骨の所在（Ashes）", en_area: "希望海域（Area）", attend: "立会い希望（Attend）", timing: "希望時期（Timing）" },
   REQUIRED: ["name", "email", "message"],  // 最低限の必須チェック
 
   // ---- 営業メールフィルタ ----
@@ -220,7 +220,7 @@ export default {
 
       const adminBody = {
         sender, to: [{ email: CONFIG.TO }],
-        subject: `${isSuspect ? "【営業？】" : ""}${CONFIG.SUBJECT_PREFIX}${esc(d.name || "")}様${d.category ? "（" + esc(d.category) + "）" : ""}`,
+        subject: `${isSuspect ? "【営業？】" : ""}${String(d.lang || "") === "en" ? "【海外/EN】" : ""}${CONFIG.SUBJECT_PREFIX}${esc(d.name || "")}様${d.category ? "（" + esc(d.category) + "）" : ""}`,
         htmlContent: adminHtml,
         replyTo: emailOk ? { email: d.email, name: d.name } : undefined
       };
@@ -248,10 +248,20 @@ export default {
               <p style="margin:10px 0 0;font-size:12px;color:#8a7a55;">※ リンクはいつでも開けます。印刷してご家族との話し合いにもお使いください。</p>
             </div>
             <p style="font-size:14px;">資料をお読みになって疑問が出てきましたら、このままLINEでお気軽にご相談いただけます（無料・営業のご連絡はいたしません）。<br><a href="${CONFIG.SHIRYOU_LINE_URL}" style="color:#06C755;font-weight:bold;">▶ LINEで相談する</a>　／　お電話 099-801-3637</p>` : "";
+        const isEn = String(d.lang || "") === "en";
         const introText = isShiryou
           ? `この度は資料をご請求いただきありがとうございます。<br>下記リンクからすぐにご覧いただけます。`
           : `この度はお問い合わせいただきありがとうございます。<br>以下の内容で承りました。担当者より改めてご連絡いたします。`;
-        const custHtml = `
+        const custHtml = isEn ? `
+          <div style="font-family:Georgia,serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.8;">
+            <p>Dear ${esc(d.name || "")},</p>
+            <p>Thank you for contacting En Co., Ltd. We have received your inquiry and will reply in English within 2 business days.</p>
+            <p>Here is a copy of what you sent us:</p>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">${rows}</table>
+            ${detail}
+            <p style="margin-top:16px;font-size:14px;">With respect,<br>En Co., Ltd. — Sea Burial in Kagoshima &amp; Fukuoka, Japan<br><a href="https://en1150.co.jp/en/" style="color:#15709e;">en1150.co.jp/en</a> · info@en1150.co.jp</p>
+            <p style="margin-top:12px;font-size:12px;color:#777;">This is an automated confirmation. Please do not reply to this address — we will contact you from our staff address.</p>
+          </div>` : `
           <div style="font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.8;">
             <p>${esc(d.name || "")} 様</p>
             <p>${introText}</p>
@@ -261,7 +271,7 @@ export default {
             ${srcCust}
             <p style="margin-top:16px;font-size:13px;color:#777;">${esc(CONFIG.AUTO_REPLY_NOTE)}</p>
           </div>`;
-        const cr = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ sender, to: [{ email: d.email, name: d.name }], subject: isShiryou ? CONFIG.SHIRYOU_SUBJECT : CONFIG.AUTO_REPLY_SUBJECT, htmlContent: custHtml }) });
+        const cr = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ sender, to: [{ email: d.email, name: d.name }], subject: isEn ? "Thank you for contacting En Co., Ltd. — inquiry received" : (isShiryou ? CONFIG.SHIRYOU_SUBJECT : CONFIG.AUTO_REPLY_SUBJECT), htmlContent: custHtml }) });
         autoReplyOk = cr.ok;
       }
 
