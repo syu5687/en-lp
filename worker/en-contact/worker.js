@@ -46,7 +46,7 @@ var CONFIG = {
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料（無料PDF）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
   REQUIRED: ["name", "email", "message"],  // 最低限の必須チェック
 
   // ---- 営業メールフィルタ ----
@@ -187,6 +187,13 @@ export default {
 
       // 基本項目テーブル
       let rows = "";
+      // 資料チェックボックス（guide_*）を表示用の1項目にまとめる
+      {
+        const gsel = [];
+        if (String(d.guide_hakajimai || "") === "1") gsel.push(CONFIG.SHIRYOU_LINKS[0].label);
+        if (String(d.guide_sankotsu || "") === "1") gsel.push(CONFIG.SHIRYOU_LINKS[1].label);
+        if (gsel.length) d.guides = gsel.join(" ／ ");
+      }
       for (const [k, label] of Object.entries(CONFIG.FIELDS)) {
         if (d[k]) rows += `<tr><th style="text-align:left;padding:6px 12px;color:#888;width:32%;">${esc(label)}</th><td style="padding:6px 12px;${k === "name" ? "font-weight:bold;" : ""}">${esc(d[k])}</td></tr>`;
       }
@@ -225,11 +232,19 @@ export default {
 
       let autoReplyOk = null;
       if (CONFIG.AUTO_REPLY && emailOk && !isSuspect) {
-        const isShiryou = !!(d.category && String(d.category).includes(CONFIG.SHIRYOU_MATCH));
+        // 送付する資料の決定：チェックボックスが選ばれていればその資料のみ、
+        // 種別が「資料請求」でチェックなしなら2冊とも送付
+        const wantG1 = String(d.guide_hakajimai || "") === "1";
+        const wantG2 = String(d.guide_sankotsu || "") === "1";
+        const catShiryou = !!(d.category && String(d.category).includes(CONFIG.SHIRYOU_MATCH));
+        const sendLinks = (wantG1 || wantG2)
+          ? CONFIG.SHIRYOU_LINKS.filter((_, i) => (i === 0 && wantG1) || (i === 1 && wantG2))
+          : (catShiryou ? CONFIG.SHIRYOU_LINKS : []);
+        const isShiryou = sendLinks.length > 0;
         const shiryouBlock = isShiryou ? `
             <div style="background:#f6efdd;border-radius:10px;padding:16px 18px;margin:14px 0;">
               <p style="margin:0 0 10px;font-weight:bold;color:#0a3852;">▼ ご請求いただいた資料はこちらからダウンロードできます</p>
-              ${CONFIG.SHIRYOU_LINKS.map((l) => `<p style="margin:6px 0;"><a href="${l.url}" style="color:#0f4d70;font-weight:bold;">📘 ${esc(l.label)}</a></p>`).join("")}
+              ${sendLinks.map((l) => `<p style="margin:6px 0;"><a href="${l.url}" style="color:#0f4d70;font-weight:bold;">📘 ${esc(l.label)}</a></p>`).join("")}
               <p style="margin:10px 0 0;font-size:12px;color:#8a7a55;">※ リンクはいつでも開けます。印刷してご家族との話し合いにもお使いください。</p>
             </div>
             <p style="font-size:14px;">資料をお読みになって疑問が出てきましたら、このままLINEでお気軽にご相談いただけます（無料・営業のご連絡はいたしません）。<br><a href="${CONFIG.SHIRYOU_LINE_URL}" style="color:#06C755;font-weight:bold;">▶ LINEで相談する</a>　／　お電話 099-801-3637</p>` : "";

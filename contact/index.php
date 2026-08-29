@@ -84,6 +84,14 @@ require __DIR__ . '/../includes/head.php';
           <option value="その他">その他</option>
         </select>
       </label>
+      <fieldset id="guide-box">
+        <legend class="gb-badge">無料プレゼント</legend>
+        <p class="gb-title">📘 無料ガイドブック（PDF）も一緒に受け取れます</p>
+        <p class="gb-sub">チェックすると、送信後の自動返信メールですぐにお届けします。どのご相談と一緒でもOK・無料です。</p>
+        <label class="gb-item"><input type="checkbox" name="guide_hakajimai" value="1"><span><b>墓じまい完全ガイド 鹿児島・福岡版</b>（全10ページ）<small>費用の内訳・改葬許可の5ステップ・菩提寺への切り出し方</small></span></label>
+        <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
+      </fieldset>
+
       <label id="goudou-date-field" hidden>合同海洋散骨 ご希望日
         <input type="date" name="goudou_date">
         <span style="font-weight:400;font-size:.8rem;color:var(--text-light)">実施予定日からお選びいただいた日付です。変更も可能です。</span>
@@ -123,6 +131,15 @@ require __DIR__ . '/../includes/head.php';
 #form-msg.ok{background:#e8f5e9;color:#2e7d32}
 #form-msg.ng{background:#fdecea;color:#c0392b}
 .hp-field{position:absolute !important;left:-9999px !important;top:-9999px !important;height:1px;width:1px;overflow:hidden}
+#guide-box{border:2px solid #c9822a;border-radius:12px;background:#fdf9f0;padding:16px 18px 14px;margin:4px 0}
+#guide-box .gb-badge{background:#c9822a;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.08em;padding:3px 14px;border-radius:999px}
+#guide-box .gb-title{font-weight:700;color:#8a6a2a;margin:6px 0 2px;font-size:.98rem}
+#guide-box .gb-sub{font-size:.8rem;color:var(--text-light);margin:0 0 10px}
+#guide-box .gb-item{display:flex;flex-direction:row !important;align-items:flex-start;gap:10px;background:#fff;border:1px solid #e3d5b8;border-radius:10px;padding:10px 14px;margin-bottom:8px;cursor:pointer;font-weight:400 !important}
+#guide-box .gb-item:hover{border-color:#c9822a}
+#guide-box .gb-item input{width:18px;height:18px;margin-top:3px;padding:0 !important;flex:none;accent-color:#c9822a}
+#guide-box .gb-item b{color:var(--green-mid);font-size:.92rem}
+#guide-box .gb-item small{display:block;font-size:.76rem;color:var(--text-light);margin-top:2px}
 </style>
 
 <script>
@@ -160,9 +177,15 @@ let shindanService = '';
 (function () {
   const sel = form.querySelector('select[name="category"]');
   const ta  = form.querySelector('textarea[name="message"]');
-  const FILL = '資料請求：「墓じまい完全ガイド 鹿児島・福岡版」「海洋散骨で後悔しないためのチェックリスト」（PDF）を希望します。';
+  const g1  = form.querySelector('input[name="guide_hakajimai"]');
+  const g2  = form.querySelector('input[name="guide_sankotsu"]');
+  const FILL = '資料請求：無料ガイドブック（PDF）を希望します。';
   const apply = () => {
-    if (sel.value === '資料請求（無料）' && !ta.value.trim()) ta.value = FILL;
+    if (sel.value === '資料請求（無料）') {
+      if (g1) g1.checked = true;
+      if (g2) g2.checked = true;
+      if (!ta.value.trim()) ta.value = FILL;
+    }
     if (sel.value !== '資料請求（無料）' && ta.value === FILL) ta.value = '';
   };
   sel.addEventListener('change', apply);
