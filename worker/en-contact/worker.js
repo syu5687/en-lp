@@ -46,7 +46,7 @@ var CONFIG = {
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料（無料PDF）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）" },
   REQUIRED: ["name", "email", "message"],  // 最低限の必須チェック
 
   // ---- 営業メールフィルタ ----

@@ -77,7 +77,7 @@ require __DIR__ . '/../includes/head.php';
       <label>お問い合わせ種別
         <select name="category">
           <option value="">選択してください</option>
-          <option value="資料請求（無料）">資料請求（無料・PDFをメールでお届け）</option>
+          <option value="資料請求（無料）">資料請求（無料・冊子を郵送でお届け）</option>
           <?php foreach (SERVICES as $s): ?>
             <option value="<?= h($s['title']) ?>"><?= h($s['title']) ?></option>
           <?php endforeach; ?>
@@ -91,6 +91,17 @@ require __DIR__ . '/../includes/head.php';
         <label class="gb-item"><input type="checkbox" name="guide_hakajimai" value="1"><span><b>墓じまい完全ガイド 鹿児島・福岡版</b>（全10ページ）<small>費用の内訳・改葬許可の5ステップ・菩提寺への切り出し方</small></span></label>
         <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
       </fieldset>
+
+      <div id="post-addr" hidden>
+        <p style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">冊子（印刷版）の郵送をご希望のため、お届け先をご入力ください</p>
+        <label>郵便番号 <span class="req">必須</span>
+          <input type="text" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="890-0000" maxlength="8">
+          <span style="font-weight:400;font-size:.78rem;color:var(--text-light)">入力すると住所が自動で入ります</span>
+        </label>
+        <label>ご住所（お届け先） <span class="req">必須</span>
+          <input type="text" name="addr" autocomplete="street-address" placeholder="鹿児島県鹿児島市〇〇町1-2-3 〇〇マンション101">
+        </label>
+      </div>
 
       <label id="goudou-date-field" hidden>合同海洋散骨 ご希望日
         <input type="date" name="goudou_date">
@@ -179,15 +190,45 @@ let shindanService = '';
   const ta  = form.querySelector('textarea[name="message"]');
   const g1  = form.querySelector('input[name="guide_hakajimai"]');
   const g2  = form.querySelector('input[name="guide_sankotsu"]');
-  const FILL = '資料請求：無料ガイドブック（PDF）を希望します。';
+  const FILL = '資料請求：無料ガイドブック（冊子）の郵送を希望します。';
+  const addrBox = document.getElementById('post-addr');
+  const zipInp  = form.querySelector('input[name="zip"]');
+  const addrInp = form.querySelector('input[name="addr"]');
   const apply = () => {
-    if (sel.value === '資料請求（無料）') {
+    const isShiryou = sel.value === '資料請求（無料）';
+    if (isShiryou) {
       if (g1) g1.checked = true;
       if (g2) g2.checked = true;
       if (!ta.value.trim()) ta.value = FILL;
     }
-    if (sel.value !== '資料請求（無料）' && ta.value === FILL) ta.value = '';
+    if (!isShiryou && ta.value === FILL) ta.value = '';
+    // 郵送先の住所欄：資料請求のときだけ表示・必須に
+    if (addrBox) {
+      addrBox.hidden = !isShiryou;
+      if (zipInp)  zipInp.required  = isShiryou;
+      if (addrInp) addrInp.required = isShiryou;
+    }
   };
+  // 郵便番号→住所の自動入力（失敗時は手入力のままでOK）
+  let zipAutoFilled = '';
+  if (zipInp && addrInp) {
+    zipInp.addEventListener('input', async () => {
+      const z = zipInp.value.replace(/[^0-9]/g, '');
+      if (z.length !== 7) return;
+      try {
+        const r = await fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + z);
+        const j = await r.json();
+        const a = j && j.results && j.results[0];
+        if (!a) return;
+        const auto = (a.address1 || '') + (a.address2 || '') + (a.address3 || '');
+        if (!addrInp.value.trim() || addrInp.value === zipAutoFilled) {
+          addrInp.value = auto;
+          zipAutoFilled = auto;
+          addrInp.focus();
+        }
+      } catch (e) {}
+    });
+  }
   sel.addEventListener('change', apply);
   setTimeout(apply, 0); // ?service= からの自動選択にも反応
 })();

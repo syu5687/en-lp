@@ -9,7 +9,7 @@
   <div class="shiryou-cta__inner">
     <p class="shiryou-cta__eyebrow">FREE GUIDEBOOK</p>
     <h2 id="shiryou-title" class="shiryou-cta__title">無料ガイドブックをお届けします</h2>
-    <p class="shiryou-cta__lead">検討中の方のための資料を2冊ご用意しました。フォームからご請求いただくと、<strong>自動返信メールですぐにPDFをお届け</strong>します（無料・こちらから営業のご連絡はいたしません）。</p>
+    <p class="shiryou-cta__lead">検討中の方のための資料を2冊ご用意しました。フォームからご請求いただくと、<strong>冊子（印刷版）を郵送でお届け</strong>します。お急ぎの方は<strong>PDF版をメールで今すぐ</strong>受け取ることもできます（いずれも無料・こちらから営業のご連絡はいたしません）。</p>
     <div class="shiryou-cta__grid">
       <div class="shiryou-book">
         <p class="shiryou-book__badge">墓じまいを考え始めた方に</p>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <p class="shiryou-cta__btnwrap">
-      <a class="shiryou-cta__btn" href="/contact/?service=<?= rawurlencode('資料請求（無料）') ?>">無料で資料を受け取る（メールで即お届け）</a>
+      <a class="shiryou-cta__btn" href="/contact/?service=<?= rawurlencode('資料請求（無料）') ?>">無料で資料を受け取る</a>
     </p>
     <p class="shiryou-cta__note">※ お名前とメールアドレスだけでご請求いただけます。</p>
   </div>
