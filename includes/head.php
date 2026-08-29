@@ -21,6 +21,16 @@ $page_og_image  = $page_og_image  ?? (SITE['url'] . '/assets/og-image.jpg'); // 
 <title><?= h($page_title) ?></title>
 <meta name="description" content="<?= h($page_desc) ?>">
 <?php if ($page_canonical): ?><link rel="canonical" href="<?= h($page_canonical) ?>"><?php endif; ?>
+<?php
+// 日英対応ページの hreflang 自動出力（対応表: includes/lang-map.php）
+require_once __DIR__ . '/lang-map.php';
+$hl_path = $page_canonical ? (parse_url($page_canonical, PHP_URL_PATH) ?: '/') : null;
+if ($hl_path !== null && ($hl_en = en_counterpart($hl_path)) !== null):
+?>
+<link rel="alternate" hreflang="ja" href="<?= h(SITE['url'] . $hl_path) ?>">
+<link rel="alternate" hreflang="en" href="<?= h(SITE['url'] . $hl_en) ?>">
+<link rel="alternate" hreflang="x-default" href="<?= h(SITE['url'] . $hl_path) ?>">
+<?php endif; ?>
 <meta name="robots" content="<?= $page_noindex ? 'noindex, follow' : 'index, follow, max-snippet:-1, max-image-preview:large' ?>">
 <meta property="og:title" content="<?= h($page_title) ?>">
 <meta property="og:description" content="<?= h($page_desc) ?>">
