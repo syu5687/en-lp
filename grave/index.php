@@ -180,7 +180,7 @@
     {
       "@type":"Question",
       "name":"本当に33万円だけで収まりますか？",
-      "acceptedAnswer":{"@type":"Answer","text":"墓石撤去工事の見積もり取得・段取り、工事の手配・立ち会い、工事前後写真の撮影報告、ご遺骨の引き出し、新しい納骨先へのご納骨（郵送／お引き取り）まで、基本プラン33万円（税込）で対応します。改葬許可申請（役所手続き）は別オプション¥25,000、最下層を含めた場合は¥35,000です。なお現場条件により追加が発生する可能性のある項目は、事前に必ずご説明します。"}
+      "acceptedAnswer":{"@type":"Answer","text":"はい。確定したお見積もり後の追加請求はありません。基本プラン33万円（税込）に墓石撤去工事の見積もり取得・段取り、工事の手配・立ち会い、工事前後写真の報告、ご遺骨の引き出し、新しい納骨先へのご納骨（郵送／お引き取り）が含まれます。改葬許可申請は別オプション¥25,000（最下層含む場合¥35,000）。特殊運搬・離島対応など現場条件で必要な費用は現地調査の段階ですべて見積もりに含めて提示されます。なお現場条件により追加が発生する可能性のある項目は、事前に必ずご説明します。"}
     },
     {
       "@type":"Question",
@@ -216,7 +216,7 @@
       "@type":"Question",
       "name":"鹿児島市の改葬許可申請は代行してもらえますか？",
       "acceptedAnswer":{"@type":"Answer","text":"はい。鹿児島市をはじめ県内各市町村の改葬許可申請を、オプション¥25,000（最下層を含む場合は¥35,000）でお手伝いします。申請書の作成・現在の墓地管理者の証明取得・提出まで対応します。"}
-    },{"@type": "Question", "name": "墓じまいの費用相場はいくらですか？33万円は安いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "全国的な相場は墓石撤去だけで1㎡あたり10〜15万円程度、総額60〜120万円かかるケースもあります。有限会社縁の基本プラン33万円（税込）は見積もり取得から撤去工事・写真報告・遺骨の引き出し・新しい納骨先への納骨まで含み、事前見積もりで金額が確定します。"}},{"@type": "Question", "name": "離檀料は払わないといけませんか？", "acceptedAnswer": {"@type": "Answer", "text": "離檀料に法的な支払い義務はありません。御礼として3万〜20万円程度が一般的な目安です。閉眼供養のお布施は1万〜5万円程度が目安。切り出し方の相談も有限会社縁が承ります。"}},{"@type": "Question", "name": "墓じまいに親族の同意は必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "法律上は祭祀承継者の判断で進められますが、トラブル回避のため事前の親族への説明を推奨します。説明用の資料も用意されています。"}},{"@type": "Question", "name": "墓じまいはどのくらいの期間がかかりますか？", "acceptedAnswer": {"@type": "Answer", "text": "相談から工事完了・納骨まで1〜3ヶ月程度が目安です。彼岸・お盆前は混み合うため早めの相談が推奨されます。"}},{"@type": "Question", "name": "県外在住でも帰省せずに墓じまいできますか？", "acceptedAnswer": {"@type": "Answer", "text": "できます。立ち会い不要・電話やLINEで完結し、工事前後は写真で報告。取り出した遺骨は粉骨して郵送、または海洋散骨・納骨まで一括対応します。"}},{"@type": "Question", "name": "お寺や墓地管理者への連絡は代行してもらえますか？", "acceptedAnswer": {"@type": "Answer", "text": "はい。墓地管理者への確認や埋蔵証明の取得など、必要な連絡・手続きの段取りを一緒に進めます。"}}]
+    },{"@type": "Question", "name": "墓じまいの費用相場はいくらですか？33万円は安いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "全国的な相場は墓石撤去だけで1㎡あたり10〜15万円程度、総額60〜120万円かかるケースもあります。有限会社縁の基本プラン33万円（税込）は見積もり取得から撤去工事・写真報告・遺骨の引き出し・新しい納骨先への納骨まで含み、事前見積もりで金額が確定します。"}},{"@type": "Question", "name": "離檀料は払わないといけませんか？", "acceptedAnswer": {"@type": "Answer", "text": "離檀料に法的な支払い義務はありません。御礼として3万〜20万円程度が一般的な目安です。閉眼供養のお布施は1万〜5万円程度が目安。切り出し方の相談も有限会社縁が承ります。"}},{"@type": "Question", "name": "墓じまいに親族の同意は必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "法律上は祭祀承継者の判断で進められますが、トラブル回避のため事前の親族への説明を推奨します。説明用の資料も用意されています。"}},{"@type": "Question", "name": "墓じまいはどのくらいの期間がかかりますか？", "acceptedAnswer": {"@type": "Answer", "text": "相談から工事完了・納骨まで1〜3ヶ月程度が目安です。彼岸・お盆前は混み合うため早めの相談が推奨されます。"}},{"@type": "Question", "name": "県外在住でも帰省せずに墓じまいできますか？", "acceptedAnswer": {"@type": "Answer", "text": "できます。立ち会い不要・電話やLINEで完結し、工事前後は写真で報告。取り出した遺骨は粉骨して郵送、または海洋散骨・納骨まで一括対応します。"}},{"@type": "Question", "name": "お寺や墓地管理者への連絡は代行してもらえますか？", "acceptedAnswer": {"@type": "Answer", "text": "はい。墓地管理者への確認や埋蔵証明の取得など、必要な連絡・手続きの段取りを一緒に進めます。"}},{"@type": "Question", "name": "墓じまい後、遺骨の一部だけを手元に残すことはできますか？", "acceptedAnswer": {"@type": "Answer", "text": "できます。粉骨の際に希望の量だけ分骨し、大部分を海洋散骨や納骨に、ひとつまみをミニ骨壷やペンダントで手元に残せます。持ち込みのお手元供養品への分骨は5,500円（税込）です。"}}]
 }
 </script>
 
@@ -1707,11 +1707,11 @@
       <span class="price-num">33</span>万円
       <span class="pokkiri">税込</span>
     </div>
-    <p class="hero-tax">事前見積もりで金額を確定（追加料金なし）</p>
+    <p class="hero-tax">現地確認とお見積もりで総額を確定。<strong>確定後の追加請求はありません</strong></p>
 
     <ul class="hero-trust-chips" aria-label="実績">
       <li>創業20年以上</li>
-      <li>対応実績3,800件超</li>
+      <li>鹿児島で実績1,000件超</li>
       <li>Google口コミ ★4.9</li>
       <li>テレビ・新聞 取材多数</li>
     </ul>
@@ -1895,7 +1895,7 @@
         </ul>
       </div>
 
-      <p class="price-note">現場条件により追加が出る可能性がある項目（特殊運搬・離島対応費等）は、現地調査の上で事前に必ずご説明します。</p>
+      <p class="price-note">特殊運搬・離島対応費など、現場の条件で必要になる費用は、<strong>現地調査の段階ですべてお見積もりに含めてご提示</strong>します。総額にご納得いただいてからのご契約となり、<strong>確定したお見積もり後に追加請求することはありません</strong>。</p>
     </div>
   </section>
 
@@ -2111,6 +2111,10 @@
   <section class="section" aria-labelledby="support-title">
     <p class="section-eyebrow">AFTER SUPPORT</p>
     <h2 id="support-title" class="section-title with-line">お墓じまい後も<br>しっかりサポート</h2>
+    <p style="max-width:640px;margin:14px auto 22px;text-align:center;font-size:.94rem;line-height:2">
+      墓じまいで取り出したご遺骨には、いくつかの行き先があります。<br class="pc-only">
+      <strong>どれか一つに今決める必要はありません</strong>。「大部分を散骨して、少しだけ手元に残す」という組み合わせもできます。
+    </p>
     <p style="text-align:center;font-size:.95rem;margin-bottom:22px">お客様お一人おひとりにあったご供養のカタチをご提案</p>
     <div class="case-card">
       <h3 class="case-title">まずはご遺骨を清め、コンパクトに… 粉骨・洗骨</h3>
@@ -2133,10 +2137,18 @@
     </div>
     <p style="text-align:center;font-size:.9rem;margin-top:18px">墓じまいの撤去工事から、粉骨・海洋散骨・お手元供養まで——<strong>鹿児島で一社完結（ワンストップ）</strong>できるのが縁の強みです。</p>
 
-    <div style="max-width:560px;margin:26px auto 0;background:#f2f7f5;border:1.5px solid #cfe0d8;border-radius:14px;padding:20px 22px;text-align:center">
-      <p style="font-weight:700;color:#1c3d2e;margin:0 0 6px">墓じまい後のご遺骨をどうするか、まだ決めていなくても大丈夫です</p>
-      <p style="font-size:.86rem;color:#4a5a52;margin:0 0 14px;line-height:1.9">いくつかの質問に答えるだけで、今の状況に合う供養方法の組み合わせを整理できます（約3分・お名前の入力は不要）。</p>
-      <a href="/shindan/" data-cta="shindan" style="display:inline-block;background:#1c6b52;color:#fff;font-weight:700;padding:12px 30px;border-radius:999px;text-decoration:none;font-size:.92rem">供養の選び方診断をやってみる →</a>
+    <div style="max-width:600px;margin:26px auto 0;background:#f2f7f5;border:1.5px solid #cfe0d8;border-radius:14px;padding:22px 22px;text-align:center">
+      <p style="font-weight:700;color:#1c3d2e;margin:0 0 10px;font-size:1.02rem">墓じまい後のご遺骨、どうするか決まっていますか？</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 0 12px">
+        <span style="background:#fff;border:1px solid #cfe0d8;border-radius:999px;padding:4px 13px;font-size:.78rem;color:#1c3d2e">海洋散骨</span>
+        <span style="background:#fff;border:1px solid #cfe0d8;border-radius:999px;padding:4px 13px;font-size:.78rem;color:#1c3d2e">樹木葬</span>
+        <span style="background:#fff;border:1px solid #cfe0d8;border-radius:999px;padding:4px 13px;font-size:.78rem;color:#1c3d2e">手元供養</span>
+        <span style="background:#fff;border:1px solid #cfe0d8;border-radius:999px;padding:4px 13px;font-size:.78rem;color:#1c3d2e">メモリアルジュエリー</span>
+        <span style="background:#fff;border:1px solid #cfe0d8;border-radius:999px;padding:4px 13px;font-size:.78rem;color:#1c3d2e">粉骨して、ゆっくり考える</span>
+      </div>
+      <p style="font-size:.88rem;color:#4a5a52;margin:0 0 14px;line-height:1.9">まだ決まっていない方は、いくつかの質問に答えるだけで、<br class="pc-only">今の状況に合う選択肢の組み合わせを整理できます（約3分・お名前の入力は不要）。</p>
+      <a href="/shindan/" data-cta="shindan" style="display:inline-block;background:#1c6b52;color:#fff;font-weight:700;padding:13px 32px;border-radius:999px;text-decoration:none;font-size:.94rem">質問に答えて、選択肢を整理する →</a>
+      <p style="font-size:.74rem;color:#7a8a82;margin:10px 0 0">診断の結果は、そのままご相談時にお伝えいただけます</p>
     </div>
   </section>
 
@@ -2153,7 +2165,7 @@
           本当に33万円だけで収まりますか？
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </summary>
-        <div class="faq-a">墓石撤去工事の見積もり取得・段取り、工事の手配・立ち会い、工事前後写真の撮影報告、ご遺骨の引き出し、新しい納骨先へのご納骨（郵送／お引き取り）まで、基本プラン33万円（税込）で対応します。改葬許可申請（役所手続き）は別オプション¥25,000、最下層を含めた場合は¥35,000です。なお現場条件により追加が発生する可能性のある項目は、事前に必ずご説明します。</div>
+        <div class="faq-a">墓石撤去工事の見積もり取得・段取り、工事の手配・立ち会い、工事前後写真の撮影報告、ご遺骨の引き出し、新しい納骨先へのご納骨（郵送／お引き取り）まで、基本プラン33万円（税込）で対応します。改葬許可申請（役所手続き）は別オプション¥25,000、最下層を含めた場合は¥35,000です。特殊運搬や離島対応など現場の条件で必要になる費用がある場合も、現地調査の段階ですべてお見積もりに含めてご提示します。総額が確定したあとに追加請求することはありません。</div>
       </details>
 
       <details class="faq-item">
@@ -2253,6 +2265,13 @@
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </summary>
         <div class="faq-a">はい。「何十年もお世話になったお寺に、どう切り出せばいいか分からない」というご相談はとても多いです。墓地管理者への確認や埋蔵証明の取得など、必要な連絡・手続きの段取りを一緒に進めます。ご自身で伝える場合の言い方のご相談だけでも構いません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ご遺骨の一部だけを手元に残すことはできますか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">できます。取り出したご遺骨を粉骨する際に、ご希望の量だけお分けします（分骨）。大部分を海洋散骨や納骨にして、ひとつまみを手のひらサイズのミニ骨壷やペンダントでお手元に——という形を選ばれる方が多くいらっしゃいます。お持ち込みのお手元供養品への分骨は5,500円（税込）です。</div>
       </details>
     </div>
   </section>
