@@ -136,6 +136,7 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     <div class="container" style="max-width:960px">
       <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">PRICE</p>
       <h2 style="text-align:center;margin-bottom:12px">料金のご案内</h2>
+      <p style="text-align:center;font-size:.92rem;margin-bottom:14px;background:#fdf9f0;border:1px solid #e3d5b8;border-radius:10px;padding:10px 14px;max-width:560px;margin-left:auto;margin-right:auto">お墓じまいをご検討の方へ：<a href="/grave/fukuoka/" style="color:#a8802f;font-weight:700">福岡の墓じまい専用ページ（基本プラン33万円）→</a></p>
       <p style="text-align:center;max-width:680px;margin:0 auto 28px;line-height:2;font-size:.95rem">
         料金はすべて税込です。金額は<strong>無料のお見積りで確定</strong>し、ご納得いただいてからのご契約となります。<br class="pc-only">
         <strong>あとから追加料金をいただくことはありません。</strong>

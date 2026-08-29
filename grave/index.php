@@ -2540,6 +2540,7 @@
   <section class="section area" aria-labelledby="area-title">
     <p class="section-eyebrow">SERVICE AREA</p>
     <h2 id="area-title" class="section-title with-line">対応エリア</h2>
+    <p style="text-align:center;font-size:.9rem;margin:10px 0 4px"><a href="/grave/fukuoka/" style="color:#1c6b52;font-weight:700;text-decoration:underline">福岡県の墓じまいは、福岡営業所ページへ →</a></p>
 
     <div class="area-card">
       <div class="area-main">
