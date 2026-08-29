@@ -49,12 +49,13 @@ a{color:inherit;text-decoration:none;transition:.3s}
 .site-nav__list a:hover{opacity:.82}
 .site-nav__cta a{background:transparent;border:1px solid rgba(255,255,255,.8);color:#fff;padding:9px 20px;border-radius:999px;font-size:.8rem;letter-spacing:.06em}
 .site-nav__cta a:hover{background:#fff;color:var(--header-blue)}
-.site-nav__toggle{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;align-items:center}
-.site-nav__toggle span{width:24px;height:2px;background:#fff;transition:.3s}
-.site-nav__toggle .site-nav__toggle-label{width:auto;height:auto;background:none;color:#fff;font-size:.56rem;font-weight:700;letter-spacing:.16em;line-height:1;margin-top:1px}
-.site-nav__toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.site-nav__toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
-.site-nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.site-nav__toggle{display:none;align-items:center;gap:7px;background:none;border:0;cursor:pointer}
+.site-nav__toggle-label{color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.16em;line-height:1}
+.site-nav__toggle-bars{display:flex;flex-direction:column;gap:5px}
+.site-nav__toggle-bars span{width:24px;height:2px;background:#fff;transition:.3s}
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-bars span:nth-child(2){opacity:0}
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ---- ページ見出し（下層共通ヒーロー：写真背景＋オーシャン色オーバーレイ＋波線） ----
    背景画像は --hero-image で指定（既定は hero-default.jpg）。各ページで

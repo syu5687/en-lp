@@ -146,14 +146,16 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .header-cta-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--color-green-mid) !important; padding: 9px 16px; white-space: nowrap; border: 1px solid var(--color-deep-green); border-radius: var(--radius); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; box-shadow: none !important; }
 .header-cta-btn:hover { background: var(--color-deep-green); color: var(--color-white) !important; }
 .header-cta-btn::after { display: none !important; }
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; width: 32px; height: 32px; position: relative; }
-.nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--color-green-mid); position: absolute; left: 5px; transition: var(--transition); }
-.nav-toggle span:nth-child(1) { top: 9px; }
-.nav-toggle span:nth-child(2) { top: 15px; }
-.nav-toggle span:nth-child(3) { top: 21px; }
-.nav-toggle.is-open span:nth-child(1) { top: 15px; transform: rotate(45deg); }
-.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
-.nav-toggle.is-open span:nth-child(3) { top: 15px; transform: rotate(-45deg); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; align-items: center; gap: 6px; }
+.nav-toggle-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-green-mid); line-height: 1; }
+.nav-toggle-bars { position: relative; width: 32px; height: 32px; display: block; }
+.nav-toggle-bars span { display: block; width: 22px; height: 1.5px; background: var(--color-green-mid); position: absolute; left: 5px; transition: var(--transition); }
+.nav-toggle-bars span:nth-child(1) { top: 9px; }
+.nav-toggle-bars span:nth-child(2) { top: 15px; }
+.nav-toggle-bars span:nth-child(3) { top: 21px; }
+.nav-toggle.is-open .nav-toggle-bars span:nth-child(1) { top: 15px; transform: rotate(45deg); }
+.nav-toggle.is-open .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open .nav-toggle-bars span:nth-child(3) { top: 15px; transform: rotate(-45deg); }
 
 /* HERO */
 .hero { position: relative; display: flex; align-items: center; overflow: hidden; background: var(--color-white); border-bottom: 1px solid var(--color-line); }
@@ -473,7 +475,7 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-  .header-nav { display: none; } .nav-toggle { display: block; }
+  .header-nav { display: none; } .nav-toggle { display: flex; }
   .hero-inner { grid-template-columns: 1fr; gap: 44px; padding-top: 120px; }
   .hero-trust-card { max-width: 520px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 0; }
@@ -795,7 +797,8 @@ body { line-height: 1.8; }
 .header-nav a::after { background: #ffffff; }
 .header-cta-btn { background: transparent; color: #ffffff !important; border-color: rgba(255,255,255,0.8); }
 .header-cta-btn:hover { background: #ffffff; color: #15709e !important; }
-.nav-toggle span { background: #ffffff; }
+.nav-toggle-bars span { background: #ffffff; }
+.nav-toggle-label { color: #ffffff; }
 
 /* ============================================================
    「こんなお悩みはありませんか？」を横幅いっぱいの背景画像でおしゃれに
@@ -925,7 +928,7 @@ body { line-height: 1.8; }
     <a href="/en/" style="font-size:.78rem;color:var(--color-text-light);text-decoration:none;letter-spacing:.05em;margin-right:14px" title="Sea Burial in Japan — English">EN</a>
     <a href="/contact/" class="header-cta-btn">資料請求・ご相談</a>
   </nav>
-  <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  <button class="nav-toggle" aria-label="メニュー"><span class="nav-toggle-label" aria-hidden="true">MENU</span><span class="nav-toggle-bars"><span></span><span></span><span></span></span></button>
 </div></header>
 
 <!-- HERO -->
