@@ -170,6 +170,8 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 26px 0 0; padding: 0; }
 .hero-chips li { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; color: var(--color-deep-green); background: rgba(255,255,255,0.72); border: 1px solid var(--color-border); border-radius: 999px; padding: 5px 14px; backdrop-filter: blur(2px); }
 .hero-ctas { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.fv-trust, .fv-shindan { display: none; }
+.sub-sp { display: none; }
 .btn-primary { display: inline-flex; align-items: center; gap: 9px; background: var(--color-deep-green); color: var(--color-white); padding: 15px 36px; border-radius: var(--radius); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; border: none; cursor: pointer; transition: var(--transition); box-shadow: none !important; }
 .btn-primary:hover { background: var(--color-green-mid); transform: none; }
 .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--color-white); padding: 15px 34px; border-radius: var(--radius); font-size: 0.88rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.4); cursor: pointer; transition: var(--transition); box-shadow: none !important; }
@@ -492,6 +494,19 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
   .hero-sub { font-size: 0.88rem; line-height: 2.05; margin-bottom: 28px; }
   .hero-chips { margin-top: 20px; }
   .hero-ctas { flex-direction: column; align-items: stretch; } .hero-ctas a { width: 100%; text-align: center; justify-content: center; }
+  /* --- SP FV簡素化（v0230）：FV=ブランド句+H1+補足のみ。CTAは画面下固定バーに集約 --- */
+  .hero-badge, .hero-ctas, .hero-chips { display: none; }
+  .hero-inner { padding: 108px 24px 72px; }
+  .hero-sub { margin-bottom: 4px; }
+  .sub-full { display: none; }
+  .sub-sp { display: inline; }
+  .side-tabs { display: none !important; } /* TOPのSPでは右固定タブを撤去し、FV直下の導線に集約 */
+  .fv-trust { display: flex; justify-content: center; align-items: center; gap: 6px 14px; flex-wrap: wrap; background: var(--color-cream); border-bottom: 1px solid var(--color-line); padding: 13px 12px; }
+  .fv-trust span { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; color: var(--color-deep-green); position: relative; }
+  .fv-trust span + span::before { content: '・'; color: var(--color-gold); margin-right: 14px; margin-left: -14px; position: absolute; left: -4px; display: none; }
+  .fv-shindan { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-white); border-bottom: 1px solid var(--color-line); padding: 14px 18px; text-decoration: none; }
+  .fv-shindan-q { font-size: 0.85rem; font-weight: 600; color: var(--color-text); line-height: 1.6; } .fv-shindan-q .nw { display: inline-block; }
+  .fv-shindan-a { flex: none; background: var(--color-green-mid); color: #fff; border-radius: 999px; padding: 9px 16px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; }
   .hero-price-highlight .prices { flex-direction: column; gap: 10px; }
   .stats { margin-top: 0; } .stat-card { padding: 16px; } .stat-number { font-size: 2.2rem; }
   .services-grid { grid-template-columns: 1fr; }
@@ -918,7 +933,7 @@ body { line-height: 1.8; }
     <div class="hero-badge">日本海洋散骨協会 加盟事業者</div>
     <p class="hero-brandline">ご供養の不安を、安穏に。</p>
     <h1 class="hero-h1"><span class="nw">海洋散骨・</span><span class="nw">お墓じまい・</span><span class="nw">粉骨を、</span><br><em>一つの窓口</em>で。</h1>
-    <p class="hero-sub">鹿児島・福岡の供養専門会社 縁（えん）。<br>ご相談から施行、散骨後のご供養まで一社で完結します。</p>
+    <p class="hero-sub">鹿児島・福岡の供養専門会社 縁（えん）。<br><span class="sub-full">ご相談から施行、散骨後のご供養まで一社で完結します。</span><span class="sub-sp">ご相談からご供養まで、一社で完結します。</span></p>
     <div class="hero-ctas">
       <a href="/contact/" class="btn-primary">無料相談・資料請求</a>
       <a href="https://line.me/R/ti/p/%40bkx9825r" class="btn-primary btn-line" target="_blank" rel="noopener">LINEで気軽に相談</a>
@@ -933,6 +948,19 @@ body { line-height: 1.8; }
 </div>
 <div class="hero-wave-bottom" aria-hidden="true"><svg viewBox="0 0 1440 72" preserveAspectRatio="none"><path class="wave-fill-1" d="M0,34 C220,8 430,8 660,30 C900,54 1080,54 1260,32 C1350,20 1400,24 1440,30 L1440,72 L0,72 Z"/><path class="wave-fill-2" d="M0,44 C220,20 430,20 660,40 C900,62 1080,62 1260,42 C1350,32 1400,36 1440,42 L1440,72 L0,72 Z"/><path class="wave-fill-3" d="M0,54 C220,32 430,32 660,50 C900,70 1080,70 1260,52 C1350,44 1400,46 1440,52 L1440,72 L0,72 Z"/></svg></div>
 </section>
+
+<!-- SP専用：FV直下の信頼バー（FV内チップの移設・3項目） -->
+<div class="fv-trust" aria-label="実績">
+  <span>対応実績 3,800件超</span>
+  <span>Google口コミ ★4.9</span>
+  <span>創業20年以上</span>
+</div>
+
+<!-- SP専用：供養方法に迷っている方への導線（右側固定タブの代替） -->
+<a class="fv-shindan" href="/shindan/">
+  <span class="fv-shindan-q"><span class="nw">どの供養方法が合うか</span><span class="nw">迷っている方へ</span></span>
+  <span class="fv-shindan-a">3分で確認する →</span>
+</a>
 
 <!-- 期間限定キャンペーンバナー -->
 <a href="/kaiyou-sou/" class="cam-banner" aria-label="委託海洋葬 期間限定価格 54,450円（税込）の詳細を見る">
