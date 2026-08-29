@@ -27,6 +27,7 @@ $nav_sub = [
     <nav class="site-nav" aria-label="グローバルナビゲーション">
       <button class="site-nav__toggle" aria-label="メニューを開く" aria-expanded="false">
         <span></span><span></span><span></span>
+        <span class="site-nav__toggle-label" aria-hidden="true">MENU</span>
       </button>
       <ul class="site-nav__list">
         <?php /* SPメニュー最上部の重要導線（PCナビには表示しない） */ ?>
