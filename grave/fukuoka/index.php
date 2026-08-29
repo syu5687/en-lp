@@ -74,16 +74,50 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
         </ul>
         <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:.9rem">
           <p style="font-weight:700;margin-bottom:6px">▼ 別オプション</p>
-          <p>改葬許可申請（役所手続き）サポート ¥25,000／最下層を含む場合 ¥35,000</p>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <p style="flex:1;min-width:0">改葬許可申請（役所手続き）サポート ¥25,000／最下層を含む場合 ¥35,000<br><span style="font-size:.82rem;color:var(--text-light)">改葬許可申請書（写真は福岡市の様式例）の取り寄せ・記入のご案内までお手伝いします。</span></p>
+            <img src="/grave/fukuoka/images/gf-kaiso-form.jpg?v=<?= asset_ver() ?>" alt="改葬許可申請書（福岡市の様式例）" width="722" height="1044" loading="lazy" style="width:86px;height:auto;flex-shrink:0;border:1px solid var(--border);border-radius:6px;background:#fff">
+          </div>
         </div>
         <p style="margin-top:14px;font-size:.85rem;color:var(--text-light);line-height:1.9">特殊運搬など現場の条件で必要になる費用は、<strong>現地調査の段階ですべてお見積もりに含めてご提示</strong>します。総額にご納得いただいてからのご契約となり、<strong>確定したお見積もり後に追加請求することはありません</strong>。</p>
       </div>
-      <p style="text-align:center;margin-top:18px;font-size:.9rem"><a href="/grave/" style="color:var(--green);font-weight:600">工事の実例（Before/After）や費用が変わる条件は、お墓じまい詳細ページで →</a></p>
+    </div>
+  </section>
+
+  <!-- 施工事例 Before/After -->
+  <section class="section" style="background:var(--white)">
+    <div class="container" style="max-width:860px">
+      <h2 style="text-align:center;margin-bottom:8px">撤去工事の実例（Before → After）</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:24px">工事の前後は写真でご報告します。区画は更地に戻し、管理者へお返しするまで対応します。</p>
+      <div style="display:grid;gap:18px">
+        <?php foreach ([
+          ['gf-case1', '墓石の撤去・更地化'],
+          ['gf-case2', '外柵を含む解体・整地'],
+          ['gf-case3', '墓石撤去と区画の返還整備'],
+          ['gf-case4', 'ご遺骨の取り出し'],
+        ] as [$gc_img, $gc_t]): ?>
+        <div class="card" style="padding:16px">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:10px"><?= h($gc_t) ?></p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <figure style="margin:0;position:relative">
+              <img src="/grave/fukuoka/images/<?= $gc_img ?>-before.jpg?v=<?= asset_ver() ?>" alt="<?= h($gc_t) ?>：施工前" loading="lazy" style="width:100%;height:210px;object-fit:cover;border-radius:8px;display:block">
+              <figcaption style="position:absolute;top:8px;left:8px;background:rgba(35,50,58,.78);color:#fff;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:999px">Before</figcaption>
+            </figure>
+            <figure style="margin:0;position:relative">
+              <img src="/grave/fukuoka/images/<?= $gc_img ?>-after.jpg?v=<?= asset_ver() ?>" alt="<?= h($gc_t) ?>：施工後" loading="lazy" style="width:100%;height:210px;object-fit:cover;border-radius:8px;display:block">
+              <figcaption style="position:absolute;top:8px;left:8px;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:999px">After</figcaption>
+            </figure>
+          </div>
+        </div>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:14px;font-size:.82rem;color:var(--text-light)">※ 写真はいずれも当社施工の実例です。</p>
+      <p style="text-align:center;margin-top:10px;font-size:.9rem"><a href="/grave/" style="color:var(--green);font-weight:600">費用が変わる条件など、さらに詳しくはお墓じまい詳細ページで →</a></p>
     </div>
   </section>
 
   <!-- 福岡独自：地域事情と対応エリア -->
-  <section class="section" style="background:var(--white)">
+  <section class="section">
     <div class="container" style="max-width:860px">
       <h2 style="text-align:center;margin-bottom:8px">福岡の墓じまい事情と対応エリア</h2>
       <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:24px">都市部ならではの事情に、地元の営業所が対応します。</p>
@@ -105,7 +139,7 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
   </section>
 
   <!-- 流れ（共通・簡略版） -->
-  <section class="section">
+  <section class="section" style="background:var(--white)">
     <div class="container" style="max-width:760px">
       <h2 style="text-align:center;margin-bottom:24px">ご相談から納骨までの流れ</h2>
       <ol style="list-style:none;display:grid;gap:12px;counter-reset:st">

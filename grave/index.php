@@ -2540,7 +2540,7 @@
   <section class="section area" aria-labelledby="area-title">
     <p class="section-eyebrow">SERVICE AREA</p>
     <h2 id="area-title" class="section-title with-line">対応エリア</h2>
-    <p style="text-align:center;font-size:.9rem;margin:10px 0 4px"><a href="/grave/fukuoka/" style="color:#1c6b52;font-weight:700;text-decoration:underline">福岡県の墓じまいは、福岡営業所ページへ →</a></p>
+    <p style="text-align:center;margin:18px auto 10px;max-width:640px;width:100%"><a href="/grave/fukuoka/" style="display:inline-block;background:#1c6b52;color:#fff;font-weight:700;font-size:.98rem;line-height:1.6;padding:14px 30px;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(28,107,82,.28)"><span style="white-space:nowrap">福岡の墓じまい</span><span style="white-space:nowrap">専用ページへ&nbsp;→</span></a><br><span style="display:inline-block;margin-top:8px;font-size:.82rem;color:#5c6b73">福岡営業所対応・基本プラン33万円（税込）</span></p>
 
     <div class="area-card">
       <div class="area-main">
