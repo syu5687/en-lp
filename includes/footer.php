@@ -42,16 +42,7 @@
   <p class="site-footer__ver" style="margin-top:6px;font-size:.68rem;opacity:.55;letter-spacing:.05em;text-align:center"><?= h(APP_VERSION) ?></p>
 </footer>
 
-<!-- 右側固定・縦長タブ（供養の選び方／お申込みの流れ） -->
-<div class="side-tabs">
-  <a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
-    <span class="sf-badge" aria-hidden="true">?</span>
-    <span class="sf-label">供養の選び方</span>
-  </a>
-  <a href="/flow/" class="side-flow" aria-label="お申込みの流れ">
-    <span class="sf-label">お申込みの流れ</span>
-  </a>
-</div>
+<!-- 右側固定タブは v0235 で廃止（PC/SPとも）。導線はヘッダーナビ・診断誘導・フッターに集約 -->
 
 <!-- SP固定フッターCTA -->
 <div class="sticky-cta">

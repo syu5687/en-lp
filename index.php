@@ -1463,16 +1463,7 @@ if (navToggle) {
 .side-flow .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.92rem;letter-spacing:.12em;white-space:nowrap}
 @media(max-width:768px){.side-flow{padding:12px 8px}.side-flow .sf-label{font-size:.78rem;letter-spacing:.08em}}
 </style>
-<!-- 右側固定・縦長タブ（供養の選び方／お申込みの流れ） -->
-<div class="side-tabs">
-  <a href="/shindan/" class="side-finder" aria-label="供養の選び方（かんたん診断）">
-    <span class="sf-badge" aria-hidden="true">?</span>
-    <span class="sf-label">供養の選び方</span>
-  </a>
-  <a href="/flow/" class="side-flow" aria-label="お申込みの流れ">
-    <span class="sf-label">お申込みの流れ</span>
-  </a>
-</div>
+<!-- 右側固定タブは v0235 で廃止（PC/SPとも）。導線はヘッダーナビ・診断誘導・フッターに集約 -->
 <script>
 (function () {
   var slides = document.querySelectorAll('.hero-slide');
