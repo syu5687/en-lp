@@ -161,10 +161,14 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .hero-inner { position: relative; z-index: 2; max-width: 1080px; margin: 0 auto; padding: 150px 32px 110px; display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 68px; align-items: center; }
 .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--color-border); padding: 7px 16px; border-radius: var(--radius); font-size: 0.72rem; color: var(--color-deep-green); letter-spacing: 0.1em; margin-bottom: 28px; }
 .hero-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--color-gold); }
-.hero-h1 { font-family: var(--font-serif); font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 500; color: var(--color-green-mid); line-height: 2.0; letter-spacing: 0.06em; margin-bottom: 26px; }
+.hero-h1 { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.15rem); font-weight: 500; color: var(--color-green-mid); line-height: 1.85; letter-spacing: 0.05em; margin-bottom: 24px; }
+.hero-h1 .nw { display: inline-block; }
 .hero-h1 em { font-style: normal; color: var(--color-gold); border-bottom: 1px solid var(--color-gold-light); padding-bottom: 2px; }
 .hero-sub { font-size: 0.95rem; color: var(--color-text-light); line-height: 2.35; margin-bottom: 40px; }
 .hero-sub em { font-style: normal; color: var(--color-deep-green); font-weight: 500; }
+.hero-brandline { font-family: var(--font-serif); font-size: 0.95rem; letter-spacing: 0.22em; color: var(--color-gold); margin-bottom: 14px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 26px 0 0; padding: 0; }
+.hero-chips li { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; color: var(--color-deep-green); background: rgba(255,255,255,0.72); border: 1px solid var(--color-border); border-radius: 999px; padding: 5px 14px; backdrop-filter: blur(2px); }
 .hero-ctas { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
 .btn-primary { display: inline-flex; align-items: center; gap: 9px; background: var(--color-deep-green); color: var(--color-white); padding: 15px 36px; border-radius: var(--radius); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; border: none; cursor: pointer; transition: var(--transition); box-shadow: none !important; }
 .btn-primary:hover { background: var(--color-green-mid); transform: none; }
@@ -483,7 +487,10 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 }
 @media (max-width: 768px) {
   .hero { min-height: auto; } .hero-inner { padding: 100px 24px 64px; }
-  .hero-h1 { font-size: 1.34rem; line-height: 1.7; letter-spacing: 0.02em; margin-bottom: 16px; }
+  .hero-h1 { font-size: 1.42rem; line-height: 1.65; letter-spacing: 0.02em; margin-bottom: 14px; }
+  .hero-brandline { font-size: 0.82rem; margin-bottom: 10px; }
+  .hero-sub { font-size: 0.88rem; line-height: 2.05; margin-bottom: 28px; }
+  .hero-chips { margin-top: 20px; }
   .hero-ctas { flex-direction: column; align-items: stretch; } .hero-ctas a { width: 100%; text-align: center; justify-content: center; }
   .hero-price-highlight .prices { flex-direction: column; gap: 10px; }
   .stats { margin-top: 0; } .stat-card { padding: 16px; } .stat-number { font-size: 2.2rem; }
@@ -909,12 +916,19 @@ body { line-height: 1.8; }
 <section class="hero"><div class="hero-bg"><?php foreach ([1,2,3,4] as $hs_i): ?><div class="hero-slide<?= $hs_i === 1 ? ' on' : '' ?>" style="background-image:url('/assets/img/top/slide-<?= $hs_i ?>.jpg?v=<?= h(asset_ver()) ?>')"></div><?php endforeach; ?><div class="hero-veil"></div></div><div class="hero-wave-lines" aria-hidden="true"><svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="none"><path d="M0,38 C240,10 480,58 720,34 C960,12 1200,54 1440,30" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.4"/><path d="M0,52 C240,26 480,72 720,48 C960,26 1200,66 1440,44" stroke="#d0b78f" stroke-opacity="0.5" stroke-width="1.2"/></svg></div><div class="hero-inner">
   <div class="hero-content">
     <div class="hero-badge">日本海洋散骨協会 加盟事業者</div>
-    <h1 class="hero-h1">ご供養の不安を、<em>安穏</em>に。<br>大切な方を想う気持ちに<br>寄り添うご供養のかたち。</h1>
-    <p class="hero-sub">海洋散骨・粉骨・お墓じまい・樹木葬──<br>鹿児島を拠点に、<em>全国からのご依頼に対応</em>。ご供養のすべてをワンストップでサポート。<br>宗教・宗派を問わず、どなたでもご利用いただけます。</p>
+    <p class="hero-brandline">ご供養の不安を、安穏に。</p>
+    <h1 class="hero-h1"><span class="nw">海洋散骨・</span><span class="nw">お墓じまい・</span><span class="nw">粉骨を、</span><br><em>一つの窓口</em>で。</h1>
+    <p class="hero-sub">鹿児島・福岡の供養専門会社 縁（えん）。<br>ご相談から施行、散骨後のご供養まで一社で完結します。</p>
     <div class="hero-ctas">
       <a href="/contact/" class="btn-primary">無料相談・資料請求</a>
       <a href="https://line.me/R/ti/p/%40bkx9825r" class="btn-primary btn-line" target="_blank" rel="noopener">LINEで気軽に相談</a>
     </div>
+    <ul class="hero-chips" aria-label="実績">
+      <li>対応実績 3,800件超</li>
+      <li>Google口コミ ★4.9</li>
+      <li>創業20年以上</li>
+      <li>宗教・宗派不問</li>
+    </ul>
   </div>
 </div>
 <div class="hero-wave-bottom" aria-hidden="true"><svg viewBox="0 0 1440 72" preserveAspectRatio="none"><path class="wave-fill-1" d="M0,34 C220,8 430,8 660,30 C900,54 1080,54 1260,32 C1350,20 1400,24 1440,30 L1440,72 L0,72 Z"/><path class="wave-fill-2" d="M0,44 C220,20 430,20 660,40 C900,62 1080,62 1260,42 C1350,32 1400,36 1440,42 L1440,72 L0,72 Z"/><path class="wave-fill-3" d="M0,54 C220,32 430,32 660,50 C900,70 1080,70 1260,52 C1350,44 1400,46 1440,52 L1440,72 L0,72 Z"/></svg></div>
