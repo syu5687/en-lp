@@ -130,8 +130,11 @@ function iq_bars(array $data, int $top = 8): string {
   .iq-table th{background:#f2f6f8;font-size:.76rem;color:#456;white-space:nowrap}
   .iq-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
   .iq-tools a{font-size:.85rem}
-  details.iq-msg summary{cursor:pointer;color:#15709e;font-size:.8rem}
-  details.iq-msg p{white-space:pre-wrap;font-size:.83rem;background:#f7f9fa;border-radius:8px;padding:10px;margin-top:6px;max-width:480px}
+  .iq-msg-toggle{background:none;border:none;cursor:pointer;color:#15709e;font-size:.8rem;padding:0;white-space:nowrap}
+  .iq-msg-toggle:hover{text-decoration:underline}
+  .iq-msgrow td{background:#f4f9fc;border-bottom:1px solid #d9e6ee;padding:12px 16px}
+  .iq-msgbox{white-space:pre-wrap;font-size:.88rem;line-height:2;color:#23323a;background:#fff;border:1px solid #d3e2ea;border-left:4px solid #15709e;border-radius:8px;padding:14px 18px;max-width:860px}
+  .iq-msgbox b{display:block;font-size:.74rem;color:#5c7a8a;margin-bottom:6px}
 </style>
 </head><body>
 <header class="admin-bar">
@@ -189,7 +192,7 @@ function iq_bars(array $data, int $top = 8): string {
           <td style="font-size:.8rem"><?= h($i['email'] ?? '') ?><br><?= h($i['tel'] ?? '') ?></td>
           <td>
             <?php if (!empty($i['message'])): ?>
-              <details class="iq-msg"><summary>内容を見る</summary><p><?= h($i['message']) ?></p></details>
+              <button type="button" class="iq-msg-toggle">▼ 内容を見る</button>
             <?php endif; ?>
             <?php if (!empty($i['shindan'])): ?><p style="font-size:.76rem;color:#567">診断: <?= h($i['shindan']) ?></p><?php endif; ?>
             <?php if (!empty($i['source'])): ?><p style="font-size:.72rem;color:#9ab"><?= h((string)(parse_url((string)$i['source'], PHP_URL_PATH) ?? '')) ?></p><?php endif; ?>
@@ -218,6 +221,9 @@ function iq_bars(array $data, int $top = 8): string {
             <button type="button" class="iq-open admin-btn admin-btn--outline" data-iq="<?= h($iqData) ?>" style="width:100%;padding:6px 8px;font-size:.78rem">✉ 返信・対応履歴<?= $histCnt ? '（' . $histCnt . '）' : '' ?></button>
           </td>
         </tr>
+        <?php if (!empty($i['message'])): ?>
+        <tr class="iq-msgrow" hidden><td colspan="7"><div class="iq-msgbox"><b><?= h($i['name'] ?? '') ?> 様のお問い合わせ内容</b><?= h($i['message']) ?></div></td></tr>
+        <?php endif; ?>
       <?php endforeach; ?>
       <?php if (!$items && !$fs_error): ?><tr><td colspan="6" style="color:#888">まだ受信データがありません。フォームから送信があると自動で記録されます。</td></tr><?php endif; ?>
     </table>
@@ -225,6 +231,17 @@ function iq_bars(array $data, int $top = 8): string {
   <p style="font-size:.76rem;color:#99a;margin-top:14px">※ 個人情報を含むため、取り扱いにご注意ください。表示・CSVのデータは管理画面にログインした方のみ閲覧できます。<br>
   ※ ステータスか担当者を変更すると自動保存されます。「対応済み」以外のまま3日以上変更がない案件は、毎日の自動チェックで管理者宛にメール通知されます。</p>
 </main>
+<script>
+  // 「内容を見る」→ 直下の全幅行を開閉（細い列で読みにくい問題の対策）
+  document.querySelectorAll('.iq-msg-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var row = b.closest('tr') && b.closest('tr').nextElementSibling;
+      if (!row || !row.classList.contains('iq-msgrow')) return;
+      row.hidden = !row.hidden;
+      b.textContent = row.hidden ? '▼ 内容を見る' : '▲ 閉じる';
+    });
+  });
+</script>
 <style>
   .iq-row--todo{background:#fff}
   .iq-row--doing{background:#fffdf4}
