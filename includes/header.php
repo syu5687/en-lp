@@ -29,6 +29,8 @@ $nav_sub = [
         <span></span><span></span><span></span>
       </button>
       <ul class="site-nav__list">
+        <?php /* SPメニュー最上部の重要導線（PCナビには表示しない） */ ?>
+        <li class="sp-nav-extra sp-nav-shindan"><a href="/shindan/">供養の選び方（かんたん診断）<span class="sp-nav-shindan__tag">約3分</span></a></li>
         <?php foreach (NAV as $item): $sub = $nav_sub[$item['href']] ?? null; ?>
           <?php if ($sub): ?>
             <li class="has-subnav">

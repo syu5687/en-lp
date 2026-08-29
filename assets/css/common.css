@@ -152,10 +152,8 @@ details[open] summary{margin-bottom:8px}
 .side-finder .sf-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;flex:none}
 .side-finder .sf-label{writing-mode:vertical-rl;text-orientation:upright;font-weight:700;font-size:.98rem;letter-spacing:.14em;white-space:nowrap}
 @media(max-width:768px){
-  .side-tabs{top:40%}
-  .side-finder{padding:12px 8px;gap:9px}
-  .side-finder .sf-label{font-size:.82rem;letter-spacing:.1em}
-  .side-finder .sf-badge{width:22px;height:22px;font-size:.82rem}
+  /* SPでは右側固定タブを廃止（ハンバーガーメニュー内へ統合）。本文閲覧を優先 */
+  .side-tabs{display:none}
 }
 
 /* ---- レスポンシブ ---- */
@@ -207,6 +205,10 @@ details[open] summary{margin-bottom:8px}
 @media(max-width:768px){
   .sp-nav-extra{display:block}
   .sp-nav-extra--sub > a{font-size:.85rem !important;font-weight:500 !important;opacity:.85}
+  /* SPメニュー最上部の重要導線（供養の選び方） */
+  .sp-nav-shindan{border-bottom:0 !important;margin:12px 0 8px}
+  .sp-nav-shindan > a{display:flex !important;align-items:center;justify-content:space-between !important;gap:10px;background:linear-gradient(135deg,#2b7d76,#1c6b52);border-radius:12px;padding:14px 16px !important;font-weight:700 !important;color:#fff !important;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+  .sp-nav-shindan__tag{flex:none;font-size:.72rem;background:rgba(255,255,255,.22);border-radius:999px;padding:3px 10px;font-weight:700;letter-spacing:.04em}
   .site-nav__list{background:linear-gradient(180deg,#15709e 0%,#0e567d 100%);padding:6px 20px 90px;gap:0;border-radius:0 0 16px 16px;align-items:stretch;text-align:left}
   .site-nav__list > li{border-bottom:1px solid rgba(255,255,255,.14);width:100%}
   /* メニュー展開中は右固定タブ・文字サイズボタンを隠して重なりを防ぐ */
