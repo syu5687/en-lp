@@ -156,6 +156,66 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     </div>
   </section>
 
+  <!-- 分骨という選択肢（手元供養・ジュエリーへの導線） -->
+  <section class="section" id="bunkotsu" style="background:var(--cream)">
+    <div class="container" style="max-width:1000px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">BUNKOTSU</p>
+      <h2 style="text-align:center;margin-bottom:14px">ご遺骨は、<span style="display:inline-block">すべて海に還さなくてもかまいません</span></h2>
+      <p style="text-align:center;max-width:720px;margin:0 auto 8px;line-height:2">
+        「全部撒いてしまったら、手を合わせる場所がなくなる気がして…」<br>
+        ——ご相談のなかで、よくうかがう言葉です。
+      </p>
+      <p style="text-align:center;max-width:720px;margin:0 auto 30px;line-height:2">
+        海洋散骨は、ご遺骨のすべてを撒かなければいけないものではありません。<br class="pc-only">
+        パウダー化したご遺骨の大部分を海へ、ひとつまみをお手元に。<br class="pc-only">
+        実際に、そのように分けて見送られるご家族が多くいらっしゃいます。
+      </p>
+      <div class="ks-bk-src">パウダー化したご遺骨を、ご希望の分だけお分けします（分骨）</div>
+      <div class="ks-bk-arrows" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div>
+      <div class="ks-bk-grid">
+        <div class="ks-bk">
+          <div class="ks-bk__head">1</div>
+          <h3>すべてを海洋散骨に</h3>
+          <p>ご遺骨のことをここで終えたい方に。散骨海域の緯度・経度入りの散骨証明書と当日のお写真が残るので、お参りはメモリアルクルーズや「天国への手紙」でできます。</p>
+        </div>
+        <div class="ks-bk">
+          <div class="ks-bk__head">2</div>
+          <h3>大部分を散骨し、<br>一部をご自宅に</h3>
+          <p>手のひらサイズのミニ骨壷（卵型・ガラス製など）に納めて、棚の上やリビングに。お仏壇がなくても置けます。お持ち込みの骨壷・ペンダントへの分骨は5,500円（税込）です。</p>
+          <a href="/temoto-kuyou/" class="ks-bk__link">手元に残す方法を見る →</a>
+        </div>
+        <div class="ks-bk">
+          <div class="ks-bk__head">3</div>
+          <h3>大部分を散骨し、<br>ごく少量をジュエリーに</h3>
+          <p>お米一粒ほどのご遺骨を、指輪の内側に封入します。見た目は普段使いのリングやペンダントなので、そのまま身につけて外出できます。お手持ちの指輪の加工も査定します。</p>
+          <a href="/jewelry-reform/" class="ks-bk__link">メモリアルジュエリーを見る →</a>
+        </div>
+      </div>
+      <div style="max-width:760px;margin:26px auto 0;background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:18px 22px">
+        <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">迷ったら、少量を残しておくことをおすすめしています</p>
+        <p style="font-size:.92rem;line-height:1.95;margin:0">散骨したご遺骨は、あとから「少し残しておけばよかった」と思っても戻りません。一方、残しておいたご遺骨をあとから散骨することは、いつでもできます。ご家族で意見が分かれている場合も、まず一部を残しておけば、急いで結論を出す必要がなくなります。お母様はミニ骨壷に、娘様はペンダントに——と、ご家族それぞれで少しずつ分けることもできます。</p>
+      </div>
+      <p style="text-align:center;margin-top:24px">
+        <a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn btn--outline">散骨と手元供養、まとめて相談する（無料）</a>
+      </p>
+    </div>
+  </section>
+  <style>
+    .ks-bk-src{max-width:560px;margin:0 auto;background:var(--green-mid,#12597a);color:#fff;text-align:center;font-weight:700;font-size:.95rem;padding:12px 18px;border-radius:12px}
+    .ks-bk-arrows{display:grid;grid-template-columns:repeat(3,1fr);max-width:860px;margin:6px auto;text-align:center;color:var(--green-mid);font-size:1.2rem;font-weight:700}
+    .ks-bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .ks-bk{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .ks-bk__head{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:10px}
+    .ks-bk h3{font-size:1.02rem;color:var(--green-mid);margin-bottom:8px;line-height:1.6}
+    .ks-bk p{font-size:.9rem;line-height:1.9;flex:1}
+    .ks-bk__link{display:inline-block;margin-top:12px;color:var(--green);font-weight:700;font-size:.92rem;text-decoration:none;border-bottom:2px solid var(--green)}
+    @media(max-width:760px){
+      .ks-bk-grid{grid-template-columns:1fr}
+      .ks-bk-arrows{grid-template-columns:1fr}
+      .ks-bk-arrows span:nth-child(n+2){display:none}
+    }
+  </style>
+
   <!-- セレモニーギャラリー -->
   <section class="section">
     <div class="container" style="max-width:960px">
@@ -291,6 +351,9 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     }
   </style>
 
+  <!-- 資料請求CTA -->
+  <?php require __DIR__ . '/../includes/shiryou-cta.php'; ?>
+
   <!-- 実施予定日（管理画面から更新） -->
   <?php require __DIR__ . '/../includes/goudou-schedule.php'; ?>
 
@@ -366,7 +429,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
         <?php
           $ks_quality = [
             ['協会加盟の事業者か', '縁は一般社団法人日本海洋散骨協会の加盟事業者。ガイドラインと海域のルールを順守し、環境に配慮した散骨を行います。'],
-            ['粉骨の品質', 'ご遺骨は一件ずつ丁寧にパウダー化。お手元供養用に真空パック・桐箱でのお返しにも対応しています。'],
+            ['粉骨の品質と六価クロム対策', 'ご遺骨は一件ずつ丁寧にパウダー化。発がん性物質「六価クロム」の検査・無害化処理まで行ってから海にお還しします（2019年から実施）。'],
             ['散骨の証明', '散骨海域の緯度・経度入りの「散骨証明書」と当日のお写真をお届け。どこでお見送りしたかが、かたちで残ります。'],
             ['料金の明確さ', '金額は無料のお見積りで確定。ご納得いただいてからのご契約で、あとから追加料金をいただくことはありません。'],
             ['散骨後のご供養', 'メモリアルクルーズ、天国への手紙（無料）、手元供養など、「その後」のご供養まで自社で一貫してお手伝いします。'],
@@ -408,8 +471,19 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
        'link' => ['/grave/', 'お墓じまいについて詳しく見る']],
       ['q' => '散骨はいつ行うのがよいですか？時期に決まりはありますか？',
        'a' => '決まりはありません。お墓への納骨は四十九日を目安に行うことが多いですが、宗教・宗派を問わない海洋散骨は、どのタイミングで行っても問題ありません。ご家族が集まりやすい日程や、海が穏やかな季節に合わせて決められる方が多いです。'],
+      ['q' => 'ご遺骨をすべて散骨しなくても大丈夫ですか？一部だけ残せますか？',
+       'a' => '大丈夫です。パウダー化したご遺骨の大部分を散骨し、一部を手のひらサイズのミニ骨壷やペンダントに納めてお手元に残す方は多くいらっしゃいます。お持ち込みのお手元供養品への分骨は5,500円（税込）です。散骨したご遺骨はあとから取り戻せませんので、迷われている場合は少量を残しておくことをおすすめしています。残した分をあとから散骨することはいつでもできます。',
+       'link' => ['/temoto-kuyou/', 'お手元供養について詳しく見る']],
+      ['q' => '散骨用とジュエリー用に分けてもらえますか？家族ごとに少しずつ分けることもできますか？',
+       'a' => 'できます。粉骨の際に、散骨用・お手元用・ジュエリー用と必要な分だけお分けします。指輪に納めるのはお米一粒ほどのごく少量です。ご家族それぞれが少しずつ持たれる形（お一人はミニ骨壷、お一人はペンダントなど）も承ります。',
+       'link' => ['/jewelry-reform/', 'メモリアルジュエリーについて詳しく見る']],
+      ['q' => '手元供養やメモリアルジュエリーも一緒にお願いできますか？',
+       'a' => 'はい。粉骨・海洋散骨・手元供養・ジュエリーまで、すべて同じ窓口で承ります。別々の業者に依頼する場合と違い、ご遺骨の受け渡しが社内で完結するため、大切なご遺骨があちこちを行き来する心配がありません。ミニ骨壷などの手元供養品は、実物を見ながらお選びいただけます。'],
       ['q' => '忙しくて乗船できません。委託散骨だと故人に申し訳ない気もするのですが…',
        'a' => 'そのようにお感じになる方は少なくありませんが、どうぞご安心ください。委託海洋葬では、経験を積んだスタッフがご遺族様に代わり、献花・献水とともに心を込めてお見送りします。散骨後は海域の緯度・経度入りの散骨証明書と当日のお写真をお届けしますので、どのようにお見送りしたかをご確認いただけます。後日、メモリアルクルーズで同じ海域を訪れてご供養いただくこともできます。'],
+      ['q' => '散骨で海を汚すことにはなりませんか？環境への影響が心配です。',
+       'a' => '当社は環境への配慮を最優先に散骨を行っています。ご遺骨には、火葬の高温により発がん性物質「六価クロム」が付着・生成されている場合があるため、粉骨の前に専用キットで検査し、検出された場合は骨灰専用の還元剤で無害化してから海にお還しします（2019年から実施・追加料金なし）。また、献花は自然に還る花びらのみ、散骨用の袋も水溶性のものを使用し、海域も海水浴場や漁場を避けて選定しています。',
+       'link' => ['/powder-cleaning/', '六価クロムの検査・無害化について詳しく見る']],
       ['q' => 'ご遺骨と一緒にお花や思い出の品を撒くことはできますか？',
        'a' => '海に撒けるのは、花びらなど自然に還るものに限られます（環境保護のため、包装やリボンは外していただきます）。金属・プラスチック製品など自然に還らないものは撒くことができません。ご遺品の供養についても別途ご相談いただけます。'],
       ['q' => '小さな子どもや高齢の家族も乗船できますか？',

@@ -73,6 +73,7 @@
 </div>
 
 <?php require __DIR__ . '/sched-badge.php'; ?>
+<script src="/assets/js/sd-nudge.js?v=<?= h(asset_ver()) ?>" defer></script>
 <script src="/assets/js/common.js?v=<?= h(asset_ver()) ?>" defer></script>
 <script src="/assets/js/track.js?v=<?= h(asset_ver()) ?>" defer></script>
 <?= dev_badge_html() ?>

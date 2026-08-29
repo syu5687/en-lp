@@ -23,6 +23,14 @@ var CONFIG = {
   AUTO_REPLY: true,                       // お客様への受付確認メール
   AUTO_REPLY_SUBJECT: "【有限会社 縁】お問い合わせを承りました",
   AUTO_REPLY_NOTE: "※このメールは自動送信用メールアドレスです。返信はできません。お急ぎの場合はお電話（099-801-3637）でご連絡ください。",
+  // ---- 資料請求（無料）: 種別に「資料請求」を含む送信は、自動返信でPDFリンクをお届けする ----
+  SHIRYOU_MATCH: "資料請求",
+  SHIRYOU_SUBJECT: "【有限会社 縁】ご請求の資料（無料PDF）をお届けします",
+  SHIRYOU_LINKS: [
+    { label: "墓じまい完全ガイド 鹿児島・福岡版（PDF・全9ページ）",           url: "https://en1150.co.jp/assets/docs/enshiryou-k7x2/hakajimai-guide.pdf" },
+    { label: "海洋散骨で後悔しないためのチェックリスト（PDF・全8ページ）",   url: "https://en1150.co.jp/assets/docs/enshiryou-k7x2/sankotsu-checklist.pdf" }
+  ],
+  SHIRYOU_LINE_URL: "https://line.me/R/ti/p/%40bkx9825r",
   BREVO_LIST_ID: null,                    // コンタクト登録する場合のみリストID
   LOG_URL: "https://en1150.co.jp/api/inquiry-log.php",   // 受信内容のDB保存先（管理画面の解析用）
   LOG_SECRET: "fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2", // サイト側と共有のHMAC鍵
@@ -217,16 +225,28 @@ export default {
 
       let autoReplyOk = null;
       if (CONFIG.AUTO_REPLY && emailOk && !isSuspect) {
+        const isShiryou = !!(d.category && String(d.category).includes(CONFIG.SHIRYOU_MATCH));
+        const shiryouBlock = isShiryou ? `
+            <div style="background:#f6efdd;border-radius:10px;padding:16px 18px;margin:14px 0;">
+              <p style="margin:0 0 10px;font-weight:bold;color:#0a3852;">▼ ご請求いただいた資料はこちらからダウンロードできます</p>
+              ${CONFIG.SHIRYOU_LINKS.map((l) => `<p style="margin:6px 0;"><a href="${l.url}" style="color:#0f4d70;font-weight:bold;">📘 ${esc(l.label)}</a></p>`).join("")}
+              <p style="margin:10px 0 0;font-size:12px;color:#8a7a55;">※ リンクはいつでも開けます。印刷してご家族との話し合いにもお使いください。</p>
+            </div>
+            <p style="font-size:14px;">資料をお読みになって疑問が出てきましたら、このままLINEでお気軽にご相談いただけます（無料・営業のご連絡はいたしません）。<br><a href="${CONFIG.SHIRYOU_LINE_URL}" style="color:#06C755;font-weight:bold;">▶ LINEで相談する</a>　／　お電話 099-801-3637</p>` : "";
+        const introText = isShiryou
+          ? `この度は資料をご請求いただきありがとうございます。<br>下記リンクからすぐにご覧いただけます。`
+          : `この度はお問い合わせいただきありがとうございます。<br>以下の内容で承りました。担当者より改めてご連絡いたします。`;
         const custHtml = `
           <div style="font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.8;">
             <p>${esc(d.name || "")} 様</p>
-            <p>この度はお問い合わせいただきありがとうございます。<br>以下の内容で承りました。担当者より改めてご連絡いたします。</p>
+            <p>${introText}</p>
+            ${shiryouBlock}
             <table style="width:100%;border-collapse:collapse;font-size:14px;">${rows}</table>
             ${detail}
             ${srcCust}
             <p style="margin-top:16px;font-size:13px;color:#777;">${esc(CONFIG.AUTO_REPLY_NOTE)}</p>
           </div>`;
-        const cr = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ sender, to: [{ email: d.email, name: d.name }], subject: CONFIG.AUTO_REPLY_SUBJECT, htmlContent: custHtml }) });
+        const cr = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ sender, to: [{ email: d.email, name: d.name }], subject: isShiryou ? CONFIG.SHIRYOU_SUBJECT : CONFIG.AUTO_REPLY_SUBJECT, htmlContent: custHtml }) });
         autoReplyOk = cr.ok;
       }
 

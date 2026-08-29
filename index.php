@@ -1420,6 +1420,7 @@ if (navToggle) {
   </a>
 </div>
 <?php require __DIR__ . '/includes/fontsize.php'; ?>
+<script src="/assets/js/sd-nudge.js?v=<?= h(asset_ver()) ?>" defer></script>
 <?= dev_badge_html() ?>
 </body>
 </html>

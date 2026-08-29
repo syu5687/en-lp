@@ -1,0 +1,5 @@
+# 資料請求PDF置き場：検索エンジンにインデックスさせない（リンクは自動返信メールでのみ配布）
+Options -Indexes
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>

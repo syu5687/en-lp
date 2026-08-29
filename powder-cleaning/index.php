@@ -6,7 +6,7 @@
 require_once __DIR__ . '/../includes/config.php';
 
 $page_title     = '粉骨・洗骨｜全国郵送対応（ご遺骨のパウダー化・クリーニング）｜有限会社 縁';
-$page_desc      = 'ご遺骨のパウダー化（粉骨24,200円〜）・クリーニング（洗骨27,500円〜）。乳鉢を使いすべて手作業で、一件ずつ丁寧に。異物除去・洗浄・殺菌・乾燥から真空パック・桐箱でのお返しまで。ご遺骨の郵送で全国どこからでもご利用いただけます。鹿児島・福岡はお持ち込みも可能。有限会社 縁。';
+$page_desc      = 'ご遺骨のパウダー化（粉骨24,200円〜）・クリーニング（洗骨27,500円〜）。発がん性物質「六価クロム」の検査・無害化処理に対応。乳鉢を使いすべて手作業で、一件ずつ丁寧に。異物除去・洗浄・殺菌・乾燥から真空パック・桐箱でのお返しまで。ご遺骨の郵送で全国どこからでもご利用いただけます。鹿児島・福岡はお持ち込みも可能。有限会社 縁。';
 $page_canonical = SITE['url'] . '/powder-cleaning/';
 $page_hero_image = '/assets/img/hero-powder-cleaning.jpg';
 require __DIR__ . '/../includes/head.php';
@@ -123,6 +123,70 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
     @media(max-width:640px){.pc-st--wide{display:block}.pc-st--wide img{aspect-ratio:16/9;min-height:0}}
   </style>
 
+  <!-- 六価クロムの検査・無害化 -->
+  <section class="section" style="background:linear-gradient(180deg,#fdf9f0,#fff)">
+    <div class="container" style="max-width:1000px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">SAFETY</p>
+      <h2 style="text-align:center;margin-bottom:14px">ご存知ですか？ <span style="display:inline-block">ご遺骨と「六価クロム」のこと</span></h2>
+      <p style="text-align:center;max-width:760px;margin:0 auto 10px;line-height:2">
+        火葬炉の耐熱ステンレスなどに含まれるクロムが火葬の高温で酸化し、<br class="pc-only">ご遺骨に<strong>「六価クロム」という有害物質</strong>が付着・生成されることがあります。<br class="pc-only">
+        六価クロムは国際がん研究機関（IARC）で発がん性が認められている物質で、土壌の環境基準も定められています。
+      </p>
+      <p style="text-align:center;max-width:760px;margin:0 auto 30px;line-height:2;font-size:.95rem;color:var(--text-light)">
+        すべてのご遺骨から検出されるわけではありませんが、<strong style="color:var(--text)">検査をしなければ分かりません</strong>。<br class="pc-only">
+        散骨や樹木葬でご遺骨を自然に還すとき、またお手元で保管されるときの安心のため、<br class="pc-only">当社では<strong style="color:var(--text)">検査と無害化処理を行ったうえで粉骨</strong>しています。
+      </p>
+      <p style="text-align:center;margin:0 auto 30px">
+        <span style="display:inline-block;background:#b08b3e;color:#fff;font-weight:700;padding:9px 26px;border-radius:999px;font-size:.95rem">粉骨をお受けしたご遺骨に標準実施｜追加料金はいただきません</span>
+      </p>
+      <div class="pc-cr6-grid">
+        <div class="pc-cr6">
+          <img src="<?= h($pc_img('pc-cr6-check.jpg')) ?>" alt="六価クロム検査キットと標準色カード。検査液で六価クロムの有無を確認する" width="1400" height="933" loading="lazy">
+          <div class="pc-cr6__body">
+            <p class="pc-cr6__step">STEP 1</p>
+            <h3>専用キットで検査</h3>
+            <p>粉骨の前に、専用の検査キットでご遺骨に六価クロムが含まれていないかを確認します。</p>
+          </div>
+        </div>
+        <div class="pc-cr6">
+          <img src="<?= h($pc_img('pc-cr6-positive.jpg')) ?>" alt="六価クロムが検出され検査液がピンク色に変色した検査管と標準色カード" width="1400" height="933" loading="lazy">
+          <div class="pc-cr6__body">
+            <p class="pc-cr6__step">STEP 2</p>
+            <h3>変色したら「検出」のサイン</h3>
+            <p>六価クロムが含まれていると、検査液がピンク色に変色します。写真は実際に検出された際のものです。</p>
+          </div>
+        </div>
+        <div class="pc-cr6">
+          <img src="<?= h($pc_img('pc-cr6-agent.jpg')) ?>" alt="骨灰専用の六価クロム還元剤（無害化処理剤）のボトル" width="1400" height="933" loading="lazy">
+          <div class="pc-cr6__body">
+            <p class="pc-cr6__step">STEP 3</p>
+            <h3>骨灰専用の還元剤で無害化</h3>
+            <p>検出された場合は、骨灰専用の還元剤で毒性の低い三価クロムに還元し、無害化してから粉骨します。</p>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:24px;font-size:.95rem;line-height:2;max-width:760px;margin-left:auto;margin-right:auto">
+        海に還すご遺骨だから、そして大切な方のご遺骨だからこそ。手間を惜しまず、確認できたことだけをお伝えする。<br class="pc-only">
+        縁（えん）は<strong>2019年から六価クロム対策に取り組んでいる、環境配慮の先駆けの散骨・粉骨事業者</strong>です。<br>
+        検査・無害化処理の<strong>費用はすべて粉骨料金に含まれており、追加料金はいただきません</strong>。
+      </p>
+      <div style="max-width:760px;margin:22px auto 0;background:#fff;border:1px solid #e3d5b8;border-left:4px solid #b08b3e;border-radius:12px;padding:18px 22px">
+        <p style="font-weight:700;color:#8a6a2a;margin-bottom:6px">格安サービスとの違いは、こうした「見えない工程」にあります</p>
+        <p style="font-size:.92rem;line-height:1.95;margin:0">六価クロムの検査・無害化は、手間と時間のかかる工程のため、格安をうたう粉骨・散骨サービスでは省略されていることが少なくありません。料金を比較される際は、金額だけでなく<strong>「六価クロムの検査をしていますか？」</strong>とひとこと確認してみてください。その業者の環境と安全への姿勢が分かります。
+      </p>
+    </div>
+  </section>
+  <style>
+    .pc-cr6-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .pc-cr6{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+    .pc-cr6 img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+    .pc-cr6__body{padding:16px 18px 20px}
+    .pc-cr6__step{display:inline-block;background:#b08b3e;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.12em;padding:3px 12px;border-radius:999px;margin-bottom:9px}
+    .pc-cr6 h3{font-size:1rem;color:var(--green-mid);margin-bottom:7px}
+    .pc-cr6__body p:last-child{font-size:.9rem;line-height:1.85}
+    @media(max-width:760px){.pc-cr6-grid{grid-template-columns:1fr}}
+  </style>
+
   <!-- プラン・料金 -->
   <section class="section" style="background:var(--white)">
     <div class="container">
@@ -166,6 +230,9 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
             ['pc-ultrasonic.jpg', '超音波洗浄機での洗浄'],
             ['pc-dryer.jpg',      '乾燥庫での乾燥・殺菌'],
             ['pc-moisture.jpg',   '水分計による乾燥状態のチェック'],
+            ['pc-moisture-dry.jpg', '水分量0.1%までしっかり乾燥させた状態'],
+            ['pc-cr6-check.jpg',  '六価クロム検査キットでの検査'],
+            ['pc-cr6-agent.jpg',  '骨灰専用の六価クロム還元剤（無害化処理）'],
             ['pc-funkotsu-hands.jpg', '乳鉢での手作業による粉骨'],
             ['pc-powder.jpg',     'きめ細かなパウダー状に仕上がったご遺骨'],
             ['pc-vacuum.jpg',     '真空パック機での密封'],
@@ -289,6 +356,10 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
     $pc_faq = [
       ['q' => 'なぜ粉骨（パウダー化）が必要なのですか？',
        'a' => '海洋散骨や樹木葬などの自然葬を行う際は、ご遺骨をパウダー状にすることがルールとされています。また、粉骨するとご遺骨の容積が小さくなるため、ミニ骨壷でのお手元供養や納骨スペースの節約にも役立ちます。'],
+      ['q' => 'ご遺骨に「六価クロム」という有害物質が含まれていると聞きました。本当ですか？',
+       'a' => '含まれている場合があります。火葬炉の耐熱ステンレスなどに含まれるクロムが火葬の高温で酸化し、発がん性のある「六価クロム」となってご遺骨に付着・生成されることがあると言われています。すべてのご遺骨から検出されるわけではありませんが、検査をしなければ分かりません。当社では専用の検査キットで確認し、検出された場合は無害化処理を行ったうえで粉骨しています。'],
+      ['q' => '六価クロムの検査・無害化処理はお願いできますか？',
+       'a' => 'はい。当社では粉骨の工程のなかで、専用の検査キットによる六価クロムの検査を行い、検出された場合は骨灰専用の還元剤で毒性の低い三価クロムに還元する無害化処理を行っています。散骨や樹木葬でご遺骨を自然に還すときの環境への配慮としても、お手元供養で身近に保管されるときの安心のためにも大切な工程です。検査・無害化処理の費用は粉骨料金に含まれており、追加料金はいただきません。2019年から取り組んでいますので、安心してお任せください。'],
       ['q' => 'パウダー化して手元に戻るまで、どのくらいかかりますか？',
        'a' => 'ご郵送いただいてからお返しまで、約1週間ほどお時間をいただいております。ご相談内容によっては短縮も可能ですので、お急ぎの場合はお申し付けください。'],
       ['q' => '機械で処理するのですか？',

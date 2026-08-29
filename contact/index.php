@@ -25,6 +25,10 @@ require __DIR__ . '/../includes/head.php';
 
     <h2>フォームからのお問い合わせ</h2>
 
+    <div style="background:#f6efdd;border-left:4px solid #a8802f;border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:20px;font-size:.92rem;line-height:1.9">
+      <strong style="color:#0a3852">ご安心ください。</strong>ご相談いただいても、こちらから営業のお電話やしつこいご連絡は一切いたしません。<br>「まだ決めていない」「話を聞いてみたいだけ」という段階のご相談こそ、いちばんお役に立てます。
+    </div>
+
     <div id="shindan-note" hidden style="background:var(--sea-light);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.92rem">
       「供養の選び方」診断の結果：<strong id="shindan-service" style="color:var(--green-mid)"></strong> についてのご相談ですね。<br>下記フォームにそのまま入力してお送りください。
     </div>
@@ -73,6 +77,7 @@ require __DIR__ . '/../includes/head.php';
       <label>お問い合わせ種別
         <select name="category">
           <option value="">選択してください</option>
+          <option value="資料請求（無料）">資料請求（無料・PDFをメールでお届け）</option>
           <?php foreach (SERVICES as $s): ?>
             <option value="<?= h($s['title']) ?>"><?= h($s['title']) ?></option>
           <?php endforeach; ?>
@@ -90,6 +95,7 @@ require __DIR__ . '/../includes/head.php';
         <input type="checkbox" name="consent" value="1" required>
         <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
       </label>
+      <p style="font-size:.82rem;color:var(--text-light);margin:-6px 0 0">送信後、受付確認の自動返信メールが届きます。営業のご連絡はいたしませんので、ご安心ください。</p>
       <button type="submit" class="btn" id="submit-btn">送信する</button>
       <div id="form-msg" role="status" aria-live="polite"></div>
     </form>
@@ -146,6 +152,18 @@ let shindanService = '';
     sel.insertBefore(opt, sel.querySelector('option[value="その他"]'));
   }
   sel.value = opt.value;
+})();
+// 資料請求：種別で選ばれたら、内容欄を自動で埋めて手間をなくす
+(function () {
+  const sel = form.querySelector('select[name="category"]');
+  const ta  = form.querySelector('textarea[name="message"]');
+  const FILL = '資料請求：「墓じまい完全ガイド 鹿児島・福岡版」「海洋散骨で後悔しないためのチェックリスト」（PDF）を希望します。';
+  const apply = () => {
+    if (sel.value === '資料請求（無料）' && !ta.value.trim()) ta.value = FILL;
+    if (sel.value !== '資料請求（無料）' && ta.value === FILL) ta.value = '';
+  };
+  sel.addEventListener('change', apply);
+  setTimeout(apply, 0); // ?service= からの自動選択にも反応
 })();
 // 合同海洋散骨 実施予定日からの遷移：?date=YYYY-MM-DD をご希望日欄にセット
 (function () {

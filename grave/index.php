@@ -2393,6 +2393,8 @@
   <!-- =====================================
        Final CTA
        ===================================== -->
+  <?php require __DIR__ . '/../includes/shiryou-cta.php'; ?>
+
   <section id="contact" class="final-cta" aria-labelledby="final-title">
     <div class="final-cta-inner">
       <p class="final-cta-eyebrow">FREE CONSULTATION</p>

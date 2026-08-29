@@ -172,6 +172,8 @@ if ($blog_id !== '') {
       </div>
     </div>
 
+    <?php require __DIR__ . '/../includes/shiryou-cta.php'; ?>
+
     <div style="margin-top:30px;text-align:center">
       <a href="/blog/" class="btn btn--outline">← 終活と供養の話一覧へ</a>
     </div>

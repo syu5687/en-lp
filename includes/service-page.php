@@ -233,6 +233,20 @@ require __DIR__ . '/head.php';
   </section>
   <?php endif; ?>
 
+  <?php if (!empty($service['cross'])): $__cx = $service['cross']; ?>
+  <section class="section" style="padding-top:0">
+    <div class="container" style="max-width:820px">
+      <div style="background:var(--sea-light,#e3f0f7);border-radius:14px;padding:22px 26px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between">
+        <div style="flex:1;min-width:240px">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px"><?= h($__cx['title']) ?></p>
+          <p style="font-size:.92rem;line-height:1.9;margin:0"><?= h($__cx['text']) ?></p>
+        </div>
+        <a href="<?= h($__cx['href']) ?>" class="btn btn--outline" style="flex:none"><?= h($__cx['label']) ?></a>
+      </div>
+    </div>
+  </section>
+  <?php endif; ?>
+
   <?php if (!empty($service['faq'])): ?>
   <section class="section">
     <div class="container" style="max-width:820px">
