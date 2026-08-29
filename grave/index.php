@@ -51,75 +51,165 @@
 <!-- Structured Data: LocalBusiness -->
 <script type="application/ld+json">
 {
-  "@context":"https://schema.org",
-  "@type":"LocalBusiness",
-  "@id":"https://en1150.co.jp/#organization",
-  "name":"有限会社 縁",
-  "alternateName":"えん",
-  "url":"https://en1150.co.jp",
-  "logo":"https://en1150.co.jp/grave/images/en_logo.png",
-  "image":"https://en1150.co.jp/assets/img/hero-grave.jpg",
-  "telephone":"+81-99-801-3637",
-  "email":"info@en1150.co.jp",
-  "priceRange":"¥330,000",
-  "address":{
-    "@type":"PostalAddress",
-    "streetAddress":"坂之上7丁目7-3",
-    "addressLocality":"鹿児島市",
-    "addressRegion":"鹿児島県",
-    "postalCode":"891-0150",
-    "addressCountry":"JP"
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://en1150.co.jp/#organization",
+  "name": "有限会社 縁",
+  "alternateName": "えん",
+  "url": "https://en1150.co.jp",
+  "logo": "https://en1150.co.jp/grave/images/en_logo.png",
+  "image": "https://en1150.co.jp/assets/img/hero-grave.jpg",
+  "telephone": "+81-99-801-3637",
+  "email": "info@en1150.co.jp",
+  "priceRange": "¥330,000",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "坂之上7丁目7-3",
+    "addressLocality": "鹿児島市",
+    "addressRegion": "鹿児島県",
+    "postalCode": "891-0150",
+    "addressCountry": "JP"
   },
-  "areaServed":{
-    "@type":"State",
-    "name":"鹿児島県",
-    "containsPlace":[
-      {"@type":"City","name":"鹿児島市"},
-      {"@type":"City","name":"霧島市"},
-      {"@type":"City","name":"姶良市"},
-      {"@type":"City","name":"薩摩川内市"},
-      {"@type":"City","name":"指宿市"},
-      {"@type":"City","name":"日置市"},
-      {"@type":"City","name":"出水市"},
-      {"@type":"City","name":"鹿屋市"},
-      {"@type":"City","name":"奄美市"}
+  "areaServed": {
+    "@type": "State",
+    "name": "鹿児島県",
+    "containsPlace": [
+      {
+        "@type": "City",
+        "name": "鹿児島市"
+      },
+      {
+        "@type": "City",
+        "name": "霧島市"
+      },
+      {
+        "@type": "City",
+        "name": "姶良市"
+      },
+      {
+        "@type": "City",
+        "name": "薩摩川内市"
+      },
+      {
+        "@type": "City",
+        "name": "指宿市"
+      },
+      {
+        "@type": "City",
+        "name": "日置市"
+      },
+      {
+        "@type": "City",
+        "name": "出水市"
+      },
+      {
+        "@type": "City",
+        "name": "鹿屋市"
+      },
+      {
+        "@type": "City",
+        "name": "奄美市"
+      }
     ]
   },
-  "openingHoursSpecification":{
-    "@type":"OpeningHoursSpecification",
-    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-    "opens":"09:00",
-    "closes":"18:00"
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "opens": "09:00",
+    "closes": "18:00"
   },
-  "subjectOf":[
-    {"@type":"CreativeWork","name":"MBC南日本放送 情報番組内特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"MBC南日本放送"}},
-    {"@type":"CreativeWork","name":"KKB鹿児島放送 終活特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"KKB鹿児島放送"}},
-    {"@type":"CreativeWork","name":"KTS鹿児島テレビ 海洋葬取材","encodingFormat":"video/television","author":{"@type":"Organization","name":"KTS鹿児島テレビ"}},
-    {"@type":"CreativeWork","name":"KYT鹿児島読売テレビ ご供養特集","encodingFormat":"video/television","author":{"@type":"Organization","name":"KYT鹿児島読売テレビ"}},
-    {"@type":"NewsArticle","headline":"ご供養の新しいかたち","publisher":{"@type":"NewsMediaOrganization","name":"南日本新聞"}},
-    {"@type":"NewsArticle","headline":"企業紹介","publisher":{"@type":"NewsMediaOrganization","name":"南日本リビング新聞"}},
-    {"@type":"Article","headline":"企業特集","publisher":{"@type":"Organization","name":"月刊シナジー"}},
-    {"@type":"CreativeWork","name":"MBCラジオ 朝の情報番組","encodingFormat":"audio/radio","author":{"@type":"Organization","name":"MBCラジオ"}},
-    {"@type":"Article","headline":"終活コラム監修","publisher":{"@type":"Organization","name":"PRESIDENT Online"}}
-  ],
-  "review":[
+  "subjectOf": [
     {
-      "@type":"Review",
-      "author":{"@type":"Organization","name":"南日本新聞"},
-      "reviewBody":"承継者不在の時代に、ご遺族の心に寄り添う新しいご供養のかたちを提案する、鹿児島発の先進的な取り組み。"
+      "@type": "CreativeWork",
+      "name": "MBC南日本放送 情報番組内特集",
+      "encodingFormat": "video/television",
+      "author": {
+        "@type": "Organization",
+        "name": "MBC南日本放送"
+      }
     },
     {
-      "@type":"Review",
-      "author":{"@type":"Organization","name":"月刊シナジー"},
-      "reviewBody":"明朗会計と丁寧な写真報告で、遠方のご遺族からも厚い信頼を得ている鹿児島の専門業者。"
+      "@type": "CreativeWork",
+      "name": "KKB鹿児島放送 終活特集",
+      "encodingFormat": "video/television",
+      "author": {
+        "@type": "Organization",
+        "name": "KKB鹿児島放送"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "KTS鹿児島テレビ 海洋葬取材",
+      "encodingFormat": "video/television",
+      "author": {
+        "@type": "Organization",
+        "name": "KTS鹿児島テレビ"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "KYT鹿児島読売テレビ ご供養特集",
+      "encodingFormat": "video/television",
+      "author": {
+        "@type": "Organization",
+        "name": "KYT鹿児島読売テレビ"
+      }
+    },
+    {
+      "@type": "NewsArticle",
+      "headline": "ご供養の新しいかたち",
+      "publisher": {
+        "@type": "NewsMediaOrganization",
+        "name": "南日本新聞"
+      }
+    },
+    {
+      "@type": "NewsArticle",
+      "headline": "企業紹介",
+      "publisher": {
+        "@type": "NewsMediaOrganization",
+        "name": "南日本リビング新聞"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "企業特集",
+      "publisher": {
+        "@type": "Organization",
+        "name": "月刊シナジー"
+      }
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "MBCラジオ 朝の情報番組",
+      "encodingFormat": "audio/radio",
+      "author": {
+        "@type": "Organization",
+        "name": "MBCラジオ"
+      }
+    },
+    {
+      "@type": "Article",
+      "headline": "終活コラム監修",
+      "publisher": {
+        "@type": "Organization",
+        "name": "PRESIDENT Online"
+      }
     }
   ],
-  "sameAs":[
+  "sameAs": [
     "https://www.facebook.com/en1150/",
     "https://www.instagram.com/en1150en/"
   ]
 }
-</script>
+  </script>
 
 <!-- Structured Data: Service (お墓じまいパック) -->
 <script type="application/ld+json">
