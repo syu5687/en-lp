@@ -137,12 +137,15 @@ let shindanService = '';
 (function () {
   const params = new URLSearchParams(location.search);
   const svc = (params.get('service') || '').trim();
-  if (!svc) return;
-  shindanService = svc;
+  const sd  = (params.get('shindan') || '').trim();
+  if (!svc && !sd) return;
+  // 診断結果があればそれを優先して表示・送信（通知メールの「診断結果」欄に入る）
+  shindanService = sd || svc;
   // お知らせバナー
   const note = document.getElementById('shindan-note');
-  document.getElementById('shindan-service').textContent = svc;
+  document.getElementById('shindan-service').textContent = sd || svc;
   note.hidden = false;
+  if (!svc) return;
   // 種別セレクトに反映（一致する選択肢がなければ追加して選択）
   const sel = form.querySelector('select[name="category"]');
   let opt = [...sel.options].find(o => o.value === svc)

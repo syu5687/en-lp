@@ -107,15 +107,15 @@ require __DIR__ . '/../includes/head.php';
 
   /* ---------- サービス定義 ---------- */
   var SV = {
-    'kaiyou-sou':      {name:'海洋散骨（海洋葬）', href:'/kaiyou-sou/',      s:'委託54,450円〜・鹿児島／福岡の海域・全国郵送対応'},
-    'teien-sou':       {name:'樹木葬（庭苑葬）',   href:'/teien-sou/',       s:'草花に囲まれる自然葬・永代供養対応'},
-    'grave':           {name:'お墓じまい',         href:'/grave/',           s:'撤去〜納骨まで基本プラン33万円（税込）'},
-    'hikkoshi':        {name:'お墓のお引越し（改葬）', href:'/hikkoshi/',    s:'手続き代行から一括対応'},
-    'temoto-kuyou':    {name:'お手元供養',         href:'/temoto-kuyou/',    s:'ミニ骨壷・ミニ仏壇・分骨5,500円（税込）'},
-    'powder-cleaning': {name:'粉骨・洗骨',         href:'/powder-cleaning/', s:'粉骨24,200円〜・六価クロム検査つき・郵送全国対応'},
-    'pet-kaiyou-sou':  {name:'ペット海洋葬',       href:'/pet-kaiyou-sou/',  s:'鹿児島・錦江湾で半年に一度開催'},
-    'jewelry-reform':  {name:'メモリアルジュエリー', href:'/jewelry-reform/', s:'お米一粒ほどのご遺骨を指輪に封入'},
-    'seizen':          {name:'海洋散骨 生前契約',   href:'/seizen/',          s:'お元気なうちに内容と費用を確定'}
+    'kaiyou-sou':      {name:'海洋散骨（海洋葬）', href:'/kaiyou-sou/',      s:'委託54,450円〜・鹿児島／福岡の海域・全国郵送対応', cat:'海洋葬（海洋散骨）'},
+    'teien-sou':       {name:'樹木葬（庭苑葬）',   href:'/teien-sou/',       s:'草花に囲まれる自然葬・永代供養対応', cat:'樹木葬'},
+    'grave':           {name:'お墓じまい',         href:'/grave/',           s:'撤去〜納骨まで基本プラン33万円（税込）', cat:'お墓じまい'},
+    'hikkoshi':        {name:'お墓のお引越し（改葬）', href:'/hikkoshi/',    s:'手続き代行から一括対応', cat:'お墓のお引越し'},
+    'temoto-kuyou':    {name:'お手元供養',         href:'/temoto-kuyou/',    s:'ミニ骨壷・ミニ仏壇・分骨5,500円（税込）', cat:'お手元供養'},
+    'powder-cleaning': {name:'粉骨・洗骨',         href:'/powder-cleaning/', s:'粉骨24,200円〜・六価クロム検査つき・郵送全国対応', cat:'粉骨・洗骨'},
+    'pet-kaiyou-sou':  {name:'ペット海洋葬',       href:'/pet-kaiyou-sou/',  s:'鹿児島・錦江湾で半年に一度開催', cat:'ペット供養'},
+    'jewelry-reform':  {name:'メモリアルジュエリー', href:'/jewelry-reform/', s:'お米一粒ほどのご遺骨を指輪に封入', cat:'JEWELRYリフォーム'},
+    'seizen':          {name:'海洋散骨 生前契約',   href:'/seizen/',          s:'お元気なうちに内容と費用を確定', cat:'海洋葬（海洋散骨）'}
   };
 
   /* ---------- 質問ツリー ---------- */
@@ -368,9 +368,10 @@ require __DIR__ . '/../includes/head.php';
     var r = RES[key] && RES[key].dynamic ? buildKaiyou() : RES[key];
     if(!r){ r = RES['consult']; key='consult'; }
     ga('shindan_result',{sd_result:key, sd_region:ans.region||'(未回答)'});
-    var contactUrl='/contact/?from=shindan';
+    var sdSummary = r.name + (ans.region ? '／地域：' + ans.region : '');
     var mainSvc = r.main && r.main.length ? SV[r.main[0]] : null;
-    if(mainSvc){ contactUrl='/contact/?service='+encodeURIComponent(mainSvc.name.replace(/（.+）/,''))+'&from=shindan'; }
+    var sdCat = mainSvc && mainSvc.cat ? mainSvc.cat : 'その他';
+    var contactUrl='/contact/?service='+encodeURIComponent(sdCat)+'&shindan='+encodeURIComponent(sdSummary)+'&from=shindan';
 
     var h='<span class="sd-result-label">今の状況なら、まずこの選択肢から</span>';
     h+='<h2 class="sd-result-name">'+esc(r.name)+'</h2>';
@@ -391,7 +392,7 @@ require __DIR__ . '/../includes/head.php';
     h+='<div class="sd-contact"><h3>この結果をもとに、無料で相談できます</h3><p>ご相談・お見積りは無料。こちらから営業のお電話をかけることはありません。</p><div class="btns">';
     h+='<a href="'+contactUrl+'" class="btn" style="background:#fff;color:var(--green-mid)" data-cta="form">相談フォーム</a>';
     h+='<a href="'+SITE_LINE+'" target="_blank" rel="noopener" class="btn" style="background:#06C755" data-cta="line">LINEで相談</a>';
-    h+='<a href="/contact/?service='+encodeURIComponent('資料請求（無料）')+'&from=shindan" class="btn" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.6)" data-cta="shiryou">無料ガイドをもらう</a>';
+    h+='<a href="/contact/?service='+encodeURIComponent('資料請求（無料）')+'&shindan='+encodeURIComponent(sdSummary)+'&from=shindan" class="btn" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.6)" data-cta="shiryou">無料ガイドをもらう</a>';
     h+='</div><a href="tel:'+SITE_TEL+'" class="sd-tel" data-cta="tel">'+SITE_TEL+'</a></div>';
     h+='<div style="text-align:center"><button class="sd-back" data-restart="1">↺ もう一度診断する</button></div>';
     quiz.innerHTML=h;
