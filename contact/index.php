@@ -31,6 +31,7 @@ require __DIR__ . '/../includes/head.php';
 
     <div id="shindan-note" hidden style="background:var(--sea-light);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.92rem">
       「供養の選び方」診断の結果：<strong id="shindan-service" style="color:var(--green-mid)"></strong> についてのご相談ですね。<br>下記フォームにそのまま入力してお送りください。
+      <span id="shindan-path-row" hidden style="display:block;margin-top:6px;font-size:.8rem;color:var(--text-light)">診断でお選びいただいた内容：<span id="shindan-path"></span>（送信時に一緒にお伝えします）</span>
     </div>
 
     <form id="contact-form" class="contact-form" novalidate>
@@ -162,16 +163,23 @@ const btn  = document.getElementById('submit-btn');
 
 // 「供養の選び方」診断からの遷移：選択したご供養を表示し、種別に自動セット
 let shindanService = '';
+let shindanPath = '';
 (function () {
   const params = new URLSearchParams(location.search);
   const svc = (params.get('service') || '').trim();
   const sd  = (params.get('shindan') || '').trim();
+  const sdp = (params.get('sdpath') || '').trim();
   if (!svc && !sd) return;
   // 診断結果があればそれを優先して表示・送信（通知メールの「診断結果」欄に入る）
   shindanService = sd || svc;
+  shindanPath = sdp;
   // お知らせバナー
   const note = document.getElementById('shindan-note');
   document.getElementById('shindan-service').textContent = sd || svc;
+  if (sdp) {
+    document.getElementById('shindan-path').textContent = sdp;
+    document.getElementById('shindan-path-row').hidden = false;
+  }
   note.hidden = false;
   if (!svc) return;
   // 種別セレクトに反映（一致する選択肢がなければ追加して選択）
@@ -260,6 +268,7 @@ form.addEventListener('submit', async (e) => {
   data.formName = 'en1150.co.jp お問い合わせフォーム';
   data.elapsedMs = Date.now() - PAGE_LOADED_AT; // 表示から送信までの時間（ボット判定用）
   if (shindanService) data.shindan = shindanService; // 診断結果を通知メールにも記載
+  if (shindanPath) data.shindan_path = shindanPath;  // 診断で選ばれた全回答
   btn.disabled = true; btn.textContent = '送信中…';
   try {
     const res = await fetch(WORKER_URL, {

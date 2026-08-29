@@ -285,6 +285,7 @@ require __DIR__ . '/../includes/head.php';
   /* ---------- 状態 ---------- */
   var quiz = document.getElementById('sd-quiz');
   var history = ['start'];
+  var picked = [];   // 押された選択肢のラベルを順に記録
   var ans = {flags:{}, region:'', pending:null};
   var started = false;
   var EST = 5; // 想定質問数（進捗表示用）
@@ -314,6 +315,7 @@ require __DIR__ . '/../includes/head.php';
         var o=node.opts[+btn.getAttribute('data-idx')];
         if(!started){started=true;ga('shindan_start');}
         ga('shindan_answer',{sd_step:key, sd_choice:o.b});
+        picked.push({b:o.b, f:o.flag||null});
         if(o.flag){ans.flags[o.flag]=true;}
         if(key==='region'){ans.region=o.rg||''; renderResult(ans.pending); scrollCard(); return;}
         if(o.region&&o.res){ans.pending=o.res; history.push('region'); renderNode('region');}
@@ -323,7 +325,7 @@ require __DIR__ . '/../includes/head.php';
       });
     });
     var back=quiz.querySelector('[data-back]');
-    if(back){back.addEventListener('click',function(){history.pop();renderNode(history[history.length-1]);scrollCard();});}
+    if(back){back.addEventListener('click',function(){history.pop();var last=picked.pop();if(last&&last.f){delete ans.flags[last.f];}renderNode(history[history.length-1]);scrollCard();});}
   }
 
   /* 散骨系の結果は回答フラグから組み立てる */
@@ -369,9 +371,10 @@ require __DIR__ . '/../includes/head.php';
     if(!r){ r = RES['consult']; key='consult'; }
     ga('shindan_result',{sd_result:key, sd_region:ans.region||'(未回答)'});
     var sdSummary = r.name + (ans.region ? '／地域：' + ans.region : '');
+    var sdPath = picked.map(function(x){return x.b;}).join(' → ');
     var mainSvc = r.main && r.main.length ? SV[r.main[0]] : null;
     var sdCat = mainSvc && mainSvc.cat ? mainSvc.cat : 'その他';
-    var contactUrl='/contact/?service='+encodeURIComponent(sdCat)+'&shindan='+encodeURIComponent(sdSummary)+'&from=shindan';
+    var contactUrl='/contact/?service='+encodeURIComponent(sdCat)+'&shindan='+encodeURIComponent(sdSummary)+'&sdpath='+encodeURIComponent(sdPath)+'&from=shindan';
 
     var h='<span class="sd-result-label">今の状況なら、まずこの選択肢から</span>';
     h+='<h2 class="sd-result-name">'+esc(r.name)+'</h2>';
@@ -392,7 +395,7 @@ require __DIR__ . '/../includes/head.php';
     h+='<div class="sd-contact"><h3>この結果をもとに、無料で相談できます</h3><p>ご相談・お見積りは無料。こちらから営業のお電話をかけることはありません。</p><div class="btns">';
     h+='<a href="'+contactUrl+'" class="btn" style="background:#fff;color:var(--green-mid)" data-cta="form">相談フォーム</a>';
     h+='<a href="'+SITE_LINE+'" target="_blank" rel="noopener" class="btn" style="background:#06C755" data-cta="line">LINEで相談</a>';
-    h+='<a href="/contact/?service='+encodeURIComponent('資料請求（無料）')+'&shindan='+encodeURIComponent(sdSummary)+'&from=shindan" class="btn" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.6)" data-cta="shiryou">無料ガイドをもらう</a>';
+    h+='<a href="/contact/?service='+encodeURIComponent('資料請求（無料）')+'&shindan='+encodeURIComponent(sdSummary)+'&sdpath='+encodeURIComponent(sdPath)+'&from=shindan" class="btn" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.6)" data-cta="shiryou">無料ガイドをもらう</a>';
     h+='</div><a href="tel:'+SITE_TEL+'" class="sd-tel" data-cta="tel">'+SITE_TEL+'</a></div>';
     h+='<div style="text-align:center"><button class="sd-back" data-restart="1">↺ もう一度診断する</button></div>';
     quiz.innerHTML=h;
@@ -400,7 +403,7 @@ require __DIR__ . '/../includes/head.php';
       a.addEventListener('click',function(){ga('shindan_cta',{sd_result:key, sd_cta:a.getAttribute('data-cta')});});
     });
     var rs=quiz.querySelector('[data-restart]');
-    if(rs){rs.addEventListener('click',function(){history=['start'];ans={flags:{},region:'',pending:null};renderNode('start');scrollCard();});}
+    if(rs){rs.addEventListener('click',function(){history=['start'];picked=[];ans={flags:{},region:'',pending:null};renderNode('start');scrollCard();});}
   }
 
   function scrollCard(){var c=document.querySelector('.shindan-card');if(c){var y=c.getBoundingClientRect().top+window.pageYOffset-90;window.scrollTo({top:y,behavior:'smooth'});}}
