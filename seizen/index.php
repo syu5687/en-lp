@@ -461,6 +461,8 @@ require_once __DIR__ . '/../includes/config.php';
   </section>
 
   <!-- 最終CTA -->
+  <?php require __DIR__ . '/../includes/shiryou-cta.php'; ?>
+
   <section class="sz-final" id="contact">
     <p class="sz-final__eyebrow">CONTACT</p>
     <h2 class="sz-final__title">有限会社縁の<br>海洋散骨生前契約</h2>

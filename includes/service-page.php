@@ -233,6 +233,8 @@ require __DIR__ . '/head.php';
   </section>
   <?php endif; ?>
 
+  <?php if (!empty($service['shiryou'])) require __DIR__ . '/shiryou-cta.php'; ?>
+
   <?php if (!empty($service['cross'])): $__cx = $service['cross']; ?>
   <section class="section" style="padding-top:0">
     <div class="container" style="max-width:820px">
@@ -268,6 +270,7 @@ require __DIR__ . '/head.php';
       <p style="opacity:.92;margin-bottom:22px">ご相談・お見積りは無料です。宗教・宗派は問いません。</p>
       <a href="/contact/" class="btn" style="background:#fff;color:var(--green-mid)">お問い合わせ</a>
       <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn" style="background:#06C755;margin-left:10px">LINEで相談</a>
+      <a href="/contact/?service=<?= rawurlencode('資料請求（無料）') ?>" class="btn" style="background:#c9822a;margin-left:10px">無料で資料を受け取る</a>
       <p style="margin-top:18px"><a href="tel:<?= h(SITE['tel']) ?>" style="color:#fff;font-weight:700;font-size:1.2rem"><?= h(SITE['tel']) ?></a></p>
     </div>
   </section>

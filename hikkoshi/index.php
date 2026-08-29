@@ -1,6 +1,7 @@
 <?php
 // 現行サイト（en1150.co.jp/hikkoshi/）の内容を反映
 $service = [
+  'shiryou' => true,
   'slug' => 'hikkoshi',
   'title' => 'お墓の引越し（改葬）',
   'seo_title' => 'お墓の引越し（改葬）鹿児島・福岡｜手続き代行〜移設・供養まで一括対応｜有限会社 縁',

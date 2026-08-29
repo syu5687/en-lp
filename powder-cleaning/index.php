@@ -395,6 +395,9 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
     </div>
   </section>
 
+  <!-- 資料請求CTA -->
+  <?php require __DIR__ . '/../includes/shiryou-cta.php'; ?>
+
   <!-- CTA -->
   <section class="section" style="background:linear-gradient(135deg,var(--green),var(--green-mid));color:#fff;text-align:center">
     <div class="container">
@@ -402,6 +405,7 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
       <p style="opacity:.92;margin-bottom:22px">ご相談・お見積りは無料です。宗教・宗派は問いません。</p>
       <a href="/contact/?service=<?= rawurlencode('粉骨・洗骨') ?>" class="btn" style="background:#fff;color:var(--green-mid)">お問い合わせ</a>
       <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn" style="background:#06C755;margin-left:10px">LINEで相談</a>
+      <a href="/contact/?service=<?= rawurlencode('資料請求（無料）') ?>" class="btn" style="background:#c9822a;margin-left:10px">無料で資料を受け取る</a>
       <p style="margin-top:18px">
         本社（鹿児島）<a href="tel:<?= h(str_replace('-', '', SITE['tel'])) ?>" style="color:#fff;font-weight:700;font-size:1.2rem"><?= h(SITE['tel']) ?></a><br>
         <span style="font-size:.9rem"><?= h(SITE['fukuoka']['name']) ?> <a href="tel:<?= h(str_replace('-', '', SITE['fukuoka']['tel'])) ?>" style="color:#fff;font-weight:700"><?= h(SITE['fukuoka']['tel']) ?></a></span>

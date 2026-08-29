@@ -174,21 +174,30 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
       <div class="ks-bk-arrows" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div>
       <div class="ks-bk-grid">
         <div class="ks-bk">
-          <div class="ks-bk__head">1</div>
-          <h3>すべてを海洋散骨に</h3>
-          <p>ご遺骨のことをここで終えたい方に。散骨海域の緯度・経度入りの散骨証明書と当日のお写真が残るので、お参りはメモリアルクルーズや「天国への手紙」でできます。</p>
+          <img src="/kaiyou-sou/images/ks-bk-kaiyou.jpg?v=<?= h(asset_ver()) ?>" alt="船上に用意された献花とご遺骨の桐箱。海洋散骨セレモニーの準備" width="1000" height="667" loading="lazy">
+          <div class="ks-bk__body">
+            <div class="ks-bk__head">1</div>
+            <h3>すべてを海洋散骨に</h3>
+            <p>ご遺骨のことをここで終えたい方に。散骨海域の緯度・経度入りの散骨証明書と当日のお写真が残るので、お参りはメモリアルクルーズや「天国への手紙」でできます。</p>
+          </div>
         </div>
         <div class="ks-bk">
-          <div class="ks-bk__head">2</div>
-          <h3>大部分を散骨し、<br>一部をご自宅に</h3>
-          <p>手のひらサイズのミニ骨壷（卵型・ガラス製など）に納めて、棚の上やリビングに。お仏壇がなくても置けます。お持ち込みの骨壷・ペンダントへの分骨は5,500円（税込）です。</p>
-          <a href="/temoto-kuyou/" class="ks-bk__link">手元に残す方法を見る →</a>
+          <img src="/kaiyou-sou/images/ks-bk-temoto.jpg?v=<?= h(asset_ver()) ?>" alt="リビングの棚に置かれた、手のひらサイズの手元供養容器とおりん" width="1000" height="667" loading="lazy">
+          <div class="ks-bk__body">
+            <div class="ks-bk__head">2</div>
+            <h3>大部分を散骨し、<br>一部をご自宅に</h3>
+            <p>手のひらサイズのミニ骨壷（卵型・ガラス製など）に納めて、棚の上やリビングに。お仏壇がなくても置けます。お持ち込みの骨壷・ペンダントへの分骨は5,500円（税込）です。</p>
+            <a href="/temoto-kuyou/" class="ks-bk__link">手元に残す方法を見る →</a>
+          </div>
         </div>
         <div class="ks-bk">
-          <div class="ks-bk__head">3</div>
-          <h3>大部分を散骨し、<br>ごく少量をジュエリーに</h3>
-          <p>お米一粒ほどのご遺骨を、指輪の内側に封入します。見た目は普段使いのリングやペンダントなので、そのまま身につけて外出できます。お手持ちの指輪の加工も査定します。</p>
-          <a href="/jewelry-reform/" class="ks-bk__link">メモリアルジュエリーを見る →</a>
+          <img src="/kaiyou-sou/images/ks-bk-jewelry.jpg?v=<?= h(asset_ver()) ?>" alt="ご遺骨を封入できるゴールドのメモリアルリング" width="730" height="352" loading="lazy">
+          <div class="ks-bk__body">
+            <div class="ks-bk__head">3</div>
+            <h3>大部分を散骨し、<br>ごく少量をジュエリーに</h3>
+            <p>お米一粒ほどのご遺骨を、指輪の内側に封入します。見た目は普段使いのリングやペンダントなので、そのまま身につけて外出できます。お手持ちの指輪の加工も査定します。</p>
+            <a href="/jewelry-reform/" class="ks-bk__link">メモリアルジュエリーを見る →</a>
+          </div>
         </div>
       </div>
       <div style="max-width:760px;margin:26px auto 0;background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:18px 22px">
@@ -204,7 +213,9 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     .ks-bk-src{max-width:560px;margin:0 auto;background:var(--green-mid,#12597a);color:#fff;text-align:center;font-weight:700;font-size:.95rem;padding:12px 18px;border-radius:12px}
     .ks-bk-arrows{display:grid;grid-template-columns:repeat(3,1fr);max-width:860px;margin:6px auto;text-align:center;color:var(--green-mid);font-size:1.2rem;font-weight:700}
     .ks-bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .ks-bk{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .ks-bk{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+    .ks-bk>img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+    .ks-bk__body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1}
     .ks-bk__head{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:10px}
     .ks-bk h3{font-size:1.02rem;color:var(--green-mid);margin-bottom:8px;line-height:1.6}
     .ks-bk p{font-size:.9rem;line-height:1.9;flex:1}
@@ -443,6 +454,16 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
           </div>
         <?php endforeach; ?>
       </div>
+      <div class="ks-cr6">
+        <p class="ks-cr6__title">たとえば——ご遺骨の「六価クロム」検査・無害化</p>
+        <p class="ks-cr6__text">火葬炉の耐熱ステンレスなどに由来する発がん性物質「六価クロム」が、ご遺骨に付着していることがあります。当社は散骨前の粉骨の際、専用キットで検査し、検出された場合は骨灰専用の還元剤で無害化してから海にお還しします（2019年から標準実施・追加料金なし）。格安サービスでは省略されがちな、見えない工程です。</p>
+        <div class="ks-cr6__imgs">
+          <figure><img src="/powder-cleaning/images/pc-cr6-check.jpg?v=<?= h(asset_ver()) ?>" alt="六価クロム検査キットと標準色カード" width="1400" height="933" loading="lazy"><figcaption>専用キットで検査</figcaption></figure>
+          <figure><img src="/powder-cleaning/images/pc-cr6-positive.jpg?v=<?= h(asset_ver()) ?>" alt="六価クロムが検出され検査液がピンク色に変色した状態" width="1400" height="933" loading="lazy"><figcaption>変色したら「検出」のサイン</figcaption></figure>
+          <figure><img src="/powder-cleaning/images/pc-cr6-agent.jpg?v=<?= h(asset_ver()) ?>" alt="骨灰専用の六価クロム還元剤" width="1400" height="933" loading="lazy"><figcaption>専用還元剤で無害化</figcaption></figure>
+        </div>
+        <p style="text-align:center;margin-top:14px"><a href="/powder-cleaning/" class="ks-cr6__link">六価クロムの検査・無害化について詳しく見る →</a></p>
+      </div>
       <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
         他社さまとご比較の際は、上の6点をチェックリストとしてご活用ください。<br class="pc-only">
         「見積りだけ」「話を聞くだけ」でも歓迎です。どうぞ納得のいくまでご比較ください。
@@ -457,6 +478,15 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     .ks-quality-item p{font-size:.88rem;line-height:1.85}
     @media(max-width:900px){.ks-quality-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:560px){.ks-quality-grid{grid-template-columns:1fr}}
+    .ks-cr6{margin-top:26px;background:#fdf9f0;border:1px solid #e3d5b8;border-radius:14px;padding:22px 24px}
+    .ks-cr6__title{text-align:center;font-weight:700;color:#8a6a2a;margin-bottom:8px}
+    .ks-cr6__text{max-width:760px;margin:0 auto 18px;font-size:.92rem;line-height:1.95}
+    .ks-cr6__imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .ks-cr6__imgs figure{margin:0}
+    .ks-cr6__imgs img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px;display:block}
+    .ks-cr6__imgs figcaption{text-align:center;font-size:.78rem;color:var(--text-light);margin-top:6px}
+    .ks-cr6__link{color:var(--green);font-weight:700;text-decoration:none;border-bottom:2px solid var(--green)}
+    @media(max-width:640px){.ks-cr6{padding:18px 16px}.ks-cr6__imgs{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
   </style>
 
   <!-- よくあるご質問 -->
@@ -527,6 +557,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
       <p style="opacity:.92;margin-bottom:22px">ご相談・お見積りは無料です。宗教・宗派は問いません。</p>
       <a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn" style="background:#fff;color:var(--green-mid)">お問い合わせ</a>
       <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn" style="background:#06C755;margin-left:10px">LINEで相談</a>
+      <a href="/contact/?service=<?= rawurlencode('資料請求（無料）') ?>" class="btn" style="background:#c9822a;margin-left:10px">無料で資料を受け取る</a>
       <p style="margin-top:18px">
         本社（鹿児島）<a href="tel:<?= h(str_replace('-', '', SITE['tel'])) ?>" style="color:#fff;font-weight:700;font-size:1.2rem"><?= h(SITE['tel']) ?></a><br>
         <span style="font-size:.9rem"><?= h(SITE['fukuoka']['name']) ?> <a href="tel:<?= h(str_replace('-', '', SITE['fukuoka']['tel'])) ?>" style="color:#fff;font-weight:700"><?= h(SITE['fukuoka']['tel']) ?></a></span>
