@@ -33,7 +33,7 @@ $page_og_image  = $page_og_image  ?? (SITE['url'] . '/assets/og-image.jpg'); // 
 <meta name="twitter:image" content="<?= h($page_og_image) ?>">
 <link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/common.css?v=<?= h(asset_ver()) ?>">
-<?php if (!empty($page_hero_image)): ?><style>.page-hero{--hero-image:url('<?= h($page_hero_image) ?>')}</style><?php endif; ?>
+<?php if (!empty($page_hero_image)): ?><style>.page-hero{--hero-image:url('<?= h($page_hero_image . (str_contains($page_hero_image, '?') ? '' : '?v=' . asset_ver())) ?>')}</style><?php endif; ?>
 <?php require __DIR__ . '/ga4.php'; ?>
 <?php require __DIR__ . '/jsonld.php'; ?>
 </head>
