@@ -27,8 +27,8 @@ var CONFIG = {
   SHIRYOU_MATCH: "資料請求",
   SHIRYOU_SUBJECT: "【有限会社 縁】ご請求の資料（無料PDF）をお届けします",
   SHIRYOU_LINKS: [
-    { label: "墓じまい完全ガイド 鹿児島・福岡版（PDF・全9ページ）",           url: "https://en1150.co.jp/assets/docs/enshiryou-k7x2/hakajimai-guide.pdf" },
-    { label: "海洋散骨で後悔しないためのチェックリスト（PDF・全8ページ）",   url: "https://en1150.co.jp/assets/docs/enshiryou-k7x2/sankotsu-checklist.pdf" }
+    { label: "墓じまい完全ガイド 鹿児島・福岡版（PDF・全10ページ）",           url: "https://en1150.co.jp/assets/docs/enshiryou-k7x2/hakajimai-guide.pdf" },
+    { label: "海洋散骨で後悔しないためのチェックリスト（PDF・全9ページ）",   url: "https://en1150.co.jp/assets/docs/enshiryou-k7x2/sankotsu-checklist.pdf" }
   ],
   SHIRYOU_LINE_URL: "https://line.me/R/ti/p/%40bkx9825r",
   BREVO_LIST_ID: null,                    // コンタクト登録する場合のみリストID
