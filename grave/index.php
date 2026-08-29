@@ -1905,6 +1905,10 @@
   <section class="section case" aria-labelledby="case-title">
     <p class="section-eyebrow">CASE STUDY</p>
     <h2 id="case-title" class="section-title with-line">撤去工事の実例<span class="section-title-sub">（Before / After）</span></h2>
+    <p style="max-width:680px;margin:14px auto 20px;text-align:center;font-size:.88rem;line-height:2;color:#4a5a52">
+      下の「解体工事金額」は<strong>撤去工事部分の実例の目安</strong>です。墓地の条件によって工事費はこのように変わるため、
+      正確な総額は<strong>現地調査後のお見積もりで確定</strong>してご提示します（標準的な工事条件では基本プラン33万円・<strong>確定後の追加請求はありません</strong>）。
+    </p>
 
     <article class="case-card">
       <div class="case-tag-wrap">
