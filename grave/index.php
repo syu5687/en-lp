@@ -216,8 +216,7 @@
       "@type":"Question",
       "name":"鹿児島市の改葬許可申請は代行してもらえますか？",
       "acceptedAnswer":{"@type":"Answer","text":"はい。鹿児島市をはじめ県内各市町村の改葬許可申請を、オプション¥25,000（最下層を含む場合は¥35,000）でお手伝いします。申請書の作成・現在の墓地管理者の証明取得・提出まで対応します。"}
-    }
-  ]
+    },{"@type": "Question", "name": "墓じまいの費用相場はいくらですか？33万円は安いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "全国的な相場は墓石撤去だけで1㎡あたり10〜15万円程度、総額60〜120万円かかるケースもあります。有限会社縁の基本プラン33万円（税込）は見積もり取得から撤去工事・写真報告・遺骨の引き出し・新しい納骨先への納骨まで含み、事前見積もりで金額が確定します。"}},{"@type": "Question", "name": "離檀料は払わないといけませんか？", "acceptedAnswer": {"@type": "Answer", "text": "離檀料に法的な支払い義務はありません。御礼として3万〜20万円程度が一般的な目安です。閉眼供養のお布施は1万〜5万円程度が目安。切り出し方の相談も有限会社縁が承ります。"}},{"@type": "Question", "name": "墓じまいに親族の同意は必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "法律上は祭祀承継者の判断で進められますが、トラブル回避のため事前の親族への説明を推奨します。説明用の資料も用意されています。"}},{"@type": "Question", "name": "墓じまいはどのくらいの期間がかかりますか？", "acceptedAnswer": {"@type": "Answer", "text": "相談から工事完了・納骨まで1〜3ヶ月程度が目安です。彼岸・お盆前は混み合うため早めの相談が推奨されます。"}},{"@type": "Question", "name": "県外在住でも帰省せずに墓じまいできますか？", "acceptedAnswer": {"@type": "Answer", "text": "できます。立ち会い不要・電話やLINEで完結し、工事前後は写真で報告。取り出した遺骨は粉骨して郵送、または海洋散骨・納骨まで一括対応します。"}},{"@type": "Question", "name": "お寺や墓地管理者への連絡は代行してもらえますか？", "acceptedAnswer": {"@type": "Answer", "text": "はい。墓地管理者への確認や埋蔵証明の取得など、必要な連絡・手続きの段取りを一緒に進めます。"}}]
 }
 </script>
 
@@ -1066,13 +1065,23 @@
     letter-spacing:.05em;
   }
 
+  .hero-trust-chips{
+    display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center;
+    list-style:none;margin:10px 0 0;padding:0;
+  }
+  .hero-trust-chips li{
+    font-size:11px;font-weight:700;letter-spacing:.03em;
+    color:#1c3d2e;background:#eef4f0;border:1px solid #cfe0d8;
+    border-radius:999px;padding:4px 12px;
+  }
+
   /* =========================================================
      CTA Block - Soft message
      ========================================================= */
   .cta-soft{
     padding:50px 20px;
     background:
-      url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=70&auto=format&fit=crop') center/cover;
+      url('/kaiyou-sou/images/ks-fukan.jpg?v=<?= h(asset_ver()) ?>') center/cover;
     position:relative;overflow:hidden;
   }
   .cta-soft::before{
@@ -1700,9 +1709,17 @@
     </div>
     <p class="hero-tax">事前見積もりで金額を確定（追加料金なし）</p>
 
+    <ul class="hero-trust-chips" aria-label="実績">
+      <li>創業20年以上</li>
+      <li>対応実績3,800件超</li>
+      <li>Google口コミ ★4.9</li>
+      <li>テレビ・新聞 取材多数</li>
+    </ul>
+
     <p class="hero-entity-def" itemprop="description">
       <strong>墓じまい（お墓じまい）</strong>とは、現在のお墓を撤去し、ご遺骨を新しい納骨先へお移しすること。縁は鹿児島の専門業者として、見積もり取得から納骨までを<strong>基本プラン33万円（税込）</strong>で一括対応します。
     </p>
+    <p style="font-size:.72rem;color:#8a938f;margin:4px 0 0">最終更新：2026年8月29日（料金・手続き情報を点検済み）</p>
 
     <div class="hero-img-frame">
       <img src="/assets/img/hero-grave.jpg"
@@ -2115,6 +2132,12 @@
       </ul>
     </div>
     <p style="text-align:center;font-size:.9rem;margin-top:18px">墓じまいの撤去工事から、粉骨・海洋散骨・お手元供養まで——<strong>鹿児島で一社完結（ワンストップ）</strong>できるのが縁の強みです。</p>
+
+    <div style="max-width:560px;margin:26px auto 0;background:#f2f7f5;border:1.5px solid #cfe0d8;border-radius:14px;padding:20px 22px;text-align:center">
+      <p style="font-weight:700;color:#1c3d2e;margin:0 0 6px">墓じまい後のご遺骨をどうするか、まだ決めていなくても大丈夫です</p>
+      <p style="font-size:.86rem;color:#4a5a52;margin:0 0 14px;line-height:1.9">いくつかの質問に答えるだけで、今の状況に合う供養方法の組み合わせを整理できます（約3分・お名前の入力は不要）。</p>
+      <a href="/shindan/" data-cta="shindan" style="display:inline-block;background:#1c6b52;color:#fff;font-weight:700;padding:12px 30px;border-radius:999px;text-decoration:none;font-size:.92rem">供養の選び方診断をやってみる →</a>
+    </div>
   </section>
 
   <!-- =====================================
@@ -2187,6 +2210,49 @@
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </summary>
         <div class="faq-a">はい。鹿児島市をはじめ県内各市町村の改葬許可申請を、オプション¥25,000（最下層を含む場合は¥35,000）でお手伝いします。申請書の作成・現在の墓地管理者の証明取得・提出まで、平日に役所へ行く時間が取れない方もお任せください。</div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-q">
+          墓じまいの費用相場はいくらですか？33万円は安いのですか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">全国的な相場は、墓石の撤去工事だけで1㎡あたり10〜15万円程度、行政手続きや運搬を含めると総額60〜120万円かかるケースも珍しくありません。当社の基本プラン33万円（税込）は、見積もり取得から撤去工事・写真報告・ご遺骨の引き出し・新しい納骨先へのご納骨までを含んだ金額です。事前見積もりで確定し、あとから金額が変わることはありません。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          離檀料は払わないといけませんか？いくらが目安ですか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">離檀料に法的な支払い義務はありません。長年お世話になった御礼としてお渡しするのが一般的で、目安は3万〜20万円程度とされています。高額を求められて困った場合は、その場で応じずご相談ください。お寺への切り出し方や、閉眼供養（お布施1万〜5万円程度が目安）のご相談も一緒に承ります。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          親族の同意は必要ですか？あとで揉めないか心配です。
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">法律上はお墓の承継者（祭祀承継者）の判断で進められますが、あとからのトラブルを避けるため、事前にご親族へ一言伝えておくことを強くおすすめしています。ご親族への説明に使える資料（費用・流れ・遺骨の行き先をまとめたもの）をご用意していますので、「どう説明したらいいか」からご相談ください。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          相談から完了まで、どのくらいの期間がかかりますか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">お墓の状況や役所・寺院とのやり取りにもよりますが、ご相談から工事完了・納骨まで1〜3ヶ月程度が目安です。お彼岸やお盆前は工事が混み合うため、時期のご希望がある場合は早めのご相談がおすすめです。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          鹿児島県外に住んでいます。帰省せずに完了できますか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">できます。現地の立ち会いは不要で、お見積もり・打ち合わせはお電話・LINE・メールで完結します。工事の前後は写真でご報告し、取り出したご遺骨は粉骨のうえ郵送（ゆうパック）でお手元にお送りすることも、そのまま海洋散骨や納骨先へお納めすることもできます。実際に関東・関西にお住まいの方からのご依頼も多くいただいています。</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          墓地の管理者やお寺への連絡もお願いできますか？
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </summary>
+        <div class="faq-a">はい。「何十年もお世話になったお寺に、どう切り出せばいいか分からない」というご相談はとても多いです。墓地管理者への確認や埋蔵証明の取得など、必要な連絡・手続きの段取りを一緒に進めます。ご自身で伝える場合の言い方のご相談だけでも構いません。</div>
       </details>
     </div>
   </section>
@@ -2421,7 +2487,7 @@
   <!-- Footer -->
   
 
-  <!-- Bottom Nav -->
+  <!-- Bottom Nav（サイト共通のsticky-ctaをfooter.phpで表示） -->
   
 
 </div>
