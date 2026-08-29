@@ -854,7 +854,12 @@ body { line-height: 1.8; }
 
 
 /* --- 背景写真（現行画像を保持） --- */
-.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.88) 100%), url('/assets/img/top/top-banner-bg.jpg?v=<?= h(asset_ver()) ?>') center/cover no-repeat; }
+.hero-bg { position: absolute; inset: 0; overflow: hidden; }
+.hero-slide { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; opacity: 0; transition: opacity 1.8s ease-in-out; transform: scale(1); }
+.hero-slide.on { opacity: 1; animation: heroZoom 9s ease-out forwards; }
+@keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.hero-veil { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.88) 100%); }
+@media (prefers-reduced-motion: reduce) { .hero-slide { transition: none; animation: none !important; } }
 .cta-section { padding: 60px 0 !important; }
 
 </style>
@@ -898,7 +903,7 @@ body { line-height: 1.8; }
 <?php require __DIR__ . '/includes/back-bar.php'; ?>
 
 <!-- HERO -->
-<section class="hero"><div class="hero-bg"></div><div class="hero-wave-lines" aria-hidden="true"><svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="none"><path d="M0,38 C240,10 480,58 720,34 C960,12 1200,54 1440,30" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.4"/><path d="M0,52 C240,26 480,72 720,48 C960,26 1200,66 1440,44" stroke="#d0b78f" stroke-opacity="0.5" stroke-width="1.2"/></svg></div><div class="hero-inner">
+<section class="hero"><div class="hero-bg"><?php foreach ([1,2,3,4] as $hs_i): ?><div class="hero-slide<?= $hs_i === 1 ? ' on' : '' ?>" style="background-image:url('/assets/img/top/slide-<?= $hs_i ?>.jpg?v=<?= h(asset_ver()) ?>')"></div><?php endforeach; ?><div class="hero-veil"></div></div><div class="hero-wave-lines" aria-hidden="true"><svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="none"><path d="M0,38 C240,10 480,58 720,34 C960,12 1200,54 1440,30" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.4"/><path d="M0,52 C240,26 480,72 720,48 C960,26 1200,66 1440,44" stroke="#d0b78f" stroke-opacity="0.5" stroke-width="1.2"/></svg></div><div class="hero-inner">
   <div class="hero-content">
     <div class="hero-badge">日本海洋散骨協会 加盟事業者</div>
     <h1 class="hero-h1">ご供養の不安を、<em>安穏</em>に。<br>大切な方を想う気持ちに<br>寄り添うご供養のかたち。</h1>
@@ -1419,6 +1424,20 @@ if (navToggle) {
     <span class="sf-label">お申込みの流れ</span>
   </a>
 </div>
+<script>
+(function () {
+  var slides = document.querySelectorAll('.hero-slide');
+  if (slides.length < 2) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cur = 0;
+  setInterval(function () {
+    var next = (cur + 1) % slides.length;
+    slides[next].classList.add('on');
+    slides[cur].classList.remove('on');
+    cur = next;
+  }, 6500);
+})();
+</script>
 <?php require __DIR__ . '/includes/fontsize.php'; ?>
 <script src="/assets/js/sd-nudge.js?v=<?= h(asset_ver()) ?>" defer></script>
 <?= dev_badge_html() ?>
