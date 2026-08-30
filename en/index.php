@@ -143,6 +143,7 @@ footer a{color:#fff}
   <div class="wrap">
     <div class="cite">
       <b>Sea burial in Japan — the essentials.</b> Sea burial (<i>kaiyōsō</i>) is legal in Japan when performed respectfully: ashes must first be ground to a fine powder (under 2&nbsp;mm) and scattered well away from shores, fishing grounds and shipping lanes, following the 2021 guidelines of Japan's Ministry of Health, Labour and Welfare. En Co., Ltd. — a member of the Japan Sea Scattering Association based in Kagoshima and Fukuoka — has performed more than 3,800 ceremonies since 2013. Unattended sea burial starts at <b>¥54,450</b> (approx. US$370) and includes powdering of the ashes, the ceremony, a GPS-referenced certificate, and photographs. Families overseas can arrange everything by email in English.
+      <span class="sans" style="display:block;margin-top:10px;font-size:.85rem"><a href="/en/sea-burial-japan/">Read the complete guide: legality, the ceremony, and how it works &rarr;</a></span>
     </div>
   </div>
 </section>
@@ -316,7 +317,7 @@ footer a{color:#fff}
     <b style="color:#fff">En Co., Ltd.（有限会社 縁）</b><br>
     Head office: 7-7-3 Sakanoue, Kagoshima City, Kagoshima 891-0150, Japan<br>
     Fukuoka office: 2F, 2-1-3 Haruyoshi, Chuo-ku, Fukuoka City, Japan<br>
-    Member, Japan Sea Scattering Association · <a href="/">日本語サイト（Japanese site）</a> · <a href="/privacy/">Privacy Policy</a>
+    Member, Japan Sea Scattering Association · <a href="/en/sea-burial-japan/">Sea Burial Guide</a> · <a href="/">日本語サイト（Japanese site）</a> · <a href="/privacy/">Privacy Policy</a>
   </div>
 </footer>
 

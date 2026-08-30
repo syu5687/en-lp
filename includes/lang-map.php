@@ -7,12 +7,12 @@
  *  ・英語側は en_lang_tags('/en/xxx/') を <head> で呼ぶ
  *
  * Phase 2 予定（英語ページ完成後にコメントを外す）:
- *   '/kaiyou-sou/'      => '/en/sea-burial-japan/',
  *   '/powder-cleaning/' => '/en/ash-powdering-japan/',
  *   '/temoto-kuyou/'    => '/en/keepsakes-memorial-jewelry/',
  */
 const LANG_MAP = [
-  '/' => '/en/',
+  '/'            => '/en/',
+  '/kaiyou-sou/' => '/en/sea-burial-japan/',
 ];
 
 /** 現在の日本語パスに対応する英語URLを返す（なければ null） */
