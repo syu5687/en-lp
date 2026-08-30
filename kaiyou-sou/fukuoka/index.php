@@ -107,6 +107,67 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
     </div>
   </section>
 
+  <!-- 選ばれる品質（価格だけで選ばないで・福岡版） -->
+  <section class="section">
+    <div class="container" style="max-width:960px">
+      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">QUALITY</p>
+      <h2 style="text-align:center;margin-bottom:14px">料金の安さだけで選ばないでください</h2>
+      <p style="text-align:center;max-width:720px;margin:0 auto 28px;line-height:2">
+        福岡でも、格安をうたう散骨サービスが増えています。<br class="pc-only">
+        しかし「実際にどの海域で散骨されたのかわからない」「証明書が発行されない」「あとから追加料金を請求された」——そんなケースも報告されています。<br class="pc-only">
+        大切な方のご遺骨を託す、一度きりのご供養だからこそ、<strong>料金だけでなく「どこで・誰が・どのように」散骨するのか</strong>をご確認ください。
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+        <?php foreach ([
+          ['協会加盟の事業者か', '縁は一般社団法人日本海洋散骨協会の加盟事業者。ガイドラインと海域のルールを順守し、環境に配慮した散骨を行います。'],
+          ['粉骨の品質と六価クロム対策', 'ご遺骨は一件ずつ丁寧にパウダー化。発がん性物質「六価クロム」の検査・無害化処理まで行ってから海にお還しします（2019年から実施）。'],
+          ['散骨の証明', '散骨海域の緯度・経度入りの「散骨証明書」と当日のお写真をお届け。博多湾のどこでお見送りしたかが、かたちで残ります。'],
+          ['料金の明確さ', '金額は無料のお見積りで確定。ご納得いただいてからのご契約で、あとから追加料金をいただくことはありません。'],
+          ['散骨後のご供養', 'メモリアルクルーズ、天国への手紙（無料）、手元供養など、「その後」のご供養まで自社で一貫してお手伝いします。'],
+          ['実績と信頼', '鹿児島・福岡を中心に全国3,800件以上・10年以上の実績。Google口コミ評価★4.9をいただいています。'],
+        ] as [$t, $d]): ?>
+        <div class="card">
+          <h3 style="color:var(--green-mid);font-size:1rem;margin-bottom:8px"><span style="color:var(--green)">✓</span> <?= h($t) ?></h3>
+          <p style="font-size:.9rem;line-height:1.9"><?= h($d) ?></p>
+        </div>
+        <?php endforeach; ?>
+      </div>
+      <div class="card" style="margin-top:22px;background:var(--cream)">
+        <p style="font-weight:700;color:var(--green-mid);margin-bottom:8px">たとえば——ご遺骨の「六価クロム」検査・無害化</p>
+        <p style="font-size:.9rem;line-height:1.9">火葬炉の耐熱ステンレスなどに由来する発がん性物質「六価クロム」が、ご遺骨に付着していることがあります。当社は散骨前の粉骨の際、専用キットで検査し、検出された場合は骨灰専用の還元剤で無害化してから海にお還しします（2019年から標準実施・追加料金なし）。格安サービスでは省略されがちな、見えない工程です。</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:14px">
+          <figure style="margin:0"><img src="/powder-cleaning/images/pc-cr6-check.jpg?v=<?= h(asset_ver()) ?>" alt="六価クロム検査キットと標準色カード" width="1400" height="933" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:8px;display:block"><figcaption style="font-size:.78rem;color:var(--text-light);text-align:center;margin-top:6px">専用キットで検査</figcaption></figure>
+          <figure style="margin:0"><img src="/powder-cleaning/images/pc-cr6-positive.jpg?v=<?= h(asset_ver()) ?>" alt="六価クロムが検出され検査液がピンク色に変色した状態" width="1400" height="933" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:8px;display:block"><figcaption style="font-size:.78rem;color:var(--text-light);text-align:center;margin-top:6px">変色したら「検出」のサイン</figcaption></figure>
+          <figure style="margin:0"><img src="/powder-cleaning/images/pc-cr6-agent.jpg?v=<?= h(asset_ver()) ?>" alt="骨灰専用の六価クロム還元剤" width="1400" height="933" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:8px;display:block"><figcaption style="font-size:.78rem;color:var(--text-light);text-align:center;margin-top:6px">専用還元剤で無害化</figcaption></figure>
+        </div>
+        <p style="text-align:center;margin-top:12px"><a href="/powder-cleaning/" style="color:var(--green);font-weight:600;font-size:.9rem">六価クロムの検査・無害化について詳しく見る →</a></p>
+      </div>
+      <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
+        他社さまとご比較の際は、上の6点をチェックリストとしてご活用ください。<br class="pc-only">
+        「見積りだけ」「話を聞くだけ」でも歓迎です。どうぞ納得のいくまでご比較ください。
+      </p>
+    </div>
+  </section>
+
+  <!-- セレモニーの様子 -->
+  <section class="section" style="background:var(--white)">
+    <div class="container" style="max-width:860px">
+      <h2 style="text-align:center;margin-bottom:8px">セレモニーの様子</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:22px">献花・献水・鐘の音とともにお見送りします。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+        <?php foreach ([
+          ['ks-ceremony.jpg', '船上に用意された献花・献酒のセレモニーセット'],
+          ['ks-maku.jpg', '花びらを海へ撒くセレモニーの瞬間'],
+          ['ks-kensui.jpg', '散骨後に海へ水を手向ける献水'],
+          ['ks-bell.jpg', '故人を偲び鳴らす船上の鐘'],
+        ] as [$gf, $ga]): ?>
+        <figure style="margin:0"><img src="/kaiyou-sou/images/<?= h($gf) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($ga) ?>" width="900" height="600" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px;display:block;border:1px solid var(--border)"></figure>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:14px;font-size:.9rem"><a href="/kaiyou-sou/" style="color:var(--green);font-weight:600">セレモニーの写真をもっと見る（海洋散骨ページ）→</a></p>
+    </div>
+  </section>
+
   <!-- 実施予定日（管理画面から更新・福岡のみ） -->
   <?php $gd_filter = '福岡'; $gd_area_label = '福岡'; require __DIR__ . '/../../includes/goudou-schedule.php'; ?>
 
