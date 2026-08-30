@@ -378,7 +378,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
         そんな方のために、<strong>帰省しなくてもご利用いただける委託海洋葬（54,450円〜）</strong>をご用意しています。<br class="pc-only">
         ご遺骨はゆうパックでのご郵送でお預かりし、粉骨から散骨、証明書のお届けまで当社がすべて代行。<strong>全国どこにお住まいでもご利用いただけます。</strong>
       </p>
-      <p style="text-align:center;margin:-10px 0 26px;font-size:.92rem">福岡の海（博多湾）でのお見送りをご希望の方は <a href="/kaiyou-sou/fukuoka/" style="color:var(--green);font-weight:700">福岡の海洋散骨ページ →</a></p>
+      <p style="text-align:center;margin:-10px 0 26px;font-size:.92rem">福岡の海（博多湾）でのお見送りをご希望の方は <a href="/fukuoka/" style="color:var(--green);font-weight:700">福岡営業所のページ →</a></p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px">
         <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">帰省・立ち会い不要</span>
         <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">ご遺骨は郵送でOK</span>

@@ -100,7 +100,7 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
       <h2 style="text-align:center;margin-bottom:30px">福岡営業所でできること</h2>
       <?php
         $fk_services = [
-          ['href' => '/kaiyou-sou/fukuoka/', 'img' => '/assets/img/svc-kaiyou.jpg',       'alt' => '海洋散骨セレモニーで花びらが広がる海',      'w' => 1200, 'h' => 750,  'title' => '海洋散骨（海洋葬）',   'desc' => '博多湾など福岡の海域での散骨に対応。チャーター・合同・委託（立ち会い不要）の3プラン。緯度・経度入りの散骨証明書を発行します。'],
+          ['href' => '/kaiyou-sou/',      'img' => '/assets/img/svc-kaiyou.jpg',          'alt' => '海洋散骨セレモニーで花びらが広がる海',      'w' => 1200, 'h' => 750,  'title' => '海洋散骨（海洋葬）',   'desc' => '博多湾など福岡の海域での散骨に対応。チャーター・合同・委託（立ち会い不要）の3プラン。緯度・経度入りの散骨証明書を発行します。'],
           ['href' => '/seizen/',          'img' => '/seizen/images/omoi-boat.webp',       'alt' => '海洋散骨の生前契約を託すクルーズ船',        'w' => 1200, 'h' => 800,  'title' => '海洋散骨 生前契約',    'desc' => '「海洋散骨をしたい」という想いを生前に契約して託せます。テレビでも紹介された、福岡対応のサービスです。'],
           ['href' => '/powder-cleaning/', 'img' => '/assets/img/svc-funkotsu.jpg',        'alt' => 'ご遺骨を丁寧にパウダー化する粉骨作業',      'w' => 1200, 'h' => 750,  'title' => '粉骨・洗骨',           'desc' => 'ご遺骨のパウダー化（24,200円〜）・クリーニング。お持ち込みのご相談のほか、郵送でもご利用いただけます。'],
           ['href' => '/grave/',           'img' => '/assets/img/hero-grave.jpg',          'alt' => '手を合わせてお参りするお墓',                'w' => 2000, 'h' => 1333, 'title' => 'お墓じまい',           'desc' => '撤去から納骨まで一括対応。改葬の行政手続きの代行も承ります。まずは現状をお聞かせください。'],

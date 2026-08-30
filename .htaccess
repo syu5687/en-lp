@@ -38,6 +38,9 @@
   RewriteRule ^contact/contact-lec/?$    /contact/         [R=301,L]
   RewriteRule ^sample-page/?$            /                 [R=301,L]
 
+  # 一時公開後に取り下げたページ（福岡の海洋散骨は /fukuoka/ に集約・重複回避）
+  RewriteRule ^kaiyou-sou/fukuoka/?$     /fukuoka/         [R=301,L]
+
   # ---- 旧WordPressアーカイブURL（カテゴリ・タグ・日付）→ 301 で新ページへ集約 ----
   #  内部リンク評価の引き継ぎ用。カテゴリ「お客様の声」だけは /voice/ へ1対1で継承。
   RewriteRule ^category/お客様の声/?$    /voice/           [R=301,L]
