@@ -378,7 +378,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
         そんな方のために、<strong>帰省しなくてもご利用いただける委託海洋葬（54,450円〜）</strong>をご用意しています。<br class="pc-only">
         ご遺骨はゆうパックでのご郵送でお預かりし、粉骨から散骨、証明書のお届けまで当社がすべて代行。<strong>全国どこにお住まいでもご利用いただけます。</strong>
       </p>
-      <p style="text-align:center;margin:-10px 0 26px;font-size:.92rem">福岡の海（博多湾）でのお見送りをご希望の方は <a href="/fukuoka/" style="color:var(--green);font-weight:700">福岡営業所のページ →</a></p>
+      <p style="text-align:center;margin:-10px 0 26px;font-size:.92rem">福岡の海（博多湾）でのお見送りをご希望の方は <a href="/fukuoka/" style="color:var(--green);font-weight:700">福岡営業所のページ →</a><br class="sp-only">墓じまいで取り出したご遺骨を散骨する場合は <a href="/grave/sankotsu/" style="color:var(--green);font-weight:700">墓じまい後の散骨 →</a></p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px">
         <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">帰省・立ち会い不要</span>
         <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">ご遺骨は郵送でOK</span>
@@ -495,7 +495,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     $ks_faq = [
       ['q' => '海洋散骨はどのような方に選ばれていますか？',
        'a' => '「海が好きだった」「自然に還りたい」という故人様やご本人の希望のほか、「お墓を継ぐ人がいない」「ご遺骨のことで家族に負担を残したくない」という承継の事情、「お墓や納骨堂の費用を抑えたい」という経済的な理由で選ばれる方が増えています。お墓を持たないご供養の方法なので、従来のかたちにとらわれず自由に故人様をお見送りしたい方に向いています。'],
-      ['q' => '海にご遺骨を撒くことは法律的に問題ありませんか？',
+      ['q' => '海洋散骨は違法ではありませんか？法律上の扱いを教えてください',
        'a' => '法務省は「節度をもって葬送の一つとして行われる限り違法ではない」との見解を示しており、2021年には厚生労働省から散骨に関するガイドラインも公表されています。当社は一般社団法人日本海洋散骨協会の加盟事業者として、ガイドラインと協会ルールに沿って適切な海域・方法で散骨を行いますのでご安心ください。なお、ご遺骨を粉骨せずそのまま海に撒くことはできません。当社では散骨前に必ず専用の設備で丁寧にパウダー化します。'],
       ['q' => 'お墓に納骨されているご遺骨を取り出して散骨できますか？',
        'a' => 'できます。墓地の管理者への連絡や、改葬（かいそう）の手続きが必要になる場合がありますが、手続きのご案内からお手伝いします。お墓からすべてのご遺骨を取り出して墓石を解体・撤去する場合は「お墓じまい」となります。当社はお墓じまいから粉骨・海洋散骨まで一括で承れますので、まとめてご相談ください。',

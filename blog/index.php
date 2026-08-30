@@ -70,6 +70,10 @@ if ($blog_id !== '') {
   ];
 
   require __DIR__ . '/../includes/head.php';
+
+  /* 関連サービスの判定は本文出力より前に行う（本文中の導線に使うため） */
+  require_once __DIR__ . '/../includes/blog-related.php';
+  $rel = en_related_services($post);
   ?>
 <body>
 <?php require __DIR__ . '/../includes/header.php'; ?>
@@ -96,7 +100,7 @@ if ($blog_id !== '') {
       <?php if ($gallery && !$html_has_img): ?>
         <img src="<?= h($gallery[0]) ?>" alt="<?= h($post['title'] ?? '') ?>" style="width:100%;border-radius:var(--radius-lg);margin-bottom:28px">
       <?php endif; ?>
-      <div class="prose prose--html"><?= $post['body_html'] ?></div>
+      <div class="prose prose--html"><?= en_inject_inline_cta((string)$post['body_html'], $rel) ?></div>
       <?php if (count($gallery) > 1 && !$html_has_img): ?>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:26px">
           <?php foreach (array_slice($gallery, 1) as $g): ?>
@@ -124,8 +128,10 @@ if ($blog_id !== '') {
       <div class="prose">
         <?php
           $body  = (string)($post['body'] ?? '');
-          $paras = preg_split('/\n+/', $body);
-          foreach ($paras as $p) { $p = trim($p); if ($p !== '') echo '<p>' . h($p) . '</p>' . "\n"; }
+          $paras = array_values(array_filter(array_map('trim', preg_split('/\n+/', $body)), fn($p) => $p !== ''));
+          $plain = '';
+          foreach ($paras as $p) $plain .= '<p>' . h($p) . '</p>' . "\n";
+          echo en_inject_inline_cta($plain, $rel);
         ?>
       </div>
       <?php if (count($gallery) > 1): ?>
@@ -139,27 +145,7 @@ if ($blog_id !== '') {
     <?php if (!empty($post['link'])): ?>
       <p style="margin-top:22px;font-size:.9rem;color:var(--text-light)">参考リンク：<a href="<?= h($post['link']) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:600"><?= h($post['link']) ?></a></p>
     <?php endif; ?>
-    <?php
-      /* ===== 関連サービスへの誘導（カテゴリ・タイトルから自動判定） ===== */
-      $rel_src = (string)($post['category'] ?? '') . ' ' . (string)($post['title'] ?? '');
-      $rel_map = [
-        ['kw' => ['海洋', '散骨', 'クルーズ'],            'href' => '/kaiyou-sou/',      'label' => '海洋葬（海洋散骨）',        'desc' => '委託海洋葬 54,450円〜。鹿児島・福岡・九州の海域に対応、全国からご利用いただけます。'],
-        ['kw' => ['粉骨', '洗骨', 'パウダー'],            'href' => '/powder-cleaning/', 'label' => '粉骨・洗骨',                'desc' => 'すべて手作業で一件ずつ丁寧に。粉骨24,200円〜、ご遺骨の郵送で全国対応。'],
-        ['kw' => ['墓じまい', 'お墓・納骨堂', '改葬', '納骨'], 'href' => '/grave/',       'label' => 'お墓じまい',                'desc' => '撤去から納骨・改葬手続きの代行まで一括対応。その後の供養もご提案します。'],
-        ['kw' => ['手元', 'ジュエリー'],                  'href' => '/temoto-kuyou/',    'label' => 'お手元供養',                'desc' => 'ミニ骨壷・ミニ仏壇・メモリアルジュエリーで、いつも身近にご供養を。'],
-        ['kw' => ['樹木葬', '庭苑'],                      'href' => '/teien-sou/',       'label' => '樹木葬（庭苑葬）',          'desc' => '草花に囲まれて眠る自然葬。個別墓・永代供養墓もご提案します。'],
-        ['kw' => ['遺品'],                                'href' => '/ihinseiri/',       'label' => '遺品整理',                  'desc' => '形見の仕分けからご供養・お焚き上げまで、心を込めて対応します。'],
-        ['kw' => ['生前', '終活', 'セミナー'],            'href' => '/seizen/',          'label' => '海洋散骨 生前契約',         'desc' => '「海に還りたい」という想いを、お元気なうちに契約して託せます。'],
-      ];
-      $rel = [];
-      foreach ($rel_map as $m) {
-        foreach ($m['kw'] as $kw) {
-          if (mb_strpos($rel_src, $kw) !== false) { $rel[] = $m; break; }
-        }
-        if (count($rel) >= 2) break;
-      }
-      if (!$rel) $rel[] = ['href' => '/shindan/', 'label' => '供養の選び方（かんたん診断）', 'desc' => 'いくつかの質問に答えるだけで、あなたに合ったご供養の形をご提案します。'];
-    ?>
+    <?php /* 関連サービス（判定は includes/blog-related.php・本文出力前に $rel を算出済み） */ ?>
     <div style="margin-top:40px;background:var(--sea-light);border-radius:14px;padding:22px 24px">
       <p style="font-weight:700;color:var(--green-mid);margin-bottom:14px">この記事に関連するサービス</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
@@ -216,6 +202,18 @@ if ($blog_id !== '') {
     .prose--html table{font-size:.83rem;line-height:1.65}
     .prose--html th,.prose--html td{padding:7px 8px}
   }
+  /* ===== 本文中の関連サービス導線 =====
+     記事末まで読まずに離脱する方が多いため、本文の途中に一度だけ置く。
+     広告然とさせず、本文の流れを止めない静かなトーンにする。 */
+  .post-inline-cta{margin:2.2em 0;padding:18px 20px;background:#fbfaf7;border:1px solid #e3ded2;border-left:3px solid var(--green,#1c6b52);border-radius:0 10px 10px 0}
+  .post-inline-cta__lead{margin:0 0 6px;font-weight:700;font-size:.95rem;color:var(--green-mid,#12597a);line-height:1.6}
+  .post-inline-cta__text{margin:0 0 10px;font-size:.9rem;line-height:1.85;color:var(--text,#26333b)}
+  .post-inline-cta__link{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+  .post-inline-cta__link a{color:var(--green,#1c6b52);font-weight:700;font-size:.92rem;text-decoration:none;border-bottom:1px solid currentColor}
+  .post-inline-cta__link a:hover{opacity:.8}
+  .post-inline-cta__sub{font-size:.78rem;color:var(--text-light,#5c6b73)}
+  .prose--html .post-inline-cta p{margin:0 0 6px}
+  .prose--html .post-inline-cta p:last-child{margin:0}
   /* 記事内の画像はクリックで拡大できることを示す */
   .post-zoomable{cursor:zoom-in;transition:opacity .15s}
   .post-zoomable:hover{opacity:.88}

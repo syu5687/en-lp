@@ -2230,6 +2230,7 @@
       </ul>
     </div>
     <p style="text-align:center;font-size:.9rem;margin-top:18px">墓じまいの撤去工事から、粉骨・海洋散骨・お手元供養まで——<strong>鹿児島で一社完結（ワンストップ）</strong>できるのが縁の強みです。</p>
+    <p style="text-align:center;font-size:.95rem;margin-top:12px"><a href="/grave/sankotsu/" style="color:var(--green,#1c6b52);font-weight:700">墓じまい後の散骨について、手続き・期間・費用をまとめて見る →</a></p>
 
     <div style="max-width:600px;margin:26px auto 0;background:#f2f7f5;border:1.5px solid #cfe0d8;border-radius:14px;padding:22px 22px;text-align:center">
       <p style="font-weight:700;color:#1c3d2e;margin:0 0 10px;font-size:1.02rem">墓じまい後のご遺骨、どうするか決まっていますか？</p>
