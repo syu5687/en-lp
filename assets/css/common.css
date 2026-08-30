@@ -226,3 +226,18 @@ details[open] summary{margin-bottom:8px}
   .site-nav__cta{margin-top:12px}
   .site-nav__cta a{display:block;text-align:center;background:#fff;color:#15709e !important;font-weight:700;border-radius:999px;padding:13px;font-size:.98rem}
 }
+
+/* ---- 言語切替の配置（site-header 用。ハンバーガーは 768px で出現する） ----
+   共通コンポーネントのCSSは<body>側で出力され後勝ちになるため、
+   表示切替は !important で確定させる（常にどちらか一方だけを出す）。 */
+.site-nav__lang{display:none !important}           /* PCではSP用ブロックを出さない */
+.site-nav__lang-pc{display:flex !important;align-items:center}
+@media(max-width:768px){
+  .site-nav__lang{display:block !important;order:-1}   /* SPメニューの最上部へ */
+  .site-nav__lang-pc{display:none !important}
+}
+
+/* ---- ヘッダー行の詰まり対策（言語切替を1つ足したことで主CTAが折り返していた） ---- */
+.site-header__inner{gap:18px}
+.site-nav__list{gap:clamp(14px,1.7vw,26px)}
+.site-nav__cta a{white-space:nowrap}

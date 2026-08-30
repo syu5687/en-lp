@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/lang-switch.php';
 require_once __DIR__ . '/admin/includes/store.php';
 // 新着ブログ3件。Firestore → news.json → 旧WordPressアーカイブ を統合し、
 // 同一記事（同日付＋同タイトル）は本文HTML・画像を持つ情報の濃い方を優先する。
@@ -112,7 +113,9 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
   .header-logo img, .header-logo-text { transition: all 0.25s ease; }
 }
 .header-logo-text { font-family: var(--font-serif); font-size: 1.12rem; font-weight: 600; color: var(--color-green-mid); letter-spacing: 0.14em; }
-.header-nav { display: flex; align-items: center; gap: clamp(12px, 1.5vw, 28px); }
+.header-nav { display: flex; align-items: center; gap: clamp(10px, 1.3vw, 24px); }
+.header-cta-btn { white-space: nowrap; }
+.header-inner { gap: 18px; }
 .header-nav a { font-size: 0.82rem; font-weight: 400; color: var(--color-text); position: relative; white-space: nowrap; }
 .header-nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--color-gold); transition: var(--transition); }
 .header-nav a:hover::after { width: 100%; }
@@ -126,7 +129,10 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 .nav-dd-menu a::after { display: none; }
 .nav-dd-menu a:hover { background: #eef5f4; color: #15709e !important; }
 .nav-dd-menu .nav-dd-top { font-weight: 700; color: #15709e !important; border-bottom: 1px solid #e4ebee; margin-bottom: 6px; padding-bottom: 12px; }
-@media (max-width: 860px) {
+/* ハンバーガーは 1024px 以下で出るのに、開いたパネルの指定が 860px 以下にしか
+   無かったため、861〜1024px ではメニューを開いても何も表示されなかった。
+   ハンバーガーの出現幅に合わせる。 */
+@media (max-width: 1024px) {
   /* SPメニュー：開いた時のパネル（不透明グラデ・左寄せ・角丸） */
   .header-nav.is-open { display: flex; flex-direction: column; align-items: stretch; text-align: left; position: absolute; top: 100%; left: 0; right: 0; gap: 0; background: linear-gradient(180deg, #15709e 0%, #0e567d 100%); padding: 6px 20px 90px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); border-radius: 0 0 16px 16px; max-height: calc(100dvh - 70px); overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
   .header-nav > a, .nav-dd > a { display: block; padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,0.14); font-size: 1rem; font-weight: 700; color: #fff !important; }
@@ -451,6 +457,8 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .footer-nav-col li { margin-bottom: 9px; }
 .footer-nav-col a { font-size: 0.78rem; color: rgba(255,255,255,0.5); transition: var(--transition); }
 .footer-nav-col a:hover { color: var(--color-gold-light); }
+.footer-nav-col .lang-switch--footer { color: rgba(255,255,255,0.62); font-size: 0.78rem; }
+.footer-nav-col .lang-switch--footer:hover { color: var(--color-gold-light); }
 .footer-assoc { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
 .footer-assoc p { font-size: 0.72rem; color: rgba(255,255,255,0.4); letter-spacing: 0.04em; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; text-align: center; font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; }
@@ -470,6 +478,16 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 
 /* SP専用ナビリンク（PCのヘッダーには表示しない） */
 .nav-sp-only { display: none; }
+/* 言語切替：PCはCTAの右に小さく、SPはメニュー最上部に。
+   共通コンポーネントのCSSは<body>側で読み込まれ、同詳細度では後勝ちになるため、
+   表示切替だけは !important で確定させる（どちらか一方しか出さないことを保証する）。 */
+.header-nav > .lang-switch-sp { display: none !important; }
+.header-nav .lang-switch::after { display: none !important; }
+/* ハンバーガーが出る 1024px 以下では、PC用を隠しメニュー最上部の言語切替に置き換える */
+@media (max-width: 1024px) {
+  .header-nav > .lang-switch-sp { display: block !important; order: -1; }
+  .header-nav .lang-switch--header-pc { display: none !important; }
+}
 .header-nav.is-open .nav-sp-only { display: flex; }
 .header-nav.is-open .nav-sp-only--sub { font-size: 0.85rem; opacity: 0.85; }
 
@@ -919,14 +937,18 @@ body { line-height: 1.8; }
 </head>
 <body>
 
+<?php en_lang_switch_css(); ?>
 <header class="header" role="banner"><div class="header-inner">
   <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;margin-right:8px;vertical-align:middle;"><span class="header-logo-text">有限会社 縁</span></a>
   <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
+    <?php /* SPメニュー最上部の言語切替（DOM順が表示順になるため先頭に置く。PCでは非表示） */ ?>
+    <?php en_lang_switch('menu_sp'); ?>
     <a href="/about/">縁とは</a><span class="nav-dd"><a href="/service/">サービス一覧<span class="nav-dd-caret" aria-hidden="true">▾</span></a><span class="nav-dd-menu"><a href="/service/" class="nav-dd-top">サービス一覧を見る</a><a href="/kaiyou-sou/">海洋葬（海洋散骨）</a><a href="/powder-cleaning/">粉骨・洗骨</a><a href="/grave/">お墓じまい</a><a href="/teien-sou/">樹木葬</a><a href="/temoto-kuyou/">お手元供養</a><a href="/jewelry-reform/">JEWELRYリフォーム</a><a href="/pet-kaiyou-sou/">ペット供養</a><a href="/ihinseiri/">遺品整理</a><a href="/hikkoshi/">お墓のお引越し</a><a href="/seizen/">海洋散骨 生前契約</a><a href="/area/">対応エリア</a></span></span><span class="nav-dd"><a href="/shindan/">供養の選び方<span class="nav-dd-caret" aria-hidden="true">▾</span></a><span class="nav-dd-menu"><a href="/shindan/" class="nav-dd-top">供養の選び方（かんたん診断）</a><a href="/onayami/">供養のお悩み解決</a><a href="/gokuyou/">よくあるご質問</a><a href="/glossary/">供養用語辞典</a></span></span><a href="/voice/">お客様の声</a><a href="/blog/">終活と供養の話</a><a href="/gokuyou/">よくある質問</a><a href="/staff/">スタッフ紹介</a>
     <a href="/flow/" class="nav-sp-only">お申込みの流れ</a><a href="/fukuoka/" class="nav-sp-only">福岡営業所</a><a href="/kuyou/" class="nav-sp-only">ご供養について</a><a href="/company/" class="nav-sp-only">会社概要</a><a href="/contact/" class="nav-sp-only">お問い合わせ</a><a href="/policy/" class="nav-sp-only nav-sp-only--sub">キャンセルポリシー</a><a href="/privacy/" class="nav-sp-only nav-sp-only--sub">プライバシーポリシー</a>
     <a href="https://www.instagram.com/en1150en/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram" style="display:inline-flex;align-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.26.07 1.64.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.26.06-1.64.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05 0 8.3 0 8.7 0 12s0 3.7.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.3 24 8.7 24 12 24s3.7 0 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91C24 15.7 24 15.3 24 12s0-3.7-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.7 0 15.3 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg></a>
-    <a href="/en/" style="font-size:.78rem;color:var(--color-text-light);text-decoration:none;letter-spacing:.05em;margin-right:14px" title="Sea Burial in Japan — English">EN</a>
     <a href="/contact/" class="header-cta-btn">資料請求・ご相談</a>
+    <?php /* 言語切替はCTAの右。ヘッダーは実際には青地（#15709e）なので dark 配色 */ ?>
+    <?php en_lang_switch('header_pc', 'dark'); ?>
   </nav>
   <button class="nav-toggle" aria-label="メニュー"><span class="nav-toggle-label" aria-hidden="true">MENU</span><span class="nav-toggle-bars"><span></span><span></span><span></span></span></button>
 </div></header>
@@ -1353,7 +1375,7 @@ body { line-height: 1.8; }
     <div class="footer-nav-grid">
       <div class="footer-nav-col"><h4>サービス</h4><ul><li><a href="/kaiyou-sou/">海洋葬（海洋散骨）</a></li><li><a href="/seizen/">海洋散骨 生前契約</a></li><li><a href="/teien-sou/">樹木葬</a></li><li><a href="/powder-cleaning/">粉骨・洗骨</a></li><li><a href="/temoto-kuyou/">お手元供養</a></li><li><a href="/jewelry-reform/">JEWELRYリフォーム</a></li></ul></div>
       <div class="footer-nav-col"><h4>お墓のお悩み</h4><ul><li><a href="/grave/">お墓じまい</a></li><li><a href="/hikkoshi/">お墓の引越し（改葬）</a></li><li><a href="/pet-kaiyou-sou/">ペット供養</a></li><li><a href="/ihinseiri/">遺品整理</a></li><li><a href="/shindan/">供養の選び方（かんたん診断）</a></li><li><a href="/onayami/">供養のお悩み解決</a></li></ul></div>
-      <div class="footer-nav-col"><h4>情報</h4><ul><li><a href="/about/">縁とは</a></li><li><a href="/voice/">お客様の声</a></li><li><a href="/blog/">終活と供養の話</a></li><li><a href="/staff/">スタッフ紹介</a></li><li><a href="/company/">会社案内</a></li><li><a href="/area/">対応エリア</a></li><li><a href="/fukuoka/">福岡営業所</a></li><li><a href="/flow/">お申込みの流れ</a></li><li><a href="/gokuyou/">よくあるご質問</a></li><li><a href="/contact/">お問合せ</a></li><li><a href="/policy/">キャンセルポリシー</a></li><li><a href="/privacy/">個人情報保護方針</a></li></ul></div>
+      <div class="footer-nav-col"><h4>情報</h4><ul><li><a href="/about/">縁とは</a></li><li><a href="/voice/">お客様の声</a></li><li><a href="/blog/">終活と供養の話</a></li><li><a href="/staff/">スタッフ紹介</a></li><li><a href="/company/">会社案内</a></li><li><a href="/area/">対応エリア</a></li><li><a href="/fukuoka/">福岡営業所</a></li><li><a href="/flow/">お申込みの流れ</a></li><li><a href="/gokuyou/">よくあるご質問</a></li><li><a href="/contact/">お問合せ</a></li><li><a href="/policy/">キャンセルポリシー</a></li><li><a href="/privacy/">個人情報保護方針</a></li><li class="footer-lang"><?php en_lang_switch('footer'); ?></li></ul></div>
     </div>
   </div>
   <div class="footer-assoc"><p>一般社団法人日本海洋散骨協会 加盟事業者</p></div>

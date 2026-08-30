@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/config.php'; ?>
+<?php require_once __DIR__ . '/config.php'; require_once __DIR__ . '/lang-switch.php'; en_lang_switch_css(); ?>
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__brand">
@@ -35,6 +35,8 @@
         <li><a href="/contact/">お問い合わせ</a></li>
         <li><a href="/policy/">キャンセルポリシー</a></li>
         <li><a href="/privacy/">プライバシーポリシー</a></li>
+        <?php /* 下部まで読んだ外国語話者の受け皿。ボタンにはせずテキストリンクで置く */ ?>
+        <li class="site-footer__lang"><?php en_lang_switch('footer'); ?></li>
       </ul>
     </nav>
   </div>

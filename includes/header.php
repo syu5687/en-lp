@@ -17,6 +17,8 @@ $nav_sub = [
     ['label' => '供養用語辞典',       'href' => '/glossary/'],
   ],
 ];
+require_once __DIR__ . '/lang-switch.php';
+en_lang_switch_css();
 ?>
 <header class="site-header">
   <div class="site-header__inner">
@@ -30,6 +32,8 @@ $nav_sub = [
         <span class="site-nav__toggle-bars"><span></span><span></span><span></span></span>
       </button>
       <ul class="site-nav__list">
+        <?php /* SPメニュー最上部：言語切替（メニューを開いて最初に目に入る位置） */ ?>
+        <li class="site-nav__lang"><?php en_lang_switch('menu_sp'); ?></li>
         <?php /* SPメニュー最上部の重要導線（PCナビには表示しない） */ ?>
         <li class="sp-nav-extra sp-nav-shindan"><a href="/shindan/">供養の選び方（かんたん診断）<span class="sp-nav-shindan__tag">約3分</span></a></li>
         <?php foreach (NAV as $item): $sub = $nav_sub[$item['href']] ?? null; ?>
@@ -58,6 +62,8 @@ $nav_sub = [
         <li class="site-nav__cta">
           <a href="/contact/">資料請求・ご相談</a>
         </li>
+        <?php /* 言語切替はCTAの右。主CTAより一段弱い視覚優先度にしている */ ?>
+        <li class="site-nav__lang-pc"><?php en_lang_switch('header_pc', 'dark'); ?></li>
       </ul>
     </nav>
   </div>

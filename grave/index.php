@@ -17,9 +17,8 @@
 <meta name="article:modified_time" content="2026-08-28T00:00:00+09:00">
 <link rel="canonical" href="https://en1150.co.jp/grave/">
 
-<!-- hreflang -->
-<link rel="alternate" hreflang="ja-JP" href="https://en1150.co.jp/grave/">
-<link rel="alternate" hreflang="x-default" href="https://en1150.co.jp/grave/">
+<!-- hreflang: 英語版が存在しないページのため、自己参照のみの注釈は出さない
+     （対応する英語ページを用意した際は includes/lang-map.php に1行追加すれば自動出力される） -->
 
 <!-- OGP / Twitter -->
 <meta property="og:type" content="website">

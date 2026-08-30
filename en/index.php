@@ -21,6 +21,7 @@ $en_canonical = SITE['url'] . '/en/';
 <meta property="og:url" content="<?= h($en_canonical) ?>">
 <meta property="og:type" content="website">
 <?php require __DIR__ . '/../includes/ga4.php'; ?>
+<?php require_once __DIR__ . '/../includes/lang-switch.php'; en_lang_switch_css(); ?>
 <style>
 :root{--navy:#0a3852;--ocean:#15709e;--sea:#e3f0f7;--gold:#a8802f;--goldbg:#fdf9f0;--cream:#f7f4ec;--line:#dde6ec;--text:#26333b;--light:#5c6b73;--green:#12597a}
 *{box-sizing:border-box}
@@ -116,8 +117,9 @@ footer a{color:#fff}
   <div class="hd-in">
     <a class="hd-logo" href="/en/">En Co., Ltd.<small>Sea Burial in Kagoshima &amp; Fukuoka, Japan</small></a>
     <div class="hd-right sans">
-      <a class="hd-jp" href="/">日本語</a>
       <a class="hd-cta" href="#contact">Ask in English</a>
+      <?php /* 言語切替は主CTAの右。日本語側と役割・位置を揃える */ ?>
+      <?php en_lang_switch_ja('/', 'header_pc'); ?>
     </div>
   </div>
 </header>
@@ -317,7 +319,7 @@ footer a{color:#fff}
     <b style="color:#fff">En Co., Ltd.（有限会社 縁）</b><br>
     Head office: 7-7-3 Sakanoue, Kagoshima City, Kagoshima 891-0150, Japan<br>
     Fukuoka office: 2F, 2-1-3 Haruyoshi, Chuo-ku, Fukuoka City, Japan<br>
-    Member, Japan Sea Scattering Association · <a href="/en/sea-burial-japan/">Sea Burial Guide</a> · <a href="/">日本語サイト（Japanese site）</a> · <a href="/privacy/">Privacy Policy</a>
+    Member, Japan Sea Scattering Association · <a href="/en/sea-burial-japan/">Sea Burial Guide</a> · <a href="/" hreflang="ja" lang="ja" data-lang-switch="footer" data-from="en" data-to="ja">日本語サイト（Japanese site）</a> · <a href="/privacy/">Privacy Policy</a>
   </div>
 </footer>
 
