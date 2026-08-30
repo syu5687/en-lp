@@ -20,33 +20,40 @@
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
+  # ---- 1c) ディレクトリURLの末尾スラッシュ補完（絶対URLで1ホップ301）----
+  # Apache 既定の DirectorySlash は Cloud Run の待受ポート(:8080)付きURLを生成して
+  # しまうため、先に自前で正規URLへ 301 する。
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ https://en1150.co.jp/$1/ [R=301,L]
+
   # ---- 2) 旧・固定ページ → 新ページ（301）----
   # 統合・名称変更されたページ
-  RewriteRule ^powder/?$                 /powder-cleaning/ [R=301,L]
-  RewriteRule ^cleaning/?$               /powder-cleaning/ [R=301,L]
-  RewriteRule ^retaliation/?$            /temoto-kuyou/    [R=301,L]
-  RewriteRule ^retaliation-accessory/?$  /temoto-kuyou/    [R=301,L]
-  RewriteRule ^shizen-sou/?$             /kaiyou-sou/      [R=301,L]
-  RewriteRule ^charter-kaiyou-sou/?$     /kaiyou-sou/      [R=301,L]
-  RewriteRule ^goudou/?$                 /kaiyou-sou/      [R=301,L]
-  RewriteRule ^goudou-kaiyou-sou/?$      /kaiyou-sou/      [R=301,L]
-  RewriteRule ^itaku-kaiyou-sou/?$       /kaiyou-sou/      [R=301,L]
-  RewriteRule ^memorial-cruise/?$        /kaiyou-sou/      [R=301,L]
-  RewriteRule ^letter/?$                 /kaiyou-sou/      [R=301,L]
-  RewriteRule ^message/?$                /company/         [R=301,L]
-  RewriteRule ^grave-test/?$             /ihinseiri/       [R=301,L]
-  RewriteRule ^contact/contact-lec/?$    /contact/         [R=301,L]
-  RewriteRule ^sample-page/?$            /                 [R=301,L]
+  RewriteRule ^powder/?$                 https://en1150.co.jp/powder-cleaning/ [R=301,L]
+  RewriteRule ^cleaning/?$               https://en1150.co.jp/powder-cleaning/ [R=301,L]
+  RewriteRule ^retaliation/?$            https://en1150.co.jp/temoto-kuyou/    [R=301,L]
+  RewriteRule ^retaliation-accessory/?$  https://en1150.co.jp/temoto-kuyou/    [R=301,L]
+  RewriteRule ^shizen-sou/?$             https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^charter-kaiyou-sou/?$     https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^goudou/?$                 https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^goudou-kaiyou-sou/?$      https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^itaku-kaiyou-sou/?$       https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^memorial-cruise/?$        https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^letter/?$                 https://en1150.co.jp/kaiyou-sou/      [R=301,L]
+  RewriteRule ^message/?$                https://en1150.co.jp/company/         [R=301,L]
+  RewriteRule ^grave-test/?$             https://en1150.co.jp/ihinseiri/       [R=301,L]
+  RewriteRule ^contact/contact-lec/?$    https://en1150.co.jp/contact/         [R=301,L]
+  RewriteRule ^sample-page/?$            https://en1150.co.jp/                 [R=301,L]
 
   # 一時公開後に取り下げたページ（福岡の海洋散骨は /fukuoka/ に集約・重複回避）
-  RewriteRule ^kaiyou-sou/fukuoka/?$     /fukuoka/         [R=301,L]
+  RewriteRule ^kaiyou-sou/fukuoka/?$     https://en1150.co.jp/fukuoka/         [R=301,L]
 
   # ---- 旧WordPressアーカイブURL（カテゴリ・タグ・日付）→ 301 で新ページへ集約 ----
   #  内部リンク評価の引き継ぎ用。カテゴリ「お客様の声」だけは /voice/ へ1対1で継承。
-  RewriteRule ^category/お客様の声/?$    /voice/           [R=301,L]
-  RewriteRule ^category/                 /blog/            [R=301,L]
-  RewriteRule ^tag/                      /blog/            [R=301,L]
-  RewriteRule ^[0-9]{4}/[0-9]{2}(/[0-9]{2})?/?$ /blog/     [R=301,L]
+  RewriteRule ^category/お客様の声/?$    https://en1150.co.jp/voice/           [R=301,L]
+  RewriteRule ^category/                 https://en1150.co.jp/blog/            [R=301,L]
+  RewriteRule ^tag/                      https://en1150.co.jp/blog/            [R=301,L]
+  RewriteRule ^[0-9]{4}/[0-9]{2}(/[0-9]{2})?/?$ https://en1150.co.jp/blog/     [R=301,L]
 
   # ---- 2b) 画像配信（Cloud Storage プロキシ・管理画面アップロード分）----
   RewriteRule ^img/(.+)$ /img.php?p=$1 [L,B]
