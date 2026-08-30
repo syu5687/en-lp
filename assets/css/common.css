@@ -241,3 +241,21 @@ details[open] summary{margin-bottom:8px}
 .site-header__inner{gap:18px}
 .site-nav__list{gap:clamp(14px,1.7vw,26px)}
 .site-nav__cta a{white-space:nowrap}
+
+/* ---- PCヘッダーをトップページ基準に統一（下層ページのナビ2段落ち対策） ----
+   下層だけナビが折り返していた原因は、トップ（index.php の .header-nav）との
+   次の差分だった。フォントを極端に縮めるのではなく、トップ側の値に合わせている。
+     ① .site-nav__list a に white-space の指定が無く、項目の途中で改行できていた
+        （トップは .header-nav a に white-space:nowrap がある）
+     ② 項目間 gap が最大26px（トップは最大24px）、文字が .85rem（トップは .82rem）
+     ③ 資料請求ボタンの左右paddingが20px（トップは16px）
+     ④ 上下paddingが12px（トップは14px）＝ヘッダー高さが4px低かった
+   これにロゴ横の社名テキスト削除で空いた分を足し、1280pxでも1行に収める。
+   ハンバーガーは768pxで出るため、SPには一切影響しない。 */
+@media (min-width:769px){
+  .site-header__inner{padding:14px 32px}
+  .site-nav__list{gap:clamp(10px,1.3vw,24px)}
+  .site-nav__list a{font-size:.82rem;white-space:nowrap}
+  .site-nav__cta a{display:inline-flex;align-items:center;padding:9px 16px;font-size:.78rem}
+  .subnav a{font-size:.85rem}   /* ドロップダウン内は従来の見た目を維持する */
+}

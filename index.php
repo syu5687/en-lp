@@ -939,7 +939,7 @@ body { line-height: 1.8; }
 
 <?php en_lang_switch_css(); ?>
 <header class="header" role="banner"><div class="header-inner">
-  <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;margin-right:8px;vertical-align:middle;"><span class="header-logo-text">有限会社 縁</span></a>
+  <a href="/" class="header-logo" aria-label="有限会社 縁 トップページ"><img src="/assets/img/en.svg" alt="有限会社 縁 ロゴ" style="height:40px;width:auto;vertical-align:middle;"></a>
   <nav class="header-nav" role="navigation" aria-label="メインナビゲーション">
     <?php /* SPメニュー最上部の言語切替（DOM順が表示順になるため先頭に置く。PCでは非表示） */ ?>
     <?php en_lang_switch('menu_sp'); ?>
