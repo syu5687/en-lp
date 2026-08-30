@@ -121,3 +121,26 @@ $gd_fmt = static function (string $ymd): array {
 .goudou-sched__link:hover{color:#fff}
 @media(max-width:600px){.goudou-sched{padding:44px 16px}.goudou-sched__title{font-size:1.35rem}}
 </style>
+<script>
+/* 予定日セクションの閲覧を計測（フローティング導線から来た場合は出所も送る） */
+(function () {
+  var sec = document.getElementById('goudou-schedule');
+  if (!sec || !('IntersectionObserver' in window) || sec.dataset.gaBound) return;
+  sec.dataset.gaBound = '1';
+  var src = ''; try { src = sessionStorage.getItem('en_fcta_src') || ''; } catch (e) {}
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      try {
+        if (window.gtag) {
+          var p = { page_path: location.pathname };
+          if (src) p.banner_source = src;
+          window.gtag('event', 'schedule_section_view', p);
+        }
+      } catch (err) {}
+    });
+  }, { threshold: 0.25 });
+  io.observe(sec);
+})();
+</script>

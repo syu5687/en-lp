@@ -63,8 +63,8 @@
 <?php endif; ?>
 </div>
 
-<?php require __DIR__ . '/sched-badge.php'; ?>
-<script src="/assets/js/sd-nudge.js?v=<?= h(asset_ver()) ?>" defer></script>
+<?php /* フローティング導線（PC専用・常に1つだけ）。旧 sched-badge.php + sd-nudge.js を統合 */ ?>
+<?php require __DIR__ . '/floating-cta.php'; ?>
 <script src="/assets/js/common.js?v=<?= h(asset_ver()) ?>" defer></script>
 <script src="/assets/js/track.js?v=<?= h(asset_ver()) ?>" defer></script>
 <?= dev_badge_html() ?>

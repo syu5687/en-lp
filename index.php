@@ -1377,7 +1377,7 @@ body { line-height: 1.8; }
 <?php endif; ?>
 </div></div>
 
-<?php require __DIR__ . '/includes/sched-badge.php'; ?>
+<?php /* フローティング導線はページ下部（fontsize.php の直後）で1つだけ読み込む */ ?>
 
 <script>
 // SP: スクロール時にヘッダーを縮小して画面領域を確保
@@ -1479,7 +1479,8 @@ if (navToggle) {
 })();
 </script>
 <?php require __DIR__ . '/includes/fontsize.php'; ?>
-<script src="/assets/js/sd-nudge.js?v=<?= h(asset_ver()) ?>" defer></script>
+<?php /* フローティング導線（PC専用・常に1つだけ）。旧 sched-badge.php + sd-nudge.js を統合 */ ?>
+<?php require __DIR__ . '/includes/floating-cta.php'; ?>
 <?= dev_badge_html() ?>
 </body>
 </html>
