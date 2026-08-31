@@ -4,16 +4,21 @@ require_once __DIR__ . '/config.php';
 $nav_sub = [
   '/service/' => array_merge(
     [['label' => 'サービス一覧を見る', 'href' => '/service/', 'top' => true]],
-    // 海洋葬だけは地域ページを持つため、親の直下に子項目を差し込む
-    //   /kaiyou-sou/         = 鹿児島・錦江湾（既存URLのまま継続。SEO評価を維持する）
-    //   /kaiyou-sou/fukuoka/ = 福岡・博多湾（新設）
-    array_merge(...array_map(fn($s) => $s['slug'] === 'kaiyou-sou'
-      ? [
-          ['label' => $s['title'], 'href' => '/kaiyou-sou/'],
-          ['label' => '鹿児島・錦江湾', 'href' => '/kaiyou-sou/',         'child' => true],
-          ['label' => '福岡・博多湾',   'href' => '/kaiyou-sou/fukuoka/', 'child' => true],
-        ]
-      : [['label' => $s['title'], 'href' => '/' . $s['slug'] . '/']], SERVICES)),
+    // 地域ページを持つサービスは、親の直下に子項目を差し込む
+    //   /kaiyou-sou/    = 鹿児島・錦江湾 ／ /kaiyou-sou/fukuoka/ = 福岡・博多湾
+    //   /grave/         = 鹿児島の墓じまい ／ /grave/fukuoka/     = 福岡の墓じまい
+    //   いずれも親URLは変更しない（既存のSEO評価を維持するため）
+    array_merge(...array_map(function ($s) {
+      $regions = [
+        'kaiyou-sou' => [['鹿児島・錦江湾', '/kaiyou-sou/'], ['福岡・博多湾', '/kaiyou-sou/fukuoka/']],
+        'grave'      => [['鹿児島・墓じまい', '/grave/'],    ['福岡・墓じまい', '/grave/fukuoka/']],
+      ];
+      $rows = [['label' => $s['title'], 'href' => '/' . $s['slug'] . '/']];
+      foreach ($regions[$s['slug']] ?? [] as [$label, $href]) {
+        $rows[] = ['label' => $label, 'href' => $href, 'child' => true];
+      }
+      return $rows;
+    }, SERVICES)),
     [
       ['label' => '海洋散骨 生前契約', 'href' => '/seizen/'],
       ['label' => '対応エリア',        'href' => '/area/'],

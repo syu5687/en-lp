@@ -270,3 +270,7 @@ details[open] summary{margin-bottom:8px}
      タップ領域も42px以上にする。親項目より一段弱いが、はっきり読める明度にする。 */
   .subnav .subnav__child a{padding:12px 12px 12px 26px;font-size:.86rem;line-height:1.6;color:rgba(255,255,255,.92) !important}
 }
+
+/* ---- フッター：地域ページを親サービスの下にぶら下げる ---- */
+.site-footer__nav li.site-footer__sub{margin-left:12px}
+.site-footer__nav li.site-footer__sub a::before{content:'└ ';opacity:.55}

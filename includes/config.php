@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0250';
+const APP_VERSION = 'v20260713-0253';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
@@ -91,6 +91,29 @@ const SITE = [
     'tel'     => '090-5000-4825',
   ],
 ];
+
+/**
+ * 記事カテゴリの正規化と和集合。
+ *
+ * 同じ記事が data/news.json（正しいカテゴリだが本文HTMLなし）と
+ * data/blog-posts.json（本文HTMLありだがカテゴリが「未分類」等に落ちている）の
+ * 両方に存在するため、統合時に情報の濃い方だけを採るとカテゴリが失われていた。
+ * 例：「委託海洋葬って、実際にはどんな流れで進むの？」は news.json 側が「海洋葬」、
+ *     アーカイブ側が「未分類」で、アーカイブ版が勝つため海洋葬カテゴリから消えていた。
+ */
+function en_split_cats(?string $s): array {
+  $alias = ['海洋葬' => '海洋葬(海洋散骨)', '海洋散骨' => '海洋葬(海洋散骨)'];
+  return array_values(array_unique(array_map(
+    static fn($c) => $alias[$c] ?? $c,
+    array_values(array_filter(array_map('trim', preg_split('/[、,\/／]/u', (string)$s))))
+  )));
+}
+function en_merge_cats(?string $a, ?string $b): string {
+  $all = array_values(array_unique(array_merge(en_split_cats($a), en_split_cats($b))));
+  // 実カテゴリが付いているなら「未分類」は落とす
+  $real = array_values(array_filter($all, static fn($c) => $c !== '未分類'));
+  return implode('／', $real ?: $all);
+}
 
 // ---- グローバルナビ（1か所で管理 → 全ページ自動反映）----
 const NAV = [

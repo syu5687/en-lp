@@ -288,7 +288,12 @@ $push = function (array $it) use (&$by_key, &$seen_ids, $blog_score) {
   $seen_ids[$id] = true;
   // タイトルは記号・絵文字・空白を除いて比較（「…胡蝶蘭」と「…胡蝶蘭🌸」を同一視）
   $key = ($it['date'] ?? '') . '|' . preg_replace('/[^\p{L}\p{N}]+/u', '', (string)($it['title'] ?? ''));
-  if (!isset($by_key[$key]) || $blog_score($it) > $blog_score($by_key[$key])) $by_key[$key] = $it;
+  if (!isset($by_key[$key])) { $by_key[$key] = $it; return; }
+  // 本文・画像は濃い方を残し、カテゴリは両ソースの和集合にする。
+  // アーカイブ側で「未分類」に落ちている記事のカテゴリが消えるのを防ぐ。
+  $cat = en_merge_cats($by_key[$key]['category'] ?? '', $it['category'] ?? '');
+  if ($blog_score($it) > $blog_score($by_key[$key])) $by_key[$key] = $it;
+  $by_key[$key]['category'] = $cat;
 };
 try { foreach (news_published() as $it) $push($it); } catch (Throwable $e) {}
 $seed = @json_decode((string)@file_get_contents(__DIR__ . '/../data/news.json'), true);

@@ -18,8 +18,9 @@
  *   $br_lead   = '…';                          // 任意
  *   require __DIR__ . '/../includes/blog-reports.php';
  *
- * データ取得は news_published()（15分のファイルキャッシュ経由）。Firestore障害時は
- * 古いキャッシュで継続し、それも無ければ空配列＝セクションごと非表示にする（ページは落とさない）。
+ * データ取得は /blog/ と同じ3ソース統合（Firestore → data/news.json → data/blog-posts.json）。
+ * Firestore障害時はJSONアーカイブだけで継続し、記事が無ければセクションごと非表示にする
+ * （ページは落とさない）。
  */
 if (!function_exists('news_published')) {
   require_once __DIR__ . '/../admin/includes/store.php';
@@ -34,6 +35,37 @@ $BR_WORDS = [
   'kagoshima' => ['鹿児島', '錦江湾', '桜島'],
   'fukuoka'   => ['福岡', '博多', '姪浜'],
 ];
+
+/* 記事の収集は /blog/ と同じ3ソース統合にする。
+   news_published() は Firestore だけを返すため、これだけを見ていると
+   data/news.json にある新しい記事（委託海洋葬シリーズ等）が拾えず、
+   古い記事ばかりが並んでいた（v0250までの不具合）。
+   重複は「同日付＋同タイトル」で寄せ、本文HTML・画像を持つ濃い方を残す。 */
+if (!function_exists('br_collect')):
+function br_collect(): array {
+  $by_key = []; $seen = [];
+  $score = static fn(array $it): int =>
+    (!empty($it['body_html']) ? 4 : 0) + (!empty($it['image']) ? 2 : 0) + (!empty($it['images']) ? 1 : 0);
+  $push = static function (array $it) use (&$by_key, &$seen, $score): void {
+    if (empty($it['published'])) return;
+    $id = (string)($it['id'] ?? '');
+    if ($id === '' || isset($seen[$id])) return;
+    $seen[$id] = true;
+    $key = ($it['date'] ?? '') . '|' . preg_replace('/[^\p{L}\p{N}]+/u', '', (string)($it['title'] ?? ''));
+    if (!isset($by_key[$key])) { $by_key[$key] = $it; return; }
+    // 本文は情報の濃い方を残しつつ、カテゴリは両ソースの和集合にする
+    $cat = en_merge_cats($by_key[$key]['category'] ?? '', $it['category'] ?? '');
+    if ($score($it) > $score($by_key[$key])) $by_key[$key] = $it;
+    $by_key[$key]['category'] = $cat;
+  };
+  try { foreach (news_published() as $it) $push($it); } catch (Throwable $e) { /* Firestore障害時はJSONで継続 */ }
+  foreach (['/../data/news.json', '/../data/blog-posts.json'] as $src) {
+    $j = @json_decode((string)@file_get_contents(__DIR__ . $src), true);
+    foreach (($j['items'] ?? []) as $it) $push($it);
+  }
+  return array_values($by_key);
+}
+endif;
 
 $br_items = [];
 try {
@@ -56,7 +88,7 @@ try {
 
   $all  = [];   // カテゴリ該当の全記事
   $kept = [];   // その地域の記事＋地域を限定していない記事
-  foreach (news_published() as $it) {
+  foreach (br_collect() as $it) {
     if (!in_array('海洋葬(海洋散骨)', $split_cats($it['category'] ?? ''), true)) continue;
     $all[] = $it;
     // タイトルがもう一方の地域だけを指している記事は出さない

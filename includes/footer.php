@@ -15,6 +15,12 @@
       <ul>
         <?php foreach (SERVICES as $s): ?>
           <li><a href="/<?= h($s['slug']) ?>/"><?= h($s['title']) ?></a></li>
+          <?php /* 地域ページを持つサービスは、親のすぐ下にぶら下げる */ ?>
+          <?php if ($s['slug'] === 'kaiyou-sou'): ?>
+            <li class="site-footer__sub"><a href="/kaiyou-sou/fukuoka/">福岡・海洋葬</a></li>
+          <?php elseif ($s['slug'] === 'grave'): ?>
+            <li class="site-footer__sub"><a href="/grave/fukuoka/">福岡・墓じまい</a></li>
+          <?php endif; ?>
         <?php endforeach; ?>
         <li><a href="/seizen/">海洋散骨 生前契約</a></li>
         <li><a href="/shindan/">供養の選び方（かんたん診断）</a></li>
