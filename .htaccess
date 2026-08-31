@@ -45,8 +45,10 @@
   RewriteRule ^contact/contact-lec/?$    https://en1150.co.jp/contact/         [R=301,L]
   RewriteRule ^sample-page/?$            https://en1150.co.jp/                 [R=301,L]
 
-  # 一時公開後に取り下げたページ（福岡の海洋散骨は /fukuoka/ に集約・重複回避）
-  RewriteRule ^kaiyou-sou/fukuoka/?$     https://en1150.co.jp/fukuoka/         [R=301,L]
+  # ※ かつて ^kaiyou-sou/fukuoka/ → /fukuoka/ の301を置いていたが、v0246 で
+  #    /kaiyou-sou/fukuoka/（福岡の海洋散骨専門ページ）を正式公開したため削除した。
+  #    役割分担：/fukuoka/=福岡営業所の総合ハブ／/kaiyou-sou/fukuoka/=海洋散骨特化。
+  #    301はブラウザに恒久キャッシュされるため、確認時は ?cb=1 等を付けて検証すること。
 
   # ---- 旧WordPressアーカイブURL（カテゴリ・タグ・日付）→ 301 で新ページへ集約 ----
   #  内部リンク評価の引き継ぎ用。カテゴリ「お客様の声」だけは /voice/ へ1対1で継承。

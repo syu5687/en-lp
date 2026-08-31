@@ -5,8 +5,8 @@
  */
 require_once __DIR__ . '/../includes/config.php';
 
-$page_title     = '海洋散骨 鹿児島｜海洋葬・散骨なら有限会社 縁｜委託54,450円〜・福岡・九州対応';
-$page_desc      = '鹿児島で散骨・海洋散骨をお考えなら、日本海洋散骨協会加盟の有限会社縁へ。海洋葬は錦江湾を中心に福岡・九州全域の海域に対応、立ち会い不要の委託海洋葬（54,450円〜）は全国からご利用いただけます。粉骨・墓じまいもワンストップ。';
+$page_title     = '海洋散骨 鹿児島｜錦江湾の海洋葬・散骨なら有限会社 縁｜委託54,450円〜';
+$page_desc      = '鹿児島で散骨・海洋散骨をお考えなら、日本海洋散骨協会加盟の有限会社 縁へ。海洋葬は錦江湾を中心とした鹿児島の海域に対応。合同148,500円〜・チャーター176,000円〜、立ち会い不要の委託海洋葬（54,450円〜）は全国からご利用いただけます。粉骨・墓じまいもワンストップ。';
 $page_canonical = SITE['url'] . '/kaiyou-sou/';
 $page_hero_image = '/assets/img/hero-kaiyou-sou.jpg';
 require __DIR__ . '/../includes/head.php';
@@ -26,6 +26,16 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
   </p>
 </section>
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/service/">サービス</a> ＞ 海洋葬（海洋散骨）</nav>
+
+<?php /* 地域の入口を明示する。福岡（博多湾）は専用ページに分けている */ ?>
+<div class="ks-areaswitch">
+  <p><strong>このページは鹿児島・錦江湾の海洋散骨</strong>についてご説明しています。福岡・博多湾での散骨をお探しの方は <a href="/kaiyou-sou/fukuoka/">福岡の海洋散骨ページ</a> をご覧ください。</p>
+</div>
+<style>
+  .ks-areaswitch{max-width:860px;margin:14px auto 0;padding:0 24px}
+  .ks-areaswitch p{background:#f2f8fa;border:1px solid #d3e6ee;border-radius:10px;padding:11px 16px;font-size:.88rem;line-height:1.8;color:#20505f}
+  .ks-areaswitch a{color:var(--green);font-weight:700;text-decoration:underline}
+</style>
 
 <main>
   <!-- 導入 -->

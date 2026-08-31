@@ -47,8 +47,9 @@
 <!-- 右側固定タブは v0235 で廃止（PC/SPとも）。導線はヘッダーナビ・診断誘導・フッターに集約 -->
 
 <!-- SP固定フッターCTA -->
+<?php /* 地域ページは読み込み前に $sticky_tel を定義すると、その番号に差し替わる（既定は本社） */ ?>
 <div class="sticky-cta">
-  <a href="tel:<?= h(SITE['tel']) ?>" class="sticky-cta__tel">電話相談</a>
+  <a href="tel:<?= h($sticky_tel ?? SITE['tel']) ?>" class="sticky-cta__tel">電話相談</a>
   <a href="/contact/" class="sticky-cta__mail">メール・LINE相談</a>
 <?php
   // 第3枠: 次回の合同海洋散骨（予定が無いときはLINE相談に戻す）

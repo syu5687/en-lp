@@ -169,7 +169,7 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
         <div class="card">
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">博多湾での海洋散骨</h3>
           <p style="font-size:.88rem;line-height:1.85">姪浜から出港する合同海洋葬（148,500円〜）のほか、おまかせの委託散骨（54,450円〜）にも対応。福岡の海に還すご供養です。</p>
-          <p style="margin-top:10px"><a href="/kaiyou-sou/" style="color:var(--green);font-weight:700;font-size:.9rem">海洋散骨について見る →</a></p>
+          <p style="margin-top:10px"><a href="/kaiyou-sou/fukuoka/" style="color:var(--green);font-weight:700;font-size:.9rem">福岡の海洋散骨について見る →</a></p>
         </div>
         <div class="card">
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">一部を手元供養・ジュエリーに</h3>
@@ -239,7 +239,7 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
         <p style="margin-top:10px"><a href="https://maps.google.com/?cid=1235913108976072113" target="_blank" rel="noopener" style="color:var(--green);font-weight:600;font-size:.9rem">Googleマップで見る →</a></p>
         <p style="margin-top:12px;font-size:.85rem;color:var(--text-light)">合同海洋葬の出港場所：姪浜旅客待合所（福岡市西区愛宕浜3丁目1-1）</p>
       </div>
-      <p style="text-align:center;margin-top:16px;font-size:.9rem"><a href="/fukuoka/" style="color:var(--green);font-weight:600">福岡営業所のサービス全体（散骨・粉骨など）はこちら →</a></p>
+      <p style="text-align:center;margin-top:16px;font-size:.9rem"><a href="/kaiyou-sou/fukuoka/" style="color:var(--green);font-weight:600">博多湾での海洋散骨を詳しく見る →</a>　｜　<a href="/fukuoka/" style="color:var(--green);font-weight:600">福岡営業所のご案内 →</a></p>
     </div>
   </section>
 

@@ -4,7 +4,16 @@ require_once __DIR__ . '/config.php';
 $nav_sub = [
   '/service/' => array_merge(
     [['label' => 'サービス一覧を見る', 'href' => '/service/', 'top' => true]],
-    array_map(fn($s) => ['label' => $s['title'], 'href' => '/' . $s['slug'] . '/'], SERVICES),
+    // 海洋葬だけは地域ページを持つため、親の直下に子項目を差し込む
+    //   /kaiyou-sou/         = 鹿児島・錦江湾（既存URLのまま継続。SEO評価を維持する）
+    //   /kaiyou-sou/fukuoka/ = 福岡・博多湾（新設）
+    array_merge(...array_map(fn($s) => $s['slug'] === 'kaiyou-sou'
+      ? [
+          ['label' => $s['title'], 'href' => '/kaiyou-sou/'],
+          ['label' => '鹿児島・錦江湾', 'href' => '/kaiyou-sou/',         'child' => true],
+          ['label' => '福岡・博多湾',   'href' => '/kaiyou-sou/fukuoka/', 'child' => true],
+        ]
+      : [['label' => $s['title'], 'href' => '/' . $s['slug'] . '/']], SERVICES)),
     [
       ['label' => '海洋散骨 生前契約', 'href' => '/seizen/'],
       ['label' => '対応エリア',        'href' => '/area/'],
@@ -43,7 +52,7 @@ en_lang_switch_css();
               <a href="<?= h($item['href']) ?>" aria-haspopup="true"><?= h($item['label']) ?><span class="subnav-caret" aria-hidden="true">▾</span></a>
               <ul class="subnav">
                 <?php foreach ($sub as $c): ?>
-                  <li<?= !empty($c['top']) ? ' class="subnav__top"' : '' ?>><a href="<?= h($c['href']) ?>"><?= h($c['label']) ?></a></li>
+                  <li class="<?= !empty($c['top']) ? 'subnav__top' : (!empty($c['child']) ? 'subnav__child' : '') ?>"><a href="<?= h($c['href']) ?>"><?= h($c['label']) ?></a></li>
                 <?php endforeach; ?>
               </ul>
             </li>

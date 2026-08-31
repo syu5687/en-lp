@@ -1,21 +1,21 @@
 <?php
+/**
+ * 福岡営業所の総合ハブ（/fukuoka/）
+ *
+ * 役割分担
+ *   本ページ                … 福岡営業所そのものと、福岡で提供している全サービスの入口。
+ *                             ブランド・営業所系の検索（有限会社 縁 福岡／縁 福岡営業所／
+ *                             福岡 供養相談）の受け皿。将来 /hakajimai/fukuoka/ 等を
+ *                             足していける地域ハブとして設計している。
+ *   /kaiyou-sou/fukuoka/    … 「海洋散骨 福岡・福岡 散骨・博多湾 散骨」の専門ページ。
+ *                             SEOの主力かつGoogle広告のLP。海洋散骨の詳細はすべてこちら。
+ *   /grave/fukuoka/         … 「墓じまい 福岡」の専門ページ。
+ *
+ * したがって本ページでは海洋散骨を詳しく書かない。概要＋料金の目安にとどめ、
+ * 「福岡の海洋散骨について詳しく見る」で /kaiyou-sou/fukuoka/ へ送る。
+ */
 require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../admin/includes/store.php'; // news_published() / voices_published()（キャッシュ済み・読み取り増なし）
-
-/* ---- 海洋散骨レポート（ブログ「海洋葬(海洋散骨)」カテゴリの最新6件・横スワイプ表示） ---- */
-$fk_reports = [];
-try {
-  $cat_alias  = ['海洋葬' => '海洋葬(海洋散骨)', '海洋散骨' => '海洋葬(海洋散骨)'];
-  $split_cats = fn(?string $s): array =>
-    array_map(fn($c) => $cat_alias[$c] ?? $c,
-      array_values(array_filter(array_map('trim', preg_split('/[、,\/／]/u', (string)$s)))));
-  foreach (news_published() as $it) {
-    if (in_array('海洋葬(海洋散骨)', $split_cats($it['category'] ?? ''), true)) {
-      $fk_reports[] = $it;
-      if (count($fk_reports) >= 6) break;
-    }
-  }
-} catch (Throwable $e) { $fk_reports = []; }
+require_once __DIR__ . '/../admin/includes/store.php'; // voices_published()（キャッシュ済み・読み取り増なし）
 
 /* ---- お客様の声（福岡・海洋葬関連を優先して3件） ---- */
 $fk_voices = [];
@@ -31,20 +31,21 @@ usort($fk_voices, function ($a, $b) {
 });
 $fk_voices = array_slice($fk_voices, 0, 3);
 
-$page_title     = '福岡の海洋散骨・粉骨・お墓じまい｜有限会社 縁 福岡営業所';
-$page_desc      = '福岡で海洋散骨・粉骨・お墓じまい・生前契約のご相談なら、有限会社 縁 福岡営業所（福岡市中央区春吉）へ。博多湾など福岡の海域での散骨に対応。鹿児島・福岡を中心に全国3,800件以上の実績、日本海洋散骨協会加盟。ご相談・お見積り無料。';
+$page_title     = '有限会社 縁 福岡営業所｜福岡の供養相談窓口（海洋散骨・墓じまい・粉骨）';
+$page_desc      = '有限会社 縁 福岡営業所（福岡市中央区春吉2丁目1-3 2F）のご案内。海洋散骨・墓じまい・粉骨・洗骨・生前契約・ペット供養のご相談を、対面・電話・LINEで承ります。福岡県内全域に対応、鹿児島・福岡を中心に全国3,800件以上の実績。ご相談・お見積りは無料です。';
 $page_canonical = SITE['url'] . '/fukuoka/';
-$page_hero_image = '/assets/img/hero-kaiyou-sou.jpg';
+$page_hero_image = '/fukuoka/images/fk-port.jpg';
 require __DIR__ . '/../includes/head.php';
 $FUK = SITE['fukuoka'];
+$sticky_tel = $FUK['tel']; // SP固定CTAの電話番号を福岡営業所に差し替える（footer.php が参照）
 $FUK_MAP = 'https://maps.google.com/?cid=1235913108976072113';
 $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
 ?>
 <body>
 <?php require __DIR__ . '/../includes/header.php'; ?>
 <section class="page-hero">
-  <h1>福岡の海洋散骨・粉骨・お墓じまい</h1>
-  <p>有限会社 縁 福岡営業所（福岡市中央区春吉）</p>
+  <h1>有限会社 縁 福岡営業所｜福岡の供養のご相談窓口</h1>
+  <p>海洋散骨・お墓じまい・粉骨・生前契約・ペット供養を、ひとつの窓口で。<br>福岡市中央区春吉／福岡県内全域に対応</p>
   <p style="margin-top:16px">
     <span style="display:inline-flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:10px 18px;box-shadow:0 4px 14px rgba(0,0,0,.18)">
       <img src="/assets/img/jmas-logo.png?v=<?= h(asset_ver()) ?>" alt="一般社団法人 日本海洋散骨協会 ロゴ" width="360" height="454" style="width:44px;height:auto">
@@ -58,11 +59,10 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   <!-- リード -->
   <section class="section">
     <div class="container" style="max-width:820px;text-align:center">
-      <p class="lead" style="line-height:2.1">「海に還りたい」という想いに、福岡でもお応えします。<br>
-      有限会社 縁は<strong>福岡営業所（福岡市中央区春吉）</strong>を拠点に、<br class="pc-only">
-      海洋散骨・粉骨・お墓じまい・生前契約のご相談を承っています。</p>
-      <img src="/fukuoka/images/fk-port.jpg?v=<?= h(asset_ver()) ?>" alt="福岡の港に停泊する海洋散骨のクルーズ船" width="1600" height="1067" loading="lazy"
-           style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.12);margin-top:28px">
+      <p class="lead" style="line-height:2.1">有限会社 縁の<strong>福岡営業所</strong>は、福岡市中央区春吉にあるご供養の相談窓口です。<br class="pc-only">
+      <strong>海洋散骨・お墓じまい・粉骨・洗骨・生前契約・ペット供養</strong>を、ひとつの窓口でご相談いただけます。<br class="pc-only">
+      「何から始めればいいか分からない」という段階でも、どうぞお気軽にお越しください。</p>
+      <p style="margin-top:16px;font-size:.95rem;color:var(--text-light)">ご相談・お見積りは無料。こちらから営業のご連絡はいたしません。</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:30px">
         <div class="card" style="text-align:center"><p style="font-size:1.7rem;font-weight:700;color:var(--green)">3,800<span style="font-size:.9rem">件以上</span></p><p style="font-size:.85rem;color:var(--text-light)">鹿児島・福岡を中心に<br>全国の対応実績</p></div>
         <div class="card" style="text-align:center"><p style="font-size:1.7rem;font-weight:700;color:var(--green)">10年<span style="font-size:.9rem">以上</span></p><p style="font-size:.85rem;color:var(--text-light)">海洋葬の実績</p></div>
@@ -100,10 +100,10 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
       <h2 style="text-align:center;margin-bottom:30px">福岡営業所でできること</h2>
       <?php
         $fk_services = [
-          ['href' => '/kaiyou-sou/',      'img' => '/assets/img/svc-kaiyou.jpg',          'alt' => '海洋散骨セレモニーで花びらが広がる海',      'w' => 1200, 'h' => 750,  'title' => '海洋散骨（海洋葬）',   'desc' => '博多湾など福岡の海域での散骨に対応。チャーター・合同・委託（立ち会い不要）の3プラン。緯度・経度入りの散骨証明書を発行します。'],
+          ['href' => '/kaiyou-sou/fukuoka/', 'img' => '/assets/img/svc-kaiyou.jpg',        'alt' => '海洋散骨セレモニーで花びらが広がる海',      'w' => 1200, 'h' => 750,  'title' => '海洋散骨（海洋葬）',   'desc' => '博多湾など福岡の海域での散骨。委託・合同・チャーターの3プランと、出航場所・流れ・法律まで専用ページでご説明しています。'],
           ['href' => '/seizen/',          'img' => '/seizen/images/omoi-boat.webp',       'alt' => '海洋散骨の生前契約を託すクルーズ船',        'w' => 1200, 'h' => 800,  'title' => '海洋散骨 生前契約',    'desc' => '「海洋散骨をしたい」という想いを生前に契約して託せます。テレビでも紹介された、福岡対応のサービスです。'],
           ['href' => '/powder-cleaning/', 'img' => '/assets/img/svc-funkotsu.jpg',        'alt' => 'ご遺骨を丁寧にパウダー化する粉骨作業',      'w' => 1200, 'h' => 750,  'title' => '粉骨・洗骨',           'desc' => 'ご遺骨のパウダー化（24,200円〜）・クリーニング。お持ち込みのご相談のほか、郵送でもご利用いただけます。'],
-          ['href' => '/grave/',           'img' => '/assets/img/hero-grave.jpg',          'alt' => '手を合わせてお参りするお墓',                'w' => 2000, 'h' => 1333, 'title' => 'お墓じまい',           'desc' => '撤去から納骨まで一括対応。改葬の行政手続きの代行も承ります。まずは現状をお聞かせください。'],
+          ['href' => '/grave/fukuoka/',   'img' => '/assets/img/hero-grave.jpg',          'alt' => '手を合わせてお参りするお墓',                'w' => 2000, 'h' => 1333, 'title' => 'お墓じまい',           'desc' => '撤去から納骨まで一括対応の基本プラン33万円（税込）。改葬の行政手続きのサポートも承ります。'],
           ['href' => '/pet-kaiyou-sou/',  'img' => '/assets/img/hero-pet-kaiyou-sou.jpg', 'alt' => '大切な家族の一員を見送る穏やかな海',        'w' => 2000, 'h' => 1333, 'title' => 'ペット供養',           'desc' => '大切な家族の一員の粉骨・海洋散骨・手元供養。福岡からの郵送・ご相談に対応しています。'],
           ['href' => '/flow/',            'img' => '/assets/img/svc-soudan.jpg',          'alt' => 'スタッフが丁寧にご相談を伺う様子',          'w' => 1200, 'h' => 750,  'title' => 'お申込みの流れ',       'desc' => 'ご相談→お見積り（無料）→お申し込み→お預かり→施行→アフターサポートの6ステップをご案内します。'],
         ];
@@ -131,6 +131,29 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     </div>
   </section>
 
+  <!-- 福岡向けの詳しいご案内（地域ハブ → 専門ページへの導線）
+       今後 /funkotsu/fukuoka/ などを追加する場合も、このカードを増やすだけで済む構成にしている -->
+  <section class="section" style="background:var(--white)">
+    <div class="container" style="max-width:860px">
+      <h2 style="text-align:center;margin-bottom:8px">福岡向けの詳しいご案内</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:24px">よくご相談いただく2つのサービスは、福岡の情報だけをまとめた専用ページをご用意しています。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+        <a class="card" href="/kaiyou-sou/fukuoka/" style="display:flex;flex-direction:column">
+          <p style="display:inline-block;align-self:flex-start;background:var(--sea-light);color:var(--green);font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:999px">海洋散骨</p>
+          <h3 style="margin:12px 0 8px;color:var(--green-mid);font-size:1.05rem">福岡・博多湾の海洋散骨</h3>
+          <p style="font-size:.9rem;line-height:1.9;flex:1">博多湾での散骨海域、姪浜旅客待合所からの出航、委託54,450円〜の3プラン、ご相談から散骨証明書までの流れ、法律上の扱い、業者選びのポイントまで。</p>
+          <span style="margin-top:12px;color:var(--green);font-weight:700;font-size:.9rem">福岡の海洋散骨について詳しく見る →</span>
+        </a>
+        <a class="card" href="/grave/fukuoka/" style="display:flex;flex-direction:column">
+          <p style="display:inline-block;align-self:flex-start;background:#f6efdf;color:#a8802f;font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:999px">お墓じまい</p>
+          <h3 style="margin:12px 0 8px;color:var(--green-mid);font-size:1.05rem">福岡の墓じまい</h3>
+          <p style="font-size:.9rem;line-height:1.9;flex:1">基本プラン33万円（税込）に含まれる内容、市営霊園の返還手続き、撤去工事の実例（Before→After）、改葬許可申請のサポートまで。</p>
+          <span style="margin-top:12px;color:var(--green);font-weight:700;font-size:.9rem">福岡の墓じまいについて詳しく見る →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- 料金のご案内 -->
   <section class="section" id="price" style="background:var(--cream)">
     <div class="container" style="max-width:960px">
@@ -141,30 +164,17 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
         料金はすべて税込です。金額は<strong>無料のお見積りで確定</strong>し、ご納得いただいてからのご契約となります。<br class="pc-only">
         <strong>あとから追加料金をいただくことはありません。</strong>
       </p>
-      <div class="fk-price-plans">
-        <?php
-          $fk_plans = [
-            ['name' => '委託海洋散骨',       'price' => '54,450',  'unit' => '円〜', 'img' => '/assets/img/plan-itaku.jpg',   'badge' => '期間限定価格（通常66,000円）',
-             'desc' => 'ご遺族様に代わり、スタッフが心を込めて散骨します。立ち会い不要・ご遺骨の郵送OKで、全国からご利用いただけます。'],
-            ['name' => '合同海洋散骨',       'price' => '148,500', 'unit' => '円〜', 'img' => '/assets/img/plan-goudou.jpg',  'badge' => null,
-             'desc' => '複数のご遺族様で乗り合わせて行う海洋散骨です。費用を抑えながら、船上でのお見送りに立ち会えます。'],
-            ['name' => 'チャーター海洋散骨', 'price' => '176,000', 'unit' => '円〜', 'img' => '/assets/img/plan-charter.jpg', 'badge' => null,
-             'desc' => '船を貸し切り、ご遺族様やご友人など親しい方だけでゆっくりとお見送りいただけるプランです。'],
-          ];
-        ?>
-        <?php foreach ($fk_plans as $pl): ?>
-          <div class="fk-price-plan">
-            <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8">
-              <img src="<?= h($pl['img']) ?>?v=<?= h(asset_ver()) ?>" alt="<?= h($pl['name']) ?>のイメージ" width="1200" height="675" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
-            </span>
-            <div class="fk-price-plan__body">
-              <h3><?= h($pl['name']) ?></h3>
-              <p class="fk-price-plan__price"><span><?= h($pl['price']) ?></span><?= h($pl['unit']) ?><small>（税込）</small></p>
-              <?php if ($pl['badge']): ?><p class="fk-price-plan__badge"><?= h($pl['badge']) ?></p><?php endif; ?>
-              <p class="fk-price-plan__desc"><?= h($pl['desc']) ?></p>
-            </div>
-          </div>
-        <?php endforeach; ?>
+      <div class="fk-price-sea">
+        <div class="fk-price-sea__head">
+          <p class="fk-price-sea__label">海洋散骨（海洋葬）</p>
+          <p class="fk-price-sea__note">博多湾など福岡の海域／合同は姪浜旅客待合所から出航</p>
+        </div>
+        <ul class="fk-price-sea__list">
+          <li><span>委託</span><strong>54,450円〜</strong><small>立ち会い不要・郵送OK</small></li>
+          <li><span>合同</span><strong>148,500円〜</strong><small>数家族で乗り合わせ</small></li>
+          <li><span>チャーター</span><strong>176,000円〜</strong><small>船を貸し切り</small></li>
+        </ul>
+        <p class="fk-price-sea__cta"><a href="/kaiyou-sou/fukuoka/" class="btn">福岡の海洋散骨について詳しく見る</a></p>
       </div>
       <div class="fk-price-etc">
         <?php
@@ -188,67 +198,28 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
       </p>
       <div style="text-align:center;margin-top:16px">
         <a href="/contact/" class="btn">無料でお見積りを依頼する</a>
-        <a href="/kaiyou-sou/" class="btn btn--outline" style="margin-left:10px">海洋散骨のプランを詳しく見る</a>
+        <a href="/kaiyou-sou/fukuoka/" class="btn btn--outline" style="margin-left:10px">福岡の海洋散骨を詳しく見る</a>
       </div>
     </div>
   </section>
   <style>
-    .fk-price-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .fk-price-plan{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .fk-price-plan__body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
-    .fk-price-plan__body h3{color:var(--green-mid);font-size:1.05rem;margin-bottom:6px}
-    .fk-price-plan__price{color:var(--green);font-weight:700;margin-bottom:6px}
-    .fk-price-plan__price span{font-size:1.7rem}
-    .fk-price-plan__price small{font-size:.75rem;color:var(--text-light);font-weight:400;margin-left:2px}
-    .fk-price-plan__badge{display:inline-block;align-self:flex-start;background:#d8b46a;color:#1c2b33;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:8px}
-    .fk-price-plan__desc{font-size:.88rem;line-height:1.8}
+    .fk-price-sea{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:22px 24px}
+    .fk-price-sea__head{text-align:center;margin-bottom:16px}
+    .fk-price-sea__label{font-size:1.05rem;font-weight:700;color:var(--green-mid)}
+    .fk-price-sea__note{font-size:.85rem;color:var(--text-light);margin-top:4px}
+    .fk-price-sea__list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0;margin:0}
+    .fk-price-sea__list li{background:var(--cream);border-radius:12px;padding:14px 16px;text-align:center}
+    .fk-price-sea__list span{display:block;font-size:.82rem;font-weight:700;color:var(--green-mid);margin-bottom:2px}
+    .fk-price-sea__list strong{display:block;font-size:1.25rem;color:var(--green);font-weight:700}
+    .fk-price-sea__list small{display:block;font-size:.76rem;color:var(--text-light);margin-top:4px}
+    .fk-price-sea__cta{text-align:center;margin-top:18px}
     .fk-price-etc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
     .fk-price-etc__row{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 20px}
     .fk-price-etc__row h3{font-size:.98rem;color:var(--green-mid);margin-bottom:4px}
     .fk-price-etc__price{color:var(--green);font-weight:700;margin-bottom:6px}
     .fk-price-etc__desc{font-size:.85rem;line-height:1.75;color:var(--text)}
-    @media(max-width:860px){.fk-price-plans{grid-template-columns:1fr}.fk-price-etc{grid-template-columns:1fr}}
+    @media(max-width:860px){.fk-price-sea__list{grid-template-columns:1fr}.fk-price-etc{grid-template-columns:1fr}.fk-price-sea{padding:20px 18px}}
   </style>
-
-  <!-- 価格だけで選ばないで（比較チェックポイント） -->
-  <section class="section" style="background:var(--white)">
-    <div class="container" style="max-width:960px">
-      <h2 style="text-align:center;margin-bottom:14px">料金の安さだけで選ばないでください</h2>
-      <p style="text-align:center;max-width:720px;margin:0 auto 26px;line-height:2">
-        福岡でも、格安をうたう散骨サービスが増えています。しかし「実際にどの海域で散骨されたのかわからない」「証明書が発行されない」「あとから追加料金を請求された」——そんなケースも報告されています。<br>
-        大切な方をお見送りする一度きりのご供養だからこそ、<strong>他社さまとご比較の際は次のポイント</strong>をご確認ください。
-      </p>
-      <div class="fk-quality-list">
-        <?php
-          $fk_quality = [
-            ['協会加盟', '日本海洋散骨協会の加盟事業者。ガイドラインと海域ルールを順守します。'],
-            ['丁寧な粉骨', 'ご遺骨は一件ずつ丁寧にパウダー化。真空パック・桐箱でのお返しにも対応。'],
-            ['散骨証明書', '緯度・経度入りの証明書と当日のお写真をお届け。お見送りがかたちで残ります。'],
-            ['追加料金なし', '金額は無料見積りで確定。ご納得いただいてからのご契約です。'],
-            ['アフターサポート', 'メモリアルクルーズや手元供養など、散骨後のご供養まで一貫対応。'],
-            ['実績', '鹿児島・福岡を中心に全国3,800件以上・10年以上、Google口コミ★4.9。'],
-          ];
-        ?>
-        <?php foreach ($fk_quality as [$t, $d]): ?>
-          <div class="fk-quality-item">
-            <h3><span>✓</span><?= h($t) ?></h3>
-            <p><?= h($d) ?></p>
-          </div>
-        <?php endforeach; ?>
-      </div>
-      <p style="text-align:center;margin-top:20px;font-size:.9rem;color:var(--text-light)">「見積りだけ」「話を聞くだけ」でも歓迎です。どうぞ納得のいくまでご比較ください。</p>
-    </div>
-  </section>
-  <style>
-    .fk-quality-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .fk-quality-item{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
-    .fk-quality-item h3{font-size:.98rem;color:var(--green-mid);margin-bottom:6px;display:flex;align-items:center;gap:8px}
-    .fk-quality-item h3 span{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:.75rem;flex:none}
-    .fk-quality-item p{font-size:.85rem;line-height:1.8}
-    @media(max-width:860px){.fk-quality-list{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:540px){.fk-quality-list{grid-template-columns:1fr}}
-  </style>
-
 
   <!-- 他社と比較して、縁が選ばれる理由（TOPと共通） -->
   <section class="section fkc-comparison">
@@ -298,45 +269,6 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     @media(max-width:768px){.fkc-table th,.fkc-table td{padding:12px 10px;font-size:.75rem}.fkc-th-badge{display:block;margin:4px auto 0}}
   </style>
 
-  <!-- 安心・信頼・安全 -->
-  <section class="section" style="background:linear-gradient(180deg,#f2f8fa,#e8f2f6)">
-    <div class="container" style="max-width:960px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">PROMISE</p>
-      <h2 style="text-align:center;margin-bottom:10px">縁がお約束する「安心・信頼・安全」</h2>
-      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:30px">大切な方をお任せいただくからこそ。<br class="sp-only">福岡でも変わらない、縁の基準です。</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
-        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-          <span style="display:block;aspect-ratio:16/10;overflow:hidden"><img src="/fukuoka/images/fk-staff.jpg?v=<?= h(asset_ver()) ?>" alt="笑顔でご相談を迎えるスタッフ" width="900" height="600" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></span>
-          <div style="padding:20px 22px 22px;flex:1">
-            <p style="display:inline-block;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.15em;padding:3px 14px;border-radius:999px;margin-bottom:10px">安心</p>
-            <h3 style="margin-bottom:8px;font-size:1.05rem">寄り添う、専門スタッフ</h3>
-            <p style="font-size:.9rem;line-height:1.9">事前のご相談から当日、アフターケアまで専門スタッフが寄り添い丁寧に対応。宗教・宗派を問わず、「話を聞くだけ」のご相談も歓迎です。</p>
-          </div>
-        </div>
-        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-          <span style="display:block;aspect-ratio:16/10;overflow:hidden"><img src="/fukuoka/images/fk-sea-flowers.jpg?v=<?= h(asset_ver()) ?>" alt="花びらが広がる海と散骨セレモニーの船上" width="1200" height="800" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></span>
-          <div style="padding:20px 22px 22px;flex:1">
-            <p style="display:inline-block;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.15em;padding:3px 14px;border-radius:999px;margin-bottom:10px">信頼</p>
-            <h3 style="margin-bottom:8px;font-size:1.05rem">実績3,800件以上・口コミ★4.9</h3>
-            <p style="font-size:.9rem;line-height:1.9">鹿児島で最初に海洋葬へ取り組み10年以上。鹿児島・福岡を中心に全国3,800件以上の実績と、Google口コミ★4.9の評価をいただいています。</p>
-          </div>
-        </div>
-        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
-          <span style="display:block;aspect-ratio:16/10;overflow:hidden"><img src="/fukuoka/images/fk-kensui.jpg?v=<?= h(asset_ver()) ?>" alt="安全に配慮しながら行う船上セレモニー" width="900" height="600" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></span>
-          <div style="padding:20px 22px 22px;flex:1">
-            <p style="display:inline-block;background:var(--green);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.15em;padding:3px 14px;border-radius:999px;margin-bottom:10px">安全</p>
-            <h3 style="margin-bottom:8px;font-size:1.05rem">協会ルールを順守した運航</h3>
-            <p style="font-size:.9rem;line-height:1.9">日本海洋散骨協会の加盟事業者として、散骨海域の選定や環境への配慮などルールを順守。天候・海況を見極め、安全第一の運航を行います。</p>
-            <p style="margin-top:12px"><span style="display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 14px"><img src="/assets/img/jmas-logo.png?v=<?= h(asset_ver()) ?>" alt="一般社団法人 日本海洋散骨協会 ロゴ" width="360" height="454" loading="lazy" style="width:36px;height:auto"><span style="font-size:.74rem;line-height:1.6;color:#4a5a58">一般社団法人<br><strong style="color:#2a5a7a">日本海洋散骨協会</strong> 加盟事業者</span></span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 実施予定日（管理画面から更新・福岡開催のみ表示） -->
-  <?php $gd_filter = '福岡'; $gd_area_label = '福岡'; require __DIR__ . '/../includes/goudou-schedule.php'; ?>
-
   <!-- 選ばれる理由 -->
   <section class="section">
     <div class="container" style="max-width:860px">
@@ -382,165 +314,27 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
     </div>
   </section>
 
-  <!-- 海洋散骨レポート -->
-  <?php if ($fk_reports): ?>
-  <section class="section">
-    <div class="container" style="max-width:960px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">REPORT</p>
-      <h2 style="text-align:center;margin-bottom:10px">海洋散骨レポート</h2>
-      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:28px">実際の海洋散骨の様子を、ブログでご紹介しています。<br class="sp-only">当日の雰囲気づくりの参考にご覧ください。</p>
-      <div class="fkr-wrap">
-        <button type="button" class="fkr-arrow fkr-arrow--prev" aria-label="前のレポートへ">‹</button>
-        <div class="fkr-track" id="fkr-track">
-          <?php foreach ($fk_reports as $it): ?>
-          <a class="card fkr-card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>">
-            <?php if (!empty($it['image'])): ?>
-              <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="var t=this.parentNode;if(t)t.remove()"></span>
-            <?php endif; ?>
-            <span style="display:flex;flex-direction:column;padding:16px 18px;flex:1">
-              <p style="font-size:.78rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ 海洋葬(海洋散骨)</p>
-              <h3 style="font-size:.96rem;line-height:1.7"><?= h($it['title'] ?? '') ?></h3>
-              <?php if (!empty($it['body'])): ?><p style="font-size:.85rem;flex:1;margin-top:6px"><?= h(mb_strimwidth(preg_replace('/\s+/u', ' ', strip_tags((string)$it['body'])), 0, 68, '…')) ?></p><?php endif; ?>
-              <span style="margin-top:10px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">詳しく読む →</span>
-            </span>
-          </a>
-          <?php endforeach; ?>
-        </div>
-        <button type="button" class="fkr-arrow fkr-arrow--next" aria-label="次のレポートへ">›</button>
-      </div>
-      <p class="fkr-hint">← 横にスワイプすると他のレポートもご覧いただけます →</p>
-      <style>
-        .fkr-wrap{position:relative}
-        .fkr-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 4px 14px;scrollbar-width:none}
-        .fkr-track::-webkit-scrollbar{display:none}
-        .fkr-card{flex:0 0 300px;display:flex;flex-direction:column;padding:0;overflow:hidden;scroll-snap-align:start}
-        .fkr-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.95);color:var(--green-mid);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(40,60,50,.18);display:grid;place-items:center;padding:0 0 3px}
-        .fkr-arrow:hover{background:#fff}
-        .fkr-arrow--prev{left:-14px}
-        .fkr-arrow--next{right:-14px}
-        .fkr-arrow[disabled]{opacity:.3;cursor:default}
-        .fkr-hint{text-align:center;font-size:.74rem;color:var(--text-light);margin-top:2px}
-        @media(max-width:768px){
-          .fkr-card{flex:0 0 min(78vw,300px)}
-          .fkr-arrow{display:none}
-          .fkr-track{padding-bottom:10px}
-        }
-      </style>
-      <script>
-        (function () {
-          var track = document.getElementById('fkr-track');
-          var prev = document.querySelector('.fkr-arrow--prev');
-          var next = document.querySelector('.fkr-arrow--next');
-          if (!track || !prev || !next) return;
-          var step = function () { return (track.querySelector('.fkr-card')?.offsetWidth || 300) + 16; };
-          prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-          next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-          var sync = function () {
-            prev.disabled = track.scrollLeft <= 4;
-            next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
-          };
-          track.addEventListener('scroll', sync, { passive: true });
-          window.addEventListener('resize', sync);
-          sync();
-        })();
-      </script>
-      <p style="text-align:center;margin-top:28px">
-        <a href="/blog/?cat=<?= h(rawurlencode('海洋葬(海洋散骨)')) ?>" class="btn">海洋散骨レポート一覧はこちら</a>
-      </p>
-    </div>
-  </section>
-  <?php endif; ?>
-
-
-  <!-- 海へ還る、あたらしいお見送りのかたち。（TOPと共通） -->
-  <section class="fkc-fullbleed" style="background-image:url('/assets/img/top/fullbleed-bg.jpg?v=<?= h(asset_ver()) ?>')">
-    <div class="fkc-fb-inner">
-      <span class="fkc-fb-kicker">En — Ocean Memorial</span>
-      <h2>海へ還る、<br>あたらしいお見送りのかたち。</h2>
-    </div>
-  </section>
-  <style>
-    .fkc-fullbleed{position:relative;width:100%;min-height:clamp(260px,38vw,440px);background-position:center;background-size:cover;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;text-align:center}
-    .fkc-fullbleed::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,58,78,.30) 0%,rgba(12,58,78,.12) 55%,rgba(12,58,78,.22) 100%)}
-    .fkc-fb-inner{position:relative;z-index:1;color:#fff;padding:0 24px}
-    .fkc-fb-kicker{font-family:'Cormorant Garamond',serif;letter-spacing:.34em;text-transform:uppercase;font-size:.8rem;color:#fff;opacity:.9;display:block;margin-bottom:14px}
-    .fkc-fullbleed h2{font-family:'Shippori Mincho','Yu Mincho',serif;font-weight:500;font-size:clamp(1.4rem,3.2vw,2.2rem);line-height:1.9;letter-spacing:.08em;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.25)}
-  </style>
-
-  <!-- 県外にお住まいの方へ -->
-  <section class="section" id="kengai" style="background:linear-gradient(180deg,#f4f9fb,#e9f3f7)">
-    <div class="container" style="max-width:960px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">NATIONWIDE</p>
-      <h2 style="text-align:center;margin-bottom:14px">県外にお住まいの方へ</h2>
-      <p style="text-align:center;max-width:720px;margin:0 auto 26px;line-height:2">
-        「実家が福岡にある」「故郷の海に還してあげたい」——<br class="pc-only">
-        そんな方のために、<strong>帰省しなくてもご利用いただける委託海洋葬（54,450円〜）</strong>をご用意しています。<br class="pc-only">
-        ご遺骨はゆうパックでのご郵送でお預かりし、粉骨から散骨、証明書のお届けまで当社がすべて代行。<strong>全国どこにお住まいでもご利用いただけます。</strong>
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px">
-        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">帰省・立ち会い不要</span>
-        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">ご遺骨は郵送でOK</span>
-        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">お墓じまいからワンストップ</span>
-        <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)">散骨証明書を発行</span>
-      </div>
-      <div class="fk-kengai-steps">
-        <?php
-          $fk_kengai = [
-            ['お電話・LINE・メールでご相談', '全国からご相談いただけます。ご事情やご希望をうかがい、お見積りを無料でご案内します。'],
-            ['ご遺骨をゆうパックでご郵送', '梱包の方法や送り方は、写真付きの資料でわかりやすくご案内。日本郵便のゆうパックで安全にお送りいただけます。'],
-            ['粉骨〜海洋散骨を当社が代行', '協会ルールに沿って丁寧に粉骨し、博多湾など福岡の海域で心を込めて散骨いたします。'],
-            ['証明書とお写真をお届け', '散骨海域の緯度・経度入りの散骨証明書と、当日のセレモニーのお写真をご自宅へお届けします。'],
-          ];
-        ?>
-        <?php foreach ($fk_kengai as $i => [$t, $d]): ?>
-          <div class="fk-kengai-step">
-            <div class="fk-kengai-step__num"><?= $i + 1 ?></div>
-            <h3><?= h($t) ?></h3>
-            <p><?= h($d) ?></p>
-          </div>
-        <?php endforeach; ?>
-      </div>
-      <figure style="margin:26px auto 0;max-width:270px;text-align:center">
-        <img src="/assets/img/certificate.jpg?v=<?= h(asset_ver()) ?>" alt="緯度・経度入りの海洋葬証明書" width="800" height="1074" loading="lazy"
-             style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border);box-shadow:0 8px 22px rgba(40,60,50,.12);background:#f2efe8">
-        <figcaption style="margin-top:10px;font-size:.82rem;color:var(--text-light)">実際にお渡ししている「海洋葬証明書」。散骨海域の緯度・経度と当日のお写真入りです。</figcaption>
-      </figure>
-      <p style="text-align:center;margin-top:22px;font-size:.9rem;color:var(--text-light)">
-        お墓じまい（改葬手続き・墓石の撤去）からご遺骨の受け入れ、海洋散骨までまとめてのご依頼も可能です。<br class="pc-only">
-        「何から始めればいいかわからない」という段階でも、どうぞお気軽にご相談ください。
-      </p>
-      <div style="text-align:center;margin-top:18px">
-        <a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn">県外からのご相談はこちら</a>
-        <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:10px">LINEで相談</a>
-      </div>
-    </div>
-  </section>
-  <style>
-    .fk-kengai-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .fk-kengai-step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);text-align:center}
-    .fk-kengai-step__num{width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.05rem;margin:0 auto 12px}
-    .fk-kengai-step h3{font-size:.98rem;color:var(--green-mid);margin-bottom:8px;line-height:1.5}
-    .fk-kengai-step p{font-size:.85rem;line-height:1.8;text-align:left}
-    @media(max-width:900px){.fk-kengai-steps{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:520px){.fk-kengai-steps{grid-template-columns:1fr}}
-  </style>
-
   <!-- よくあるご質問 -->
   <?php
+    /* 海洋散骨の詳細FAQ（博多湾・出航場所・法律・料金の内訳など）は
+       /kaiyou-sou/fukuoka/ に集約した。ここは営業所・エリア・相談方法に絞る。 */
     $fk_faq = [
-      ['q' => '博多湾など、福岡の海で散骨できますか？',
-       'a' => 'はい。博多湾をはじめ福岡の海域での海洋散骨に対応しています。故人様やご家族にゆかりのある海でのお見送りをご希望の場合も、海域についてお気軽にご相談ください。'],
       ['q' => '福岡営業所ではどのような相談ができますか？',
-       'a' => '海洋散骨（チャーター・合同・委託）、粉骨・洗骨、お墓じまい、生前契約、ペット供養のご相談を対面で承っています。福岡市中央区春吉にございますので、資料を見ながらゆっくりお話しいただけます。ご相談・お見積りは無料です。'],
+       'a' => '海洋散骨（海洋葬）、お墓じまい、粉骨・洗骨、海洋散骨の生前契約、ペット供養のご相談を承っています。福岡市中央区春吉にございますので、資料を見ながらゆっくりお話しいただけます。ご相談・お見積りは無料で、こちらから営業のご連絡はいたしません。'],
+      ['q' => '予約は必要ですか？電話やLINEだけでも相談できますか？',
+       'a' => 'ご来所いただく場合は、確実にご案内できるよう事前にお電話（090-5000-4825）またはLINEでご連絡ください。ご来所いただかなくても、お電話・LINE・メールフォームだけでご相談からお見積りまで進められます。'],
+      ['q' => '福岡のどのエリアまで対応していますか？',
+       'a' => '福岡市内全域（東・博多・中央・南・城南・早良・西区）、北九州エリア、筑後エリア（久留米・大牟田・柳川など）、筑豊エリア（飯塚・田川など）を含む福岡県内全域に対応しています。佐賀・熊本・大分などの隣県もご相談ください。'],
       ['q' => '福岡県外に住んでいますが、依頼できますか？',
-       'a' => 'ご依頼いただけます。ご遺骨はゆうパックでのご郵送でお預かりでき、立ち会い不要の委託海洋葬（54,450円〜）なら帰省せずにすべてお任せいただけます。散骨後は緯度・経度入りの散骨証明書と当日のお写真をご自宅へお届けします。'],
-      ['q' => '海洋散骨は法律的に問題ありませんか？',
-       'a' => '法務省は「節度をもって葬送の一つとして行われる限り違法ではない」との見解を示しており、厚生労働省のガイドラインも公表されています。当社は日本海洋散骨協会の加盟事業者として、ルールに沿って適切な海域・方法で散骨を行いますのでご安心ください。'],
-      ['q' => '費用はいくらかかりますか？あとから追加料金はありませんか？',
-       'a' => '海洋散骨は委託54,450円〜・合同148,500円〜・チャーター176,000円〜（いずれも税込）、粉骨は24,200円〜です。金額は無料のお見積りで確定し、ご納得いただいてからのご契約となりますので、あとから追加料金をいただくことはありません。'],
+       'a' => 'ご依頼いただけます。ご相談はお電話・LINE・メールで完結し、ご遺骨はゆうパックでのご郵送でお預かりできます。立ち会い不要の委託海洋散骨（54,450円〜）なら、帰省せずにすべてお任せいただけます。'],
+      ['q' => '費用はどのくらいかかりますか？',
+       'a' => '海洋散骨は委託54,450円〜・合同148,500円〜・チャーター176,000円〜、粉骨は24,200円〜、洗骨は27,500円〜、お墓じまいは基本プラン330,000円（いずれも税込）です。金額は無料のお見積りで確定し、ご納得いただいてからのご契約となりますので、あとから追加料金をいただくことはありません。'],
+      ['q' => '福岡の海洋散骨について、もっと詳しく知りたいのですが。',
+       'a' => '博多湾での散骨海域、姪浜からの出航、3つのプランの違い、ご相談から散骨証明書までの流れ、法律上の扱いや業者選びのポイントまで、福岡の海洋散骨専用ページにまとめています。',
+       'link' => ['/kaiyou-sou/fukuoka/', '福岡の海洋散骨について詳しく見る']],
       ['q' => 'お墓じまいから海洋散骨までまとめて頼めますか？',
-       'a' => 'はい。墓石の撤去から納骨まで一括対応するお墓じまい（基本プラン330,000円・税込）と、取り出したご遺骨の粉骨・海洋散骨までワンストップで承ります。改葬許可申請（役所手続き）のサポートはオプション（25,000円〜）でご利用いただけます。',
-       'link' => ['/grave/', 'お墓じまいについて詳しく見る']],
+       'a' => 'はい。墓石の撤去から納骨まで一括対応するお墓じまい（基本プラン330,000円・税込）と、取り出したご遺骨の洗骨・粉骨・海洋散骨までワンストップで承ります。改葬許可申請（役所手続き）のサポートはオプション（25,000円〜）でご利用いただけます。',
+       'link' => ['/grave/fukuoka/', '福岡の墓じまいについて詳しく見る']],
       ['q' => '生前に自分の散骨を申し込んでおくことはできますか？',
        'a' => '承れます。福岡営業所でも生前契約のご相談を受け付けています。ご家族とよく話し合ったうえで、遺言書やエンディングノートに残しておくことをおすすめします。',
        'link' => ['/seizen/', '海洋散骨 生前契約について詳しく見る']],
@@ -549,7 +343,7 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   <section class="section">
     <div class="container" style="max-width:820px">
       <h2 style="text-align:center;margin-bottom:8px">よくあるご質問</h2>
-      <p style="text-align:center;font-size:.9rem;color:var(--text-light);margin-bottom:24px">福岡でのご供養についてよくいただくご質問です。<a href="/kaiyou-sou/" style="color:var(--green);text-decoration:underline">海洋散骨のよくあるご質問</a>もあわせてご覧ください。</p>
+      <p style="text-align:center;font-size:.9rem;color:var(--text-light);margin-bottom:24px">福岡営業所とご相談方法についてのご質問です。海洋散骨そのものについては<a href="/kaiyou-sou/fukuoka/" style="color:var(--green);text-decoration:underline">福岡の海洋散骨ページ</a>、墓じまいは<a href="/grave/fukuoka/" style="color:var(--green);text-decoration:underline">福岡の墓じまいページ</a>をご覧ください。</p>
       <?php foreach ($fk_faq as $f): ?>
         <details style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:12px">
           <summary style="font-weight:600;cursor:pointer;color:var(--green-mid)">Q. <?= h($f['q']) ?></summary>
@@ -617,7 +411,7 @@ $FUK_REVIEW = 'https://g.page/r/CbF1xKls2CYREBM/review';
   "parentOrganization":{"@id":"https://en1150.co.jp/#organization"},
   "areaServed":[{"@type":"State","name":"福岡県"},{"@type":"AdministrativeArea","name":"北部九州"}],
   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],
-  "description":"福岡の海洋散骨・粉骨・お墓じまい・生前契約のご相談窓口。博多湾など福岡の海域での散骨に対応。"
+  "description":"福岡市中央区春吉のご供養相談窓口。海洋散骨・お墓じまい・粉骨・洗骨・生前契約・ペット供養を、福岡県内全域で承ります。"
 }
 </script>
 <script type="application/ld+json">

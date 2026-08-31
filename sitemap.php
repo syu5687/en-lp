@@ -12,8 +12,8 @@ header('Content-Type: application/xml; charset=UTF-8');
 
 /* ---- 固定ページ（priority: トップ1.0 / 主要サービス0.8 / その他0.6）---- */
 $main = ['/' => '1.0'];
-$high = ['/en/', '/en/sea-burial-japan/', '/kaiyou-sou/', '/fukuoka/', '/grave/', '/grave/fukuoka/', '/grave/sankotsu/', '/powder-cleaning/', '/seizen/', '/service/', '/temoto-kuyou/', '/pet-kaiyou-sou/'];
-$paths = ['/en/', '/en/sea-burial-japan/', '/grave/fukuoka/', '/grave/sankotsu/', '/service/','/shindan/','/kuyou/','/gokuyou/','/staff/','/voice/','/blog/','/company/','/contact/','/privacy/','/seizen/','/area/','/about/','/onayami/','/flow/','/fukuoka/','/policy/','/glossary/'];
+$high = ['/en/', '/en/sea-burial-japan/', '/kaiyou-sou/', '/kaiyou-sou/fukuoka/', '/fukuoka/', '/grave/', '/grave/fukuoka/', '/grave/sankotsu/', '/powder-cleaning/', '/seizen/', '/service/', '/temoto-kuyou/', '/pet-kaiyou-sou/'];
+$paths = ['/en/', '/en/sea-burial-japan/', '/kaiyou-sou/fukuoka/', '/grave/fukuoka/', '/grave/sankotsu/', '/service/','/shindan/','/kuyou/','/gokuyou/','/staff/','/voice/','/blog/','/company/','/contact/','/privacy/','/seizen/','/area/','/about/','/onayami/','/flow/','/fukuoka/','/policy/','/glossary/'];
 foreach (SERVICES as $s) $paths[] = '/' . $s['slug'] . '/';
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
