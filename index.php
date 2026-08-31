@@ -147,6 +147,10 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
   .nav-dd-menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; background: transparent; padding: 0 0 12px 8px; min-width: 0; }
   .nav-dd-menu a { color: rgba(255,255,255,0.94) !important; opacity: 1; padding: 9px 12px; font-size: 0.88rem; font-weight: 500; border-left: 2px solid rgba(255,255,255,0.3); margin-left: 4px; white-space: normal; }
   .nav-dd-menu a:hover, .nav-dd-menu a:active { background: rgba(255,255,255,0.1); color: #fff !important; }
+  /* 地域の子項目（鹿児島・錦江湾／福岡・博多湾）。PC用の濃い文字色（#4a6b70）は
+     .nav-dd-menu .nav-dd-child(0,2,0) が .nav-dd-menu a(0,1,1) に特異度で勝つため、
+     SPの青背景でもそのまま適用され判読できなくなっていた。SPでは白系に上書きする。 */
+  .nav-dd-menu .nav-dd-child { color: rgba(255,255,255,0.92) !important; font-size: 0.86rem; padding: 12px 12px 12px 26px; line-height: 1.6; }
   .nav-dd-caret { display: none; }
   /* メニュー展開中は右固定タブ・文字サイズボタンを隠して重なりを防ぐ */
   body.sp-menu-open .side-tabs, body.sp-menu-open .fontsize-ctl { display: none !important; }

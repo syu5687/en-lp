@@ -88,58 +88,43 @@ $kf_faq = [
 <body>
 <?php require __DIR__ . '/../../includes/header.php'; ?>
 
-<!-- ① ファーストビュー：広告流入者が3〜5秒で「福岡の海洋散骨ページ」と分かる構成 -->
+<!-- ① ファーストビュー
+     方針：5秒で「福岡・博多湾の海洋散骨」「料金の目安」「信頼できそう」の3点だけ伝える。
+     CTA（電話・LINE・見積り）と営業時間はここには置かず、本文を読み進めた位置と
+     ヘッダー／SP固定フッターに役割分担している。 -->
 <section class="page-hero kf-hero">
   <h1>福岡・博多湾の海洋散骨（海洋葬）</h1>
-  <p class="kf-hero__price">委託 <strong>54,450円〜</strong>／合同 <strong>148,500円〜</strong>／チャーター <strong>176,000円〜</strong><span>（税込）</span></p>
-  <p class="kf-hero__sub">博多湾など福岡の海域に対応／合同は姪浜旅客待合所から出航／緯度・経度入りの散骨証明書つき</p>
+  <p class="kf-hero__price"><b><span>委託</span>54,450円〜</b><i>／</i><b><span>合同</span>148,500円〜</b><i>／</i><b><span>チャーター</span>176,000円〜</b><small>（税込）</small></p>
+  <p class="kf-hero__sub">博多湾など福岡の海域に対応。合同散骨は姪浜旅客待合所から出航します。</p>
   <ul class="kf-hero__chips">
     <li>日本海洋散骨協会 加盟</li>
     <li>実績3,800件以上</li>
     <li>Google口コミ ★4.9</li>
-    <li>海洋葬10年以上</li>
-    <li>追加料金なし</li>
   </ul>
-  <div class="kf-hero__cta">
-    <a href="tel:<?= h($fk_tel) ?>" class="btn kf-btn-tel">電話で相談 <span><?= h($fk['tel']) ?></span></a>
-    <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn kf-btn-line">LINEで相談</a>
-    <a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn kf-btn-form">無料で見積りを依頼</a>
-  </div>
-  <p class="kf-hero__note">ご相談・お見積りは無料／<?= h(SITE['hours_jp']) ?>（メール・LINEは24時間受付）</p>
 </section>
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/kaiyou-sou/">海洋葬（海洋散骨）</a> ＞ 福岡の海洋散骨</nav>
 
 <style>
-  /* FVはGoogle広告のLPとして使うため、料金・信頼要素・相談方法を1画面に収める。
-     配色・角丸・影は既存サイトの値をそのまま使い、LPだけ別サイトに見えないようにする。 */
-  .kf-hero{padding-top:56px;padding-bottom:60px}
-  .kf-hero h1{margin-bottom:14px}
-  .kf-hero__price{position:relative;font-size:1.05rem;line-height:1.9}
-  .kf-hero__price strong{font-size:1.35em;font-weight:700}
-  .kf-hero__price span{font-size:.78rem;opacity:.85;margin-left:2px}
-  .kf-hero__sub{position:relative;margin-top:8px;font-size:.9rem;opacity:.94;line-height:1.9}
-  .kf-hero__chips{position:relative;list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 0;padding:0}
+  /* FVは H1 → 料金 → 1行説明 → 信頼3つ まで。CTAは置かない。
+     料金はH1より一段弱く見せるため、金額は1.28rem・ラベルは小さく薄くしている。 */
+  .kf-hero{padding-top:52px;padding-bottom:52px}
+  .kf-hero h1{margin-bottom:16px}
+  .kf-hero .kf-hero__price{position:relative;font-size:1.28rem;font-weight:700;line-height:1.75;letter-spacing:.01em;margin-top:0}
+  .kf-hero__price b{white-space:nowrap;font-weight:700}   /* プラン名と金額の間で改行させない */
+  .kf-hero__price span{font-size:.72em;font-weight:600;opacity:.82;margin-right:4px}
+  .kf-hero__price i{font-style:normal;font-weight:400;opacity:.5;margin:0 6px}
+  .kf-hero__price small{font-size:.6em;font-weight:400;opacity:.8;margin-left:4px}
+  .kf-hero .kf-hero__sub{position:relative;margin-top:10px;font-size:.92rem;opacity:.94;line-height:1.9}
+  .kf-hero__chips{position:relative;list-style:none;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 0;padding:0}
   .kf-hero__chips li{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.34);border-radius:999px;padding:5px 14px;font-size:.8rem;font-weight:700}
-  .kf-hero__cta{position:relative;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
-  .kf-hero__cta .btn{min-height:52px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.35}
-  .kf-hero__cta .btn span{font-size:.98rem;font-weight:700;letter-spacing:.02em}
-  .kf-btn-tel{background:#fff !important;color:#15709e !important;border-color:#fff !important}
-  .kf-btn-line{background:#06C755 !important;color:#fff !important;border-color:#06C755 !important}
-  .kf-btn-form{background:#c9822a !important;color:#fff !important;border-color:#c9822a !important}
-  .kf-hero__note{position:relative;margin-top:14px;font-size:.82rem;opacity:.9}
   @media(max-width:640px){
-    /* SPでは「電話・LINE・見積り」の3ボタンが、下部固定CTA（約53px）より
-       上に必ず収まるように詰める。信頼チップは上位3つだけ出して1行分節約する。 */
-    .kf-hero{padding:34px 18px 40px}
-    .kf-hero h1{margin-bottom:10px}
-    .kf-hero__price{font-size:.94rem;line-height:1.75}
-    .kf-hero__sub{margin-top:6px;font-size:.85rem;line-height:1.8}
-    .kf-hero__chips{gap:6px;margin-top:12px}
+    .kf-hero{padding:38px 18px 40px}
+    .kf-hero h1{margin-bottom:12px}
+    .kf-hero .kf-hero__price{font-size:1.06rem;line-height:2.05}
+    .kf-hero__price i{margin:0 3px}
+    .kf-hero .kf-hero__sub{margin-top:8px;font-size:.86rem;line-height:1.85}
+    .kf-hero__chips{gap:6px;margin-top:14px}
     .kf-hero__chips li{font-size:.74rem;padding:4px 11px}
-    .kf-hero__chips li:nth-child(n+4){display:none}
-    .kf-hero__cta{flex-direction:column;gap:8px;margin-top:16px}
-    .kf-hero__cta .btn{width:100%}
-    .kf-hero__note{margin-top:11px;font-size:.78rem}
   }
   /* 汎用の小物（このページ内のみ） */
   .kf-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -417,10 +402,35 @@ $kf_faq = [
         <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">協会ルールを順守した運航</h3><p style="font-size:.92rem;line-height:1.9">日本海洋散骨協会の加盟事業者として、海域の選定・粉骨・環境への配慮を順守。天候と海況を見極め、安全第一で運航します。</p></div>
         <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">墓じまいから散骨まで一括対応</h3><p style="font-size:.92rem;line-height:1.9">改葬の行政手続き・墓石の撤去・洗骨・粉骨・散骨・手元供養までを同じ窓口で。ご遺骨が業者間を行き来しません。</p></div>
         <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">追加料金のない明快な料金</h3><p style="font-size:.92rem;line-height:1.9">お見積りは無料。金額はお見積りで確定し、あとから追加料金をいただくことはありません。</p></div>
-        <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">散骨後も、会いに行ける</h3><p style="font-size:.92rem;line-height:1.9">緯度・経度入りの証明書をお渡しし、同じ海域を訪れるメモリアルクルーズや手元供養もお手伝いします。</p></div>
+        <div class="card"><h3 style="margin-bottom:8px;color:var(--green)">散骨後も、会いに行ける</h3><p style="font-size:.92rem;line-height:1.9">緯度・経度入りの証明書をお渡しします。同じ海域を訪れるメモリアルクルーズ、想いを手紙にして海へ届ける「天国への手紙」（無料）、手元供養まで、その後のご供養もお手伝いします。</p></div>
       </div>
     </div>
   </section>
+
+  <!-- ⑨-2 粉骨の品質：六価クロムの検査・無害化（写真は実際の工程のもの・/powder-cleaning/ と共用）
+       /kaiyou-sou/ にも同趣旨の説明があるが、文章は重複させずここで簡潔に伝える -->
+  <section class="section" style="background:var(--white)">
+    <div class="container" style="max-width:860px">
+      <h2 style="text-align:center;margin-bottom:8px">散骨前に六価クロムを検査・無害化</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:22px">見えないところですが、海にお還しする前の大切な工程です。</p>
+      <p style="max-width:720px;margin:0 auto 22px;line-height:2;font-size:.95rem">
+        ご遺骨には、火葬炉の耐熱材などに由来する発がん性物質「六価クロム」が付着していることがあります。縁では<strong>粉骨の際に専用キットで検査</strong>し、検出された場合は<strong>骨灰専用の還元剤で無害化してから</strong>海へお還しします。<strong>2019年から標準工程として実施しており、追加料金はいただいていません。</strong>格安のサービスでは省略されることのある工程です。
+      </p>
+      <div class="kf-cr6">
+        <figure><img src="/powder-cleaning/images/pc-cr6-check.jpg?v=<?= h(asset_ver()) ?>" alt="六価クロム検査キットと標準色カード" width="1400" height="933" loading="lazy"><figcaption>専用キットで検査</figcaption></figure>
+        <figure><img src="/powder-cleaning/images/pc-cr6-positive.jpg?v=<?= h(asset_ver()) ?>" alt="六価クロムが検出され検査液がピンク色に変色した状態" width="1400" height="933" loading="lazy"><figcaption>変色したら「検出」のサイン</figcaption></figure>
+        <figure><img src="/powder-cleaning/images/pc-cr6-agent.jpg?v=<?= h(asset_ver()) ?>" alt="骨灰専用の六価クロム還元剤" width="1400" height="933" loading="lazy"><figcaption>専用還元剤で無害化</figcaption></figure>
+      </div>
+      <p style="text-align:center;margin-top:16px;font-size:.9rem"><a href="/powder-cleaning/" style="color:var(--green);font-weight:700">粉骨・洗骨と六価クロム対策について詳しく見る →</a></p>
+    </div>
+  </section>
+  <style>
+    .kf-cr6{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .kf-cr6 figure{margin:0}
+    .kf-cr6 img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.1);display:block}
+    .kf-cr6 figcaption{margin-top:8px;text-align:center;font-size:.82rem;color:var(--text-light)}
+    @media(max-width:640px){.kf-cr6{grid-template-columns:1fr;gap:16px}}
+  </style>
 
   <!-- ⑩ 法律・ルール・マナー -->
   <section class="section">
@@ -434,7 +444,7 @@ $kf_faq = [
         </div>
         <div class="card">
           <h3 style="color:var(--green-mid);font-size:1rem;margin-bottom:6px">粉骨は必須です</h3>
-          <p style="font-size:.92rem;line-height:1.95">ご遺骨をそのまま海に撒くことはできません。散骨の前に必ずパウダー状に粉骨します。当社では、火葬時に生成されることがある六価クロムを専用キットで検査し、検出された場合は骨灰専用の還元剤で無害化してから海へお還しします（2019年から実施・追加料金なし）。</p>
+          <p style="font-size:.92rem;line-height:1.95">ご遺骨をそのまま海に撒くことはできません。散骨の前に必ずパウダー状に粉骨します。当社では専用の設備で一件ずつ丁寧にパウダー化し、あわせて、上でご説明した六価クロムの検査・無害化も行っています。</p>
         </div>
         <div class="card">
           <h3 style="color:var(--green-mid);font-size:1rem;margin-bottom:6px">海域と環境への配慮</h3>
@@ -472,7 +482,6 @@ $kf_faq = [
         <p>「見積りだけ」「他社と比較したい」というご相談も歓迎です。こちらから営業のご連絡はいたしません。</p>
         <div class="kf-ctabar__btns">
           <a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn">無料で見積りを依頼する</a>
-          <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline">LINEで相談</a>
         </div>
       </div>
     </div>
@@ -514,7 +523,7 @@ $kf_faq = [
         <span style="background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:700;color:var(--green-mid)"><?= h($chip) ?></span>
         <?php endforeach; ?>
       </div>
-      <p style="text-align:center"><a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" class="btn">県外からのご相談はこちら</a></p>
+      <p style="text-align:center;font-size:.92rem">梱包の方法や送り方は、写真付きの資料でわかりやすくご案内します。<a href="/contact/?service=<?= rawurlencode('海洋葬') ?>" style="color:var(--green);font-weight:700;text-decoration:underline">県外からのご相談はこちら →</a></p>
     </div>
   </section>
 
@@ -532,6 +541,13 @@ $kf_faq = [
           <p style="margin-top:10px;font-size:.95rem;line-height:1.9">A. <?= h($f['a']) ?></p>
         </details>
       <?php endforeach; ?>
+      <div class="kf-ctabar">
+        <p>ここに載っていないことは、直接おたずねください。ご相談・お見積りは無料です。</p>
+        <div class="kf-ctabar__btns">
+          <a href="tel:<?= h($fk_tel) ?>" class="btn">電話で聞いてみる（<?= h($fk['tel']) ?>）</a>
+          <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn btn--outline">LINEで聞いてみる</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -555,7 +571,8 @@ $kf_faq = [
   <section class="section" style="background:linear-gradient(135deg,var(--green),var(--green-mid));color:#fff;text-align:center">
     <div class="container">
       <h2 style="color:#fff">福岡の海洋散骨、まずはご相談ください</h2>
-      <p style="opacity:.92;margin-bottom:22px">「まだ決めていない」「話を聞くだけ」でも歓迎です。ご相談・お見積りは無料、こちらから営業のご連絡はいたしません。</p>
+      <p style="opacity:.92;margin-bottom:8px">「まだ決めていない」「話を聞くだけ」でも歓迎です。ご相談・お見積りは無料、こちらから営業のご連絡はいたしません。</p>
+      <p style="opacity:.86;font-size:.88rem;margin-bottom:22px">受付：<?= h(SITE['hours_jp']) ?>（メール・LINEは24時間受付）</p>
       <p style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a href="tel:<?= h($fk_tel) ?>" class="btn" style="background:#fff;color:var(--green-mid)">電話で相談（<?= h($fk['tel']) ?>）</a>
         <a href="<?= h(SITE['line_url']) ?>" target="_blank" rel="noopener" class="btn" style="background:#06C755">LINEで相談</a>
