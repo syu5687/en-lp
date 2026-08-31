@@ -8,8 +8,9 @@
  *
  * 地域の出し分け（誤解防止）
  *   鹿児島ページに博多湾の事例、福岡ページに錦江湾の事例が並ぶと実績を誤読させるため、
- *   本文・タイトルの地名から「その地域の記事」と「地域を問わない記事」だけを表示し、
- *   もう一方の地域だけに言及する記事は除外する。並び順は日付の新しい順。
+ *   タイトルの地名だけで判定し、もう一方の地域を明示している記事を除外する。
+ *   本文で判定すると「福岡営業所」等の案内文に反応して誤除外が起きるため、本文は見ない。
+ *   並び順は日付の新しい順。絞り込みで3件未満になる場合は絞り込みを行わない。
  *
  * 使い方（読み込み前に変数をセット）:
  *   $br_region = 'kagoshima';  // 'kagoshima' | 'fukuoka' | '' （空なら全件）
@@ -41,10 +42,11 @@ try {
     array_map(static fn($c) => $cat_alias[$c] ?? $c,
       array_values(array_filter(array_map('trim', preg_split('/[、,\/／]/u', (string)$s)))));
 
+  // 判定はタイトルのみで行う。本文には「福岡営業所」「鹿児島本社」などの案内文が
+  // 入るため、本文で判定すると地域と無関係な記事まで除外されてしまう（v0249の不具合）。
   $hit = static function (array $it, array $words): bool {
-    $blob = (string)($it['title'] ?? '') . ' '
-          . mb_substr(strip_tags((string)($it['body_html'] ?? $it['body'] ?? '')), 0, 600);
-    foreach ($words as $w) if (mb_strpos($blob, $w) !== false) return true;
+    $t = (string)($it['title'] ?? '');
+    foreach ($words as $w) if (mb_strpos($t, $w) !== false) return true;
     return false;
   };
 
@@ -52,18 +54,16 @@ try {
   $other = [];
   foreach ($BR_WORDS as $k => $w) if ($k !== $br_region) $other = array_merge($other, $w);
 
-  $primary = [];   // その地域に言及している記事
-  $neutral = [];   // どちらの地域にも言及していない記事
+  $all  = [];   // カテゴリ該当の全記事
+  $kept = [];   // その地域の記事＋地域を限定していない記事
   foreach (news_published() as $it) {
     if (!in_array('海洋葬(海洋散骨)', $split_cats($it['category'] ?? ''), true)) continue;
-    if ($br_region === '') { $primary[] = $it; continue; }
-    if ($hit($it, $own))          { $primary[] = $it; continue; }
-    if (!$hit($it, $other))       { $neutral[] = $it; }
-    // もう一方の地域だけに言及する記事は出さない
+    $all[] = $it;
+    // タイトルがもう一方の地域だけを指している記事は出さない
+    if ($br_region === '' || $hit($it, $own) || !$hit($it, $other)) $kept[] = $it;
   }
-  // もう一方の地域の記事だけを除外したうえで、新しい順に並べる
-  // （地域一致を優先すると古い記事が新しい記事より上に来て不自然になるため）
-  $merged = array_merge($primary, $neutral);
+  // 地域判定で件数が減りすぎたときは絞り込まない（セクションがスカスカになるのを防ぐ）
+  $merged = count($kept) >= 3 ? $kept : $all;
   usort($merged, static fn($a, $b) => strcmp((string)($b['date'] ?? ''), (string)($a['date'] ?? '')));
   $br_items = array_slice($merged, 0, $br_limit);
 } catch (Throwable $e) {
