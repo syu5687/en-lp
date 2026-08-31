@@ -96,8 +96,8 @@ $kf_faq = [
   <ul class="kf-hero__chips">
     <li>日本海洋散骨協会 加盟</li>
     <li>実績3,800件以上</li>
-    <li>海洋葬10年以上</li>
     <li>Google口コミ ★4.9</li>
+    <li>海洋葬10年以上</li>
     <li>追加料金なし</li>
   </ul>
   <div class="kf-hero__cta">
@@ -128,11 +128,18 @@ $kf_faq = [
   .kf-btn-form{background:#c9822a !important;color:#fff !important;border-color:#c9822a !important}
   .kf-hero__note{position:relative;margin-top:14px;font-size:.82rem;opacity:.9}
   @media(max-width:640px){
-    .kf-hero{padding:44px 18px 48px}
-    .kf-hero__price{font-size:.98rem}
+    /* SPでは「電話・LINE・見積り」の3ボタンが、下部固定CTA（約53px）より
+       上に必ず収まるように詰める。信頼チップは上位3つだけ出して1行分節約する。 */
+    .kf-hero{padding:34px 18px 40px}
+    .kf-hero h1{margin-bottom:10px}
+    .kf-hero__price{font-size:.94rem;line-height:1.75}
+    .kf-hero__sub{margin-top:6px;font-size:.85rem;line-height:1.8}
+    .kf-hero__chips{gap:6px;margin-top:12px}
     .kf-hero__chips li{font-size:.74rem;padding:4px 11px}
-    .kf-hero__cta{flex-direction:column;gap:9px}
+    .kf-hero__chips li:nth-child(n+4){display:none}
+    .kf-hero__cta{flex-direction:column;gap:8px;margin-top:16px}
     .kf-hero__cta .btn{width:100%}
+    .kf-hero__note{margin-top:11px;font-size:.78rem}
   }
   /* 汎用の小物（このページ内のみ） */
   .kf-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
