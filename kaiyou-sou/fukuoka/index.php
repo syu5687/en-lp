@@ -17,22 +17,6 @@
  *       既存の .btn / .btn--outline を流用し、GTM等の既存設定を壊さない。
  */
 require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../admin/includes/store.php'; // news_published()（15分キャッシュ済み・読み取り増なし）
-
-/* 海洋散骨レポート（ブログ「海洋葬(海洋散骨)」カテゴリの最新6件）。/fukuoka/ から本ページへ移設した */
-$kf_reports = [];
-try {
-  $cat_alias  = ['海洋葬' => '海洋葬(海洋散骨)', '海洋散骨' => '海洋葬(海洋散骨)'];
-  $split_cats = fn(?string $x): array =>
-    array_map(fn($c) => $cat_alias[$c] ?? $c,
-      array_values(array_filter(array_map('trim', preg_split('/[、,\/／]/u', (string)$x)))));
-  foreach (news_published() as $it) {
-    if (in_array('海洋葬(海洋散骨)', $split_cats($it['category'] ?? ''), true)) {
-      $kf_reports[] = $it;
-      if (count($kf_reports) >= 6) break;
-    }
-  }
-} catch (Throwable $e) { $kf_reports = []; }
 
 $page_title     = '海洋散骨 福岡｜博多湾で散骨・海洋葬 委託54,450円〜｜縁（えん）';
 $page_desc      = '福岡の海洋散骨（海洋葬）は、日本海洋散骨協会 加盟の有限会社 縁へ。博多湾など福岡の海域に対応し、委託54,450円〜・合同148,500円〜・チャーター176,000円〜（税込）。合同は姪浜旅客待合所から出航。粉骨から緯度・経度入りの散骨証明書まで一括。福岡営業所（中央区春吉）。相談・見積り無料、LINE可。';
@@ -229,6 +213,57 @@ $kf_faq = [
     </div>
   </section>
 
+  <!-- ④-2 すべて散骨しなくてよい：手元供養・メモリアルジュエリーとの組み合わせ
+       /kaiyou-sou/ の「分骨という選択肢」を福岡向けに要約したもの。写真は実物を共用し、
+       詳細は /temoto-kuyou/ ・ /jewelry-reform/ へ送って本ページは簡潔にとどめる。 -->
+  <section class="section" id="bunkotsu" style="background:var(--cream)">
+    <div class="container" style="max-width:900px">
+      <h2 style="text-align:center;margin-bottom:8px">すべてを海に還さなくても、かまいません</h2>
+      <p style="text-align:center;max-width:700px;margin:0 auto 24px;line-height:2;font-size:.95rem">
+        「全部撒いてしまったら、手を合わせる場所がなくなる気がして」——福岡でもよくうかがう言葉です。
+        パウダー化したご遺骨は<strong>ご希望の分だけお分けできます（分骨）</strong>。
+        大部分を博多湾へお還しし、ひとつまみだけお手元に残す方が多くいらっしゃいます。
+      </p>
+      <div class="kf-bk">
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <img src="/kaiyou-sou/images/ks-bk-kaiyou.jpg?v=<?= h(asset_ver()) ?>" alt="船上に用意された献花とご遺骨の桐箱" width="1000" height="667" loading="lazy">
+          <div style="padding:16px 18px 18px;flex:1">
+            <h3>すべてを海洋散骨に</h3>
+            <p>ご遺骨のことをここで区切りたい方に。緯度・経度入りの散骨証明書と当日のお写真が残るので、お参りはメモリアルクルーズや「天国への手紙」（無料）でできます。</p>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <img src="/kaiyou-sou/images/ks-bk-temoto.jpg?v=<?= h(asset_ver()) ?>" alt="棚に置かれた手のひらサイズの手元供養容器とおりん" width="1000" height="667" loading="lazy">
+          <div style="padding:16px 18px 18px;flex:1;display:flex;flex-direction:column">
+            <h3>一部をお手元に</h3>
+            <p style="flex:1">手のひらサイズのミニ骨壷に納めて、棚の上やリビングに。お仏壇がなくても置けます。</p>
+            <a href="/temoto-kuyou/">お手元供養を見る →</a>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <img src="/kaiyou-sou/images/ks-bk-jewelry.jpg?v=<?= h(asset_ver()) ?>" alt="ご遺骨を封入できるゴールドのメモリアルリング" width="730" height="352" loading="lazy">
+          <div style="padding:16px 18px 18px;flex:1;display:flex;flex-direction:column">
+            <h3>ごく少量をジュエリーに</h3>
+            <p style="flex:1">リングやペンダントに納めるのは、お米一粒ほどのごく少量です。ご家族それぞれが少しずつ持たれる形も承ります。</p>
+            <a href="/jewelry-reform/">メモリアルジュエリーを見る →</a>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:16px;font-size:.9rem;color:var(--text-light)">
+        お持ち込みのミニ骨壷・ペンダントへの分骨は <strong style="color:var(--green)">5,500円（税込）</strong>。
+        散骨したご遺骨は戻せませんので、迷われている場合は少量を残しておくことをおすすめしています。
+      </p>
+    </div>
+  </section>
+  <style>
+    .kf-bk{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .kf-bk img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+    .kf-bk h3{font-size:1rem;color:var(--green-mid);margin-bottom:6px}
+    .kf-bk p{font-size:.88rem;line-height:1.85}
+    .kf-bk a{display:inline-block;margin-top:10px;color:var(--green);font-weight:700;font-size:.88rem}
+    @media(max-width:860px){.kf-bk{grid-template-columns:1fr}}
+  </style>
+
   <!-- ⑤ 散骨場所・出航場所・対応エリア -->
   <section class="section" style="background:var(--white)">
     <div class="container" style="max-width:900px">
@@ -301,75 +336,13 @@ $kf_faq = [
     </div>
   </section>
 
-  <!-- 海洋散骨レポート -->
-  <?php if ($kf_reports): ?>
-  <section class="section">
-    <div class="container" style="max-width:960px">
-      <p style="text-align:center;font-size:.78rem;letter-spacing:.28em;color:#b08b3e;font-weight:700;margin-bottom:8px">REPORT</p>
-      <h2 style="text-align:center;margin-bottom:10px">海洋散骨レポート</h2>
-      <p style="text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:28px">実際の海洋散骨の様子を、ブログでご紹介しています。<br class="sp-only">当日の雰囲気づくりの参考にご覧ください。</p>
-      <div class="fkr-wrap">
-        <button type="button" class="fkr-arrow fkr-arrow--prev" aria-label="前のレポートへ">‹</button>
-        <div class="fkr-track" id="fkr-track">
-          <?php foreach ($kf_reports as $it): ?>
-          <a class="card fkr-card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>">
-            <?php if (!empty($it['image'])): ?>
-              <span style="display:block;aspect-ratio:16/9;overflow:hidden;background:#eef5f8"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="var t=this.parentNode;if(t)t.remove()"></span>
-            <?php endif; ?>
-            <span style="display:flex;flex-direction:column;padding:16px 18px;flex:1">
-              <p style="font-size:.78rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ 海洋葬(海洋散骨)</p>
-              <h3 style="font-size:.96rem;line-height:1.7"><?= h($it['title'] ?? '') ?></h3>
-              <?php if (!empty($it['body'])): ?><p style="font-size:.85rem;flex:1;margin-top:6px"><?= h(mb_strimwidth(preg_replace('/\s+/u', ' ', strip_tags((string)$it['body'])), 0, 68, '…')) ?></p><?php endif; ?>
-              <span style="margin-top:10px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">詳しく読む →</span>
-            </span>
-          </a>
-          <?php endforeach; ?>
-        </div>
-        <button type="button" class="fkr-arrow fkr-arrow--next" aria-label="次のレポートへ">›</button>
-      </div>
-      <p class="fkr-hint">← 横にスワイプすると他のレポートもご覧いただけます →</p>
-      <style>
-        .fkr-wrap{position:relative}
-        .fkr-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 4px 14px;scrollbar-width:none}
-        .fkr-track::-webkit-scrollbar{display:none}
-        .fkr-card{flex:0 0 300px;display:flex;flex-direction:column;padding:0;overflow:hidden;scroll-snap-align:start}
-        .fkr-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:rgba(255,255,255,.95);color:var(--green-mid);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(40,60,50,.18);display:grid;place-items:center;padding:0 0 3px}
-        .fkr-arrow:hover{background:#fff}
-        .fkr-arrow--prev{left:-14px}
-        .fkr-arrow--next{right:-14px}
-        .fkr-arrow[disabled]{opacity:.3;cursor:default}
-        .fkr-hint{text-align:center;font-size:.74rem;color:var(--text-light);margin-top:2px}
-        @media(max-width:768px){
-          .fkr-card{flex:0 0 min(78vw,300px)}
-          .fkr-arrow{display:none}
-          .fkr-track{padding-bottom:10px}
-        }
-      </style>
-      <script>
-        (function () {
-          var track = document.getElementById('fkr-track');
-          var prev = document.querySelector('.fkr-arrow--prev');
-          var next = document.querySelector('.fkr-arrow--next');
-          if (!track || !prev || !next) return;
-          var step = function () { return (track.querySelector('.fkr-card')?.offsetWidth || 300) + 16; };
-          prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-          next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-          var sync = function () {
-            prev.disabled = track.scrollLeft <= 4;
-            next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
-          };
-          track.addEventListener('scroll', sync, { passive: true });
-          window.addEventListener('resize', sync);
-          sync();
-        })();
-      </script>
-      <p style="text-align:center;margin-top:28px">
-        <a href="/blog/?cat=<?= h(rawurlencode('海洋葬(海洋散骨)')) ?>" class="btn">海洋散骨レポート一覧はこちら</a>
-      </p>
-    </div>
-  </section>
-  <?php endif; ?>
-
+  <!-- 海洋散骨レポート（共通パーツ・福岡の記事＋地域を問わない記事のみ表示） -->
+  <?php
+    $br_region = 'fukuoka';
+    $br_title  = '福岡の海洋散骨レポート';
+    $br_lead   = '実際の海洋散骨の様子をブログでご紹介しています。当日の雰囲気づくりの参考にご覧ください。';
+    require __DIR__ . '/../../includes/blog-reports.php';
+  ?>
 
   <!-- 海へ還る、あたらしいお見送りのかたち。（TOPと共通） -->
   <section class="fkc-fullbleed" style="background-image:url('/assets/img/top/fullbleed-bg.jpg?v=<?= h(asset_ver()) ?>')">
@@ -505,8 +478,8 @@ $kf_faq = [
         </div>
         <div class="card">
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">一部を手元に残す</h3>
-          <p style="font-size:.88rem;line-height:1.85">すべてを海に還す必要はありません。ひとつまみだけミニ骨壷やペンダントに納める方も多くいらっしゃいます（分骨5,500円）。</p>
-          <p style="margin-top:10px"><a href="/temoto-kuyou/" style="color:var(--green);font-weight:700;font-size:.9rem">お手元供養を見る →</a></p>
+          <p style="font-size:.88rem;line-height:1.85">墓じまいで取り出したご遺骨も、すべてを海に還す必要はありません。分け方は上の「すべてを海に還さなくても、かまいません」をご覧ください。</p>
+          <p style="margin-top:10px"><a href="#bunkotsu" style="color:var(--green);font-weight:700;font-size:.9rem">分け方の選択肢を見る →</a></p>
         </div>
       </div>
     </div>

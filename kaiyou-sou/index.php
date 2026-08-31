@@ -321,6 +321,15 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
     </div>
   </section>
 
+  <!-- 海洋散骨レポート（共通パーツ・鹿児島の記事＋地域を問わない記事のみ表示）
+       福岡ページにだけ置かれていたブロックを v0249 で共通化し、本体ページにも掲載した -->
+  <?php
+    $br_region = 'kagoshima';
+    $br_title  = '鹿児島の海洋散骨レポート';
+    $br_lead   = '錦江湾での海洋散骨の様子をブログでご紹介しています。当日の雰囲気づくりの参考にご覧ください。';
+    require __DIR__ . '/../includes/blog-reports.php';
+  ?>
+
   <!-- お申込みの流れ（画像付き） -->
   <section class="section" style="background:var(--white)">
     <div class="container" style="max-width:860px">
