@@ -165,7 +165,8 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
     <div class="container" style="max-width:860px">
       <h2 style="text-align:center;margin-bottom:8px">墓じまい後のご遺骨には、いくつかの行き先があります</h2>
       <p style="text-align:center;max-width:680px;margin:0 auto 24px;line-height:2;font-size:.94rem">どれか一つに今決める必要はありません。<strong>「大部分を散骨して、少しだけ手元に残す」という組み合わせ</strong>もできます。</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <?php /* v0257：行き先を4つに増やしたため minmax を 320px にしてPCは2×2。SPは従来どおり1列。 */ ?>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
         <div class="card">
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">博多湾での海洋散骨</h3>
           <p style="font-size:.88rem;line-height:1.85">姪浜から出港する合同海洋葬（148,500円〜）のほか、おまかせの委託散骨（54,450円〜）にも対応。福岡の海に還すご供養です。</p>
@@ -180,6 +181,11 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">納骨先へのご納骨・樹木葬</h3>
           <p style="font-size:.88rem;line-height:1.85">永代供養墓・納骨堂・樹木葬など、お参りできる場所を残す選択肢。受け入れ先探しからご相談いただけます。</p>
           <p style="margin-top:10px"><a href="/teien-sou/" style="color:var(--green);font-weight:700;font-size:.9rem">樹木葬を見る →</a></p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">一部を寺院・神社に納めて、残りを散骨</h3>
+          <p style="font-size:.88rem;line-height:1.85">提携する寺院・神社の合祀墓へ一部を納め、残りを海へお還しします。年間管理費は不要、宗教・宗派も問いません。福岡県内の提携先は9か所です。</p>
+          <p style="margin-top:10px"><a href="/teraumi/" style="color:var(--green);font-weight:700;font-size:.9rem">寺院納骨＋海洋散骨（teraumi）を見る →</a></p>
         </div>
       </div>
       <div style="max-width:600px;margin:24px auto 0;background:#fff;border:1.5px solid #cfe0d8;border-radius:14px;padding:20px 22px;text-align:center">

@@ -31,3 +31,8 @@ docker-compose.local.yml
 _to_delete/
 _needed_images.txt
 en-lp-full-*.zip
+
+# レビュー資料・計画書（リポジトリには残すが、公開コンテナには入れない）
+_review/
+データ作業フォルダ/
+*.md.zip

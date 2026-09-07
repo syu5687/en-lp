@@ -235,9 +235,18 @@ require __DIR__ . '/head.php';
 
   <?php if (!empty($service['shiryou'])) require __DIR__ . '/shiryou-cta.php'; ?>
 
-  <?php if (!empty($service['cross'])): $__cx = $service['cross']; ?>
+  <?php
+    /* v0257：'cross' は 1件（連想配列）でも複数件（連想配列の配列）でも書けるようにした。
+       既存のサービスページは1件のまま動く。見た目・マークアップは従来と同一。 */
+    $__cxs = [];
+    if (!empty($service['cross'])) {
+      $__cxs = isset($service['cross']['title']) ? [$service['cross']] : $service['cross'];
+    }
+  ?>
+  <?php if ($__cxs): ?>
   <section class="section" style="padding-top:0">
-    <div class="container" style="max-width:820px">
+    <div class="container" style="max-width:820px;display:grid;gap:14px">
+      <?php foreach ($__cxs as $__cx): ?>
       <div style="background:var(--sea-light,#e3f0f7);border-radius:14px;padding:22px 26px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between">
         <div style="flex:1;min-width:240px">
           <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px"><?= h($__cx['title']) ?></p>
@@ -245,6 +254,7 @@ require __DIR__ . '/head.php';
         </div>
         <a href="<?= h($__cx['href']) ?>" class="btn btn--outline" style="flex:none"><?= h($__cx['label']) ?></a>
       </div>
+      <?php endforeach; ?>
     </div>
   </section>
   <?php endif; ?>

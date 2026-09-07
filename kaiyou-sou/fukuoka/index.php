@@ -248,6 +248,16 @@ $kf_faq = [
             <a href="/jewelry-reform/">メモリアルジュエリーを見る →</a>
           </div>
         </div>
+        <?php /* v0257：分け方の4つ目として寺院納骨（teraumi）を追加。既存の .card をそのまま使う。
+                 福岡県内の提携先は9か所（/teraumi/ の $tr_temples と同じ数字）。 */ ?>
+        <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+          <img src="/assets/img/teraumi-noukotsu-bukuro.jpg?v=<?= h(asset_ver()) ?>" alt="寺院・神社へ納めるご遺骨の納骨袋。手のひらに収まる大きさ" width="900" height="600" loading="lazy">
+          <div style="padding:16px 18px 18px;flex:1;display:flex;flex-direction:column">
+            <h3>一部をお寺や神社に</h3>
+            <p style="flex:1">提携する寺院・神社の合祀墓へ一部を納めます。年間管理費は不要、宗教・宗派も問いません。福岡県内の提携先は9か所です。</p>
+            <a href="/teraumi/">寺院納骨＋海洋散骨（teraumi）を見る →</a>
+          </div>
+        </div>
       </div>
       <p style="text-align:center;margin-top:16px;font-size:.9rem;color:var(--text-light)">
         お持ち込みのミニ骨壷・ペンダントへの分骨は <strong style="color:var(--green)">5,500円（税込）</strong>。
@@ -256,7 +266,8 @@ $kf_faq = [
     </div>
   </section>
   <style>
-    .kf-bk{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    /* v0257：分け方が4つになったのでPCは2×2。860px以下は従来どおり1列。 */
+    .kf-bk{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     .kf-bk img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
     .kf-bk h3{font-size:1rem;color:var(--green-mid);margin-bottom:6px}
     .kf-bk p{font-size:.88rem;line-height:1.85}

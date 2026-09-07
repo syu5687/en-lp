@@ -62,7 +62,7 @@ require __DIR__ . '/../../includes/head.php';
         </div>
         <div class="card">
           <h3 style="color:var(--green-mid);font-size:1rem;margin-bottom:8px">一部を納骨先へ移す場合</h3>
-          <p style="font-size:.9rem;line-height:1.9">「大部分を散骨し、一部を永代供養墓へ」という組み合わせでは、納骨する分について<strong>改葬許可証が必要</strong>です。申請先は「今のお墓がある市区町村」で、受入証明書と埋蔵証明書を添えて申請します。書類の取り寄せから記入のご案内まで、オプション（25,000円〜）で代行できます。</p>
+          <p style="font-size:.9rem;line-height:1.9">「大部分を散骨し、一部を永代供養墓へ」という組み合わせでは、納骨する分について<strong>改葬許可証が必要</strong>です。申請先は「今のお墓がある市区町村」で、受入証明書と埋蔵証明書を添えて申請します。書類の取り寄せから記入のご案内まで、オプション（25,000円〜）で代行できます。<br><a href="/teraumi/" style="color:var(--green);font-weight:700">一部を寺院・神社へ納める方法を見る →</a></p>
         </div>
         <div class="card">
           <h3 style="color:var(--green-mid);font-size:1rem;margin-bottom:8px">お寺の墓地の場合</h3>
@@ -199,7 +199,8 @@ require __DIR__ . '/../../includes/head.php';
   <section class="section">
     <div class="container" style="max-width:860px">
       <h2 style="text-align:center;margin-bottom:22px">あわせてご覧ください</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <?php /* v0257：関連ページを4つに増やしたため minmax を 320px にしてPCは2×2。SPは従来どおり1列。 */ ?>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
         <div class="card">
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">お墓じまい</h3>
           <p style="font-size:.88rem;line-height:1.85">撤去工事の実例、費用が変わる条件、離島対応など、墓じまいそのものの詳細はこちらです。</p>
@@ -214,6 +215,11 @@ require __DIR__ . '/../../includes/head.php';
           <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">粉骨・洗骨</h3>
           <p style="font-size:.88rem;line-height:1.85">散骨の前提となる工程です。カビや土が混じったご遺骨の洗浄・乾燥もこちらで行います。</p>
           <p style="margin-top:10px"><a href="/powder-cleaning/" style="color:var(--green);font-weight:700;font-size:.9rem">粉骨・洗骨のページへ →</a></p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:.98rem;color:var(--green-mid);margin-bottom:6px">寺院納骨＋海洋散骨（teraumi）</h3>
+          <p style="font-size:.88rem;line-height:1.85">すべてを散骨するのではなく、一部を提携する寺院・神社の合祀墓へ納め、残りを海へお還しする方法です。年間管理費は不要、宗教・宗派も問いません。</p>
+          <p style="margin-top:10px"><a href="/teraumi/" style="color:var(--green);font-weight:700;font-size:.9rem">寺院納骨＋海洋散骨のページへ →</a></p>
         </div>
       </div>
     </div>

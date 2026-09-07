@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0253';
+const APP_VERSION = 'v20260713-0258';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
@@ -137,6 +137,11 @@ const SERVICES = [
   ['slug' => 'pet-kaiyou-sou',  'title' => 'ペット供養',        'price' => 'お問い合わせ'],
   ['slug' => 'ihinseiri',       'title' => '遺品整理',          'price' => 'お問合せ'],
   ['slug' => 'hikkoshi',        'title' => 'お墓のお引越し',    'price' => 'ご相談無料'],
+  /* teraumi（寺院納骨＋海洋散骨）。旧 teraumi.com を統合したもの。
+     ・並びは最後。ナビ／フッター／問い合わせ種別／/kuyou/／sitemap／OfferCatalog に自動反映される。
+     ・表記は必ず「サービス内容 → ブランド名」の順。ブランド名だけの見出し・カードは作らない。
+     ・トップページ（index.php）のサービスカードには追加しない（主力サービス化を避けるため）。 */
+  ['slug' => 'teraumi',         'title' => '寺院納骨＋海洋散骨（teraumi）', 'price' => '270,000円（税込）'],
 ];
 
 // ---- ブログ・お知らせのカテゴリ（管理画面の登録候補・現行サイト準拠）----

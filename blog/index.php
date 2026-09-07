@@ -59,15 +59,23 @@ if ($blog_id !== '') {
   $page_desc      = mb_strimwidth(preg_replace('/\s+/', ' ', (string)($post['body'] ?? '')), 0, 110, '…');
   $page_canonical = SITE['url'] . '/blog/?id=' . rawurlencode($blog_id);
 
+  /* 構造化データ。v0258で image と dateModified を追加。
+     ・image … AI検索・検索結果でのサムネイル表示に使われる。記事に画像がある時だけ入れる
+     ・dateModified … 更新日。記事側に updated があればそれを、無ければ公開日を入れる
+       （日付そのものは創作せず、持っている値だけを出す） */
+  $article_img = trim((string)($post['image'] ?? ''));
+  if ($article_img !== '' && $article_img[0] === '/') $article_img = SITE['url'] . $article_img;
   $article_ld = [
     '@context'         => 'https://schema.org',
     '@type'            => 'Article',
     'headline'         => $post['title'] ?? '',
     'datePublished'    => $post['date'] ?? '',
+    'dateModified'     => $post['updated'] ?? ($post['date'] ?? ''),
     'author'           => ['@type' => 'Organization', 'name' => SITE['name']],
     'publisher'        => ['@type' => 'Organization', 'name' => SITE['name'], 'url' => SITE['url'] . '/'],
     'mainEntityOfPage' => $page_canonical,
   ];
+  if ($article_img !== '' && strpos($article_img, 'http') === 0) $article_ld['image'] = $article_img;
 
   require __DIR__ . '/../includes/head.php';
 

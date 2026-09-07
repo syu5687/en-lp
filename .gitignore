@@ -1,0 +1,28 @@
+# ==========================================================
+#  en-lp（en1150.co.jp）— Git 追跡から外すもの
+#  ※ Docker イメージに入れないものは .dockerignore 側で指定
+# ==========================================================
+
+# macOS / エディタ
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# 退避・作業用（device_bash は削除ができないため、消したいものはここへ移す運用）
+_to_delete/
+_needed_images.txt
+en-lp-full-*.zip
+
+# 一時ファイル
+*.bak
+*.tmp
+*.log
+
+# 依存関係・ローカル環境
+node_modules/
+.env
+.env.local

@@ -2228,6 +2228,14 @@
         <li><a href="https://en1150.co.jp/teien-sou/" style="color:inherit;text-decoration:underline">樹木葬（庭苑葬）</a></li>
       </ul>
     </div>
+    <?php /* v0257：墓じまい後の行き先の一つとして寺院納骨（teraumi）を追加。既存の .case-card を流用。
+             旧 teraumi.com の統合にともなう導線で、teraumi専用のUIは作らない。 */ ?>
+    <div class="case-card">
+      <h3 class="case-title">お寺や神社にも納めておきたい方は… 寺院納骨＋海洋散骨</h3>
+      <ul class="case-actions">
+        <li><a href="https://en1150.co.jp/teraumi/" style="color:inherit;text-decoration:underline">寺院納骨＋海洋散骨（teraumi・270,000円 税込）</a>　— ご遺骨の一部を提携する寺院・神社の合祀墓へ、残りを海へ。年間管理費は不要、宗教・宗派も問いません（提携先11都府県・28か所）</li>
+      </ul>
+    </div>
     <p style="text-align:center;font-size:.9rem;margin-top:18px">墓じまいの撤去工事から、粉骨・海洋散骨・お手元供養まで——<strong>鹿児島で一社完結（ワンストップ）</strong>できるのが縁の強みです。</p>
     <p style="text-align:center;font-size:.95rem;margin-top:12px"><a href="/grave/sankotsu/" style="color:var(--green,#1c6b52);font-weight:700">墓じまい後の散骨について、手続き・期間・費用をまとめて見る →</a></p>
 

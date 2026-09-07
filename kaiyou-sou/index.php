@@ -181,7 +181,7 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
         実際に、そのように分けて見送られるご家族が多くいらっしゃいます。
       </p>
       <div class="ks-bk-src">パウダー化したご遺骨を、ご希望の分だけお分けします（分骨）</div>
-      <div class="ks-bk-arrows" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span></div>
+      <div class="ks-bk-arrows" aria-hidden="true"><span>↓</span><span>↓</span></div>
       <div class="ks-bk-grid">
         <div class="ks-bk">
           <img src="/kaiyou-sou/images/ks-bk-kaiyou.jpg?v=<?= h(asset_ver()) ?>" alt="船上に用意された献花とご遺骨の桐箱。海洋散骨セレモニーの準備" width="1000" height="667" loading="lazy">
@@ -209,6 +209,18 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
             <a href="/jewelry-reform/" class="ks-bk__link">メモリアルジュエリーを見る →</a>
           </div>
         </div>
+        <?php /* v0257：分け方の4つ目として寺院納骨（teraumi）を追加。旧 teraumi.com の統合にともなう導線。
+                 既存の .ks-bk カードをそのまま使い、teraumi専用のUIは作らない。写真は旧teraumi.comの
+                 自社素材（実際の納骨袋）。カード1の「すべてを海洋散骨に」を弱く見せる書き方はしない。 */ ?>
+        <div class="ks-bk">
+          <img src="/assets/img/teraumi-noukotsu-bukuro.jpg?v=<?= h(asset_ver()) ?>" alt="寺院・神社へ納めるご遺骨の納骨袋。手のひらに収まる大きさ" width="900" height="600" loading="lazy">
+          <div class="ks-bk__body">
+            <div class="ks-bk__head">4</div>
+            <h3>大部分を散骨し、<br>一部をお寺や神社に</h3>
+            <p>提携する寺院・神社の合祀墓へ、パウダー化したご遺骨の一部を納めます。年間管理費はかからず、宗教・宗派も問いません。提携先は11都府県・28か所。粉骨・納骨・委託海洋葬を含めて270,000円（税込）です。</p>
+            <a href="/teraumi/" class="ks-bk__link">寺院納骨＋海洋散骨（teraumi）を見る →</a>
+          </div>
+        </div>
       </div>
       <div style="max-width:760px;margin:26px auto 0;background:#fff;border:1px solid var(--border);border-left:4px solid var(--green);border-radius:12px;padding:18px 22px">
         <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">迷ったら、少量を残しておくことをおすすめしています</p>
@@ -221,8 +233,9 @@ $ks_img = static fn(string $f): string => '/kaiyou-sou/images/' . $f . '?v=' . a
   </section>
   <style>
     .ks-bk-src{max-width:560px;margin:0 auto;background:var(--green-mid,#12597a);color:#fff;text-align:center;font-weight:700;font-size:.95rem;padding:12px 18px;border-radius:12px}
-    .ks-bk-arrows{display:grid;grid-template-columns:repeat(3,1fr);max-width:860px;margin:6px auto;text-align:center;color:var(--green-mid);font-size:1.2rem;font-weight:700}
-    .ks-bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .ks-bk-arrows{display:grid;grid-template-columns:repeat(2,1fr);margin:6px auto;text-align:center;color:var(--green-mid);font-size:1.2rem;font-weight:700}
+    /* v0257：分け方が4つになったのでPCは2×2。SPは従来どおり1列。 */
+    .ks-bk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     .ks-bk{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
     .ks-bk>img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
     .ks-bk__body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1}

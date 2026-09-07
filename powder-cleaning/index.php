@@ -51,6 +51,7 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">散骨・樹木葬の前にご遺骨をパウダー化したい方</li>
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">お墓じまいでご遺骨の湿気・カビ・汚れが気になる方</li>
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">お手元供養のためコンパクトに整えたい方</li>
+        <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">粉骨したご遺骨の一部を、お寺や神社に納めたい方（<a href="/teraumi/" style="color:var(--green);font-weight:700">寺院納骨＋海洋散骨（teraumi）</a>）</li>
         <li style="padding:14px 18px;background:var(--cream);border-radius:10px;border-left:4px solid var(--green)">遠方にお住まいの方（ご遺骨の郵送で全国からご利用いただけます）</li>
       </ul>
     </div>
@@ -377,7 +378,7 @@ $pc_img = static fn(string $f): string => '/powder-cleaning/images/' . $f . '?v=
       ['q' => '粉骨後のご遺骨はどのような状態で戻ってきますか？',
        'a' => '真空パックで密封し、桐箱に納めてお返しします。湿気からご遺骨を守れるため、ご自宅での保管も安心です。散骨用の水溶性袋など、その後のご供養に合わせた仕上げにも対応します。'],
       ['q' => '分骨して一部だけ手元に残すことはできますか？',
-       'a' => 'できます。パウダー化したご遺骨の一部をミニ骨壷やメモリアルジュエリーに、残りを散骨・納骨に、という形も承ります。ご希望をお聞かせください。'],
+       'a' => 'できます。パウダー化したご遺骨の一部をミニ骨壷やメモリアルジュエリーに、残りを散骨・納骨に、という形も承ります。一部を提携する寺院・神社へ納める「寺院納骨＋海洋散骨（teraumi）」もございます。ご希望をお聞かせください。'],
       ['q' => '費用はいくらですか？あとから追加料金はありませんか？',
        'a' => '粉骨24,200円〜・洗骨（クリーニング）27,500円〜（いずれも税込）です。ご遺骨の状態や骨壺の大きさにより異なる場合がありますので、無料のお見積りで金額を確定します。お見積り後の追加料金はありません。'],
       ['q' => '粉骨だけ頼んで、あとから散骨をお願いすることもできますか？',
