@@ -1,4 +1,4 @@
-<!-- Release: v2026090801 -->
+<!-- Release: v2026090802 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026090801">
+<meta name="version" content="v2026090802">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026090801">
-<script src="script.js?v=v2026090801" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026090802">
+<script src="script.js?v=v2026090802" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -97,7 +97,7 @@
 <div class="phone">
 <a href="tel:0998013637">&#9742; 099-801-3637</a><small>&#26376;&#12316;&#22303; 9:00&#12316;18:00</small>
 </div>
-<nav aria-label="&#12506;&#12540;&#12472;&#20869;&#12513;&#12491;&#12517;&#12540;"><a href="#about">&#28023;&#27915;&#25955;&#39592;&#12392;&#12399;</a><a href="#reasons">&#36984;&#12400;&#12428;&#12427;&#29702;&#30001;</a><a href="#plans">&#26009;&#37329;&#12503;&#12521;&#12531;</a><a href="#schedule">&#23455;&#26045;&#20104;&#23450;&#26085;</a><a href="#reports">&#25955;&#39592;&#12524;&#12509;&#12540;&#12488;</a><a href="#faq">&#12424;&#12367;&#12354;&#12427;&#12372;&#36074;&#21839;</a><a class="header-contact" href="https://en1150.co.jp/contact/?service=%E6%B5%B7%E6%B4%8B%E8%91%AC">&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;</a></nav>
+<nav aria-label="&#12506;&#12540;&#12472;&#20869;&#12513;&#12491;&#12517;&#12540;"><a href="#about">&#28023;&#27915;&#25955;&#39592;&#12392;&#12399;</a><a href="#reasons">&#36984;&#12400;&#12428;&#12427;&#29702;&#30001;</a><a href="#plans">&#26009;&#37329;&#12503;&#12521;&#12531;</a><a href="#schedule">&#23455;&#26045;&#20104;&#23450;&#26085;</a><a href="#reports">&#25955;&#39592;&#12524;&#12509;&#12540;&#12488;</a><a href="#faq">&#12424;&#12367;&#12354;&#12427;&#12372;&#36074;&#21839;</a><a class="header-contact form-jump" href="#contact-form-section">&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;</a></nav>
 </div></header>
 <main id="main"><section class="hero" aria-labelledby="hero-title"><div class="hero-inner">
 <div class="hero-copy">
@@ -143,17 +143,17 @@
 <p>&#12372;&#36986;&#39592;&#12434;&#12362;&#38928;&#12363;&#12426;&#12375;&#12289;<br>&#12473;&#12479;&#12483;&#12501;&#12364;&#24515;&#12434;&#36796;&#12417;&#12390;&#12362;&#36865;&#12426;&#12375;&#12414;&#12377;&#12290;</p>
 <p class="price">54,450<span>&#20870;&#12316;<small>&#65288;&#31246;&#36796;&#30446;&#23433;&#65289;</small></span></p>
 <p class="plan-note">&#26399;&#38291;&#38480;&#23450;&#20385;&#26684;&#65295;&#36890;&#24120;66,000&#20870;&#65288;&#31246;&#36796;&#65289;</p>
-<a href="https://en1150.co.jp/contact/?service=%E6%B5%B7%E6%B4%8B%E8%91%AC" class="plan-link">&#22996;&#35351;&#25955;&#39592;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12377;&#12427; <span>&rarr;</span></a></article><article class="plan"><img src="assets/plan-goudou.jpg" alt="&#21512;&#21516;&#28023;&#27915;&#33900;&#12398;&#20844;&#24335;&#25522;&#36617;&#20889;&#30495;" width="1200" height="800" loading="lazy"><p class="eyebrow">&#33337;&#12395;&#20055;&#12387;&#12390;&#12362;&#35211;&#36865;&#12426;&#12375;&#12383;&#12356;&#26041;&#12408;</p>
+<a href="#contact-form-section" class="plan-link form-jump" data-form-category="委託散骨">&#22996;&#35351;&#25955;&#39592;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12377;&#12427; <span>&rarr;</span></a></article><article class="plan"><img src="assets/plan-goudou.jpg" alt="&#21512;&#21516;&#28023;&#27915;&#33900;&#12398;&#20844;&#24335;&#25522;&#36617;&#20889;&#30495;" width="1200" height="800" loading="lazy"><p class="eyebrow">&#33337;&#12395;&#20055;&#12387;&#12390;&#12362;&#35211;&#36865;&#12426;&#12375;&#12383;&#12356;&#26041;&#12408;</p>
 <h3>&#21512;&#21516;&#25955;&#39592;</h3>
 <p>&#20182;&#12398;&#12372;&#23478;&#26063;&#12392;&#20055;&#12426;&#21512;&#12431;&#12379;&#12289;<br>&#37670;&#27743;&#28286;&#12391;&#12362;&#35211;&#36865;&#12426;&#12356;&#12383;&#12384;&#12367;&#12503;&#12521;&#12531;&#12391;&#12377;&#12290;</p>
 <p class="price">148,500<span>&#20870;&#12316;<small>&#65288;&#31246;&#36796;&#30446;&#23433;&#65289;</small></span></p>
 <p class="plan-note">&#35079;&#25968;&#12398;&#12372;&#23478;&#26063;&#12391;&#20055;&#12426;&#21512;&#12431;&#12379;</p>
-<a href="https://en1150.co.jp/contact/?service=%E6%B5%B7%E6%B4%8B%E8%91%AC" class="plan-link">&#21512;&#21516;&#25955;&#39592;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12377;&#12427; <span>&rarr;</span></a></article><article class="plan"><img src="assets/plan-charter.jpg" alt="&#12481;&#12515;&#12540;&#12479;&#12540;&#28023;&#27915;&#33900;&#12398;&#20844;&#24335;&#25522;&#36617;&#20889;&#30495;" width="1200" height="800" loading="lazy"><p class="eyebrow">&#12372;&#23478;&#26063;&#12384;&#12369;&#12391;&#12422;&#12387;&#12367;&#12426;&#12392;</p>
+<a href="#contact-form-section" class="plan-link form-jump" data-form-category="合同散骨">&#21512;&#21516;&#25955;&#39592;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12377;&#12427; <span>&rarr;</span></a></article><article class="plan"><img src="assets/plan-charter.jpg" alt="&#12481;&#12515;&#12540;&#12479;&#12540;&#28023;&#27915;&#33900;&#12398;&#20844;&#24335;&#25522;&#36617;&#20889;&#30495;" width="1200" height="800" loading="lazy"><p class="eyebrow">&#12372;&#23478;&#26063;&#12384;&#12369;&#12391;&#12422;&#12387;&#12367;&#12426;&#12392;</p>
 <h3>&#36024;&#20999;&#25955;&#39592;</h3>
 <p>&#33337;&#12434;&#36024;&#12375;&#20999;&#12426;&#12289;&#35242;&#12375;&#12356;&#26041;&#12384;&#12369;&#12391;&#12290;<br>&#12372;&#23478;&#26063;&#12425;&#12375;&#12356;&#12362;&#35211;&#36865;&#12426;&#12434;&#12290;</p>
 <p class="price">176,000<span>&#20870;&#12316;<small>&#65288;&#31246;&#36796;&#30446;&#23433;&#65289;</small></span></p>
 <p class="plan-note">&#12372;&#23478;&#26063;&#12539;&#12372;&#21451;&#20154;&#12384;&#12369;&#12398;&#36024;&#20999;</p>
-<a href="https://en1150.co.jp/contact/?service=%E6%B5%B7%E6%B4%8B%E8%91%AC" class="plan-link">&#36024;&#20999;&#25955;&#39592;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12377;&#12427; <span>&rarr;</span></a></article>
+<a href="#contact-form-section" class="plan-link form-jump" data-form-category="貸切散骨">&#36024;&#20999;&#25955;&#39592;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12377;&#12427; <span>&rarr;</span></a></article>
 </div>
 <p class="price-note">&#34920;&#31034;&#20385;&#26684;&#12399;&#31246;&#36796;&#30446;&#23433;&#12391;&#12377;&#12290;&#12372;&#36986;&#39592;&#12398;&#29366;&#24907;&#12539;&#12372;&#24076;&#26395;&#20869;&#23481;&#12394;&#12393;&#12434;&#12358;&#12363;&#12364;&#12356;&#12289;&#28961;&#26009;&#12391;&#12362;&#35211;&#31309;&#12426;&#12375;&#12414;&#12377;&#12290;<br>&#22996;&#35351;&#25955;&#39592;&#12398;&#26399;&#38291;&#38480;&#23450;&#20385;&#26684;&#12399;&#12289;&#36969;&#29992;&#26465;&#20214;&#12539;&#32066;&#20102;&#26178;&#26399;&#12434;&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;&#12367;&#12384;&#12373;&#12356;&#12290;</p>
 <div class="service-band">
@@ -260,8 +260,30 @@
 </article>
 </section>
 <div class="wrap"><div class="ctas">
-<a class="button navy" href="https://en1150.co.jp/contact/?service=%E8%B3%87%E6%96%99%E8%AB%8B%E6%B1%82%EF%BC%88%E7%84%A1%E6%96%99%EF%BC%89"><svg class="icon" viewbox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"></rect><path d="m2 5 10 8L22 5"></path></svg><span>&#36039;&#26009;&#35531;&#27714;&#12539;&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;<small>&#12372;&#30456;&#35527;&#12539;&#36039;&#26009;&#35531;&#27714;&#12399;&#28961;&#26009;&#12391;&#12377;</small></span><b>&#12297;</b></a><a class="button green" href="https://line.me/R/ti/p/%40bkx9825r"><span class="line-mark">LINE</span><span>LINE&#12391;&#30456;&#35527;&#12377;&#12427;<small>&#12362;&#27671;&#36605;&#12395;&#12372;&#30456;&#35527;&#12367;&#12384;&#12373;&#12356;</small></span><b>&#12297;</b></a>
+<a class="button navy form-jump" href="#contact-form-section" data-form-category="資料請求（無料）"><svg class="icon" viewbox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"></rect><path d="m2 5 10 8L22 5"></path></svg><span>&#36039;&#26009;&#35531;&#27714;&#12539;&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;<small>&#12372;&#30456;&#35527;&#12539;&#36039;&#26009;&#35531;&#27714;&#12399;&#28961;&#26009;&#12391;&#12377;</small></span><b>&#12297;</b></a><a class="button green" href="https://line.me/R/ti/p/%40bkx9825r"><span class="line-mark">LINE</span><span>LINE&#12391;&#30456;&#35527;&#12377;&#12427;<small>&#12362;&#27671;&#36605;&#12395;&#12372;&#30456;&#35527;&#12367;&#12384;&#12373;&#12356;</small></span><b>&#12297;</b></a>
 </div></div></section>
+<section id="contact-form-section" class="lp-contact" aria-labelledby="lp-contact-title"><div class="wrap narrow">
+<p class="section-label">ご相談・資料請求は無料です</p>
+<h2 id="lp-contact-title">鹿児島の海洋散骨について<br class="sp-only">相談する</h2>
+<p class="lp-contact-lead">まだ決めていない段階でも大丈夫です。分からないことや気になることを、そのままお聞かせください。</p>
+<form id="lp-contact-form" class="lp-contact-form" data-endpoint="<?= htmlspecialchars(CONTACT_WORKER_URL, ENT_QUOTES, 'UTF-8') ?>" novalidate>
+<div class="hp-field" aria-hidden="true"><label>ウェブサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="lp-form-grid">
+<label><span class="lp-label-title">お名前 <span class="req">必須</span></span><input type="text" name="name" autocomplete="name" maxlength="100" required></label>
+<label><span class="lp-label-title">メールアドレス <span class="req">必須</span></span><input type="email" name="email" autocomplete="email" inputmode="email" maxlength="200" required></label>
+<label><span class="lp-label-title">電話番号 <span class="optional">任意</span></span><input type="tel" name="tel" autocomplete="tel" inputmode="tel" maxlength="40"></label>
+<label><span class="lp-label-title">ご相談内容 <span class="req">必須</span></span><select name="category" required>
+<option value="">選択してください</option><option value="海洋散骨">海洋散骨について</option><option value="委託散骨">委託散骨について</option><option value="合同散骨">合同散骨について</option><option value="貸切散骨">貸切散骨について</option><option value="粉骨・六価クロム対策">粉骨・六価クロム対策について</option><option value="手元供養・寺院納骨">手元供養・寺院納骨について</option><option value="資料請求（無料）">資料請求（無料PDF）</option><option value="その他">その他</option>
+</select></label>
+</div>
+<label class="lp-form-message"><span class="lp-label-title">お問い合わせ内容 <span class="req">必須</span></span><textarea name="message" rows="5" maxlength="8000" placeholder="ご希望の散骨方法や時期、気になっていることなどをご記入ください。" required></textarea></label>
+<label class="lp-form-consent"><input type="checkbox" name="consent" value="1" required><span><a href="https://en1150.co.jp/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します <span class="req">必須</span></span></label>
+<button type="submit" class="lp-form-submit" id="lp-submit-btn">無料で相談・資料請求する <span>〉</span></button>
+<p class="lp-form-note">送信後、受付確認メールをお送りします。通常2営業日以内に担当者よりご連絡します。</p>
+<div id="lp-form-msg" class="lp-form-result" role="status" aria-live="polite" tabindex="-1"></div>
+</form>
+<div class="lp-contact-alt"><p>お急ぎの場合はお電話でも承ります</p><a href="tel:0998013637">☎ 099-801-3637</a><small>月〜土 9:00〜18:00</small></div>
+</div></section>
 <section id="reasons" class="reasons-section wrap"><p class="section-label">&#31169;&#12383;&#12385;&#12364;&#22823;&#20999;&#12395;&#12375;&#12390;&#12356;&#12427;&#12371;&#12392;</p>
 <h2>&#32257;&#12364;&#36984;&#12400;&#12428;&#12427;&#65301;&#12388;&#12398;&#29702;&#30001;</h2>
 <div class="reasons">
@@ -326,7 +348,7 @@
 <h2>&#22823;&#20999;&#12394;&#26041;&#12398;&#12362;&#35211;&#36865;&#12426;&#12434;&#12289;<br>&#19968;&#32210;&#12395;&#32771;&#12360;&#12414;&#12379;&#12435;&#12363;&#12290;</h2>
 <p>&#12372;&#30456;&#35527;&#12384;&#12369;&#12391;&#12418;&#12289;&#12362;&#27671;&#36605;&#12395;&#12290;<br>&#36039;&#26009;&#35531;&#27714;&#12539;&#12362;&#35211;&#31309;&#12426;&#12399;&#28961;&#26009;&#12391;&#12377;&#12290;</p>
 <div class="ctas">
-<a class="button navy" href="https://en1150.co.jp/contact/?service=%E8%B3%87%E6%96%99%E8%AB%8B%E6%B1%82%EF%BC%88%E7%84%A1%E6%96%99%EF%BC%89"><svg class="icon" viewbox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"></rect><path d="m2 5 10 8L22 5"></path></svg><span>&#36039;&#26009;&#35531;&#27714;&#12539;&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;<small>&#12372;&#30456;&#35527;&#12539;&#36039;&#26009;&#35531;&#27714;&#12399;&#28961;&#26009;&#12391;&#12377;</small></span><b>&#12297;</b></a><a class="button green" href="https://line.me/R/ti/p/%40bkx9825r"><span class="line-mark">LINE</span><span>LINE&#12391;&#30456;&#35527;&#12377;&#12427;<small>&#12362;&#27671;&#36605;&#12395;&#12372;&#30456;&#35527;&#12367;&#12384;&#12373;&#12356;</small></span><b>&#12297;</b></a>
+<a class="button navy form-jump" href="#contact-form-section" data-form-category="資料請求（無料）"><svg class="icon" viewbox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"></rect><path d="m2 5 10 8L22 5"></path></svg><span>&#36039;&#26009;&#35531;&#27714;&#12539;&#12362;&#21839;&#12356;&#21512;&#12431;&#12379;<small>&#12372;&#30456;&#35527;&#12539;&#36039;&#26009;&#35531;&#27714;&#12399;&#28961;&#26009;&#12391;&#12377;</small></span><b>&#12297;</b></a><a class="button green" href="https://line.me/R/ti/p/%40bkx9825r"><span class="line-mark">LINE</span><span>LINE&#12391;&#30456;&#35527;&#12377;&#12427;<small>&#12362;&#27671;&#36605;&#12395;&#12372;&#30456;&#35527;&#12367;&#12384;&#12373;&#12356;</small></span><b>&#12297;</b></a>
 </div>
 <p class="final-phone"><a href="tel:0998013637">&#9742; 099-801-3637</a><small>&#26376;&#12316;&#22303; 9:00&#12316;18:00</small></p>
 </div></section></main>
@@ -344,7 +366,7 @@
 </div>
 <p class="copyright">&copy; &#26377;&#38480;&#20250;&#31038; &#32257;</p>
 </footer><div class="mobile-cta">
-<a href="https://en1150.co.jp/contact/?service=%E8%B3%87%E6%96%99%E8%AB%8B%E6%B1%82%EF%BC%88%E7%84%A1%E6%96%99%EF%BC%89">&#36039;&#26009;&#35531;&#27714;&#12539;&#12372;&#30456;&#35527;</a><a href="https://line.me/R/ti/p/%40bkx9825r">LINE&#12391;&#30456;&#35527;</a>
+<a href="#contact-form-section" class="form-jump" data-form-category="資料請求（無料）">&#36039;&#26009;&#35531;&#27714;&#12539;&#12372;&#30456;&#35527;</a><a href="https://line.me/R/ti/p/%40bkx9825r">LINE&#12391;&#30456;&#35527;</a>
 </div>
 </body>
 </html>
