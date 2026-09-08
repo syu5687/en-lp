@@ -1,4 +1,4 @@
-/* Release: v2026090803 — in-page navigation enhancement. */
+/* Release: v2026090804 — in-page navigation enhancement. */
 'use strict';
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', () => {

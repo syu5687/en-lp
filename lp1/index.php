@@ -1,4 +1,4 @@
-<!-- Release: v2026090803 -->
+<!-- Release: v2026090804 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026090803">
+<meta name="version" content="v2026090804">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026090803">
-<script src="script.js?v=v2026090803" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026090804">
+<script src="script.js?v=v2026090804" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -288,6 +288,17 @@
 <label class="lp-form-consent"><input type="checkbox" name="consent" value="1" required><span><a href="https://en1150.co.jp/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します <span class="req">必須</span></span></label>
 <button type="submit" class="lp-form-submit" id="lp-submit-btn">無料で相談・資料請求する <span>〉</span></button>
 <p class="lp-form-note">送信後、受付確認メールをお送りします。通常2営業日以内に担当者よりご連絡します。</p>
+<aside class="lp-security" aria-labelledby="lp-security-title">
+<div class="lp-security-intro">
+<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2"></path></svg>
+<div><h3 id="lp-security-title">個人情報を安全にお預かりします</h3><p>入力いただいた情報は、SSL/TLSによる暗号化通信で送信されます。</p></div>
+</div>
+<details><summary>当社ホームページ情報の管理・保護について</summary><div class="lp-security-detail">
+<p>当社ホームページでは、個人情報を送受信する際にSSL/TLSによる暗号化通信を使用しています。また、不正アクセスを防止するためのセキュリティ対策を行い、お預かりした個人情報の適切な管理・保護に努めています。</p>
+<p><strong>SSL/TLS</strong>は、インターネット上で情報を暗号化して送受信する技術です。</p>
+<p><strong>ファイアウォール</strong>は、コンピューターネットワークへの不正侵入を防ぐ仕組みです。</p>
+</div></details>
+</aside>
 <div id="lp-form-msg" class="lp-form-result" role="status" aria-live="polite" tabindex="-1"></div>
 </form>
 <div class="lp-contact-alt"><p>お急ぎの場合はお電話でも承ります</p><a href="tel:0998013637">☎ 099-801-3637</a><small>月〜土 9:00〜18:00</small></div>
