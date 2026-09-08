@@ -1,4 +1,4 @@
-/* Release: v2026090802 — in-page navigation enhancement. */
+/* Release: v2026090803 — in-page navigation enhancement. */
 'use strict';
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', () => {
@@ -20,11 +20,62 @@ if (lpForm) {
   const lpButton = document.getElementById('lp-submit-btn');
   const lpCategory = lpForm.querySelector('[name="category"]');
   const lpTextarea = lpForm.querySelector('[name="message"]');
+  const lpPostal = document.getElementById('lp-postal-fields');
+  const lpZip = lpForm.querySelector('[name="zip"]');
+  const lpAddress = lpForm.querySelector('[name="addr"]');
+  const lpZipStatus = document.getElementById('lp-zip-status');
+  const lpZipButton = document.getElementById('lp-zip-lookup');
+
+  const updatePostalFields = () => {
+    const needsPostal = lpCategory && lpCategory.value === '資料請求（無料）';
+    lpPostal.hidden = !needsPostal;
+    lpZip.required = needsPostal;
+    lpAddress.required = needsPostal;
+  };
+
+  const lookupPostalCode = () => {
+    const digits = (lpZip.value || '').replace(/[^0-9]/g, '');
+    if (digits.length !== 7) {
+      lpZipStatus.textContent = '郵便番号を7桁で入力してください。';
+      return;
+    }
+    lpZipStatus.textContent = '住所を確認しています…';
+    const callbackName = '__lpZip' + Date.now();
+    const script = document.createElement('script');
+    const cleanup = () => {
+      delete window[callbackName];
+      script.remove();
+    };
+    window[callbackName] = result => {
+      const item = result && result.results && result.results[0];
+      if (item) {
+        lpAddress.value = (item.address1 || '') + (item.address2 || '') + (item.address3 || '');
+        lpZipStatus.textContent = '住所を自動入力しました。番地以降をご確認ください。';
+        lpAddress.focus();
+      } else {
+        lpZipStatus.textContent = '住所が見つかりませんでした。直接ご入力ください。';
+      }
+      cleanup();
+    };
+    script.onerror = () => {
+      lpZipStatus.textContent = '住所を取得できませんでした。直接ご入力ください。';
+      cleanup();
+    };
+    script.src = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + digits + '&callback=' + callbackName;
+    document.head.appendChild(script);
+  };
+
+  lpCategory.addEventListener('change', updatePostalFields);
+  lpZipButton.addEventListener('click', lookupPostalCode);
+  lpZip.addEventListener('input', () => {
+    if ((lpZip.value || '').replace(/[^0-9]/g, '').length === 7) lookupPostalCode();
+  });
+  updatePostalFields();
 
   document.querySelectorAll('.form-jump').forEach(link => {
     link.addEventListener('click', () => {
       const selected = link.dataset.formCategory;
-      if (selected && lpCategory) lpCategory.value = selected;
+      if (selected && lpCategory) { lpCategory.value = selected; updatePostalFields(); }
       if (selected === '資料請求（無料）' && lpTextarea && !lpTextarea.value.trim()) {
         lpTextarea.value = '鹿児島・錦江湾の海洋散骨について、無料資料を希望します。';
       }

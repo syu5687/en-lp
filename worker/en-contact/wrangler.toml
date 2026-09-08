@@ -1,4 +1,4 @@
-# @version v0003 | 2026-08-26 | en1150.co.jp お問い合わせフォームWorker
+# @version v0004 | 2026-09-08 | en1150.co.jp お問い合わせフォームWorker
 name = "en-contact"             # → https://en-contact.mk-cbe.workers.dev
 main = "worker.js"
 compatibility_date = "2026-08-01"

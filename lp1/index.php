@@ -1,4 +1,4 @@
-<!-- Release: v2026090802 -->
+<!-- Release: v2026090803 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026090802">
+<meta name="version" content="v2026090803">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026090802">
-<script src="script.js?v=v2026090802" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026090803">
+<script src="script.js?v=v2026090803" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -276,6 +276,14 @@
 <option value="">選択してください</option><option value="海洋散骨">海洋散骨について</option><option value="委託散骨">委託散骨について</option><option value="合同散骨">合同散骨について</option><option value="貸切散骨">貸切散骨について</option><option value="粉骨・六価クロム対策">粉骨・六価クロム対策について</option><option value="手元供養・寺院納骨">手元供養・寺院納骨について</option><option value="資料請求（無料）">資料請求（無料PDF）</option><option value="その他">その他</option>
 </select></label>
 </div>
+<fieldset id="lp-postal-fields" class="lp-postal-fields" hidden>
+<legend>印刷資料の郵送先</legend>
+<p>資料請求を選んだ場合は、郵便番号と住所をご入力ください。</p>
+<div class="lp-postal-grid">
+<label><span class="lp-label-title">郵便番号 <span class="req">必須</span></span><span class="lp-zip-row"><input type="text" name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="8" placeholder="例：891-0150"><button type="button" id="lp-zip-lookup">住所を自動入力</button></span><small id="lp-zip-status" aria-live="polite"></small></label>
+<label><span class="lp-label-title">住所 <span class="req">必須</span></span><input type="text" name="addr" autocomplete="street-address" maxlength="300" placeholder="例：鹿児島県鹿児島市坂之上7丁目7-3"></label>
+</div>
+</fieldset>
 <label class="lp-form-message"><span class="lp-label-title">お問い合わせ内容 <span class="req">必須</span></span><textarea name="message" rows="5" maxlength="8000" placeholder="ご希望の散骨方法や時期、気になっていることなどをご記入ください。" required></textarea></label>
 <label class="lp-form-consent"><input type="checkbox" name="consent" value="1" required><span><a href="https://en1150.co.jp/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します <span class="req">必須</span></span></label>
 <button type="submit" class="lp-form-submit" id="lp-submit-btn">無料で相談・資料請求する <span>〉</span></button>

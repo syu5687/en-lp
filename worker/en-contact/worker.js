@@ -1,5 +1,5 @@
 /**
- * @version v0011 | 2026-08-27 | en1150.co.jp お問い合わせフォーム送信Worker（管理画面からの返信送信 /reply を追加） | Cloudflare Workers
+ * @version v0012 | 2026-09-08 | en1150.co.jp お問い合わせフォーム送信Worker（管理画面からの返信送信 /reply を追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -72,7 +72,7 @@ var BREVO_CONTACT = "https://api.brevo.com/v3/contacts";
 async function logInquiry(d) {
   const body = JSON.stringify({
     name: d.name || "", kana: d.kana || "", email: d.email || "", tel: d.tel || "",
-    category: d.category || "", message: d.message || "", goudou_date: d.goudou_date || "",
+    category: d.category || "", message: d.message || "", zip: d.zip || "", addr: d.addr || "", goudou_date: d.goudou_date || "",
     shindan: d.shindan || "", pref: d.pref || "", age_group: d.age_group || "", gender: d.gender || "",
     source: d.source || "",
   });

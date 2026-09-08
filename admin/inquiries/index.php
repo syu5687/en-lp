@@ -38,10 +38,10 @@ if (!empty($_GET['export'])) {
   header('Content-Disposition: attachment; filename="inquiries_' . date('Ymd') . '.csv"');
   echo "\xEF\xBB\xBF";
   $out = fopen('php://output', 'w');
-  fputcsv($out, ['受信日時', 'お名前', 'ふりがな', 'メール', '電話', '種別', 'お住まい', '年代', '性別', '合同散骨希望日', '診断結果', '送信元ページ', '内容', 'ステータス', '担当者', 'ステータス更新日時']);
+  fputcsv($out, ['受信日時', 'お名前', 'ふりがな', 'メール', '電話', '郵便番号', '住所', '種別', 'お住まい', '年代', '性別', '合同散骨希望日', '診断結果', '送信元ページ', '内容', 'ステータス', '担当者', 'ステータス更新日時']);
   foreach ($items as $i) {
     fputcsv($out, [
-      $i['received_at'] ?? '', $i['name'] ?? '', $i['kana'] ?? '', $i['email'] ?? '', $i['tel'] ?? '',
+      $i['received_at'] ?? '', $i['name'] ?? '', $i['kana'] ?? '', $i['email'] ?? '', $i['tel'] ?? '', $i['zip'] ?? '', $i['addr'] ?? '',
       $i['category'] ?? '', $i['pref'] ?? '', $i['age_group'] ?? '', $i['gender'] ?? '',
       $i['goudou_date'] ?? '', $i['shindan'] ?? '', $i['source'] ?? '', $i['message'] ?? '',
       $iq_status($i), $i['staff'] ?? '', $i['status_updated_at'] ?? '',
@@ -189,7 +189,7 @@ function iq_bars(array $data, int $top = 8): string {
           <td style="font-weight:700"><?= h($i['name'] ?? '') ?><br><span style="font-weight:400;color:#89a;font-size:.76rem"><?= h($i['kana'] ?? '') ?></span></td>
           <td><?= h($i['category'] ?? '') ?><?= !empty($i['goudou_date']) ? '<br><span style="font-size:.76rem;color:#567">希望日 ' . h($i['goudou_date']) . '</span>' : '' ?></td>
           <td style="font-size:.8rem;color:#456"><?= h(implode('／', array_filter([$i['pref'] ?? '', $i['age_group'] ?? '', $i['gender'] ?? '']))) ?: '—' ?></td>
-          <td style="font-size:.8rem"><?= h($i['email'] ?? '') ?><br><?= h($i['tel'] ?? '') ?></td>
+          <td style="font-size:.8rem"><?= h($i['email'] ?? '') ?><br><?= h($i['tel'] ?? '') ?><?php if (!empty($i['zip']) || !empty($i['addr'])): ?><p style="margin-top:5px;font-size:.74rem;color:#567">〒<?= h($i['zip'] ?? '') ?><br><?= h($i['addr'] ?? '') ?></p><?php endif; ?></td>
           <td>
             <?php if (!empty($i['message'])): ?>
               <button type="button" class="iq-msg-toggle">▼ 内容を見る</button>
@@ -214,6 +214,8 @@ function iq_bars(array $data, int $top = 8): string {
                 'name'    => (string)($i['name'] ?? ''),
                 'email'   => (string)($i['email'] ?? ''),
                 'tel'     => (string)($i['tel'] ?? ''),
+                'zip'     => (string)($i['zip'] ?? ''),
+                'addr'    => (string)($i['addr'] ?? ''),
                 'message' => (string)($i['message'] ?? ''),
                 'history' => $histRaw,
               ], JSON_UNESCAPED_UNICODE);
@@ -463,7 +465,7 @@ async function iqPost(url, payload, csrf) {
       cur = JSON.parse(btn.dataset.iq);
       cur._btn = btn;
       $('iqd-name').textContent = (cur.name || '（お名前なし）') + ' 様';
-      $('iqd-contact').textContent = [cur.email, cur.tel].filter(Boolean).join('　');
+      $('iqd-contact').textContent = [cur.email, cur.tel, (cur.zip || cur.addr) ? '〒' + (cur.zip || '') + ' ' + (cur.addr || '') : ''].filter(Boolean).join('　');
       $('iqd-message').textContent = cur.message || '（本文なし）';
       renderHistory(cur.history || []);
       var hasMail = !!cur.email;
@@ -492,7 +494,7 @@ async function iqPost(url, payload, csrf) {
   function afterSaved(entry) {
     cur.history.push(JSON.stringify(entry));
     renderHistory(cur.history);
-    cur._btn.dataset.iq = JSON.stringify({ id: cur.id, name: cur.name, email: cur.email, tel: cur.tel, message: cur.message, history: cur.history });
+    cur._btn.dataset.iq = JSON.stringify({ id: cur.id, name: cur.name, email: cur.email, tel: cur.tel, zip: cur.zip, addr: cur.addr, message: cur.message, history: cur.history });
     cur._btn.textContent = '✉ 返信・対応履歴（' + cur.history.length + '）';
     var row = cur._btn.closest('tr');
     var sel = row.querySelector('.iq-status__sel');
