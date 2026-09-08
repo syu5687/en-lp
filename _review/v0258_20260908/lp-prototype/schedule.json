@@ -1,0 +1,15 @@
+{
+  "_comment": "合同海洋散骨 実施予定日。en1150.co.jp/kaiyou-sou/ の公式掲載内容（2026-09-07 取得）。日付を追加・変更する場合はこのファイルのみ更新する。架空の日付を入れないこと。",
+  "updated": "2026-09-07",
+  "note": "天候・海況により日程が変更となる場合があります。",
+  "ports": {
+    "kagoshima": { "name": "いおワールド鹿児島水族館 しおかぜ通り横", "address": "鹿児島市本港新町35" },
+    "fukuoka":   { "name": "姪浜旅客待合所", "address": "福岡市西区愛宕浜3丁目1-1" }
+  },
+  "events": [
+    { "date": "2026-09-20", "label": "2026年9月20日（日）", "area": "fukuoka",   "areaLabel": "福岡・博多湾",   "status": "受付中" },
+    { "date": "2026-10-24", "label": "2026年10月24日（土）", "area": "kagoshima", "areaLabel": "鹿児島・錦江湾", "status": "残りわずか" },
+    { "date": "2026-11-15", "label": "2026年11月15日（日）", "area": "fukuoka",   "areaLabel": "福岡・博多湾",   "status": "受付中" },
+    { "date": "2026-12-19", "label": "2026年12月19日（土）", "area": "kagoshima", "areaLabel": "鹿児島・錦江湾", "status": "受付中" }
+  ]
+}
