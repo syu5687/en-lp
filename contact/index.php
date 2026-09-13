@@ -78,7 +78,7 @@ require __DIR__ . '/../includes/head.php';
       <label>お問い合わせ種別
         <select name="category">
           <option value="">選択してください</option>
-          <option value="資料請求（無料）">資料請求（無料・冊子を郵送でお届け）</option>
+          <option value="資料請求（無料）">資料請求（無料・詳しい資料を郵送でお届け）</option>
           <?php foreach (SERVICES as $s): ?>
             <option value="<?= h($s['title']) ?>"><?= h($s['title']) ?></option>
           <?php endforeach; ?>
@@ -89,7 +89,7 @@ require __DIR__ . '/../includes/head.php';
         <legend class="gb-badge">無料プレゼント</legend>
         <?php /* v0259：お届け方法を下で選べるようにしたので、ここで「PDF」と断定しない */ ?>
         <p class="gb-title">📘 無料ガイドブックも一緒に受け取れます</p>
-        <p class="gb-sub">チェックすると、PDF（メール）か冊子（郵送）でお届けします。どのご相談と一緒でもOK・無料です。</p>
+        <p class="gb-sub">チェックすると、PDF（メール）か、詳しい資料の郵送でお届けします。どのご相談と一緒でもOK・無料です。</p>
         <label class="gb-item"><input type="checkbox" name="guide_hakajimai" value="1"><span><b>墓じまい完全ガイド 鹿児島・福岡版</b>（全10ページ）<small>費用の内訳・改葬許可の5ステップ・菩提寺への切り出し方</small></span></label>
         <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
       </fieldset>
@@ -103,17 +103,18 @@ require __DIR__ . '/../includes/head.php';
       <div id="delivery-box" hidden>
         <p class="dlv-title">ガイドブックのお届け方法 <span class="req">必須</span></p>
         <label class="dlv-item"><input type="radio" name="delivery" value="PDF（メール）" checked><span><b>PDFをメールで受け取る</b><small>送信後の自動返信メールですぐに届きます</small></span></label>
-        <label class="dlv-item"><input type="radio" name="delivery" value="冊子（郵送）"><span><b>冊子（印刷版）を郵送で受け取る</b><small>無料でお送りします。お届け先のご入力が必要です</small></span></label>
+        <label class="dlv-item"><input type="radio" name="delivery" value="冊子（郵送）"><span><b>詳しい資料を郵送で受け取る</b><small>無料でお送りします。お届け先のご入力が必要です</small></span></label>
       </div>
 
       <div id="post-addr" hidden>
-        <p style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">冊子の郵送をご希望のため、お届け先をご入力ください</p>
+        <p id="post-addr-title" style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">詳しい資料の郵送をご希望のため、お届け先をご入力ください</p>
         <label>郵便番号 <span class="req">必須</span>
           <input type="text" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="890-0000" maxlength="8">
-          <span style="font-weight:400;font-size:.78rem;color:var(--text-light)">入力すると住所が自動で入ります</span>
+          <span id="zip-note" style="font-weight:400;font-size:.78rem;color:var(--text-light)">入力すると住所が自動で入ります</span>
         </label>
         <label>ご住所（お届け先） <span class="req">必須</span>
           <input type="text" name="addr" autocomplete="street-address" placeholder="鹿児島県鹿児島市〇〇町1-2-3 〇〇マンション101">
+          <span id="addr-note" style="font-weight:400;font-size:.78rem;color:var(--text-light)">郵便番号を入れると自動で入ります。続けて番地・建物名までご入力ください。</span>
         </label>
       </div>
 
@@ -225,8 +226,9 @@ let shindanPath = '';
   const ta  = form.querySelector('textarea[name="message"]');
   const g1  = form.querySelector('input[name="guide_hakajimai"]');
   const g2  = form.querySelector('input[name="guide_sankotsu"]');
-  const FILL = '資料請求：無料ガイドブック（冊子）の郵送を希望します。';
+  const FILL = '資料請求：詳しい資料の郵送を希望します。';
   const addrBox = document.getElementById('post-addr');
+  const addrTitle = document.getElementById('post-addr-title');
   const zipInp  = form.querySelector('input[name="zip"]');
   const addrInp = form.querySelector('input[name="addr"]');
   const dlvBox  = document.getElementById('delivery-box');
@@ -266,44 +268,161 @@ let shindanPath = '';
     // お届け方法：資料を1つでも希望していたら選んでいただく
     if (dlvBox) dlvBox.hidden = !wantsGuide;
 
-    // 郵送先の住所欄：冊子を選んだときだけ
-    const needsAddr = wantsGuide && !!(dlvPost && dlvPost.checked);
+    /* v0260：お届け先の表示条件（2026-09-13 syu確認）
+         ・種別が「資料請求（無料）」 … PDF／冊子のどちらを選んでいても必ず表示する
+                                        （冊子を郵送する前提のサービスのため）
+         ・それ以外の種別            … ガイドブックを希望し、かつ「冊子（郵送）」を
+                                        選んだときだけ表示する */
+    const needsAddr = isShiryou || (wantsGuide && !!(dlvPost && dlvPost.checked));
+    if (addrTitle) {
+      addrTitle.textContent = (dlvPost && dlvPost.checked)
+        ? '詳しい資料の郵送をご希望のため、お届け先をご入力ください'
+        : '資料のお届け先をご入力ください';
+    }
     if (addrBox) {
       const wasHidden = addrBox.hidden;
       addrBox.hidden = !needsAddr;
       setField(zipInp,  needsAddr);
       setField(addrInp, needsAddr);
-      // 初めて開いたとき、上で選ばれた都道府県を住所の頭に入れておく（二度手間を減らす）
-      if (needsAddr && wasHidden && addrInp && !addrInp.value && prefSel && prefSel.value) {
-        addrInp.value = prefSel.value;
-      }
+      /* v0260：ここで「お住まい」の都道府県を住所欄に入れるのをやめた。
+         2026年9月13日の不具合報告の原因がこれだった。
+         ・required は「空でないこと」しか見ないため、「鹿児島県」だけで送信が通ってしまう
+         ・郵便番号の自動入力が「住所欄が空のときだけ上書き」の条件だったため、
+           先に県名が入っていると自動入力が効かない
+         県名は郵便番号から自動で入るので、先に入れておく必要はない。 */
+      if (needsAddr && wasHidden) refreshAddr();
     }
   };
-  // 郵便番号→住所の自動入力（失敗時は手入力のままでOK）
+  /* ============================================================
+     v0260：郵便番号→住所の自動入力と、お届け先の入力チェック
+     ------------------------------------------------------------
+     2026-09-13 の報告：
+       ① 住所が「鹿児島県」だけで送信できてしまう
+       ② 郵便番号を入れても住所が自動で入らない
+     どちらも「お住まい」の都道府県を住所欄へ先に入れていたことが原因。
+     プリフィルをやめたうえで、下の3点を足す。
+       ・郵便番号は7桁で検証（全角・ハイフンも受ける）
+       ・住所は「都道府県だけ」「番地なし」を通さない
+       ・自動入力は CORS が通らない環境に備えて JSONP へ退避する
+     ============================================================ */
+  const zipNote  = document.getElementById('zip-note');
+  const addrNote = document.getElementById('addr-note');
+  const ZIP_NOTE_DEFAULT  = '入力すると住所が自動で入ります';
+  const ADDR_NOTE_DEFAULT = '郵便番号を入れると自動で入ります。続けて番地・建物名までご入力ください。';
+
+  const toHalf = (v) => String(v || '').replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
+  const digits = (v) => toHalf(v).replace(/[^0-9]/g, '');
+  // 都道府県名だけ、の判定（例：「鹿児島県」「東京都」「大阪府」「北海道」）
+  const isPrefOnly = (v) => /^(北海道|東京都|京都府|大阪府|[^\s]{2,3}県)$/.test(String(v || '').trim());
+
+  const setNote = (el, text, ng) => {
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = ng ? '#c0392b' : '';
+    el.style.fontWeight = ng ? '700' : '400';
+  };
+
+  // 住所：都道府県だけ／市区町村どまり／番地なし を弾く
+  const addrProblem = (v) => {
+    const t = String(v || '').trim();
+    if (!t) return '';                     // 空欄は required 側の仕事
+    if (isPrefOnly(t)) return '市区町村・番地までご入力ください。';
+    const m = t.match(/^(北海道|東京都|京都府|大阪府|[^\s]{2,3}県)/);
+    const rest = m ? t.slice(m[0].length) : t;
+    if (rest.replace(/\s/g, '').length < 4) return '市区町村・番地までご入力ください。';
+    if (!/[0-9０-９一二三四五六七八九十丁番地号]/.test(rest)) return '番地までご入力ください（例：鹿児島市本港新町35）。';
+    return '';
+  };
+
+  const zipProblem = (v) => {
+    const z = digits(v);
+    if (!z) return '';                     // 空欄は required 側の仕事
+    if (z.length !== 7) return '郵便番号は7桁でご入力ください（例：890-0053）。';
+    return '';
+  };
+
+  function refreshAddr() {
+    if (addrInp) {
+      const ng = addrInp.required ? addrProblem(addrInp.value) : '';
+      addrInp.setCustomValidity(ng);
+      if (ng) setNote(addrNote, ng, true);
+      else if (addrNote && addrNote.style.color) setNote(addrNote, ADDR_NOTE_DEFAULT, false);
+    }
+    if (zipInp) {
+      const ng = zipInp.required ? zipProblem(zipInp.value) : '';
+      zipInp.setCustomValidity(ng);
+      if (ng) setNote(zipNote, ng, true);
+      else if (zipNote && zipNote.style.color) setNote(zipNote, ZIP_NOTE_DEFAULT, false);
+    }
+  }
+
+  // CORS が通らない環境向けの退避（zipcloud は callback パラメータに対応している）
+  const jsonpZip = (z) => new Promise((resolve, reject) => {
+    const cb = '__enZipCb' + Date.now() + Math.floor(Math.random() * 1000);
+    const sc = document.createElement('script');
+    const finish = () => {
+      clearTimeout(timer);
+      try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+      if (sc.parentNode) sc.parentNode.removeChild(sc);
+    };
+    const timer = setTimeout(() => { finish(); reject(new Error('timeout')); }, 6000);
+    window[cb] = (j) => { finish(); resolve(j && j.results && j.results[0]); };
+    sc.onerror = () => { finish(); reject(new Error('script')); };
+    sc.src = 'https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + z + '&callback=' + cb;
+    document.head.appendChild(sc);
+  });
+
   let zipAutoFilled = '';
+  let zipSeq = 0;
+
+  const lookupZip = async (z) => {
+    const seq = ++zipSeq;
+    setNote(zipNote, '住所を検索中…', false);
+    let a = null;
+    try {
+      const r = await fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + z);
+      const j = await r.json();
+      a = j && j.results && j.results[0];
+    } catch (e) { a = null; }
+    if (!a) { try { a = await jsonpZip(z); } catch (e) { a = null; } }
+    if (seq !== zipSeq) return;                       // 入力が進んでいたら捨てる
+    if (!a) {
+      setNote(zipNote, '住所を自動で取得できませんでした。お手数ですが手入力をお願いします。', true);
+      return;
+    }
+    const auto = (a.address1 || '') + (a.address2 || '') + (a.address3 || '');
+    const cur = String(addrInp.value || '').trim();
+    // 空・前回の自動入力値・都道府県だけ、のときは上書きしてよい
+    if (!cur || cur === zipAutoFilled || isPrefOnly(cur)) {
+      addrInp.value = auto;
+      zipAutoFilled = auto;
+      setNote(zipNote, ZIP_NOTE_DEFAULT, false);
+      setNote(addrNote, '続けて番地・建物名までご入力ください。', false);
+      try { addrInp.focus(); addrInp.setSelectionRange(auto.length, auto.length); } catch (e) {}
+    } else {
+      setNote(zipNote, '入力済みのご住所を優先しました（郵便番号からは「' + auto + '」）', false);
+    }
+    refreshAddr();
+  };
+
   if (zipInp && addrInp) {
-    zipInp.addEventListener('input', async () => {
-      const z = zipInp.value.replace(/[^0-9]/g, '');
-      if (z.length !== 7) return;
-      try {
-        const r = await fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + z);
-        const j = await r.json();
-        const a = j && j.results && j.results[0];
-        if (!a) return;
-        const auto = (a.address1 || '') + (a.address2 || '') + (a.address3 || '');
-        if (!addrInp.value.trim() || addrInp.value === zipAutoFilled) {
-          addrInp.value = auto;
-          zipAutoFilled = auto;
-          addrInp.focus();
-        }
-      } catch (e) {}
-    });
+    const onZip = () => {
+      refreshAddr();
+      const z = digits(zipInp.value);
+      if (z.length === 7) lookupZip(z);
+    };
+    zipInp.addEventListener('input', onZip);
+    zipInp.addEventListener('change', onZip);
+    zipInp.addEventListener('blur', refreshAddr);
+    addrInp.addEventListener('input', refreshAddr);
+    addrInp.addEventListener('blur', refreshAddr);
   }
   sel.addEventListener('change', apply);
   // v0259：住所欄の表示を決めているのはこちら側なので、必ず監視する
   if (g1) g1.addEventListener('change', apply);
   if (g2) g2.addEventListener('change', apply);
   form.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', () => { dlvTouched = true; apply(); }));
+  window.__enRefreshAddr = refreshAddr; // v0260：送信直前のチェックから呼ぶ
   setTimeout(apply, 0); // ?service= からの自動選択にも反応
 })();
 // 合同海洋散骨 実施予定日からの遷移：?date=YYYY-MM-DD をご希望日欄にセット
@@ -337,6 +456,7 @@ let shindanPath = '';
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.className = ''; msg.textContent = '';
+  if (typeof window.__enRefreshAddr === 'function') window.__enRefreshAddr(); // v0260：お届け先の再チェック
   if (!form.checkValidity()) { form.reportValidity(); return; }
   const data = Object.fromEntries(new FormData(form).entries());
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || '')) {
@@ -344,13 +464,10 @@ form.addEventListener('submit', async (e) => {
     msg.textContent = 'メールアドレスの形式をご確認ください。';
     return;
   }
-  /* v0259：資料を希望していない送信に、お届け方法や住所が混ざらないようにする。
-     （表示中の項目だけを送る。非表示の div の中でも FormData には入るため） */
-  if (!(data.guide_hakajimai === '1' || data.guide_sankotsu === '1')) {
-    delete data.delivery; delete data.zip; delete data.addr;
-  } else if (data.delivery !== '冊子（郵送）') {
-    delete data.zip; delete data.addr;
-  }
+  /* v0260：画面に出ていた項目だけを送る（非表示の div の中でも FormData には入るため）。
+     資料請求はPDFを選んでいてもお届け先を伺うので、delivery の値では判定しない。 */
+  if (document.getElementById('delivery-box').hidden) delete data.delivery;
+  if (document.getElementById('post-addr').hidden) { delete data.zip; delete data.addr; }
   data.source = location.href;
   data.formName = 'en1150.co.jp お問い合わせフォーム';
   data.elapsedMs = Date.now() - PAGE_LOADED_AT; // 表示から送信までの時間（ボット判定用）

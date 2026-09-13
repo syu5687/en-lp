@@ -27,7 +27,7 @@ var CONFIG = {
   SHIRYOU_MATCH: "資料請求",
   SHIRYOU_SUBJECT: "【有限会社 縁】ご請求の資料（無料PDF）をお届けします",
   // v0259：冊子の郵送をご希望の場合は件名も変える（PDFだけと誤解されないように）
-  SHIRYOU_SUBJECT_POST: "【有限会社 縁】ご請求の資料をお届けします（PDF＋冊子の郵送）",
+  SHIRYOU_SUBJECT_POST: "【有限会社 縁】ご請求の資料をお届けします（PDF＋詳しい資料の郵送）",
   SHIRYOU_LINKS: [
     { label: "墓じまい完全ガイド 鹿児島・福岡版（PDF・全10ページ）",           url: "https://en1150.co.jp/dl/?f=hakajimai&src=mail" },
     { label: "海洋散骨で後悔しないためのチェックリスト（PDF・全9ページ）",   url: "https://en1150.co.jp/dl/?f=checklist&src=mail" }
@@ -246,10 +246,13 @@ export default {
         /* v0259：冊子（印刷版）の郵送をご希望の場合、その旨を自動返信にも書く。
            これまではPDFのリンクしか案内していなかったため、住所をご入力いただいた方にも
            「冊子は本当に届くのか」が伝わらなかった。 */
-        const wantsPost = String(d.delivery || "").indexOf("郵送") >= 0 || !!(d.addr && String(d.addr).trim());
+        /* v0260（2026-09-13 syu確認）：資料請求（冊子の郵送）とPDFは別のもの。
+           お届け先は資料請求なら常に伺う形にしたため、「住所が入っていれば郵送」という
+           判定は使えなくなった。冊子を郵送するかどうかは、お届け方法の選択だけで決める。 */
+        const wantsPost = String(d.delivery || "").indexOf("郵送") >= 0;
         const postBlock = (isShiryou && wantsPost) ? `
             <div style="background:#eef5f8;border:1px solid #cfe0e8;border-radius:10px;padding:14px 18px;margin:14px 0;">
-              <p style="margin:0 0 6px;font-weight:bold;color:#0a3852;">📮 冊子（印刷版）を郵送でお届けします</p>
+              <p style="margin:0 0 6px;font-weight:bold;color:#0a3852;">📮 詳しい資料を郵送でお届けします</p>
               <p style="margin:0;font-size:13px;color:#3d4d55;line-height:1.8;">下記のお届け先へ、無料でお送りします。発送まで数日いただく場合があります。<br>
               ${esc(String(d.zip || ""))} ${esc(String(d.addr || ""))}</p>
               <p style="margin:8px 0 0;font-size:12px;color:#66787f;">お届け先に誤りがある場合は、お電話（099-801-3637）でお知らせください。</p>
@@ -265,7 +268,7 @@ export default {
         const isEn = String(d.lang || "") === "en";
         const introText = isShiryou
           ? (wantsPost
-              ? `この度は資料をご請求いただきありがとうございます。<br>PDFは下記リンクからすぐにご覧いただけます。冊子（印刷版）は、ご入力いただいたお届け先へ郵送いたします。`
+              ? `この度は資料をご請求いただきありがとうございます。<br>PDFは下記リンクからすぐにご覧いただけます。詳しい資料は、ご入力いただいたお届け先へ郵送いたします。`
               : `この度は資料をご請求いただきありがとうございます。<br>下記リンクからすぐにご覧いただけます。`)
           : `この度はお問い合わせいただきありがとうございます。<br>以下の内容で承りました。担当者より改めてご連絡いたします。`;
         const custHtml = isEn ? `

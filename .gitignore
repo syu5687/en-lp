@@ -26,3 +26,9 @@ en-lp-full-*.zip
 node_modules/
 .env
 .env.local
+
+# git のロックファイル（device_bash から git を触ると消せずに残り、
+# GUIのコミットが "A lock file already exists" で止まるため）
+.git/index.lock
+_DELETE_index.lock*
+*.lock.stale
