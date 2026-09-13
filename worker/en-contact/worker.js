@@ -1,5 +1,5 @@
 /**
- * @version v0012 | 2026-09-08 | en1150.co.jp お問い合わせフォーム送信Worker（管理画面からの返信送信 /reply を追加） | Cloudflare Workers
+ * @version v0013 | 2026-09-13 | en1150.co.jp お問い合わせフォーム送信Worker（管理画面からの返信送信 /reply を追加） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -26,6 +26,8 @@ var CONFIG = {
   // ---- 資料請求（無料）: 種別に「資料請求」を含む送信は、自動返信でPDFリンクをお届けする ----
   SHIRYOU_MATCH: "資料請求",
   SHIRYOU_SUBJECT: "【有限会社 縁】ご請求の資料（無料PDF）をお届けします",
+  // v0259：冊子の郵送をご希望の場合は件名も変える（PDFだけと誤解されないように）
+  SHIRYOU_SUBJECT_POST: "【有限会社 縁】ご請求の資料をお届けします（PDF＋冊子の郵送）",
   SHIRYOU_LINKS: [
     { label: "墓じまい完全ガイド 鹿児島・福岡版（PDF・全10ページ）",           url: "https://en1150.co.jp/dl/?f=hakajimai&src=mail" },
     { label: "海洋散骨で後悔しないためのチェックリスト（PDF・全9ページ）",   url: "https://en1150.co.jp/dl/?f=checklist&src=mail" }
@@ -46,7 +48,7 @@ var CONFIG = {
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）", shindan_path: "診断で選ばれた回答", country: "居住国（Country）", ashes_now: "ご遺骨の所在（Ashes）", en_area: "希望海域（Area）", attend: "立会い希望（Attend）", timing: "希望時期（Timing）" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料", delivery: "資料のお届け方法", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）", shindan_path: "診断で選ばれた回答", country: "居住国（Country）", ashes_now: "ご遺骨の所在（Ashes）", en_area: "希望海域（Area）", attend: "立会い希望（Attend）", timing: "希望時期（Timing）" },
   REQUIRED: ["name", "email", "message"],  // 最低限の必須チェック
 
   // ---- 営業メールフィルタ ----
@@ -241,16 +243,30 @@ export default {
           ? CONFIG.SHIRYOU_LINKS.filter((_, i) => (i === 0 && wantG1) || (i === 1 && wantG2))
           : (catShiryou ? CONFIG.SHIRYOU_LINKS : []);
         const isShiryou = sendLinks.length > 0;
+        /* v0259：冊子（印刷版）の郵送をご希望の場合、その旨を自動返信にも書く。
+           これまではPDFのリンクしか案内していなかったため、住所をご入力いただいた方にも
+           「冊子は本当に届くのか」が伝わらなかった。 */
+        const wantsPost = String(d.delivery || "").indexOf("郵送") >= 0 || !!(d.addr && String(d.addr).trim());
+        const postBlock = (isShiryou && wantsPost) ? `
+            <div style="background:#eef5f8;border:1px solid #cfe0e8;border-radius:10px;padding:14px 18px;margin:14px 0;">
+              <p style="margin:0 0 6px;font-weight:bold;color:#0a3852;">📮 冊子（印刷版）を郵送でお届けします</p>
+              <p style="margin:0;font-size:13px;color:#3d4d55;line-height:1.8;">下記のお届け先へ、無料でお送りします。発送まで数日いただく場合があります。<br>
+              ${esc(String(d.zip || ""))} ${esc(String(d.addr || ""))}</p>
+              <p style="margin:8px 0 0;font-size:12px;color:#66787f;">お届け先に誤りがある場合は、お電話（099-801-3637）でお知らせください。</p>
+            </div>` : "";
         const shiryouBlock = isShiryou ? `
             <div style="background:#f6efdd;border-radius:10px;padding:16px 18px;margin:14px 0;">
               <p style="margin:0 0 10px;font-weight:bold;color:#0a3852;">▼ ご請求いただいた資料はこちらからダウンロードできます</p>
               ${sendLinks.map((l) => `<p style="margin:6px 0;"><a href="${l.url}" style="color:#0f4d70;font-weight:bold;">📘 ${esc(l.label)}</a></p>`).join("")}
               <p style="margin:10px 0 0;font-size:12px;color:#8a7a55;">※ リンクはいつでも開けます。印刷してご家族との話し合いにもお使いください。</p>
             </div>
+            ${postBlock}
             <p style="font-size:14px;">資料をお読みになって疑問が出てきましたら、このままLINEでお気軽にご相談いただけます（無料・営業のご連絡はいたしません）。<br><a href="${CONFIG.SHIRYOU_LINE_URL}" style="color:#06C755;font-weight:bold;">▶ LINEで相談する</a>　／　お電話 099-801-3637</p>` : "";
         const isEn = String(d.lang || "") === "en";
         const introText = isShiryou
-          ? `この度は資料をご請求いただきありがとうございます。<br>下記リンクからすぐにご覧いただけます。`
+          ? (wantsPost
+              ? `この度は資料をご請求いただきありがとうございます。<br>PDFは下記リンクからすぐにご覧いただけます。冊子（印刷版）は、ご入力いただいたお届け先へ郵送いたします。`
+              : `この度は資料をご請求いただきありがとうございます。<br>下記リンクからすぐにご覧いただけます。`)
           : `この度はお問い合わせいただきありがとうございます。<br>以下の内容で承りました。担当者より改めてご連絡いたします。`;
         const custHtml = isEn ? `
           <div style="font-family:Georgia,serif;max-width:640px;margin:0 auto;padding:20px;color:#222;line-height:1.8;">
@@ -271,7 +287,7 @@ export default {
             ${srcCust}
             <p style="margin-top:16px;font-size:13px;color:#777;">${esc(CONFIG.AUTO_REPLY_NOTE)}</p>
           </div>`;
-        const cr = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ sender, to: [{ email: d.email, name: d.name }], subject: isEn ? "Thank you for contacting En Co., Ltd. — inquiry received" : (isShiryou ? CONFIG.SHIRYOU_SUBJECT : CONFIG.AUTO_REPLY_SUBJECT), htmlContent: custHtml }) });
+        const cr = await fetch(BREVO_EMAIL, { method: "POST", headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", "accept": "application/json" }, body: JSON.stringify({ sender, to: [{ email: d.email, name: d.name }], subject: isEn ? "Thank you for contacting En Co., Ltd. — inquiry received" : (isShiryou ? (wantsPost ? CONFIG.SHIRYOU_SUBJECT_POST : CONFIG.SHIRYOU_SUBJECT) : CONFIG.AUTO_REPLY_SUBJECT), htmlContent: custHtml }) });
         autoReplyOk = cr.ok;
       }
 

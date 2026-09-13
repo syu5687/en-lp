@@ -87,14 +87,27 @@ require __DIR__ . '/../includes/head.php';
       </label>
       <fieldset id="guide-box">
         <legend class="gb-badge">無料プレゼント</legend>
-        <p class="gb-title">📘 無料ガイドブック（PDF）も一緒に受け取れます</p>
-        <p class="gb-sub">チェックすると、送信後の自動返信メールですぐにお届けします。どのご相談と一緒でもOK・無料です。</p>
+        <?php /* v0259：お届け方法を下で選べるようにしたので、ここで「PDF」と断定しない */ ?>
+        <p class="gb-title">📘 無料ガイドブックも一緒に受け取れます</p>
+        <p class="gb-sub">チェックすると、PDF（メール）か冊子（郵送）でお届けします。どのご相談と一緒でもOK・無料です。</p>
         <label class="gb-item"><input type="checkbox" name="guide_hakajimai" value="1"><span><b>墓じまい完全ガイド 鹿児島・福岡版</b>（全10ページ）<small>費用の内訳・改葬許可の5ステップ・菩提寺への切り出し方</small></span></label>
         <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
       </fieldset>
 
+      <?php /* v0259：お届け方法を明示的な選択にした。
+               これまで住所欄の表示条件が「種別セレクト = 資料請求（無料）」に紐づいていたため、
+               ガイドブックにチェックを入れたまま種別を別のサービスに変えると住所欄が消え、
+               冊子の送り先が分からないまま送信される事故が起きていた（2026年9月の実例あり）。
+               冊子を郵送する必要があるかどうかを決めているのはガイドブックのチェックなので、
+               表示条件をそちらに移し、PDFか冊子かはご本人に選んでいただく形にする。 */ ?>
+      <div id="delivery-box" hidden>
+        <p class="dlv-title">ガイドブックのお届け方法 <span class="req">必須</span></p>
+        <label class="dlv-item"><input type="radio" name="delivery" value="PDF（メール）" checked><span><b>PDFをメールで受け取る</b><small>送信後の自動返信メールですぐに届きます</small></span></label>
+        <label class="dlv-item"><input type="radio" name="delivery" value="冊子（郵送）"><span><b>冊子（印刷版）を郵送で受け取る</b><small>無料でお送りします。お届け先のご入力が必要です</small></span></label>
+      </div>
+
       <div id="post-addr" hidden>
-        <p style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">冊子（印刷版）の郵送をご希望のため、お届け先をご入力ください</p>
+        <p style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">冊子の郵送をご希望のため、お届け先をご入力ください</p>
         <label>郵便番号 <span class="req">必須</span>
           <input type="text" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="890-0000" maxlength="8">
           <span style="font-weight:400;font-size:.78rem;color:var(--text-light)">入力すると住所が自動で入ります</span>
@@ -127,6 +140,18 @@ require __DIR__ . '/../includes/head.php';
 </main>
 
 <style>
+/* v0259：ガイドブックのお届け方法。既存の .gb-item と同じ指定の強さで書く
+   （.contact-form label が flex-direction:column を当てているため、行方向を明示する） */
+#delivery-box{border:1px solid #cfe0e8;border-radius:10px;padding:14px 16px;background:#f7fbfc;margin-top:-4px}
+#delivery-box .dlv-title{font-weight:700;font-size:.92rem;color:var(--green-mid);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+#delivery-box .dlv-item{display:flex;flex-direction:row !important;align-items:flex-start;gap:10px;background:#fff;border:1px solid #d9e6ec;border-radius:10px;padding:10px 14px;margin-bottom:8px;cursor:pointer;font-weight:400 !important}
+#delivery-box .dlv-item:last-child{margin-bottom:0}
+#delivery-box .dlv-item:hover{border-color:#15709e}
+#delivery-box .dlv-item input{width:18px;height:18px;margin-top:3px;padding:0 !important;flex:none;accent-color:#15709e}
+#delivery-box .dlv-item b{color:var(--green-mid);font-size:.92rem}
+#delivery-box .dlv-item small{display:block;font-size:.76rem;color:var(--text-light);margin-top:2px;line-height:1.7}
+#post-addr{border:1px solid #eadfc4;border-radius:10px;padding:14px 16px;background:#fffdf9;display:flex;flex-direction:column;gap:10px}
+
 .contact-form{display:flex;flex-direction:column;gap:18px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
 .contact-form label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
 .contact-form label[hidden]{display:none !important} /* 合同散骨ご希望日欄は日付指定の遷移時のみ表示 */
@@ -170,10 +195,12 @@ let shindanPath = '';
   const sd  = (params.get('shindan') || '').trim();
   const sdp = (params.get('sdpath') || '').trim();
   if (!svc && !sd) return;
-  // 診断結果があればそれを優先して表示・送信（通知メールの「診断結果」欄に入る）
-  shindanService = sd || svc;
+  // v0259：通知メールの「診断結果（供養の選び方）」欄には、診断を実際に通ったときだけ入れる。
+  // 以前は ?service= の値も入れていたため、資料請求ボタンから来ただけの方が
+  // 「診断結果：資料請求（無料）」と表示され、社内で紛らわしくなっていた。
+  shindanService = sd;
   shindanPath = sdp;
-  // お知らせバナー
+  // お知らせバナー（表示は ?service= でも出す。送信する診断結果とは別扱い）
   const note = document.getElementById('shindan-note');
   document.getElementById('shindan-service').textContent = sd || svc;
   if (sdp) {
@@ -202,19 +229,54 @@ let shindanPath = '';
   const addrBox = document.getElementById('post-addr');
   const zipInp  = form.querySelector('input[name="zip"]');
   const addrInp = form.querySelector('input[name="addr"]');
+  const dlvBox  = document.getElementById('delivery-box');
+  const dlvPost = form.querySelector('input[name="delivery"][value="冊子（郵送）"]');
+  const prefSel = form.querySelector('select[name="pref"]');
+
+  /* v0259：表示条件を整理した。
+     ・お届け方法  … ガイドブックが1つでもチェックされていたら出す
+     ・住所欄      … お届け方法で「冊子（郵送）」が選ばれたときだけ出す
+     種別セレクトは一切条件に使わない。種別を変えても住所欄は消えない。
+     hidden の要素に required が残るとChromeは検証に失敗してもエラーを出せず、
+     送信が黙って止まるため、hidden と required は必ずセットで切り替える。 */
+  const setField = (el, show) => {
+    if (!el) return;
+    el.required = !!show;
+    if (!show) el.value = '';   // 非表示の値を送らない
+  };
+  const dlvPdf = form.querySelector('input[name="delivery"][value="PDF（メール）"]');
+  let dlvTouched = false;   // ご本人がお届け方法を選んだか
   const apply = () => {
-    const isShiryou = sel.value === '資料請求（無料）';
+    const isShiryou  = sel.value === '資料請求（無料）';
     if (isShiryou) {
       if (g1) g1.checked = true;
       if (g2) g2.checked = true;
       if (!ta.value.trim()) ta.value = FILL;
+      // 種別「資料請求（無料・冊子を郵送でお届け）」は冊子の郵送を約束しているので、
+      // ご本人がまだ選んでいなければ郵送を初期値にする。
+      if (!dlvTouched && dlvPost) dlvPost.checked = true;
     }
     if (!isShiryou && ta.value === FILL) ta.value = '';
-    // 郵送先の住所欄：資料請求のときだけ表示・必須に
+
+    // 自動チェックのあとに判定する（先に読むと初回表示で漏れる）
+    const wantsGuide = !!((g1 && g1.checked) || (g2 && g2.checked));
+    // 資料を希望していないなら、お届け方法は送らない（PDFに戻す）
+    if (!wantsGuide && !dlvTouched && dlvPdf) dlvPdf.checked = true;
+
+    // お届け方法：資料を1つでも希望していたら選んでいただく
+    if (dlvBox) dlvBox.hidden = !wantsGuide;
+
+    // 郵送先の住所欄：冊子を選んだときだけ
+    const needsAddr = wantsGuide && !!(dlvPost && dlvPost.checked);
     if (addrBox) {
-      addrBox.hidden = !isShiryou;
-      if (zipInp)  zipInp.required  = isShiryou;
-      if (addrInp) addrInp.required = isShiryou;
+      const wasHidden = addrBox.hidden;
+      addrBox.hidden = !needsAddr;
+      setField(zipInp,  needsAddr);
+      setField(addrInp, needsAddr);
+      // 初めて開いたとき、上で選ばれた都道府県を住所の頭に入れておく（二度手間を減らす）
+      if (needsAddr && wasHidden && addrInp && !addrInp.value && prefSel && prefSel.value) {
+        addrInp.value = prefSel.value;
+      }
     }
   };
   // 郵便番号→住所の自動入力（失敗時は手入力のままでOK）
@@ -238,6 +300,10 @@ let shindanPath = '';
     });
   }
   sel.addEventListener('change', apply);
+  // v0259：住所欄の表示を決めているのはこちら側なので、必ず監視する
+  if (g1) g1.addEventListener('change', apply);
+  if (g2) g2.addEventListener('change', apply);
+  form.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', () => { dlvTouched = true; apply(); }));
   setTimeout(apply, 0); // ?service= からの自動選択にも反応
 })();
 // 合同海洋散骨 実施予定日からの遷移：?date=YYYY-MM-DD をご希望日欄にセット
@@ -254,6 +320,20 @@ let shindanPath = '';
     note.hidden = false;
   }
 })();
+/* v0258：フォームの最初の入力で form_start を1回だけ送る。
+   GA4の拡張計測「フォームの操作」は2026年8月に5回しか記録されておらず、
+   このフォームでは当てにならないため自前で撃つ。表示→入力開始→送信の離脱が測れるようになる。 */
+(function () {
+  var started = false;
+  form.addEventListener('input', function () {
+    if (started) return;
+    started = true;
+    if (typeof gtag === 'function') {
+      gtag('event', 'form_start', { form_name: 'contact', page_path: location.pathname });
+    }
+  }, { once: false });
+})();
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.className = ''; msg.textContent = '';
@@ -263,6 +343,13 @@ form.addEventListener('submit', async (e) => {
     msg.className = 'ng';
     msg.textContent = 'メールアドレスの形式をご確認ください。';
     return;
+  }
+  /* v0259：資料を希望していない送信に、お届け方法や住所が混ざらないようにする。
+     （表示中の項目だけを送る。非表示の div の中でも FormData には入るため） */
+  if (!(data.guide_hakajimai === '1' || data.guide_sankotsu === '1')) {
+    delete data.delivery; delete data.zip; delete data.addr;
+  } else if (data.delivery !== '冊子（郵送）') {
+    delete data.zip; delete data.addr;
   }
   data.source = location.href;
   data.formName = 'en1150.co.jp お問い合わせフォーム';
@@ -280,15 +367,23 @@ form.addEventListener('submit', async (e) => {
     msg.className = 'ok';
     msg.textContent = 'お問い合わせを送信しました。担当者より折り返しご連絡いたします。';
     form.reset();
-    // CV測定（GA4）：キーイベント用に generate_lead を送信
-    // ボットによる送信をCVに数えないため、「表示から5秒以上経過・ハニーポット空・メール形式OK」の場合のみ発火
+    // ---- CV測定（GA4）----
+    // v0258：2026年8月のGA4で generate_lead が202PVに対し212回発火しており、
+    // 「お問い合わせページの表示」でも発火している疑いが強い（原因はGA4管理画面側）。
+    // そこで、このコードからしか発火しない contact_submit を新設する。
+    // 以後の「問い合わせ送信数」は contact_submit を見る。generate_lead は
+    // Google広告のコンバージョン取り込みが参照している可能性があるため残す。
+    // ボットによる送信をCVに数えないため、「表示から5秒以上経過・ハニーポット空・メール形式OK」の場合のみ発火。
     var looksHuman = data.elapsedMs >= 5000 && !data.website && /@.+\./.test(data.email || '');
     if (typeof gtag === 'function' && looksHuman) {
-      gtag('event', 'generate_lead', {
+      var cvParams = {
         form_name: 'contact',
         category: data.category || '(未選択)',
-        shindan: data.shindan || '(なし)'
-      });
+        shindan: data.shindan || '(なし)',
+        elapsed_sec: Math.round(data.elapsedMs / 1000)
+      };
+      gtag('event', 'contact_submit', cvParams);   // ★これが正しい送信数
+      gtag('event', 'generate_lead', cvParams);    // 既存の広告連携のため維持
     }
   } catch (err) {
     msg.className = 'ng';
