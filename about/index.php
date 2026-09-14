@@ -124,6 +124,22 @@ require __DIR__ . '/../includes/head.php';
   <section class="section" style="background:var(--cream)">
     <div class="container" style="max-width:820px;text-align:center">
       <h2 style="margin-bottom:24px">縁について</h2>
+      <?php /* v0262：店舗の写真を追加。
+               このページの写真は海・セレモニー・人物だけで、「どこで相談できるのか」が
+               分かる画像が1枚もなかった。供養は金額が大きく、来店前の不安が大きいため、
+               相談場所が見えること自体が判断材料になる。
+               キャプションに拠点名・住所は入れていない（看板の表記とサイト掲載の住所が
+               一致しないため、確認後に追記する）。 */ ?>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:26px">
+        <figure style="margin:0">
+          <img src="/about/images/office-exterior.jpg" alt="有限会社 縁の店舗外観。「お墓じまい・海洋葬・ご供養でのお悩み」と書かれた看板と、海洋葬・お墓じまい・ご供養ののぼりが立つ入口" width="1200" height="903" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px">
+          <figcaption style="font-size:.82rem;color:var(--text-light);margin-top:8px;line-height:1.7">入口に「OPEN」の札が出ているときは、ご予約なしでもお立ち寄りいただけます。駐車場は店舗下にございます。</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <img src="/about/images/office-counter.jpg" alt="店内のご相談スペース。テーブルと椅子、ミニ骨壷や骨箱などのお手元供養品を並べた棚、墓石のサンプル" width="1200" height="901" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px">
+          <figcaption style="font-size:.82rem;color:var(--text-light);margin-top:8px;line-height:1.7">ご相談スペースです。ミニ骨壷や骨箱、墓石のサンプルを置いていますので、実物を見ながらご相談いただけます。</figcaption>
+        </figure>
+      </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;text-align:center">
         <div class="card"><p style="font-weight:700;color:var(--green)">日本海洋散骨協会</p><p style="font-size:.9rem">一般社団法人日本海洋散骨協会の加盟事業者として、ガイドラインに準拠した海洋散骨を行っています。</p></div>
         <div class="card"><p style="font-weight:700;color:var(--green)">2拠点体制</p><p style="font-size:.9rem">鹿児島本社と福岡営業所の2拠点で、九州全域・全国のご相談に対応しています。</p></div>
