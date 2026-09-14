@@ -1,4 +1,4 @@
-<!-- Release: v2026091401 -->
+<!-- Release: v2026091402 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026091401">
+<meta name="version" content="v2026091402">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026091401">
-<script src="script.js?v=v2026091401" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026091402">
+<script src="script.js?v=v2026091402" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -333,9 +333,9 @@
 </div>
 <div class="store-trust" aria-labelledby="store-trust-title">
 <div class="store-trust-heading">
-<p class="section-label">写真で見える、相談先の安心</p>
+<p class="section-label">店舗でのご相談</p>
 <h3 id="store-trust-title">鹿児島県内に実店舗があります。</h3>
-<p>お墓じまい・海洋葬・その後のご供養まで、店舗で直接ご相談いただけます。大切なご遺骨をお預かりする事業者だからこそ、実際の店舗と店内の様子を公開しています。</p>
+<p>お墓じまい・海洋葬・その後のご供養まで、店舗で直接ご相談いただけます。大切なご遺骨をお預かりする事業者だからこそ、安心してご相談ください。</p>
 </div>
 <div class="store-trust-photos">
 <figure><img src="assets/store-exterior.jpg" alt="有限会社 縁の店舗外観。お墓じまい、海洋葬、ご供養の相談窓口を案内する看板がある" loading="lazy" decoding="async" width="1200" height="903"><figcaption>有限会社 縁の店舗外観</figcaption></figure>
