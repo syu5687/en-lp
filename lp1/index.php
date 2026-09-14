@@ -1,4 +1,4 @@
-<!-- Release: v2026090804 -->
+<!-- Release: v2026091401 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026090804">
+<meta name="version" content="v2026091401">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026090804">
-<script src="script.js?v=v2026090804" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026091401">
+<script src="script.js?v=v2026091401" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -330,7 +330,19 @@
 <p>&#12393;&#12435;&#12394;&#12362;&#35211;&#36865;&#12426;&#12395;&#12375;&#12383;&#12356;&#12363;&#12290;<br>&#36855;&#12387;&#12390;&#12356;&#12427;&#12371;&#12392;&#12289;&#19981;&#23433;&#12394;&#12371;&#12392;&#12418;&#12289;<br>&#12393;&#12358;&#12382;&#12381;&#12398;&#12414;&#12414;&#12362;&#32862;&#12363;&#12379;&#12367;&#12384;&#12373;&#12356;&#12290;</p>
 <a class="text-link" href="https://en1150.co.jp/staff/">&#12473;&#12479;&#12483;&#12501;&#32057;&#20171;&#12434;&#35211;&#12427; &rarr;</a>
 </div>
-</div></section>
+</div>
+<div class="store-trust" aria-labelledby="store-trust-title">
+<div class="store-trust-heading">
+<p class="section-label">写真で見える、相談先の安心</p>
+<h3 id="store-trust-title">鹿児島県内に実店舗があります。</h3>
+<p>お墓じまい・海洋葬・その後のご供養まで、店舗で直接ご相談いただけます。大切なご遺骨をお預かりする事業者だからこそ、実際の店舗と店内の様子を公開しています。</p>
+</div>
+<div class="store-trust-photos">
+<figure><img src="assets/store-exterior.jpg" alt="有限会社 縁の店舗外観。お墓じまい、海洋葬、ご供養の相談窓口を案内する看板がある" loading="lazy" decoding="async" width="1200" height="903"><figcaption>有限会社 縁の店舗外観</figcaption></figure>
+<figure><img src="assets/store-interior.jpg" alt="有限会社 縁の明るく落ち着いた店内相談スペース" loading="lazy" decoding="async" width="1200" height="901"><figcaption>ご家族で落ち着いて相談できる店内スペース</figcaption></figure>
+</div>
+</div>
+</section>
 <section id="reports" class="report-section"><div class="wrap">
 <p class="section-label">&#37670;&#27743;&#28286;&#12391;&#12398;&#12362;&#35211;&#36865;&#12426;</p>
 <h2>&#28023;&#27915;&#25955;&#39592; &#23455;&#26045;&#12524;&#12509;&#12540;&#12488;</h2>
