@@ -1,0 +1,35 @@
+{
+  "model": "sd_xl_base_1.0.safetensors",
+  "assets": [
+    {
+      "id": "11-microphone",
+      "prompt": "close editorial photograph of two wireless microphones and a gooseneck lectern microphone neatly arranged on a refined banquet stage in a Japanese wedding venue, soft warm spotlight, elegant dark wood and sage green accents, realistic hospitality photography, wide horizontal composition, no readable text, no logos",
+      "seed": 9164000,
+      "image": {
+        "filename": "gb_iizuka_party_11-microphone_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      }
+    },
+    {
+      "id": "12-audio-stage",
+      "prompt": "wide editorial photograph of a small event stage in a Japanese wedding banquet hall, podium, speakers, microphones, subtle floral decoration, clean professional PA setup for a company party or community ceremony, warm elegant lighting, realistic interior photography, no readable text, no logos",
+      "seed": 9164113,
+      "image": {
+        "filename": "gb_iizuka_party_12-audio-stage_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      }
+    },
+    {
+      "id": "13-seating-layout",
+      "prompt": "wide editorial photograph of a banquet hall prepared for a seated dinner party, neatly arranged round tables, white chairs, table numbers without readable text, clear aisle for speeches, microphones and small stage visible in the background, refined wedding venue, realistic interior photography, no readable text, no logos",
+      "seed": 9164226,
+      "image": {
+        "filename": "gb_iizuka_party_13-seating-layout_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      }
+    }
+  ]
+}

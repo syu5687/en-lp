@@ -1,0 +1,30 @@
+Add-Type -AssemblyName System.Drawing
+$src = 'D:\_LUM\model-sns-pipeline\assets\previews\gb_iizuka_party_fv_00001_.png'
+$out = Join-Path (Get-Location) 'party-fv-mockup.png'
+$img = [System.Drawing.Image]::FromFile($src)
+$bmp = New-Object System.Drawing.Bitmap $img.Width, $img.Height
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.DrawImage($img, 0, 0, $img.Width, $img.Height)
+$overlay = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(168, 24, 32, 27))
+$g.FillRectangle($overlay, 0, 0, 690, $img.Height)
+$white = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::White)
+$sage = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 215, 231, 205))
+$gold = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 231, 198, 126))
+$fontSmall = New-Object System.Drawing.Font('Yu Gothic UI Semibold', 18)
+$fontLabel = New-Object System.Drawing.Font('Yu Gothic UI Semibold', 22)
+$fontMain = New-Object System.Drawing.Font('Yu Gothic UI Semibold', 47)
+$fontSub = New-Object System.Drawing.Font('Yu Gothic UI', 19)
+$fontPrice = New-Object System.Drawing.Font('Yu Gothic UI Semibold', 29)
+$g.DrawString('GRAND BELLS IIZUKA  |  BANQUET & PARTY', $fontSmall, $sage, 78, 78)
+$g.DrawString("飯塚で宴会をお探しの`n幹事様へ", $fontMain, $white, 78, 174)
+$g.DrawString('料理・会場・飲み放題まで、まとめて相談できます。', $fontSub, $white, 82, 318)
+$g.DrawString('飲み放題付き', $fontLabel, $sage, 82, 414)
+$g.DrawString('5,800円〜', $fontPrice, $gold, 270, 407)
+$g.DrawString('10名〜230名対応  /  送迎マイクロバス相談可', $fontSub, $white, 82, 467)
+$btn = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(255, 156, 72, 53))
+$g.FillRectangle($btn, 78, 548, 330, 74)
+$g.DrawString('空き状況・見積を相談する  →', $fontLabel, $white, 103, 569)
+$g.DrawString('歓送迎会  ・  同窓会  ・  法要  ・  会社宴会', $fontSmall, $white, 82, 680)
+$bmp.Save($out, [System.Drawing.Imaging.ImageFormat]::Png)
+$g.Dispose(); $bmp.Dispose(); $img.Dispose()
+Write-Output $out

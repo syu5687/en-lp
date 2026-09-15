@@ -1,5 +1,35 @@
-/* Release: v2026091401 — in-page navigation enhancement. */
+/* Release: v2026091501 — 広告経由の識別子保存（gclid/utm）と contact_submit 計測を追加。 */
 'use strict';
+
+/* --------------------------------------------------------------
+   広告経由の識別子（gclid / utm_*）を保持する。
+   - LP到着時のURLから取得し、sessionStorage へ退避（再読み込み対策）
+   - 取得できない場合は空文字。送信は止めない
+   -------------------------------------------------------------- */
+const LP_AD_KEYS = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+const LP_AD_STORE = 'en_lp1_ad_params';
+const lpAdParams = (() => {
+  const out = {};
+  LP_AD_KEYS.forEach(k => { out[k] = ''; });
+  try {
+    const q = new URLSearchParams(location.search);
+    let fromUrl = false;
+    LP_AD_KEYS.forEach(k => {
+      const v = (q.get(k) || '').slice(0, 200);
+      out[k] = v;
+      if (v) fromUrl = true;
+    });
+    if (fromUrl) {
+      sessionStorage.setItem(LP_AD_STORE, JSON.stringify(out));
+    } else {
+      const saved = JSON.parse(sessionStorage.getItem(LP_AD_STORE) || '{}');
+      LP_AD_KEYS.forEach(k => { out[k] = String(saved[k] || '').slice(0, 200); });
+    }
+  } catch (e) {
+    LP_AD_KEYS.forEach(k => { if (typeof out[k] !== 'string') out[k] = ''; });
+  }
+  return out;
+})();
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', () => {
     const hash = link.getAttribute('href');
@@ -99,6 +129,9 @@ if (lpForm) {
     }
     data.source = location.href;
     data.formName = '鹿児島・錦江湾 海洋散骨LP（lp1）';
+    data.form_name = 'lp1_kagoshima_ocean_burial';
+    data.landing_page = '/lp1/';
+    LP_AD_KEYS.forEach(k => { data[k] = lpAdParams[k] || ''; });
     data.elapsedMs = Date.now() - lpLoadedAt;
     lpButton.disabled = true;
     lpButton.firstChild.textContent = '送信中… ';
@@ -115,11 +148,15 @@ if (lpForm) {
       lpForm.reset();
       const looksHuman = data.elapsedMs >= 5000 && !data.website;
       if (typeof gtag === 'function' && looksHuman) {
-        gtag('event', 'generate_lead', {
+        const lpEventParams = {
           form_name: 'lp1_kagoshima_ocean_burial',
           category: data.category || '(未選択)',
           method: 'inline_form'
-        });
+        };
+        /* 送信数の正指標。本体フォーム（/contact/）と同じ contact_submit を送る。 */
+        gtag('event', 'contact_submit', lpEventParams);
+        /* 既存イベント名は変更しないため generate_lead も従来どおり送る。 */
+        gtag('event', 'generate_lead', lpEventParams);
       }
     } catch (error) {
       lpMessage.className = 'lp-form-result ng';

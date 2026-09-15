@@ -38,13 +38,17 @@ if (!empty($_GET['export'])) {
   header('Content-Disposition: attachment; filename="inquiries_' . date('Ymd') . '.csv"');
   echo "\xEF\xBB\xBF";
   $out = fopen('php://output', 'w');
-  fputcsv($out, ['受信日時', 'お名前', 'ふりがな', 'メール', '電話', '郵便番号', '住所', '種別', 'お住まい', '年代', '性別', '合同散骨希望日', '診断結果', '送信元ページ', '内容', 'ステータス', '担当者', 'ステータス更新日時']);
+  fputcsv($out, ['受信日時', 'お名前', 'ふりがな', 'メール', '電話', '郵便番号', '住所', '種別', 'お住まい', '年代', '性別', '合同散骨希望日', '診断結果', '送信元ページ', '内容', 'ステータス', '担当者', 'ステータス更新日時', 'フォーム名', '着地ページ', '広告媒体', '広告メディア', '広告キャンペーン', '広告コンテンツ', '検索キーワード', 'gclid']);
   foreach ($items as $i) {
     fputcsv($out, [
       $i['received_at'] ?? '', $i['name'] ?? '', $i['kana'] ?? '', $i['email'] ?? '', $i['tel'] ?? '', $i['zip'] ?? '', $i['addr'] ?? '',
       $i['category'] ?? '', $i['pref'] ?? '', $i['age_group'] ?? '', $i['gender'] ?? '',
       $i['goudou_date'] ?? '', $i['shindan'] ?? '', $i['source'] ?? '', $i['message'] ?? '',
       $iq_status($i), $i['staff'] ?? '', $i['status_updated_at'] ?? '',
+      // 流入元の識別（v0263で追加）
+      $i['form_name'] ?? '', $i['landing_page'] ?? '',
+      $i['utm_source'] ?? '', $i['utm_medium'] ?? '', $i['utm_campaign'] ?? '',
+      $i['utm_content'] ?? '', $i['utm_term'] ?? '', $i['gclid'] ?? '',
     ]);
   }
   fclose($out);
@@ -196,6 +200,18 @@ function iq_bars(array $data, int $top = 8): string {
             <?php endif; ?>
             <?php if (!empty($i['shindan'])): ?><p style="font-size:.76rem;color:#567">診断: <?= h($i['shindan']) ?></p><?php endif; ?>
             <?php if (!empty($i['source'])): ?><p style="font-size:.72rem;color:#9ab"><?= h((string)(parse_url((string)$i['source'], PHP_URL_PATH) ?? '')) ?></p><?php endif; ?>
+            <?php
+              /* 広告経由の識別（v0263で追加）。gclid または utm_* があるときだけ表示する。 */
+              $iq_ad = array_values(array_filter([
+                (string)($i['utm_campaign'] ?? ''),
+                (string)($i['utm_content'] ?? ''),
+                (string)($i['utm_term'] ?? ''),
+              ], static fn($v) => $v !== ''));
+              $iq_has_gclid = !empty($i['gclid']);
+            ?>
+            <?php if ($iq_ad || $iq_has_gclid): ?>
+              <p style="font-size:.72rem;color:#c2762a;margin-top:4px">広告<?= $iq_has_gclid ? '（クリック計測あり）' : '' ?><?= $iq_ad ? '：' . h(implode(' / ', $iq_ad)) : '' ?></p>
+            <?php endif; ?>
           </td>
           <td class="iq-status" data-id="<?= h((string)($i['id'] ?? '')) ?>">
             <?php if ($stale): ?><span class="iq-stale-badge">3日以上動きなし</span><?php endif; ?>

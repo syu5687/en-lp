@@ -50,6 +50,15 @@ $item = [
   'age_group'   => $take('age_group', 20),
   'gender'      => $take('gender', 20),
   'source'      => $take('source', 300),
+  // 流入元の識別（v0263で追加）。どのフォーム・どの広告からの問い合わせかを管理画面で追う。
+  'form_name'    => $take('form_name', 100),
+  'landing_page' => $take('landing_page', 200),
+  'gclid'        => $take('gclid', 200),
+  'utm_source'   => $take('utm_source', 100),
+  'utm_medium'   => $take('utm_medium', 100),
+  'utm_campaign' => $take('utm_campaign', 200),
+  'utm_content'  => $take('utm_content', 200),
+  'utm_term'     => $take('utm_term', 200),
   'received_at' => date('Y-m-d H:i:s'),
 ];
 

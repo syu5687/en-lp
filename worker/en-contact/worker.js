@@ -77,6 +77,11 @@ async function logInquiry(d) {
     category: d.category || "", message: d.message || "", zip: d.zip || "", addr: d.addr || "", goudou_date: d.goudou_date || "",
     shindan: d.shindan || "", pref: d.pref || "", age_group: d.age_group || "", gender: d.gender || "",
     source: d.source || "",
+    // どのフォーム・どの広告から来たかを管理画面で追えるようにする（v0263で追加）
+    form_name: d.form_name || "", landing_page: d.landing_page || "",
+    gclid: d.gclid || "",
+    utm_source: d.utm_source || "", utm_medium: d.utm_medium || "", utm_campaign: d.utm_campaign || "",
+    utm_content: d.utm_content || "", utm_term: d.utm_term || "",
   });
   const key = await crypto.subtle.importKey(
     "raw", new TextEncoder().encode(CONFIG.LOG_SECRET),
@@ -208,6 +213,18 @@ export default {
       const srcAdmin = d.source
         ? `<p style="margin-top:22px;padding-top:12px;border-top:1px solid #e5ddcd;font-size:13px;color:#555;">送信元フォーム：<a href="${esc(d.source)}" style="color:#15709e;">${esc(d.formName || d.source)}</a></p>`
         : "";
+      // 広告経由の場合のみ、キャンペーン情報を担当者通知に載せる（お客様側には出さない）
+      const adBits = [
+        d.utm_campaign ? `キャンペーン：${esc(d.utm_campaign)}` : "",
+        d.utm_content ? `広告：${esc(d.utm_content)}` : "",
+        d.utm_term ? `キーワード：${esc(d.utm_term)}` : "",
+        d.utm_source ? `媒体：${esc(d.utm_source)}${d.utm_medium ? " / " + esc(d.utm_medium) : ""}` : "",
+        d.gclid ? "Google広告クリック（gclid あり）" : ""
+      ].filter(Boolean);
+      const adAdmin = adBits.length
+        ? `<p style="margin-top:10px;font-size:13px;color:#555;">${adBits.join("<br>")}</p>`
+        : "";
+
       const srcCust = d.source
         ? `<p style="margin-top:18px;font-size:13px;color:#777;">お問い合わせページ：<a href="${esc(d.source)}" style="color:#15709e;">${esc(d.formName || "こちら")}</a></p>`
         : "";
@@ -218,6 +235,7 @@ export default {
           <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:12px;">${rows}</table>
           ${detail ? `<h3 style="margin-top:18px;color:#15709e;">お問い合わせ内容</h3>${detail}` : ""}
           ${srcAdmin}
+          ${adAdmin}
         </div>`;
 
       const adminBody = {

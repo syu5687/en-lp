@@ -1,0 +1,147 @@
+{
+  "prompt": [
+    0,
+    "398389b8-ec31-424d-a2da-69a7a7f5e987",
+    {
+      "1": {
+        "class_type": "CheckpointLoaderSimple",
+        "inputs": {
+          "ckpt_name": "sd_xl_base_1.0.safetensors"
+        }
+      },
+      "2": {
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "clip": [
+            "1",
+            1
+          ],
+          "text": "photorealistic editorial interior photograph for a Japanese wedding venue banquet landing page, elegant regional celebration venue in Iizuka Fukuoka, warmly lit banquet room prepared for a welcoming party, long tables with tasteful white and sage green floral arrangements, refined Japanese western fusion dishes, sparkling water and wine glasses, subtle local Kyushu hospitality, no people in foreground, wide horizontal composition, generous clean negative space on the left for website headline overlay, premium but approachable, natural warm window light, realistic high-end hospitality photography, 16:9 composition"
+        }
+      },
+      "3": {
+        "class_type": "CLIPTextEncode",
+        "inputs": {
+          "clip": [
+            "1",
+            1
+          ],
+          "text": "text, letters, logo, watermark, signage, readable words, people close-up, crowded room, dark image, oversaturated, fantasy, illustration, cartoon, CGI, blurry, distorted table, malformed dishes, harsh shadows"
+        }
+      },
+      "4": {
+        "class_type": "EmptyLatentImage",
+        "inputs": {
+          "width": 1344,
+          "height": 768,
+          "batch_size": 1
+        }
+      },
+      "5": {
+        "class_type": "KSampler",
+        "inputs": {
+          "model": [
+            "1",
+            0
+          ],
+          "positive": [
+            "2",
+            0
+          ],
+          "negative": [
+            "3",
+            0
+          ],
+          "latent_image": [
+            "4",
+            0
+          ],
+          "seed": 9152026,
+          "steps": 28,
+          "cfg": 6.5,
+          "sampler_name": "dpmpp_2m",
+          "scheduler": "karras",
+          "denoise": 1.0
+        }
+      },
+      "6": {
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "5",
+            0
+          ],
+          "vae": [
+            "1",
+            2
+          ]
+        }
+      },
+      "7": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "6",
+            0
+          ],
+          "filename_prefix": "gb_iizuka_party_fv"
+        }
+      }
+    },
+    {
+      "client_id": "local-video-project",
+      "create_time": 1789431038882
+    },
+    [
+      "7"
+    ]
+  ],
+  "outputs": {
+    "7": {
+      "images": [
+        {
+          "filename": "gb_iizuka_party_fv_00001_.png",
+          "subfolder": "",
+          "type": "output"
+        }
+      ]
+    }
+  },
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "398389b8-ec31-424d-a2da-69a7a7f5e987",
+          "timestamp": 1789431038885
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "398389b8-ec31-424d-a2da-69a7a7f5e987",
+          "timestamp": 1789431038886
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "398389b8-ec31-424d-a2da-69a7a7f5e987",
+          "timestamp": 1789431057335
+        }
+      ]
+    ]
+  },
+  "meta": {
+    "7": {
+      "node_id": "7",
+      "display_node": "7",
+      "parent_node": null,
+      "real_node_id": "7"
+    }
+  },
+  "measured_seconds": 20.1
+}

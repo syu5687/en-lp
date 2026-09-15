@@ -1,4 +1,4 @@
-<!-- Release: v2026091402 -->
+<!-- Release: v2026091501 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026091402">
+<meta name="version" content="v2026091501">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026091402">
-<script src="script.js?v=v2026091402" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026091501">
+<script src="script.js?v=v2026091501" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -128,8 +128,30 @@
 <div>
 <span class="pink-label">&#27425;&#22238;&#38283;&#20652;&#20104;&#23450;</span><h2 id="schedule-title">&#40575;&#20816;&#23798;&#12539;&#37670;&#27743;&#28286; &#21512;&#21516;&#28023;&#27915;&#25955;&#39592;</h2>
 </div>
-<p class="schedule-date"><time datetime="2026-10-24"><span>2026&#24180;</span> 10&#26376;24&#26085;<small>&#65288;&#22303;&#65289;</small></time></p>
-<p class="schedule-small">&#38598;&#21512;&#22580;&#25152;&#65306;&#12356;&#12362;&#12527;&#12540;&#12523;&#12489;&#40575;&#20816;&#23798;&#27700;&#26063;&#39208; &#12375;&#12362;&#12363;&#12380;&#36890;&#12426;&#27178;<br>&#8251; &#22825;&#20505;&#12539;&#28023;&#27841;&#12395;&#12424;&#12426;&#26085;&#31243;&#12364;&#22793;&#26356;&#12392;&#12394;&#12427;&#22580;&#21512;&#12364;&#12354;&#12426;&#12414;&#12377;&#12290;</p>
+<?php
+/* 合同海洋散骨の開催日は管理画面（/admin/goudou/）で登録したデータを参照する。
+   ハードコードすると開催後に古い日付が「次回開催予定」として残るため、必ずここから取得する。
+   取得できない場合もLPは止めず、「調整中」表示にフォールバックする。 */
+$lp_next = null;
+try {
+  require_once dirname(__DIR__) . '/admin/includes/store.php';
+  foreach (goudou_upcoming() as $g) {
+    $sea = (string)($g['sea'] ?? '');
+    if (mb_strpos($sea, '鹿児島') === false && mb_strpos($sea, '錦江湾') === false) continue;
+    $lp_next = $g;
+    break;
+  }
+} catch (Throwable $e) { $lp_next = null; }
+$lp_ts = $lp_next ? strtotime((string)($lp_next['date'] ?? '')) : false;
+$lp_status = (string)($lp_next['status'] ?? '');
+?>
+<?php if ($lp_ts): ?>
+<p class="schedule-date"><time datetime="<?= date('Y-m-d', $lp_ts) ?>"><span><?= date('Y', $lp_ts) ?>年</span> <?= date('n', $lp_ts) ?>月<?= date('j', $lp_ts) ?>日<small>（<?= ['日','月','火','水','木','金','土'][(int)date('w', $lp_ts)] ?>）</small></time><?= ($lp_status !== '' && $lp_status !== '受付中') ? '<em class="schedule-status">' . htmlspecialchars($lp_status, ENT_QUOTES, 'UTF-8') . '</em>' : '' ?></p>
+<p class="schedule-small">集合場所：いおワールド鹿児島水族館 しおかぜ通り横<br>※ 天候・海況により日程が変更となる場合があります。</p>
+<?php else: ?>
+<p class="schedule-date schedule-date--tbd">次回開催日は現在調整中です</p>
+<p class="schedule-small">ご希望の時期がありましたら、お気軽にお問い合わせください。<br>集合場所：いおワールド鹿児島水族館 しおかぜ通り横</p>
+<?php endif; ?>
 </div>
 <a class="outline" href="https://en1150.co.jp/kaiyou-sou/#goudou-schedule">&#20170;&#24460;&#12398;&#38283;&#20652;&#20104;&#23450;&#12434;&#35211;&#12427; <span>&#12297;</span></a></section>
 <section id="about" class="emotion wrap"><h2>&#24819;&#12356;&#12399;&#12289;&#28023;&#12408;&#12289;&#12381;&#12375;&#12390;&#26410;&#26469;&#12408;</h2>

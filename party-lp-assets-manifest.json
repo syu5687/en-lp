@@ -1,0 +1,105 @@
+{
+  "model": "sd_xl_base_1.0.safetensors",
+  "workflow": "SDXL Base 1.0, 1344x768, 28 steps, dpmpp_2m/karras",
+  "assets": [
+    {
+      "id": "02-banquet-scene",
+      "prompt": "wide editorial photograph of a Japanese banquet venue in Iizuka Fukuoka, 40 guests enjoying a welcoming party at elegant round tables, natural candid atmosphere, refined wedding venue interior, warm sage green and cream palette, realistic hospitality photography, no readable text, no logos",
+      "seed": 9152228,
+      "image": {
+        "filename": "gb_iizuka_party_02-banquet-scene_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.0
+    },
+    {
+      "id": "03-buffet-service",
+      "prompt": "wide editorial photograph of a professional banquet staff member serving beautifully plated dishes from a buffet station to guests, Japanese wedding venue party, attentive hospitality, clean elegant setup, warm natural lighting, realistic food photography, no readable text, no logos",
+      "seed": 9152329,
+      "image": {
+        "filename": "gb_iizuka_party_03-buffet-service_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.1
+    },
+    {
+      "id": "04-plated-course",
+      "prompt": "close wide food photograph of a refined Japanese-western fusion banquet course meal on a beautifully set table, seasonal Kyushu ingredients, several small dishes, wine and sparkling water, wedding venue hospitality, natural warm light, realistic high-end food photography, no text, no logos",
+      "seed": 9152430,
+      "image": {
+        "filename": "gb_iizuka_party_04-plated-course_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.0
+    },
+    {
+      "id": "05-kaiseki",
+      "prompt": "top-down and angled editorial food photograph of a refined Japanese kaiseki banquet meal, seasonal colorful dishes in elegant ceramic plates, premium but approachable, suitable for a family memorial meal or formal celebration, warm neutral table setting, realistic photography, no text, no logos",
+      "seed": 9152531,
+      "image": {
+        "filename": "gb_iizuka_party_05-kaiseki_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.1
+    },
+    {
+      "id": "06-bento",
+      "prompt": "beautiful Japanese celebratory bento box for a banquet venue, black lacquer-style box opened to reveal colorful Japanese-western dishes, clean premium presentation, suitable for a memorial service or family celebration, soft studio light, realistic food photography, no text, no logos",
+      "seed": 9152632,
+      "image": {
+        "filename": "gb_iizuka_party_06-bento_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.0
+    },
+    {
+      "id": "07-drink-plan",
+      "prompt": "still life photograph of banquet drink service, beer bottle, wine glasses, Japanese sake carafe, non-alcoholic sparkling drink, elegant linen table setting, warm evening reception atmosphere, realistic hospitality photography, no readable text, no logos",
+      "seed": 9152733,
+      "image": {
+        "filename": "gb_iizuka_party_07-drink-plan_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.0
+    },
+    {
+      "id": "08-shuttle-bus",
+      "prompt": "professional clean white microbus waiting outside an elegant regional Japanese wedding and banquet venue, guests arriving in the background, welcoming daylight, subtle greenery, realistic commercial photography, no readable text, no logos",
+      "seed": 9152834,
+      "image": {
+        "filename": "gb_iizuka_party_08-shuttle-bus_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.1
+    },
+    {
+      "id": "09-projector-meeting",
+      "prompt": "wide photograph of a bright banquet hall arranged for a corporate seminar or community meeting, projector screen, wireless microphones, classroom seating, clean professional wedding venue, realistic interior photography, no readable text, no logos",
+      "seed": 9152935,
+      "image": {
+        "filename": "gb_iizuka_party_09-projector-meeting_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.0
+    },
+    {
+      "id": "10-venue-exterior",
+      "prompt": "wide exterior photograph of a tasteful regional Japanese wedding venue in Iizuka Fukuoka, clear entrance, landscaped approach, parking area, inviting early evening light, suitable for a banquet landing page, realistic architecture photography, no readable text, no logos",
+      "seed": 9153036,
+      "image": {
+        "filename": "gb_iizuka_party_10-venue-exterior_00001_.png",
+        "subfolder": "",
+        "type": "output"
+      },
+      "seconds": 10.1
+    }
+  ]
+}
