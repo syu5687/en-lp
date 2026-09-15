@@ -1,4 +1,4 @@
-/* Release: v2026091501 — 広告経由の識別子保存（gclid/utm）と contact_submit 計測を追加。 */
+/* Release: v2026091503 — 広告経由の識別子保存（gclid/utm）と contact_submit 計測を追加。 */
 'use strict';
 
 /* --------------------------------------------------------------
@@ -42,6 +42,20 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+
+/* フッターの公式サイトボタン。LPからの離脱先を1件だけ計測する（既存イベント名は変更しない）。 */
+const lpOfficial = document.getElementById('lp-official-link');
+if (lpOfficial) {
+  lpOfficial.addEventListener('click', () => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'outbound_internal', {
+        link_url: lpOfficial.getAttribute('href') || '',
+        link_label: '公式サイト（フッター）',
+        page_path: '/lp1/'
+      });
+    }
+  });
+}
 
 const lpForm = document.getElementById('lp-contact-form');
 if (lpForm) {

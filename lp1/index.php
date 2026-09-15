@@ -1,12 +1,12 @@
-<!-- Release: v2026091501 -->
+<!-- Release: v2026091503 -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="version" content="v2026091501">
+<meta name="robots" content="noindex,follow">
+<meta name="version" content="v2026091503">
 <link rel="canonical" href="https://en1150.co.jp/lp1/">
 <meta name="referrer" content="no-referrer">
 <title>鹿児島・錦江湾の海洋散骨｜粉骨から供養まで｜有限会社 縁</title>
@@ -87,8 +87,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="styles.css?v=v2026091501">
-<script src="script.js?v=v2026091501" defer></script>
+<link rel="stylesheet" href="styles.css?v=v2026091503">
+<script src="script.js?v=v2026091503" defer></script>
 <?php require dirname(__DIR__) . '/includes/ga4.php'; ?>
 </head>
 <body>
@@ -414,6 +414,7 @@ $lp_status = (string)($lp_next['status'] ?? '');
 <h3>&#12372;&#20379;&#39178;&#12434;&#12289;&#19968;&#12388;&#12398;&#31379;&#21475;&#12391;&#12290;</h3>
 <p>&#28023;&#27915;&#25955;&#39592;&#12539;&#31881;&#39592;&#12539;&#12362;&#22675;&#12376;&#12414;&#12356;</p>
 <p class="partner">&#23665;&#37326;&#30707;&#26448;&#26666;&#24335;&#20250;&#31038;&#12399;&#25552;&#25658;&#12539;&#21332;&#21147;&#20808;&#12391;&#12377;&#12290;<br>&#26377;&#38480;&#20250;&#31038;&#32257;&#12364;&#28023;&#27915;&#25955;&#39592;&#26989;&#21209;&#12434;&#21463;&#35351;&#12375;&#12390;&#12356;&#12414;&#12377;&#12290;</p>
+<a class="footer-official" id="lp-official-link" href="https://en1150.co.jp/">有限会社 縁 公式サイト<span aria-hidden="true">〉</span></a>
 <nav aria-label="&#20250;&#31038;&#24773;&#22577;"><a href="https://en1150.co.jp/company/">&#20250;&#31038;&#27010;&#35201;</a><a href="https://en1150.co.jp/privacy/">&#12503;&#12521;&#12452;&#12496;&#12471;&#12540;&#12509;&#12522;&#12471;&#12540;</a><a href="https://en1150.co.jp/policy/">&#12461;&#12515;&#12531;&#12475;&#12523;&#12509;&#12522;&#12471;&#12540;</a></nav>
 </div>
 </div>
