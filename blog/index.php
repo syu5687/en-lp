@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../admin/includes/store.php'; // news_published() / news_find()
 require_once __DIR__ . '/../includes/blog-likes.php';      // いいね（v0266で追加）
+require_once __DIR__ . '/../includes/blog-popular.php';    // 人気の記事（v0267で追加）
 
 /** data/news.json（フォールバック）から公開記事をIDで取得 */
 function blog_seed_find(string $id): ?array {
@@ -410,11 +411,45 @@ $cat = isset($_GET['cat']) ? trim((string)$_GET['cat']) : '';
 $filtered = $cat === '' ? $all
   : array_values(array_filter($all, fn($it) => in_array($cat, $split_cats($it['category'] ?? ''), true)));
 
+/* ============================================================
+   並び替え（v0267）： ?sort=popular（アクセスの多い順）／?sort=likes（いいねの多い順）
+   - 既定は従来どおり日付の新しい順。?sort= が付いたときだけ並べ替える。
+   - 並び替え時は上位 BLOG_SORT_LIST_COUNT 件のみを出し、ページ送りはしない。
+   - アクセス数は Firestore の site_meta/blog_popular（GA4から定期取得したもの）を使う。
+     公開ページからGA4 APIは呼ばない（includes/blog-popular.php の設計を参照）。
+   ============================================================ */
+$sort = isset($_GET['sort']) ? trim((string)$_GET['sort']) : '';
+if (!in_array($sort, ['popular', 'likes'], true)) $sort = '';
+
+$sort_popular_ok = BLOG_SORT_ENABLED && blog_popular_available();
+$sort_likes_ok   = BLOG_SORT_ENABLED && BLOG_LIKE_ENABLED;
+
+// データが無い並び順は使わない（空のランキングを見せない）
+if ($sort === 'popular' && !$sort_popular_ok) $sort = $sort_likes_ok ? 'likes' : '';
+if ($sort === 'likes'   && !$sort_likes_ok)   $sort = '';
+
+$sort_metric = [];          // 記事ID => 指標値（カードのバッジ横に出す）
+if ($sort !== '') {
+  $sort_metric = $sort === 'popular' ? blog_popular_map() : blog_like_counts();
+  $scored = [];
+  foreach ($filtered as $it) {
+    $sid = (string)($it['id'] ?? '');
+    $v   = (int)($sort_metric[$sid] ?? 0);
+    if ($v <= 0) continue;  // 実績が無い記事はランキングに載せない
+    $scored[] = $it + ['sort_value' => $v];
+  }
+  usort($scored, function ($a, $b) {
+    if ($a['sort_value'] !== $b['sort_value']) return $b['sort_value'] <=> $a['sort_value'];
+    return strcmp((string)($b['date'] ?? ''), (string)($a['date'] ?? ''));  // 同数は新しい記事を上に
+  });
+  $filtered = array_slice($scored, 0, BLOG_SORT_LIST_COUNT);
+}
+
 // ---- ページネーション（30件/ページ）----
 $per_page = 30;
 $total    = count($filtered);
 $pages    = max(1, (int)ceil($total / $per_page));
-$page_no  = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
+$page_no  = ($sort !== '') ? 1 : (isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1);
 if ($page_no > $pages) $page_no = $pages;
 $items    = array_slice($filtered, ($page_no - 1) * $per_page, $per_page);
 
@@ -423,11 +458,15 @@ $page_canonical = SITE['url'] . '/blog/';
 $page_hero_image = '/assets/img/hero-blog.jpg';
 $qp = [];
 if ($cat !== '')     $qp['cat'] = $cat;
+if ($sort !== '')    $qp['sort'] = $sort;
 if ($page_no > 1)    $qp['p']   = $page_no;
 if ($qp) $page_canonical .= '?' . http_build_query($qp);
 
+// 並び替えビューは既存記事の並べ替えにすぎず、順位も変動する。重複と評価の分散を避けて noindex,follow。
+if ($sort !== '') $page_noindex = true;
+
 // 絞り込み用リンクのベース
-$link_base = fn(array $over) => '/blog/' . (($q = http_build_query(array_filter(array_merge(['cat' => $cat], $over), fn($v) => $v !== '' && $v !== 0))) ? '?' . $q : '');
+$link_base = fn(array $over) => '/blog/' . (($q = http_build_query(array_filter(array_merge(['cat' => $cat, 'sort' => $sort], $over), fn($v) => $v !== '' && $v !== 0))) ? '?' . $q : '');
 
 require __DIR__ . '/../includes/head.php';
 ?>
@@ -480,42 +519,40 @@ require __DIR__ . '/../includes/head.php';
       </script>
     <?php endif; ?>
 
-    <?php /* ===== よく読まれている記事（v0266）。BLOG_LIKE_RANKING_PUBLIC=true で表示 ===== */ ?>
-    <?php
-      $lk_rank = [];
-      if (BLOG_LIKE_ENABLED && BLOG_LIKE_RANKING_PUBLIC && $cat === '' && $page_no === 1) {
-        $lk_by_id = [];
-        foreach ($all as $lk_it) { $lk_by_id[(string)($lk_it['id'] ?? '')] = $lk_it; }
-        foreach (blog_like_ranking(BLOG_LIKE_RANKING_COUNT) as $lk_r) {
-          if (!empty($lk_by_id[$lk_r['id']])) $lk_rank[] = $lk_by_id[$lk_r['id']] + ['like_count' => $lk_r['count']];
-        }
-      }
-    ?>
-    <?php if ($lk_rank): ?>
-      <section style="margin:0 0 34px;padding:22px 24px;background:var(--sea-light);border-radius:14px">
-        <p style="font-weight:700;color:var(--green-mid);margin-bottom:14px">よく読まれている記事</p>
-        <ol style="margin:0;padding-left:1.3em;line-height:1.9">
-          <?php foreach ($lk_rank as $lk_it): ?>
-            <li style="margin:.3em 0">
-              <a href="/blog/?id=<?= h(rawurlencode($lk_it['id'] ?? '')) ?>" style="color:var(--green);font-weight:600;text-decoration:none"><?= h($lk_it['title'] ?? '') ?></a>
-              <span style="font-size:.8rem;color:var(--text-light)">（<?= h(BLOG_LIKE_LABEL) ?> <?= number_format((int)$lk_it['like_count']) ?>）</span>
-            </li>
-          <?php endforeach; ?>
-        </ol>
-      </section>
+    <?php /* ===== 並び替えボタン（v0267）。カテゴリ選択枠の下に置く ===== */ ?>
+    <?php if ($sort_popular_ok || $sort_likes_ok): ?>
+      <nav class="blog-sorts" aria-label="記事の並び替え">
+        <a class="chip<?= $sort === '' ? ' is-active' : '' ?>" href="<?= h('/blog/' . ($cat !== '' ? '?cat=' . rawurlencode($cat) : '')) ?>">新着順</a>
+        <?php if ($sort_popular_ok): ?>
+          <a class="chip<?= $sort === 'popular' ? ' is-active' : '' ?>" href="<?= h($link_base(['sort' => 'popular', 'p' => ''])) ?>">人気の記事</a>
+        <?php endif; ?>
+        <?php if ($sort_likes_ok): ?>
+          <a class="chip<?= $sort === 'likes' ? ' is-active' : '' ?>" href="<?= h($link_base(['sort' => 'likes', 'p' => ''])) ?>"><?= h(BLOG_LIKE_LABEL) ?>が多い記事</a>
+        <?php endif; ?>
+      </nav>
+      <?php if ($sort === 'popular'): ?>
+        <p class="blog-sorts__note">よく読まれている記事を、直近<?= (int)BLOG_POPULAR_DAYS ?>日間のアクセス数が多い順に<?= (int)BLOG_SORT_LIST_COUNT ?>件まで表示しています。</p>
+      <?php elseif ($sort === 'likes'): ?>
+        <p class="blog-sorts__note">読んだ方から「<?= h(BLOG_LIKE_LABEL) ?>」が多かった記事を、<?= (int)BLOG_SORT_LIST_COUNT ?>件まで表示しています。</p>
+      <?php endif; ?>
     <?php endif; ?>
 
     <?php if ($items): ?>
       <p style="font-size:.85rem;color:var(--text-light);margin-bottom:14px"><?= number_format($total) ?>件<?php if ($pages > 1): ?>　（<?= $page_no ?> / <?= $pages ?>ページ）<?php endif; ?></p>
       <div class="card-grid">
-        <?php foreach ($items as $it): ?>
-          <a class="card" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+        <?php foreach ($items as $sort_i => $it): ?>
+          <a class="card<?= $sort !== '' ? ' card--ranked' : '' ?>" href="/blog/?id=<?= h(rawurlencode($it['id'] ?? '')) ?>" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+            <?php if ($sort !== ''): ?>
+              <?php $sort_rank = (int)$sort_i + 1; ?>
+              <span class="rank-badge<?= $sort_rank <= 3 ? ' rank-badge--top rank-badge--' . $sort_rank : '' ?>" aria-hidden="true"><?= $sort_rank ?></span>
+              <span class="visually-hidden"><?= $sort_rank ?>位</span>
+            <?php endif; ?>
             <?php if (!empty($it['image'])): ?>
               <span class="card-thumb"><img src="<?= h($it['image']) ?>" alt="<?= h($it['title'] ?? '') ?>" loading="lazy"
                 onerror="var t=this.closest('.card-thumb');if(t)t.remove()"></span>
             <?php endif; ?>
             <span style="display:flex;flex-direction:column;padding:18px 20px;flex:1">
-            <p style="font-size:.8rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ <?= h($it['category'] ?? '') ?></p>
+            <p style="font-size:.8rem;color:var(--text-light)"><?= h($it['date'] ?? '') ?> ・ <?= h($it['category'] ?? '') ?><?php if ($sort === 'likes' && !empty($it['sort_value'])): ?> ・ <?= h(BLOG_LIKE_LABEL) ?> <?= number_format((int)$it['sort_value']) ?><?php endif; ?></p>
             <h3><?= h($it['title'] ?? '') ?></h3>
             <?php if (!empty($it['body'])): ?><p style="font-size:.9rem;flex:1"><?= h(mb_strimwidth(preg_replace('/\s+/', ' ', (string)$it['body']), 0, 80, '…')) ?></p><?php endif; ?>
             <span style="margin-top:12px;align-self:flex-start;color:var(--green);font-weight:600;font-size:.85rem">続きを読む →</span>
@@ -591,5 +628,24 @@ require __DIR__ . '/../includes/head.php';
   .prose--html td,.prose--html th{border:1px solid #d8e6ec;padding:8px 10px}
   .prose--html ul,.prose--html ol{margin:0 0 1em;padding-left:1.4em}
   .prose--html li{margin:.3em 0;line-height:1.85}
+  /* ===== 並び替えボタンと順位バッジ（v0267）=====
+     カテゴリのチップと同じ見た目を流用し、新しい部品を増やさない。
+     バッジは金銀銅やメダル記号を使わず、サイトの濃紺〜海ブルーの単色で濃淡をつける。 */
+  .blog-sorts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+  .blog-sorts__note{font-size:.82rem;color:var(--text-light);line-height:1.8;margin:0 0 18px}
+  .card--ranked{position:relative}
+  .rank-badge{position:absolute;top:10px;left:10px;z-index:2;display:flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #cfdbe1;
+    color:#5c6b73;font-size:.85rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;
+    box-shadow:0 2px 8px rgba(9,45,66,.12)}
+  .rank-badge--top{border-color:transparent;color:#fff}
+  .rank-badge--1{background:#0d4a66;width:34px;height:34px;font-size:.95rem}
+  .rank-badge--2{background:#12597a}
+  .rank-badge--3{background:#2f7fa0}
+  .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  @media (max-width:640px){
+    .rank-badge{width:27px;height:27px;font-size:.8rem;top:8px;left:8px}
+    .rank-badge--1{width:30px;height:30px;font-size:.88rem}
+  }
 </style>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

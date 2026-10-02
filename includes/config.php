@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0266';
+const APP_VERSION = 'v20260713-0267';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
@@ -38,10 +38,18 @@ const BLOG_LIKE_CACHE_TTL = 1800; // 30分
 // 書き込みの上限（1インスタンスあたり）。Firestoreの書き込み無料枠に対する保険。
 const BLOG_LIKE_MAX_PER_MINUTE = 30;
 const BLOG_LIKE_MAX_PER_DAY    = 500;
-// 公開側の「よく読まれている記事」ランキング。件数が十分たまるまでは false のままにする
-// （0件の記事が並ぶと逆効果になるため）。
-const BLOG_LIKE_RANKING_PUBLIC = false;
-const BLOG_LIKE_RANKING_COUNT  = 5;
+// ---- ブログ一覧の並び替え（v0267で追加）----
+// /blog/ のカテゴリ選択枠の下に「人気の記事」「いいねが多い記事」ボタンを出す。
+// false にすると両方のボタンが消え、従来どおり新着順のみになる。
+const BLOG_SORT_ENABLED = true;
+// 並び替え時に表示する件数（ページ送りはしない）
+const BLOG_SORT_LIST_COUNT = 30;
+// 「人気の記事」の集計期間（日）。GA4から記事別PVを取得する範囲。
+const BLOG_POPULAR_DAYS = 90;
+// 記事別PVの読み取りキャッシュ（秒）。公開ページはFirestoreの1ドキュメントを読むだけ。
+const BLOG_POPULAR_CACHE_TTL = 21600; // 6時間
+// 保存済みデータがこの秒数より古い場合は「人気の記事」ボタンを出さない（古い順位を見せない）。
+const BLOG_POPULAR_STALE_SEC = 1209600; // 14日
 
 // キャッシュ制御（HTMLはPHPが返す。CSS/JS/画像は .htaccess 側で長期キャッシュ）。
 if (PHP_SAPI !== 'cli' && !headers_sent()) {
