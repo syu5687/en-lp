@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../admin/includes/store.php'; // news_published() / news_find()
+require_once __DIR__ . '/../includes/blog-likes.php';      // いいね（v0266で追加）
 
 /** data/news.json（フォールバック）から公開記事をIDで取得 */
 function blog_seed_find(string $id): ?array {
@@ -153,6 +154,81 @@ if ($blog_id !== '') {
     <?php if (!empty($post['link'])): ?>
       <p style="margin-top:22px;font-size:.9rem;color:var(--text-light)">参考リンク：<a href="<?= h($post['link']) ?>" target="_blank" rel="noopener" style="color:var(--green);font-weight:600"><?= h($post['link']) ?></a></p>
     <?php endif; ?>
+    <?php /* ===== いいね（v0266）。BLOG_LIKE_ENABLED=false で非表示になる ===== */ ?>
+    <?php if (BLOG_LIKE_ENABLED): ?>
+      <div class="post-like">
+        <p class="post-like__lead">この記事は役に立ちましたか</p>
+        <button type="button" class="post-like__btn" id="post-like-btn"
+                data-id="<?= h($blog_id) ?>" data-title="<?= h($post['title'] ?? '') ?>" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.3 5.4a4.6 4.6 0 0 0-6.5 0L12 7.2l-1.8-1.8a4.6 4.6 0 1 0-6.5 6.5l8.3 8.3 8.3-8.3a4.6 4.6 0 0 0 0-6.5z"/>
+          </svg>
+          <span><?= h(BLOG_LIKE_LABEL) ?></span>
+          <span class="post-like__n" id="post-like-n"><?= number_format(blog_like_count($blog_id)) ?></span>
+        </button>
+        <p class="post-like__note" id="post-like-note" aria-live="polite"></p>
+      </div>
+      <script>
+      (function () {
+        var btn = document.getElementById('post-like-btn');
+        if (!btn) return;
+        var num  = document.getElementById('post-like-n');
+        var note = document.getElementById('post-like-note');
+        var id   = btn.dataset.id;
+        var KEY  = 'en_like_v1';
+        var busy = false;
+
+        /* 押下済みの記事は端末内（localStorage）に持つ。プライベートモード等で
+           使えない場合も機能そのものは動くようにする。 */
+        function liked() {
+          try { return (JSON.parse(localStorage.getItem(KEY) || '[]') || []).indexOf(id) >= 0; }
+          catch (e) { return false; }
+        }
+        function mark(on) {
+          try {
+            var a = JSON.parse(localStorage.getItem(KEY) || '[]') || [];
+            var i = a.indexOf(id);
+            if (on && i < 0) a.push(id);
+            if (!on && i >= 0) a.splice(i, 1);
+            localStorage.setItem(KEY, JSON.stringify(a.slice(-200)));
+          } catch (e) {}
+        }
+        if (liked()) btn.setAttribute('aria-pressed', 'true');
+
+        btn.addEventListener('click', function () {
+          if (busy) return;
+          busy = true;
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.disabled = true;
+          fetch('/api/like.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id, action: on ? 'add' : 'remove' })
+          })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (!j || !j.ok) throw new Error((j && j.error) || 'failed');
+            btn.setAttribute('aria-pressed', j.liked ? 'true' : 'false');
+            num.textContent = j.count;
+            mark(!!j.liked);
+            note.textContent = j.liked ? 'ありがとうございます。' : '';
+            if (typeof gtag === 'function') {
+              gtag('event', 'blog_like', {
+                article_id: id,
+                article_title: btn.dataset.title || '',
+                like_action: j.liked ? 'add' : 'remove'
+              });
+            }
+          })
+          .catch(function () {
+            note.textContent = '通信できませんでした。しばらくしてからもう一度お試しください。';
+          })
+          .then(function () { busy = false; btn.disabled = false; });
+        });
+      })();
+      </script>
+    <?php endif; ?>
+
     <?php /* 関連サービス（判定は includes/blog-related.php・本文出力前に $rel を算出済み） */ ?>
     <div style="margin-top:40px;background:var(--sea-light);border-radius:14px;padding:22px 24px">
       <p style="font-weight:700;color:var(--green-mid);margin-bottom:14px">この記事に関連するサービス</p>
@@ -230,6 +306,17 @@ if ($blog_id !== '') {
   #post-lightbox img{max-width:94vw;max-height:90vh;width:auto;height:auto;border-radius:10px;box-shadow:0 18px 60px rgba(0,0,0,.5);cursor:default}
   #post-lightbox-close{position:absolute;top:14px;right:16px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
   #post-lightbox-close:hover{background:rgba(255,255,255,.28)}
+  /* ===== いいね（v0266）。装飾は足さず、本文の流れを止めない静かなトーンにする ===== */
+  .post-like{margin:36px 0 0;padding:22px 0 0;border-top:1px solid #e6ded0;text-align:center}
+  .post-like__lead{margin:0 0 12px;font-size:.88rem;color:var(--text-light,#5c6b73)}
+  .post-like__btn{display:inline-flex;align-items:center;gap:9px;padding:11px 24px;border:1px solid var(--green,#1c6b52);border-radius:999px;background:#fff;color:var(--green,#1c6b52);font-family:inherit;font-size:.95rem;font-weight:700;line-height:1;cursor:pointer;transition:background .15s,color .15s}
+  .post-like__btn:hover{background:#f3f8f5}
+  .post-like__btn[aria-pressed="true"]{background:var(--green,#1c6b52);color:#fff}
+  .post-like__btn[disabled]{opacity:.55;cursor:default}
+  .post-like__btn svg{width:17px;height:17px;flex:none}
+  .post-like__btn[aria-pressed="true"] svg{fill:currentColor}
+  .post-like__n{font-variant-numeric:tabular-nums;min-width:1.2em}
+  .post-like__note{margin:10px 0 0;min-height:1.4em;font-size:.82rem;color:var(--text-light,#5c6b73)}
   @keyframes plb-in{from{opacity:0}to{opacity:1}}
 </style>
 <script>
@@ -391,6 +478,31 @@ require __DIR__ . '/../includes/head.php';
           });
         })();
       </script>
+    <?php endif; ?>
+
+    <?php /* ===== よく読まれている記事（v0266）。BLOG_LIKE_RANKING_PUBLIC=true で表示 ===== */ ?>
+    <?php
+      $lk_rank = [];
+      if (BLOG_LIKE_ENABLED && BLOG_LIKE_RANKING_PUBLIC && $cat === '' && $page_no === 1) {
+        $lk_by_id = [];
+        foreach ($all as $lk_it) { $lk_by_id[(string)($lk_it['id'] ?? '')] = $lk_it; }
+        foreach (blog_like_ranking(BLOG_LIKE_RANKING_COUNT) as $lk_r) {
+          if (!empty($lk_by_id[$lk_r['id']])) $lk_rank[] = $lk_by_id[$lk_r['id']] + ['like_count' => $lk_r['count']];
+        }
+      }
+    ?>
+    <?php if ($lk_rank): ?>
+      <section style="margin:0 0 34px;padding:22px 24px;background:var(--sea-light);border-radius:14px">
+        <p style="font-weight:700;color:var(--green-mid);margin-bottom:14px">よく読まれている記事</p>
+        <ol style="margin:0;padding-left:1.3em;line-height:1.9">
+          <?php foreach ($lk_rank as $lk_it): ?>
+            <li style="margin:.3em 0">
+              <a href="/blog/?id=<?= h(rawurlencode($lk_it['id'] ?? '')) ?>" style="color:var(--green);font-weight:600;text-decoration:none"><?= h($lk_it['title'] ?? '') ?></a>
+              <span style="font-size:.8rem;color:var(--text-light)">（<?= h(BLOG_LIKE_LABEL) ?> <?= number_format((int)$lk_it['like_count']) ?>）</span>
+            </li>
+          <?php endforeach; ?>
+        </ol>
+      </section>
     <?php endif; ?>
 
     <?php if ($items): ?>

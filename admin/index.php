@@ -29,6 +29,10 @@ try { $voice_count = fs_count(VOICES_COLLECTION); } catch (Throwable $e) { $voic
       <span class="admin-card__label">お客様の声</span>
       <span class="admin-card__num"><?= $voice_count === null ? '取得エラー' : $voice_count . ' 件' ?></span>
     </a>
+    <a class="admin-card" href="/admin/likes/">
+      <span class="admin-card__label">いいね管理・ランキング</span>
+      <span class="admin-card__num">表示 →</span>
+    </a>
     <a class="admin-card" href="/admin/goudou/">
       <span class="admin-card__label">合同散骨 実施予定日</span>
       <span class="admin-card__num">編集 →</span>

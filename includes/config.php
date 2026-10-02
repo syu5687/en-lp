@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0265';
+const APP_VERSION = 'v20260713-0266';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
@@ -25,6 +25,23 @@ const DEV_MODE = false;
 // 本番公開時（DEV_MODE=false）の公開HTMLキャッシュ秒数。
 // 記事などの更新は最大この秒数で反映されます（静的CSS/JS/画像は .htaccess で長期キャッシュ）。
 const HTML_CACHE_TTL = 300; // 5分
+
+// ---- ブログ記事の「いいね」機能（v0266で追加）----
+// 機能全体のスイッチ。false にすると、記事のボタン表示と /api/like.php を同時に止められる。
+// 乱用や不具合が出た場合は、ここを false にしてデプロイするだけで即停止できる。
+const BLOG_LIKE_ENABLED = true;
+// ボタンのラベル。供養の記事では「参考になった」のほうが馴染むため、1行で切り替えられるようにしている。
+const BLOG_LIKE_LABEL = 'いいね';
+// 公開ページでのいいね数の集計キャッシュ（秒）。長いほどFirestoreの読み取りが減る。
+// 押した本人の画面はAPIの戻り値で即時更新されるため、ここが長くても本人は正しい数を見る。
+const BLOG_LIKE_CACHE_TTL = 1800; // 30分
+// 書き込みの上限（1インスタンスあたり）。Firestoreの書き込み無料枠に対する保険。
+const BLOG_LIKE_MAX_PER_MINUTE = 30;
+const BLOG_LIKE_MAX_PER_DAY    = 500;
+// 公開側の「よく読まれている記事」ランキング。件数が十分たまるまでは false のままにする
+// （0件の記事が並ぶと逆効果になるため）。
+const BLOG_LIKE_RANKING_PUBLIC = false;
+const BLOG_LIKE_RANKING_COUNT  = 5;
 
 // キャッシュ制御（HTMLはPHPが返す。CSS/JS/画像は .htaccess 側で長期キャッシュ）。
 if (PHP_SAPI !== 'cli' && !headers_sent()) {
