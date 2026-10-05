@@ -398,6 +398,21 @@ aa.media-card:hover .media-card-img img { transform: scale(1.05); }
 .media-card-tag { display: inline-block; background: none; color: var(--color-gold); padding: 0 0 6px; border-radius: 0; font-size: 0.66rem; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.1em; }
 .media-card-body h4 { font-family: var(--font-serif); font-size: 0.82rem; font-weight: 600; color: var(--color-green-mid); line-height: 1.7; }
 .media-card-body p { font-size: 0.72rem; color: var(--color-text-light); margin-top: 6px; font-family: var(--font-display); letter-spacing: 0.08em; }
+/* メディア掲載（v0268：旧 .media-coverage セクションをこのセクションへ統合）
+   アイコンの枠組みはやめ、媒体を1行ずつ読める定義リストにした。
+   年月・内容の一行を後から足せる形にしてある。 */
+.media-sub { font-family: var(--font-serif); font-size: 1.02rem; font-weight: 600; color: var(--color-green-mid); text-align: center; letter-spacing: 0.06em; margin-bottom: 20px; }
+.media-outlets { max-width: 760px; margin: 0 auto 56px; }
+.media-outlets-list { border-top: 1px solid var(--color-line); }
+.media-outlet { display: grid; grid-template-columns: 7.5em 1fr; gap: 0 20px; padding: 15px 4px; border-bottom: 1px solid var(--color-line); }
+.media-outlet dt { font-family: var(--font-serif); font-size: 0.84rem; font-weight: 600; color: var(--color-green-mid); letter-spacing: 0.04em; }
+.media-outlet dd { font-size: 0.84rem; color: var(--color-text); line-height: 1.9; }
+.media-outlets-note { margin-top: 14px; font-size: 0.74rem; color: var(--color-text-light); text-align: right; }
+@media (max-width: 600px) {
+  .media-outlet { grid-template-columns: 1fr; gap: 4px; padding: 13px 2px; }
+  .media-outlet dd { font-size: 0.82rem; }
+  .media-outlets { margin-bottom: 44px; }
+}
 
 /* FAQ */
 .faq { padding: 100px 0; background: var(--color-white); }
@@ -1066,60 +1081,6 @@ body { line-height: 1.8; }
 </div></section>
 
 
-<!-- ===== MEDIA COVERAGE (メディア掲載) ===== -->
-<section class="media-coverage"><div class="container">
-  <div class="media-coverage-header fade-up">
-    <p class="section-label">Media</p>
-    <h2 class="section-title">メディアで紹介されました</h2>
-  </div>
-  <div class="media-coverage-grid fade-up">
-    <div class="media-coverage-item">
-      <div class="media-coverage-icon">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="12" width="44" height="28" rx="3" stroke="#509F46" stroke-width="2.5" fill="none"/>
-          <rect x="12" y="18" width="32" height="16" rx="1" fill="#509F46" opacity="0.1"/>
-          <line x1="20" y1="44" x2="36" y2="44" stroke="#509F46" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="28" y1="40" x2="28" y2="44" stroke="#509F46" stroke-width="2.5"/>
-          <circle cx="28" cy="26" r="6" stroke="#509F46" stroke-width="1.5" fill="#509F46" opacity="0.15"/>
-          <polygon points="26,23 26,29 31,26" fill="#509F46"/>
-        </svg>
-      </div>
-      <h4>テレビ</h4>
-      <p>NHK「あさイチ」<br>NHK「シブ5時」<br>NHK「NHKスペシャル」</p>
-    </div>
-    <div class="media-coverage-item">
-      <div class="media-coverage-icon">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="28" cy="28" r="18" stroke="#509F46" stroke-width="2.5" fill="none"/>
-          <circle cx="28" cy="28" r="10" stroke="#509F46" stroke-width="1.5" fill="#509F46" opacity="0.1"/>
-          <circle cx="28" cy="28" r="3" fill="#509F46"/>
-          <line x1="28" y1="10" x2="28" y2="6" stroke="#509F46" stroke-width="2" stroke-linecap="round"/>
-          <line x1="42" y1="14" x2="46" y2="10" stroke="#509F46" stroke-width="2" stroke-linecap="round"/>
-          <line x1="46" y1="28" x2="50" y2="28" stroke="#509F46" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h4>ラジオ</h4>
-      <p>MBCラジオ<br>「○○の時間」<br>ほか出演多数</p>
-    </div>
-    <div class="media-coverage-item">
-      <div class="media-coverage-icon">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="6" width="28" height="40" rx="2" stroke="#509F46" stroke-width="2.5" fill="none"/>
-          <rect x="10" y="6" width="28" height="12" fill="#509F46" opacity="0.1"/>
-          <line x1="16" y1="24" x2="32" y2="24" stroke="#509F46" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="16" y1="29" x2="32" y2="29" stroke="#509F46" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="16" y1="34" x2="28" y2="34" stroke="#509F46" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="16" y1="39" x2="30" y2="39" stroke="#509F46" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="38" y="10" width="8" height="32" rx="1" stroke="#509F46" stroke-width="1.5" fill="#509F46" opacity="0.08"/>
-        </svg>
-      </div>
-      <h4>雑誌・新聞</h4>
-      <p>終活関連誌<br>地方紙<br>ほか掲載多数</p>
-    </div>
-  </div>
-  <p class="media-coverage-note fade-up">※ 上記は掲載実績の一部です</p>
-</div></section>
-
 <!-- WORRY -->
 <section class="worry"><svg class="wave-top" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,26 C180,4 360,4 540,24 C720,44 900,44 1080,24 C1260,6 1380,14 1440,22 L1440,48 L0,48 Z"/></svg><svg class="wave-bottom" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path class="wave-fill" d="M0,22 C180,44 360,44 540,24 C720,4 900,4 1080,24 C1260,42 1380,34 1440,26 L1440,0 L0,0 Z"/></svg><div class="container">
   <div class="worry-header fade-up"><div class="worry-header__txt"><p class="section-label">Worries</p><h2 class="section-title">こんなお悩みはありませんか？</h2><p class="worry-header__note">どんな小さなことでも、お気軽にご相談ください。</p></div><img src="/assets/img/daihyo-guide.jpg?v=<?= h(asset_ver()) ?>" alt="ご相談を案内する代表" width="360" height="360" class="worry-header__photo" loading="lazy"></div>
@@ -1301,9 +1262,21 @@ body { line-height: 1.8; }
   </div>
 </div></section>
 
-<!-- ④ MEDIA -->
+<!-- ④ MEDIA & TRACK RECORD（v0268：旧「メディアで紹介されました」をここへ統合）-->
 <section class="media"><div class="container">
-  <div class="media-header fade-up"><p class="section-label">Track Record</p><h2 class="section-title">セミナー・活動実績</h2><p class="section-desc" style="margin:0 auto;">終活セミナーや供養相談会の開催、業界団体への参加を通じて、正しい知識の普及に努めています。</p></div>
+  <div class="media-header fade-up"><p class="section-label">Track Record</p><h2 class="section-title">メディア掲載・活動実績</h2><p class="section-desc" style="margin:0 auto;">テレビ・ラジオ・新聞等でのご紹介に加え、終活セミナーや供養相談会の開催、業界団体への参加を通じて、正しい知識の普及に努めています。</p></div>
+
+  <div class="media-outlets fade-up">
+    <h3 class="media-sub">メディアで紹介されました</h3>
+    <dl class="media-outlets-list">
+      <div class="media-outlet"><dt>テレビ</dt><dd>NHK「あさイチ」／NHK「シブ5時」／NHK「NHKスペシャル」</dd></div>
+      <div class="media-outlet"><dt>ラジオ</dt><dd>MBCラジオ ほか出演多数</dd></div>
+      <div class="media-outlet"><dt>新聞・雑誌</dt><dd>終活関連誌／地方紙 ほか掲載多数</dd></div>
+    </dl>
+    <p class="media-outlets-note">※ 掲載実績の一部です</p>
+  </div>
+
+  <h3 class="media-sub fade-up">セミナー・活動実績</h3>
   <div class="media-grid fade-up">
     <a href="/post-5043/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar1.jpg?v=<?= h(asset_ver()) ?>" alt="寺院と地域防災を考える「ゆかりの会」の様子" loading="lazy"></div><div class="media-card-body"><span class="media-card-tag">セミナー</span><h4>寺院と地域防災を考える「ゆかりの会」</h4><p>2026.03</p></div></a>
     <a href="/post-4896/" class="media-card"><div class="media-card-img"><img src="/assets/img/media-seminar2.jpg?v=<?= h(asset_ver()) ?>" alt="マルヤガーデンズ 供養の無料相談会の案内" loading="lazy" style="object-fit:contain;background:#f5f2ea"></div><div class="media-card-body"><span class="media-card-tag">相談会</span><h4>マルヤガーデンズ供養の無料相談会</h4><p>2026.01</p></div></a>
