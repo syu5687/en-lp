@@ -1,5 +1,5 @@
 /**
- * @version v0014 | 2026-11-04 | en1150.co.jp お問い合わせフォーム送信Worker（資料の郵送希望なのに住所がない送信を担当者通知で警告） | Cloudflare Workers
+ * @version v0015 | 2026-11-04 | en1150.co.jp お問い合わせフォーム送信Worker（資料請求を専用フィールド shiryou で判定／廃止した任意3項目をFIELDSから削除） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -48,7 +48,7 @@ var CONFIG = {
   FORM_NAME: "en1150.co.jp お問い合わせフォーム",
   FORM_URL: "https://en1150.co.jp/contact/",
   // メール本文に必ず出す基本項目（キー: 表示ラベル）。フォームの name 属性に合わせる。
-  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", pref: "お住まい（都道府県）", age_group: "ご年代", gender: "性別", category: "お問い合わせ種別", guides: "ご希望の資料", delivery: "資料のお届け方法", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）", shindan_path: "診断で選ばれた回答", country: "居住国（Country）", ashes_now: "ご遺骨の所在（Ashes）", en_area: "希望海域（Area）", attend: "立会い希望（Attend）", timing: "希望時期（Timing）" },
+  FIELDS: { name: "お名前", kana: "ふりがな", email: "メール", tel: "電話", category: "お問い合わせ種別", shiryou: "資料請求（郵送）", guides: "ご希望の資料（PDF）", zip: "郵便番号", addr: "ご住所（資料お届け先）", goudou_date: "合同海洋散骨 ご希望日", shindan: "診断結果（供養の選び方）", shindan_path: "診断で選ばれた回答", country: "居住国（Country）", ashes_now: "ご遺骨の所在（Ashes）", en_area: "希望海域（Area）", attend: "立会い希望（Attend）", timing: "希望時期（Timing）" },
   REQUIRED: ["name", "email", "message"],  // 最低限の必須チェック
 
   // ---- 営業メールフィルタ ----
@@ -278,7 +278,11 @@ export default {
         // 種別が「資料請求」でチェックなしなら2冊とも送付
         const wantG1 = String(d.guide_hakajimai || "") === "1";
         const wantG2 = String(d.guide_sankotsu || "") === "1";
-        const catShiryou = !!(d.category && String(d.category).includes(CONFIG.SHIRYOU_MATCH));
+        /* v0015：フォーム側（v0275）で資料請求を種別から外し、専用のチェックにしたため、
+           category の文字列ではなく shiryou フィールドで判定する。
+           旧フォームからの送信も拾えるよう、category の判定は残す。 */
+        const catShiryou = !!(d.category && String(d.category).includes(CONFIG.SHIRYOU_MATCH))
+                        || !!String(d.shiryou || "").trim();
         const sendLinks = (wantG1 || wantG2)
           ? CONFIG.SHIRYOU_LINKS.filter((_, i) => (i === 0 && wantG1) || (i === 1 && wantG2))
           : (catShiryou ? CONFIG.SHIRYOU_LINKS : []);
@@ -289,7 +293,8 @@ export default {
         /* v0260（2026-09-13 syu確認）：資料請求（冊子の郵送）とPDFは別のもの。
            お届け先は資料請求なら常に伺う形にしたため、「住所が入っていれば郵送」という
            判定は使えなくなった。冊子を郵送するかどうかは、お届け方法の選択だけで決める。 */
-        const wantsPost = String(d.delivery || "").indexOf("郵送") >= 0;
+        const wantsPost = String(d.delivery || "").indexOf("郵送") >= 0
+                       || String(d.shiryou || "").indexOf("郵送") >= 0;
         const postBlock = (isShiryou && wantsPost) ? `
             <div style="background:#eef5f8;border:1px solid #cfe0e8;border-radius:10px;padding:14px 18px;margin:14px 0;">
               <p style="margin:0 0 6px;font-weight:bold;color:#0a3852;">📮 詳しい資料を郵送でお届けします</p>

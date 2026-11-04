@@ -51,63 +51,30 @@ require __DIR__ . '/../includes/head.php';
       <label>電話番号
         <input type="tel" name="tel" inputmode="tel">
       </label>
-      <div class="contact-attrs">
-        <label>お住まい（任意）
-          <select name="pref">
-            <option value="">選択しない</option>
-            <?php $prefs = ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県'];
-              foreach ($prefs as $pf): ?><option value="<?= h($pf) ?>"><?= h($pf) ?></option><?php endforeach; ?>
-          </select>
-        </label>
-        <label>ご年代（任意）
-          <select name="age_group">
-            <option value="">選択しない</option>
-            <?php foreach (['40代以下','50代','60代','70代','80代以上'] as $ag): ?><option value="<?= h($ag) ?>"><?= h($ag) ?></option><?php endforeach; ?>
-          </select>
-        </label>
-        <label>性別（任意）
-          <select name="gender">
-            <option value="">回答しない</option>
-            <option value="女性">女性</option>
-            <option value="男性">男性</option>
-            <option value="その他">その他</option>
-          </select>
-        </label>
-      </div>
-      <p style="font-size:.78rem;color:var(--text-light);margin:-8px 0 0">※ 任意項目は、サービス改善のための統計にのみ利用します（<a href="/privacy/" target="_blank" rel="noopener" style="color:var(--green);text-decoration:underline">プライバシーポリシー</a>）。</p>
-      <label>お問い合わせ種別
-        <select name="category">
-          <option value="">選択してください</option>
-          <option value="資料請求（無料）">資料請求（無料・詳しい資料を郵送でお届け）</option>
+      <?php /* v0275：お問い合わせ種別をチェック項目にし、任意3項目（お住まい・ご年代・性別）を廃止。
+               ・種別＝サービスのみ。複数選択できる（「墓じまい＋海洋散骨」のような相談が1件で拾える）
+               ・資料請求は種別から外し、専用のチェック枠にした。「選んだサービスの資料を郵送する」という意味。
+               ・資料請求＝郵送／ガイドブック＝PDF と役割を分けたので、お届け方法のラジオは廃止した。 */ ?>
+      <fieldset id="svc-box">
+        <legend class="svc-legend">お問い合わせ種別 <span class="req">必須</span></legend>
+        <p class="svc-sub">ご相談の内容をお選びください（いくつでも選べます）。</p>
+        <div class="svc-grid">
           <?php foreach (SERVICES as $s): ?>
-            <option value="<?= h($s['title']) ?>"><?= h($s['title']) ?></option>
+            <label class="svc-item"><input type="checkbox" name="svc[]" value="<?= h($s['title']) ?>"><span><?= h($s['title']) ?></span></label>
           <?php endforeach; ?>
-          <option value="その他">その他</option>
-        </select>
-      </label>
-      <fieldset id="guide-box">
-        <legend class="gb-badge">無料プレゼント</legend>
-        <?php /* v0259：お届け方法を下で選べるようにしたので、ここで「PDF」と断定しない */ ?>
-        <p class="gb-title">📘 無料ガイドブックも一緒に受け取れます</p>
-        <p class="gb-sub">チェックすると、PDF（メール）か、詳しい資料の郵送でお届けします。どのご相談と一緒でもOK・無料です。</p>
-        <label class="gb-item"><input type="checkbox" name="guide_hakajimai" value="1"><span><b>墓じまい完全ガイド 鹿児島・福岡版</b>（全10ページ）<small>費用の内訳・改葬許可の5ステップ・菩提寺への切り出し方</small></span></label>
-        <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
+          <label class="svc-item"><input type="checkbox" name="svc[]" value="その他・まだ決まっていない"><span>その他・まだ決まっていない</span></label>
+        </div>
+        <p id="svc-error" class="svc-error" hidden>ご相談の内容を1つ以上お選びください。</p>
       </fieldset>
 
-      <?php /* v0259：お届け方法を明示的な選択にした。
-               これまで住所欄の表示条件が「種別セレクト = 資料請求（無料）」に紐づいていたため、
-               ガイドブックにチェックを入れたまま種別を別のサービスに変えると住所欄が消え、
-               冊子の送り先が分からないまま送信される事故が起きていた（2026年9月の実例あり）。
-               冊子を郵送する必要があるかどうかを決めているのはガイドブックのチェックなので、
-               表示条件をそちらに移し、PDFか冊子かはご本人に選んでいただく形にする。 */ ?>
-      <div id="delivery-box" hidden>
-        <p class="dlv-title">ガイドブックのお届け方法 <span class="req">必須</span></p>
-        <label class="dlv-item"><input type="radio" name="delivery" value="PDF（メール）" checked><span><b>PDFをメールで受け取る</b><small>送信後の自動返信メールですぐに届きます</small></span></label>
-        <label class="dlv-item"><input type="radio" name="delivery" value="冊子（郵送）"><span><b>詳しい資料を郵送で受け取る</b><small>無料でお送りします。お届け先のご入力が必要です</small></span></label>
-      </div>
+      <fieldset id="shiryou-box">
+        <legend class="sr-badge">無料・郵送</legend>
+        <label class="sr-item"><input type="checkbox" name="shiryou_post" value="1"><span><b>上で選んだサービスの資料を郵送で受け取る</b><small>詳しい資料を無料でお送りします。お届け先のご入力をお願いします</small></span></label>
+      </fieldset>
+
 
       <div id="post-addr" hidden>
-        <p id="post-addr-title" style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">詳しい資料の郵送をご希望のため、お届け先をご入力ください</p>
+        <p id="post-addr-title" style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">資料のお届け先をご入力ください</p>
         <label>郵便番号 <span class="req" id="zip-req">必須</span>
           <input type="text" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="890-0000" maxlength="8">
           <span id="zip-note" style="font-weight:400;font-size:.78rem;color:var(--text-light)">入力すると住所が自動で入ります</span>
@@ -125,6 +92,15 @@ require __DIR__ . '/../includes/head.php';
       <label>お問い合わせ内容 <span class="req">必須</span>
         <textarea name="message" rows="6" required></textarea>
       </label>
+      <fieldset id="guide-box">
+        <legend class="gb-badge">無料プレゼント</legend>
+        <?php /* v0275：資料請求＝郵送／ガイドブック＝PDF に役割を分けた */ ?>
+        <p class="gb-title">📘 無料ガイドブックも一緒に受け取れます</p>
+        <p class="gb-sub">チェックすると、<strong>送信後すぐこの画面でお読みいただけます</strong>（PDF）。ご登録のメールアドレスにもお送りします。どのご相談と一緒でもOK・無料です。</p>
+        <label class="gb-item"><input type="checkbox" name="guide_hakajimai" value="1"><span><b>墓じまい完全ガイド 鹿児島・福岡版</b>（全10ページ）<small>費用の内訳・改葬許可の5ステップ・菩提寺への切り出し方</small></span></label>
+        <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
+      </fieldset>
+
       <label class="contact-consent">
         <input type="checkbox" name="consent" value="1" required>
         <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
@@ -132,6 +108,12 @@ require __DIR__ . '/../includes/head.php';
       <p style="font-size:.82rem;color:var(--text-light);margin:-6px 0 0">送信後、受付確認の自動返信メールが届きます。営業のご連絡はいたしませんので、ご安心ください。</p>
       <button type="submit" class="btn" id="submit-btn">送信する</button>
       <div id="form-msg" role="status" aria-live="polite"></div>
+      <?php /* v0275：ガイドブックをご希望の方へ、送信後この場でPDFをお渡しする枠 */ ?>
+      <div id="guide-result" hidden>
+        <p class="gr-title">📘 ご希望のガイドブックです</p>
+        <p class="gr-sub">今すぐお読みいただけます。ご登録のメールアドレスにも同じリンクをお送りしました。</p>
+        <div id="guide-result-links"></div>
+      </div>
     </form>
 
     <p style="margin-top:24px;font-size:.9rem;color:var(--text-light)">
@@ -143,19 +125,39 @@ require __DIR__ . '/../includes/head.php';
 <style>
 /* v0259：ガイドブックのお届け方法。既存の .gb-item と同じ指定の強さで書く
    （.contact-form label が flex-direction:column を当てているため、行方向を明示する） */
-#delivery-box{border:1px solid #cfe0e8;border-radius:10px;padding:14px 16px;background:#f7fbfc;margin-top:-4px}
-#delivery-box .dlv-title{font-weight:700;font-size:.92rem;color:var(--green-mid);margin:0 0 10px;display:flex;align-items:center;gap:8px}
-#delivery-box .dlv-item{display:flex;flex-direction:row !important;align-items:flex-start;gap:10px;background:#fff;border:1px solid #d9e6ec;border-radius:10px;padding:10px 14px;margin-bottom:8px;cursor:pointer;font-weight:400 !important}
-#delivery-box .dlv-item:last-child{margin-bottom:0}
-#delivery-box .dlv-item:hover{border-color:#15709e}
-#delivery-box .dlv-item input{width:18px;height:18px;margin-top:3px;padding:0 !important;flex:none;accent-color:#15709e}
-#delivery-box .dlv-item b{color:var(--green-mid);font-size:.92rem}
-#delivery-box .dlv-item small{display:block;font-size:.76rem;color:var(--text-light);margin-top:2px;line-height:1.7}
+/* v0275：お届け方法（#delivery-box）は廃止した。資料請求＝郵送／ガイドブック＝PDF。 */
 #post-addr{border:1px solid #eadfc4;border-radius:10px;padding:14px 16px;background:#fffdf9;display:flex;flex-direction:column;gap:10px}
 /* v0274：ID指定の display:flex が hidden 属性（UAの display:none）に勝ってしまい、
    お届け先が常に表示されたままになっていた。属性セレクタを足して確実に閉じる。
    同じ理由で #delivery-box と #goudou-date-field にも display を書かないこと。 */
 #post-addr[hidden]{display:none}
+/* v0275：お問い合わせ種別（チェック項目）と資料請求枠 */
+#svc-box{border:1px solid var(--border);border-radius:10px;padding:14px 16px 16px;background:var(--white)}
+#svc-box[hidden]{display:none}
+#svc-box .svc-legend{font-weight:700;font-size:.92rem;color:var(--green-mid);padding:0 6px}
+#svc-box .svc-sub{font-size:.8rem;color:var(--text-light);margin:2px 0 12px}
+#svc-box .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+#svc-box .svc-item{display:flex;flex-direction:row !important;align-items:center;gap:9px;background:#fafafa;border:1px solid var(--border);border-radius:9px;padding:10px 12px;cursor:pointer;font-weight:400 !important;font-size:.9rem}
+#svc-box .svc-item:hover{border-color:var(--green)}
+#svc-box .svc-item input{width:18px;height:18px;padding:0 !important;flex:none;accent-color:var(--green)}
+#svc-box .svc-item:has(input:checked){background:#eef6fa;border-color:var(--green)}
+#svc-box .svc-error{color:#c0392b;font-weight:700;font-size:.84rem;margin:10px 0 0}
+#svc-box .svc-error[hidden]{display:none}
+#shiryou-box{border:1px solid #cfe0e8;border-radius:10px;padding:12px 16px 14px;background:#f7fbfc;margin-top:-4px}
+#shiryou-box[hidden]{display:none}
+#shiryou-box .sr-badge{background:var(--green);color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-left:4px}
+#shiryou-box .sr-item{display:flex;flex-direction:row !important;align-items:flex-start;gap:10px;cursor:pointer;font-weight:400 !important;margin-top:6px}
+#shiryou-box .sr-item input{width:18px;height:18px;margin-top:3px;padding:0 !important;flex:none;accent-color:var(--green)}
+#shiryou-box .sr-item b{color:var(--green-mid);font-size:.92rem}
+#shiryou-box .sr-item small{display:block;font-size:.76rem;color:var(--text-light);margin-top:2px;line-height:1.7}
+/* v0275：送信後のガイドブック受け取り枠 */
+#guide-result{border:1px solid #e3d5b8;border-radius:10px;padding:16px 18px;background:#fffdf5;margin-top:14px}
+#guide-result[hidden]{display:none}
+#guide-result .gr-title{font-weight:700;color:#8a6a2a;margin:0 0 4px}
+#guide-result .gr-sub{font-size:.84rem;color:var(--text-light);margin:0 0 12px;line-height:1.8}
+#guide-result a{display:block;background:#c9822a;color:#fff;text-decoration:none;font-weight:700;font-size:.92rem;padding:12px 16px;border-radius:9px;margin-bottom:8px;text-align:center}
+#guide-result a:last-child{margin-bottom:0}
+#guide-result a:hover{background:#b0701f}
 
 .contact-form{display:flex;flex-direction:column;gap:18px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
 .contact-form label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
@@ -216,30 +218,32 @@ let shindanPath = '';
   }
   note.hidden = false;
   if (!svc) return;
-  // 種別セレクトに反映（一致する選択肢がなければ追加して選択）
-  const sel = form.querySelector('select[name="category"]');
-  let opt = [...sel.options].find(o => o.value === svc)
-         || [...sel.options].find(o => o.value && (svc.indexOf(o.value) === 0 || o.value.indexOf(svc) === 0));
-  if (!opt) {
-    opt = new Option(svc, svc);
-    sel.insertBefore(opt, sel.querySelector('option[value="その他"]'));
+  /* v0275：種別はチェック項目になったので、?service= は該当のチェックを入れる形にする。
+     サイト内の資料請求CTA（includes/shiryou-cta.php ほか）は
+     /contact/?service=資料請求（無料） のままなので、その場合は資料請求の枠にチェックを入れる。
+     既存のリンクを一切書き換えずに済ませるための受け皿。 */
+  if (svc.indexOf('資料請求') === 0) {
+    const sr = form.querySelector('input[name="shiryou_post"]');
+    if (sr) sr.checked = true;
+    return;
   }
-  sel.value = opt.value;
+  const boxes = [...form.querySelectorAll('input[name="svc[]"]')];
+  const hit = boxes.find(b => b.value === svc)
+           || boxes.find(b => svc.indexOf(b.value) === 0 || b.value.indexOf(svc) === 0);
+  if (hit) hit.checked = true;
+  else { const o = boxes.find(b => b.value.indexOf('その他') === 0); if (o) o.checked = true; }
 })();
-// 資料請求：種別で選ばれたら、内容欄を自動で埋めて手間をなくす
+// お届け先の表示制御（v0275：条件は「資料請求にチェックが入っているか」の1本だけ）
 (function () {
-  const sel = form.querySelector('select[name="category"]');
   const ta  = form.querySelector('textarea[name="message"]');
   const g1  = form.querySelector('input[name="guide_hakajimai"]');
   const g2  = form.querySelector('input[name="guide_sankotsu"]');
-  const FILL = '資料請求：詳しい資料の郵送を希望します。';
+  const srPost = form.querySelector('input[name="shiryou_post"]');
+  const svcBoxes = [...form.querySelectorAll('input[name="svc[]"]')];
   const addrBox = document.getElementById('post-addr');
   const addrTitle = document.getElementById('post-addr-title');
   const zipInp  = form.querySelector('input[name="zip"]');
   const addrInp = form.querySelector('input[name="addr"]');
-  const dlvBox  = document.getElementById('delivery-box');
-  const dlvPost = form.querySelector('input[name="delivery"][value="冊子（郵送）"]');
-  const prefSel = form.querySelector('select[name="pref"]');
 
   /* v0259：表示条件を整理した。
      ・お届け方法  … ガイドブックが1つでもチェックされていたら出す
@@ -263,8 +267,6 @@ let shindanPath = '';
     el.textContent = required ? '必須' : '任意';
     el.classList.toggle('req--opt', !required);
   };
-  const dlvPdf = form.querySelector('input[name="delivery"][value="PDF（メール）"]');
-  let dlvTouched = false;   // ご本人がお届け方法を選んだか
 
   /* ============================================================
      v0273：本文に「郵送してほしい」と書かれた場合の受け皿
@@ -288,40 +290,15 @@ let shindanPath = '';
   };
   let msgPostHint = false;   // 本文から郵送希望を読み取ったか（いちど立てたら下げない）
   const apply = () => {
-    const isShiryou  = sel.value === '資料請求（無料）';
-    if (isShiryou) {
-      if (g1) g1.checked = true;
-      if (g2) g2.checked = true;
-      if (!ta.value.trim()) ta.value = FILL;
-      // 種別「資料請求（無料・冊子を郵送でお届け）」は冊子の郵送を約束しているので、
-      // ご本人がまだ選んでいなければ郵送を初期値にする。
-      if (!dlvTouched && dlvPost) dlvPost.checked = true;
-    }
-    if (!isShiryou && ta.value === FILL) ta.value = '';
-
-    // 自動チェックのあとに判定する（先に読むと初回表示で漏れる）
-    const wantsGuide = !!((g1 && g1.checked) || (g2 && g2.checked));
-    // 資料を希望していないなら、お届け方法は送らない（PDFに戻す）
-    if (!wantsGuide && !dlvTouched && dlvPdf) dlvPdf.checked = true;
-
-    // お届け方法：資料を1つでも希望していたら選んでいただく
-    if (dlvBox) dlvBox.hidden = !wantsGuide;
-
-    /* v0260：お届け先の表示条件（2026-09-13 syu確認）
-         ・種別が「資料請求（無料）」 … PDF／冊子のどちらを選んでいても必ず表示する
-                                        （冊子を郵送する前提のサービスのため）
-         ・それ以外の種別            … ガイドブックを希望し、かつ「冊子（郵送）」を
-                                        選んだときだけ表示する */
-    /* v0273：必須にするのは今までどおりの2条件。
-       本文から郵送希望を読み取ったときは、必須にはせず“任意”で欄だけ開く。 */
-    const addrRequired = isShiryou || (wantsGuide && !!(dlvPost && dlvPost.checked));
+    /* v0275：住所が要るのは「資料請求（郵送）にチェックが入っているとき」だけ。
+       ガイドブックはPDFでお渡しするので住所は不要。
+       本文から郵送希望を読み取ったときは、必須にはせず“任意”で欄だけ開く（v0273）。 */
+    const addrRequired = !!(srPost && srPost.checked);
     const needsAddr    = addrRequired || msgPostHint;
     if (addrTitle) {
-      addrTitle.textContent = !addrRequired
-        ? '資料の郵送をご希望の場合は、お届け先をご入力ください（任意）'
-        : ((dlvPost && dlvPost.checked)
-            ? '詳しい資料の郵送をご希望のため、お届け先をご入力ください'
-            : '資料のお届け先をご入力ください');
+      addrTitle.textContent = addrRequired
+        ? '資料のお届け先をご入力ください'
+        : '資料の郵送をご希望の場合は、お届け先をご入力ください（任意）';
     }
     if (addrBox) {
       const wasHidden = addrBox.hidden;
@@ -330,18 +307,10 @@ let shindanPath = '';
       setField(addrInp, addrRequired, needsAddr);
       setReqBadge(zipReqBadge,  addrRequired);
       setReqBadge(addrReqBadge, addrRequired);
-      /* v0260：ここで「お住まい」の都道府県を住所欄に入れるのをやめた。
-         2026年9月13日の不具合報告の原因がこれだった。
-         ・required は「空でないこと」しか見ないため、「鹿児島県」だけで送信が通ってしまう
-         ・郵便番号の自動入力が「住所欄が空のときだけ上書き」の条件だったため、
-           先に県名が入っていると自動入力が効かない
-         県名は郵便番号から自動で入るので、先に入れておく必要はない。 */
       /* v0261：表示・非表示のどちらでも必ず検証状態を更新する。
          setCustomValidity のメッセージは required と無関係に要素を「無効」にするため、
          不正な住所を入れたまま住所欄を閉じると、非表示の欄が原因でフォーム全体が
-         送信できなくなる（reportValidity は非表示要素にフォーカスできず、エラーも出せない）。
-         例：資料請求で郵便番号を入れる → 住所が「◯◯県◯◯市◯◯町」（番地なし＝不正）で入る
-             → PDFに切り替える → 住所欄が閉じる → 送信ボタンが無反応。 */
+         送信できなくなる（reportValidity は非表示要素にフォーカスできず、エラーも出せない）。 */
       refreshAddr();
       void wasHidden;
     }
@@ -470,11 +439,13 @@ let shindanPath = '';
     addrInp.addEventListener('input', refreshAddr);
     addrInp.addEventListener('blur', refreshAddr);
   }
-  sel.addEventListener('change', apply);
-  // v0259：住所欄の表示を決めているのはこちら側なので、必ず監視する
-  if (g1) g1.addEventListener('change', apply);
-  if (g2) g2.addEventListener('change', apply);
-  form.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', () => { dlvTouched = true; apply(); }));
+  // v0275：住所欄の表示を決めているのは資料請求のチェックだけ。
+  if (srPost) srPost.addEventListener('change', apply);
+  // 種別を選んだらエラー表示を消す
+  svcBoxes.forEach(b => b.addEventListener('change', () => {
+    const e = document.getElementById('svc-error');
+    if (e && svcBoxes.some(x => x.checked)) e.hidden = true;
+  }));
   /* v0273：内容欄の入力を見て、郵送希望らしければ住所欄を開く（いちど開いたら閉じない） */
   if (ta) {
     const watchMsg = () => {
@@ -503,6 +474,19 @@ let shindanPath = '';
       if (zipInp) zipInp.focus();
     } catch (e) {}
     return '資料の郵送をご希望でしょうか。ご希望でしたら、お届け先（郵便番号・ご住所）をご入力ください。ご不要の場合は、もう一度「送信する」を押していただければそのまま送信されます。';
+  };
+
+  /* v0275：送信が終わって form.reset() をしたあとの後始末。
+     reset はチェックを外すだけで apply() を呼ばないため、資料請求のチェックが消えても
+     お届け先の欄が「必須」のまま開きっぱなしになっていた。 */
+  window.__enAfterReset = () => {
+    msgPostHint = false;
+    postAsked = false;
+    const e = document.getElementById('svc-error');
+    if (e) e.hidden = true;
+    apply();
+    if (zipNote)  setNote(zipNote,  ZIP_NOTE_DEFAULT,  false);
+    if (addrNote) setNote(addrNote, ADDR_NOTE_DEFAULT, false);
   };
 
   window.__enRefreshAddr = refreshAddr; // v0260：送信直前のチェックから呼ぶ
@@ -545,16 +529,32 @@ form.addEventListener('submit', async (e) => {
     const ask = window.__enPostGuard();
     if (ask) { msg.className = 'ng'; msg.textContent = ask; return; }
   }
+  /* v0275：お問い合わせ種別はチェックボックスのグループなので required が使えない。
+     ブラウザ任せにできないぶん、ここで明示的に見る。 */
+  const svcChecked = [...form.querySelectorAll('input[name="svc[]"]:checked')].map(b => b.value);
+  const svcErr = document.getElementById('svc-error');
+  if (!svcChecked.length) {
+    if (svcErr) svcErr.hidden = false;
+    msg.className = 'ng';
+    msg.textContent = 'ご相談の内容を1つ以上お選びください。';
+    try { document.getElementById('svc-box').scrollIntoView({ behavior:'smooth', block:'center' }); } catch (e2) {}
+    return;
+  }
+  if (svcErr) svcErr.hidden = true;
   if (!form.checkValidity()) { form.reportValidity(); return; }
   const data = Object.fromEntries(new FormData(form).entries());
+  /* v0275：複数選択なので FormData の entries では最後の1件しか残らない。
+     担当者通知メールの「お問い合わせ種別」欄にそのまま出したいので、ここで組み立てる。 */
+  delete data['svc[]'];
+  data.category = svcChecked.join('／');
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || '')) {
     msg.className = 'ng';
     msg.textContent = 'メールアドレスの形式をご確認ください。';
     return;
   }
-  /* v0260：画面に出ていた項目だけを送る（非表示の div の中でも FormData には入るため）。
-     資料請求はPDFを選んでいてもお届け先を伺うので、delivery の値では判定しない。 */
-  if (document.getElementById('delivery-box').hidden) delete data.delivery;
+  /* v0275：お届け方法のラジオは廃止。資料請求（郵送）かどうかだけを送る。 */
+  delete data.shiryou_post;
+  if (form.querySelector('input[name="shiryou_post"]').checked) data.shiryou = '郵送を希望';
   /* v0274：これまで post-addr の hidden だけで判定していたため、CSSの都合で欄が出ていた
      期間は、お客様が入力したお届け先が送信直前に捨てられていた。
      欄を閉じるときに値は空にしているので、「値が入っていれば送る」で十分かつ安全。 */
@@ -575,7 +575,30 @@ form.addEventListener('submit', async (e) => {
     if (!res.ok) throw new Error('send failed');
     msg.className = 'ok';
     msg.textContent = 'お問い合わせを送信しました。担当者より折り返しご連絡いたします。';
+    /* v0275：ガイドブックをご希望の方には、この場でPDFをお渡しする。
+       メールが届かない方・迷惑メールに入る方にも確実に受け取っていただくため。
+       リンク先は /dl/ の計測用中継ページ（GA4に pdf_open を送ってからPDFへ転送する）。 */
+    (function () {
+      const want = [];
+      if (data.guide_hakajimai) want.push({ f:'hakajimai', t:'墓じまい完全ガイド 鹿児島・福岡版（PDF・全10ページ）' });
+      if (data.guide_sankotsu)  want.push({ f:'checklist', t:'海洋散骨で後悔しないためのチェックリスト（PDF・全9ページ）' });
+      if (!want.length) return;
+      const box = document.getElementById('guide-result');
+      const list = document.getElementById('guide-result-links');
+      if (!box || !list) return;
+      list.innerHTML = '';
+      want.forEach(function (g) {
+        const a = document.createElement('a');
+        a.href = '/dl/?f=' + g.f + '&src=form';
+        a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = '▶ ' + g.t + ' を開く';
+        list.appendChild(a);
+      });
+      box.hidden = false;
+      try { box.scrollIntoView({ behavior:'smooth', block:'center' }); } catch (e3) {}
+    })();
     form.reset();
+    if (typeof window.__enAfterReset === 'function') window.__enAfterReset();
     // ---- CV測定（GA4）----
     // v0258：2026年8月のGA4で generate_lead が202PVに対し212回発火しており、
     // 「お問い合わせページの表示」でも発火している疑いが強い（原因はGA4管理画面側）。
@@ -588,6 +611,8 @@ form.addEventListener('submit', async (e) => {
       var cvParams = {
         form_name: 'contact',
         category: data.category || '(未選択)',
+        svc_count: svcChecked.length,                 // v0275：選ばれたサービスの数
+        shiryou: data.shiryou ? '郵送希望' : '(なし)', // v0275：資料請求の有無
         shindan: data.shindan || '(なし)',
         elapsed_sec: Math.round(data.elapsedMs / 1000)
       };
