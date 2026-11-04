@@ -11,6 +11,7 @@ $page_title     = '墓じまい 福岡｜撤去〜納骨まで一括 基本プ�
 $page_desc      = '福岡の墓じまい（お墓じまい）は撤去から納骨まで一括対応、基本プラン33万円（税込）。福岡市・北九州・筑後など県内全域対応。改葬手続きサポート、取り出したご遺骨は粉骨〜博多湾での海洋散骨・手元供養までワンストップ。福岡営業所（中央区春吉）。無料相談・LINE受付中。';
 $page_canonical = SITE['url'] . '/grave/fukuoka/';
 $page_hero_image = '/assets/img/plan-goudou.jpg';
+$page_updated    = '2026-11-03'; // 最終更新日（v0272で追加。表示と構造化データ dateModified に使う）
 require __DIR__ . '/../../includes/head.php';
 
 $fk = SITE['fukuoka'];
@@ -30,6 +31,9 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
   </p>
 </section>
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/grave/">お墓じまい</a> ＞ 福岡の墓じまい</nav>
+<div class="container" style="max-width:820px">
+  <p style="font-size:.82rem;color:var(--text-light);margin:10px 0 0;text-align:right">最終更新：2026年11月3日</p>
+</div>
 
 <main>
   <!-- 導入・定義（GEO引用用） -->
@@ -113,6 +117,87 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
       </div>
       <p style="text-align:center;margin-top:14px;font-size:.82rem;color:var(--text-light)">※ 写真はいずれも当社施工の実例です。</p>
       <p style="text-align:center;margin-top:10px;font-size:.9rem"><a href="/grave/" style="color:var(--green);font-weight:600">費用が変わる条件など、さらに詳しくはお墓じまい詳細ページで →</a></p>
+    </div>
+  </section>
+
+  <!-- 依頼先の選び方（比較意図の受け皿・v0272） -->
+  <section class="section" style="background:var(--cream)">
+    <div class="container" style="max-width:880px">
+      <h2 style="text-align:center;margin-bottom:8px">福岡で墓じまいの依頼先を選ぶときに見ておきたいこと</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:22px">墓じまいは、ほとんどの方が一度しか経験しません。「どこに頼めばいいのか分からない」というご相談をよくいただきます。</p>
+
+      <div class="prose" style="max-width:800px;margin:0 auto">
+        <p>福岡で墓じまいを依頼できる先は、大きく4つのタイプに分かれます。どれが良い・悪いではなく、<strong>得意な範囲が違います</strong>。ご自身の状況に近いタイプを選ぶことが、やり直しを避ける近道です。</p>
+      </div>
+
+      <div style="overflow-x:auto;margin-top:22px;-webkit-overflow-scrolling:touch">
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;line-height:1.85;min-width:620px;background:var(--white);border-radius:10px;overflow:hidden">
+          <thead>
+            <tr style="background:var(--green-mid);color:#fff">
+              <th style="padding:11px 13px;text-align:left;white-space:nowrap;font-size:.88rem">依頼先のタイプ</th>
+              <th style="padding:11px 13px;text-align:left;font-size:.88rem">得意なこと</th>
+              <th style="padding:11px 13px;text-align:left;font-size:.88rem">確認しておきたい点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:13px;border-bottom:1px solid var(--border);font-weight:700;vertical-align:top">石材店・墓石工事店</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">墓石の撤去工事そのもの。地元の霊園の決まりや区画の事情に慣れています。</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">改葬の手続きと、取り出したご遺骨の供養先は、ご自身で探すことになる場合があります。</td>
+            </tr>
+            <tr>
+              <td style="padding:13px;border-bottom:1px solid var(--border);font-weight:700;vertical-align:top">一括見積もり・紹介サイト</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">複数社の金額を一度に集められます。相場感をつかむのに向いています。</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">実際に工事をするのは紹介された別の会社です。窓口と施工者が分かれるぶん、話の行き違いが起きやすくなります。</td>
+            </tr>
+            <tr>
+              <td style="padding:13px;border-bottom:1px solid var(--border);font-weight:700;vertical-align:top">葬儀社</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">閉眼供養・法要の手配や、お寺とのやり取りに慣れています。</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">墓石の撤去は外注になることが多く、粉骨や散骨は別の会社への手配になる場合があります。</td>
+            </tr>
+            <tr>
+              <td style="padding:13px;font-weight:700;vertical-align:top;background:rgba(21,112,158,.05)">撤去から供養先まで<br>一貫して受ける会社</td>
+              <td style="padding:13px;vertical-align:top;background:rgba(21,112,158,.05)">撤去工事・改葬手続きのサポート・粉骨・納骨や散骨までを、一つの窓口で進められます。</td>
+              <td style="padding:13px;vertical-align:top;background:rgba(21,112,158,.05)">会社によって「どこまで含むか」が大きく違います。見積書の範囲を必ず文字で確認してください。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:36px;font-size:1.1rem;color:var(--green-mid)">金額以外に、見ておきたい5つのこと</h3>
+      <ul style="list-style:none;padding:0;margin-top:16px;display:grid;gap:14px">
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">1. 見積もりが「総額」で出ているか</p>
+          <p style="font-size:.92rem;line-height:1.9">墓じまいの費用は撤去工事費だけではありません。離檀の際のお布施、改葬許可の取得、ご遺骨の運搬、新しい供養先の費用まで足して、はじめて総額になります。工事費だけの金額を総額と思って契約すると、あとから積み上がります。<strong>現地を見ないまま出てきた金額は、見積もりではなく目安です。</strong></p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=fukuoka-hakajimai-33man-naiyaku" style="color:var(--green);font-weight:600">基本プラン33万円に含まれるもの・含まれないもの →</a></p>
+        </li>
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">2. ご遺骨の行き先まで相談できるか</p>
+          <p style="font-size:.92rem;line-height:1.9">墓じまいは、お墓を撤去した時点では終わりません。ご遺骨の行き先が決まっていないと、工事だけ終わって手元に骨壷が残ります。霊園・納骨堂・寺院・散骨・手元供養のどれが合うかを、同じ窓口で相談できるかどうかで、その後の手間が変わります。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=fukuoka-ikotsu-ikisaki-hikaku" style="color:var(--green);font-weight:600">福岡で遺骨の移転先を選ぶ。霊園・納骨堂・寺院・散骨の比べ方 →</a></p>
+        </li>
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">3. 工事の前後を写真で報告してくれるか</p>
+          <p style="font-size:.92rem;line-height:1.9">県外にお住まいで立ち会えない場合、更地になったことを確かめる手段は写真だけです。着手前・撤去後の報告があるかどうかを、契約前に確認してください。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=fukuoka-genchi-tachiai-nashi" style="color:var(--green);font-weight:600">現地確認に立ち会えない。写真だけで進められますか →</a></p>
+        </li>
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">4. 霊園・お寺への手続きを代わりに進めてくれるか</p>
+          <p style="font-size:.92rem;line-height:1.9">市営霊園の返還条件、寺院墓地での閉眼供養や離檀の伝え方は、管理者ごとに違います。この部分を「ご自身で」と言われるかどうかは、かかる時間と気疲れに直結します。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=fukuoka-shiei-bochi-henkan" style="color:var(--green);font-weight:600">福岡市の市営墓地を返還したい。手続きの順番と窓口 →</a>　｜　<a href="/blog/?id=fukuoka-kaiso-kyoka-doko" style="color:var(--green);font-weight:600">福岡で改葬許可はどこに出す？ →</a></p>
+        </li>
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">5. 相談した人が、最後まで窓口でいてくれるか</p>
+          <p style="font-size:.92rem;line-height:1.9">相談した相手と工事をする会社が違うと、伝えたはずの事情が現場に届いていないことがあります。誰が最後まで担当するのかを、最初に聞いておくと安心です。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=ishizaiten-ikkatsu-chigai" style="color:var(--green);font-weight:600">石材店に頼むか、一括で頼むか。福岡での違いと使い分け →</a></p>
+        </li>
+      </ul>
+
+      <div class="prose" style="max-width:800px;margin:28px auto 0">
+        <p>縁（えん）は、4番目の「撤去から供養先まで一貫して受ける会社」にあたります。福岡営業所を拠点に、現地調査から撤去工事・改葬手続きのサポート・ご遺骨の粉骨・博多湾での海洋散骨や納骨先へのご納骨・手元供養までを、同じ窓口でお受けしています。基本プラン33万円（税込）に含まれる範囲は、このページの「基本プラン33万円（税込）に含まれる内容」でご確認いただけます。現地調査で総額を確定したあとの追加請求はありません。</p>
+      </div>
+
+      <p style="text-align:center;margin-top:18px;font-size:.9rem"><a href="/blog/?id=fukuoka-hakajimai-shippai" style="color:var(--green);font-weight:600">福岡の墓じまいでよくある失敗と、避け方 →</a></p>
     </div>
   </section>
 
@@ -249,6 +334,36 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
     </div>
   </section>
 
+  <!-- 関連記事（v0272：ページ → 記事の内部リンクを通す） -->
+  <?php
+    $gf_related = [
+      ['fukuoka-hakajimai-33man-naiyaku', '福岡の墓じまい、基本プラン33万円に含まれるもの・含まれないもの', '見積書のどこまでが33万円で、何が別になるのかを項目ごとに。'],
+      ['fukuoka-gyousha-5koumoku',        '福岡で墓じまいの業者を選ぶとき、金額以外に見る5項目', '安さだけで決めると後から積み上がります。判断材料の整理。'],
+      ['fukuoka-kaiso-kyoka-doko',        '福岡で改葬許可はどこに出す？ 窓口と書類の順番', '申請先・必要書類・取得の順番を、迷わないように並べました。'],
+      ['fukuoka-shiei-bochi-henkan',      '福岡市の市営墓地を返還したい。手続きの順番と窓口', '平尾・三日月山・西部霊園などの返還で、先に何を確認するか。'],
+      ['fukuoka-hakajimai-kikan',         '福岡の墓じまいは何日かかる？ 申し込みから納骨までの目安', '混み合う時期と、逆算して動き始める時期の目安。'],
+      ['fukuoka-ikotsu-ikisaki-hikaku',   '福岡で遺骨の移転先を選ぶ。霊園・納骨堂・寺院・散骨の比べ方', '費用・継ぐ人・お参りのしやすさで並べて考えます。'],
+      ['fukuoka-hakajimai-shippai',       '福岡の墓じまいでよくある失敗と、避け方', '工事だけ終わって遺骨が残る、親族への連絡が後になる等。'],
+      ['chikugo-kennan-hakajimai',        '筑後・県南の墓じまい。重機が入らない区画をどう進めるか', '通路が狭い区画・人力解体が必要な場合の進め方。'],
+      ['fukuoka-shuuraku-bochi',          '福岡県内の集落墓地・共同墓地の墓じまい。地域の了解をどう取るか', '管理者がはっきりしない墓地で、誰にどう話すか。'],
+    ];
+  ?>
+  <section class="section" style="background:var(--cream)">
+    <div class="container" style="max-width:920px">
+      <h2 style="text-align:center;margin-bottom:8px">福岡の墓じまいについて、さらに詳しく</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:24px">費用の内訳・手続き・期間など、気になるところから読めます。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px">
+        <?php foreach ($gf_related as $r): ?>
+          <a class="card" href="/blog/?id=<?= rawurlencode($r[0]) ?>" style="display:block;text-decoration:none;color:inherit">
+            <p style="font-size:.95rem;font-weight:700;color:var(--green-mid);line-height:1.7"><?= h($r[1]) ?></p>
+            <p style="font-size:.84rem;color:var(--text-light);line-height:1.8;margin-top:8px"><?= h($r[2]) ?></p>
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:22px;font-size:.92rem"><a href="/blog/?cat=<?= rawurlencode('お墓・納骨堂') ?>" style="color:var(--green);font-weight:600">「お墓・納骨堂」の記事をすべて見る →</a></p>
+    </div>
+  </section>
+
   <!-- 資料請求CTA（共通） -->
   <?php require __DIR__ . '/../../includes/shiryou-cta.php'; ?>
 
@@ -289,6 +404,17 @@ $fk_tel_link = str_replace('-', '', $fk['tel']);
     ['@type' => 'City', 'name' => '久留米市'],
   ],
   'offers' => ['@type' => 'Offer', 'price' => '330000', 'priceCurrency' => 'JPY', 'description' => '墓じまい基本プラン（見積もり取得〜撤去工事〜写真報告・遺骨引き出し・新納骨先への納骨まで・税込）'],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
+</script>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'WebPage',
+  'name' => '墓じまい 福岡｜撤去〜納骨まで一括',
+  'url' => SITE['url'] . '/grave/fukuoka/',
+  'inLanguage' => 'ja',
+  'dateModified' => $page_updated,
+  'publisher' => ['@type' => 'Organization', 'name' => SITE['name'], 'url' => SITE['url'] . '/'],
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
 </script>
 <script type="application/ld+json">
