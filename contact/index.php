@@ -241,13 +241,38 @@ let shindanPath = '';
      種別セレクトは一切条件に使わない。種別を変えても住所欄は消えない。
      hidden の要素に required が残るとChromeは検証に失敗してもエラーを出せず、
      送信が黙って止まるため、hidden と required は必ずセットで切り替える。 */
-  const setField = (el, show) => {
+  /* v0273：必須かどうかと、画面に出すかどうかを分ける。
+     本文に「郵送してほしい」と書かれたときは、住所欄を“任意”で開くため。
+     値を消すのは欄を閉じるときだけにする（任意表示のまま消すと入力が飛ぶ）。 */
+  const setField = (el, required, visible) => {
     if (!el) return;
-    el.required = !!show;
-    if (!show) el.value = '';   // 非表示の値を送らない
+    el.required = !!required;
+    if (!visible) el.value = '';   // 非表示の値を送らない
   };
   const dlvPdf = form.querySelector('input[name="delivery"][value="PDF（メール）"]');
   let dlvTouched = false;   // ご本人がお届け方法を選んだか
+
+  /* ============================================================
+     v0273：本文に「郵送してほしい」と書かれた場合の受け皿
+     ------------------------------------------------------------
+     2026-11-04 の実例：
+       種別もガイドブックも選ばず、内容欄に「パンフレットを、送付希望です。」
+       とだけ書いて送信された。住所欄は一度も表示されず、お届け先が分からないため
+       資料を発送できなかった。
+     チェックボックスを押す方だけを想定していたのが原因なので、
+     本文の言葉からも住所欄を開く。ただし required にはしない（誤検知で
+     送信できなくなるほうが損失が大きいため、あくまで“ご案内”に留める）。
+     ============================================================ */
+  const POST_WANT = /(郵送|送付|パンフ|カタログ|冊子|資料|送ってくだ|送って下さ|お送りくだ|お送り下さ|届けてくだ|届けて下さ|郵便で)/;
+  const POST_DENY = /(不要|いりません|要りません|結構です|送らないで|必要ありません)/;
+  const wantsPostFromText = (v) => {
+    const t = String(v || '');
+    if (!t) return false;
+    if (!POST_WANT.test(t)) return false;
+    if (POST_DENY.test(t)) return false;   // 「資料は不要です」などを拾わない
+    return true;
+  };
+  let msgPostHint = false;   // 本文から郵送希望を読み取ったか（いちど立てたら下げない）
   const apply = () => {
     const isShiryou  = sel.value === '資料請求（無料）';
     if (isShiryou) {
@@ -273,17 +298,22 @@ let shindanPath = '';
                                         （冊子を郵送する前提のサービスのため）
          ・それ以外の種別            … ガイドブックを希望し、かつ「冊子（郵送）」を
                                         選んだときだけ表示する */
-    const needsAddr = isShiryou || (wantsGuide && !!(dlvPost && dlvPost.checked));
+    /* v0273：必須にするのは今までどおりの2条件。
+       本文から郵送希望を読み取ったときは、必須にはせず“任意”で欄だけ開く。 */
+    const addrRequired = isShiryou || (wantsGuide && !!(dlvPost && dlvPost.checked));
+    const needsAddr    = addrRequired || msgPostHint;
     if (addrTitle) {
-      addrTitle.textContent = (dlvPost && dlvPost.checked)
-        ? '詳しい資料の郵送をご希望のため、お届け先をご入力ください'
-        : '資料のお届け先をご入力ください';
+      addrTitle.textContent = !addrRequired
+        ? '資料の郵送をご希望の場合は、お届け先をご入力ください（任意）'
+        : ((dlvPost && dlvPost.checked)
+            ? '詳しい資料の郵送をご希望のため、お届け先をご入力ください'
+            : '資料のお届け先をご入力ください');
     }
     if (addrBox) {
       const wasHidden = addrBox.hidden;
       addrBox.hidden = !needsAddr;
-      setField(zipInp,  needsAddr);
-      setField(addrInp, needsAddr);
+      setField(zipInp,  addrRequired, needsAddr);
+      setField(addrInp, addrRequired, needsAddr);
       /* v0260：ここで「お住まい」の都道府県を住所欄に入れるのをやめた。
          2026年9月13日の不具合報告の原因がこれだった。
          ・required は「空でないこと」しか見ないため、「鹿児島県」だけで送信が通ってしまう
@@ -429,6 +459,36 @@ let shindanPath = '';
   if (g1) g1.addEventListener('change', apply);
   if (g2) g2.addEventListener('change', apply);
   form.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', () => { dlvTouched = true; apply(); }));
+  /* v0273：内容欄の入力を見て、郵送希望らしければ住所欄を開く（いちど開いたら閉じない） */
+  if (ta) {
+    const watchMsg = () => {
+      if (msgPostHint) return;
+      if (!wantsPostFromText(ta.value)) return;
+      msgPostHint = true;
+      apply();
+    };
+    ta.addEventListener('input', watchMsg);
+    ta.addEventListener('blur',  watchMsg);
+  }
+
+  /* v0273：送信直前の最後の砦。
+     郵送希望らしい本文なのにお届け先が空なら、1回だけ止めてご案内する。
+     2回目の送信は止めない（誤検知で送れなくなるのを避ける）。 */
+  let postAsked = false;
+  window.__enPostGuard = () => {
+    if (postAsked) return '';
+    if (!ta || !wantsPostFromText(ta.value)) return '';
+    if (addrInp && String(addrInp.value || '').trim()) return '';
+    postAsked = true;
+    msgPostHint = true;
+    apply();
+    try {
+      addrBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (zipInp) zipInp.focus();
+    } catch (e) {}
+    return '資料の郵送をご希望でしょうか。ご希望でしたら、お届け先（郵便番号・ご住所）をご入力ください。ご不要の場合は、もう一度「送信する」を押していただければそのまま送信されます。';
+  };
+
   window.__enRefreshAddr = refreshAddr; // v0260：送信直前のチェックから呼ぶ
   setTimeout(apply, 0); // ?service= からの自動選択にも反応
 })();
@@ -464,6 +524,11 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.className = ''; msg.textContent = '';
   if (typeof window.__enRefreshAddr === 'function') window.__enRefreshAddr(); // v0260：お届け先の再チェック
+  /* v0273：本文で資料の郵送を希望されているのにお届け先が空のとき、1回だけご案内する。 */
+  if (typeof window.__enPostGuard === 'function') {
+    const ask = window.__enPostGuard();
+    if (ask) { msg.className = 'ng'; msg.textContent = ask; return; }
+  }
   if (!form.checkValidity()) { form.reportValidity(); return; }
   const data = Object.fromEntries(new FormData(form).entries());
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || '')) {

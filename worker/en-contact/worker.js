@@ -1,5 +1,5 @@
 /**
- * @version v0013 | 2026-09-13 | en1150.co.jp お問い合わせフォーム送信Worker（管理画面からの返信送信 /reply を追加） | Cloudflare Workers
+ * @version v0014 | 2026-11-04 | en1150.co.jp お問い合わせフォーム送信Worker（資料の郵送希望なのに住所がない送信を担当者通知で警告） | Cloudflare Workers
  *
  * /contact/ フォームからのJSONを受け取り、Brevoで
  *   ①担当者へ通知 ②お客様へ受付確認(自動返信)。
@@ -229,9 +229,31 @@ export default {
         ? `<p style="margin-top:18px;font-size:13px;color:#777;">お問い合わせページ：<a href="${esc(d.source)}" style="color:#15709e;">${esc(d.formName || "こちら")}</a></p>`
         : "";
 
+      /* v0014（2026-11-04）：資料の郵送を希望しているのにお届け先がない送信を、
+         担当者通知の先頭で知らせる。
+         2026-11-04 の実例：種別もガイドブックも選ばず、内容欄に
+         「パンフレットを、送付希望です。」とだけ書かれた送信があり、
+         住所欄が一度も表示されないまま届いたため発送できなかった。
+         フォーム側（v0273）でも住所欄を開くようにしたが、JavaScriptが動かない
+         環境や、お客様が入力せずに送信した場合はここが最後の砦になる。 */
+      const postNeedBody = String(d.message || "") + " " + String(d.category || "");
+      const wantsPostByText =
+        (/(郵送|送付|パンフ|カタログ|冊子|資料|送ってくだ|送って下さ|お送りくだ|お送り下さ|届けてくだ|届けて下さ|郵便で)/.test(postNeedBody) ||
+         /(brochure|pamphlet|catalogue|catalog|by post|by mail|send me the|mail me the)/i.test(postNeedBody)) &&
+        !/(不要|いりません|要りません|結構です|送らないで|必要ありません|not need|no need)/i.test(postNeedBody);
+      const hasAddr = String(d.addr || "").trim().length >= 6;
+      const addrAlert = (wantsPostByText && !hasAddr)
+        ? `<div style="background:#fff6e6;border:1px solid #d08a00;border-left:5px solid #d08a00;border-radius:8px;padding:12px 14px;margin:0 0 14px;font-size:14px;line-height:1.8;color:#6b4d00;">
+             <b>資料の郵送をご希望の可能性があります。お届け先の記載がありません。</b><br>
+             お電話${d.tel ? `（<a href="tel:${esc(String(d.tel).replace(/[^0-9+]/g, ""))}" style="color:#15709e;">${esc(d.tel)}</a>）` : ""}
+             またはメール${d.email ? `（<a href="mailto:${esc(d.email)}" style="color:#15709e;">${esc(d.email)}</a>）` : ""}でお届け先をご確認ください。
+           </div>`
+        : "";
+
       const adminHtml = `
         <div style="font-family:sans-serif;max-width:640px;margin:0 auto;padding:20px;color:#222;">
           <h2 style="color:#15709e;border-bottom:2px solid #15709e;padding-bottom:8px;">お問い合わせを受信しました</h2>
+          ${addrAlert}
           <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:12px;">${rows}</table>
           ${detail ? `<h3 style="margin-top:18px;color:#15709e;">お問い合わせ内容</h3>${detail}` : ""}
           ${srcAdmin}
@@ -240,7 +262,7 @@ export default {
 
       const adminBody = {
         sender, to: [{ email: CONFIG.TO }],
-        subject: `${isSuspect ? "【営業？】" : ""}${String(d.lang || "") === "en" ? "【海外/EN】" : ""}${CONFIG.SUBJECT_PREFIX}${esc(d.name || "")}様${d.category ? "（" + esc(d.category) + "）" : ""}`,
+        subject: `${addrAlert ? "【要・住所確認】" : ""}${isSuspect ? "【営業？】" : ""}${String(d.lang || "") === "en" ? "【海外/EN】" : ""}${CONFIG.SUBJECT_PREFIX}${esc(d.name || "")}様${d.category ? "（" + esc(d.category) + "）" : ""}`,
         htmlContent: adminHtml,
         replyTo: emailOk ? { email: d.email, name: d.name } : undefined
       };
