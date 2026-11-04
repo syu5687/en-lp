@@ -42,13 +42,13 @@ require __DIR__ . '/../includes/head.php';
       <label>お名前 <span class="req">必須</span>
         <input type="text" name="name" required>
       </label>
-      <label>ふりがな
+      <label>ふりがな <span class="req req--opt">任意</span>
         <input type="text" name="kana">
       </label>
       <label>メールアドレス <span class="req">必須</span>
         <input type="email" name="email" required>
       </label>
-      <label>電話番号
+      <label>電話番号 <span class="req req--opt">任意</span>
         <input type="tel" name="tel" inputmode="tel">
       </label>
       <?php /* v0275：お問い合わせ種別をチェック項目にし、任意3項目（お住まい・ご年代・性別）を廃止。
@@ -65,6 +65,11 @@ require __DIR__ . '/../includes/head.php';
           <label class="svc-item"><input type="checkbox" name="svc[]" value="その他・まだ決まっていない"><span>その他・まだ決まっていない</span></label>
         </div>
         <p id="svc-error" class="svc-error" hidden>ご相談の内容を1つ以上お選びください。</p>
+        <?php /* v0276：「その他」を選ばれた方に、内容を書いていただく欄（任意）。
+                 入力があれば種別の文字列に（　）付きで足して、担当者通知に一緒に出す。 */ ?>
+        <label id="svc-other-field" hidden>どのようなご相談ですか <span class="req req--opt">任意</span>
+          <input type="text" name="svc_other" maxlength="60" placeholder="例：永代供養について／まだ決めかねています">
+        </label>
       </fieldset>
 
       <fieldset id="shiryou-box">
@@ -85,7 +90,7 @@ require __DIR__ . '/../includes/head.php';
         </label>
       </div>
 
-      <label id="goudou-date-field" hidden>合同海洋散骨 ご希望日
+      <label id="goudou-date-field" hidden>合同海洋散骨 ご希望日 <span class="req req--opt">任意</span>
         <input type="date" name="goudou_date">
         <span style="font-weight:400;font-size:.8rem;color:var(--text-light)">実施予定日からお選びいただいた日付です。変更も可能です。</span>
       </label>
@@ -101,9 +106,17 @@ require __DIR__ . '/../includes/head.php';
         <label class="gb-item"><input type="checkbox" name="guide_sankotsu" value="1"><span><b>海洋散骨で後悔しないためのチェックリスト</b>（全9ページ）<small>業者選び7項目・委託/合同/貸切の選び方・当日の流れ</small></span></label>
       </fieldset>
 
+      <?php /* v0276：別ページへのリンクではなく、フォーム内に全文を載せる。
+               本文は includes/privacy-text.php（/privacy/ と同じもの）。 */ ?>
+      <div id="privacy-box">
+        <p class="pv-title">個人情報の取り扱いについて</p>
+        <div id="privacy-inline" tabindex="0" role="region" aria-label="個人情報保護方針">
+          <?php require __DIR__ . '/../includes/privacy-text.php'; ?>
+        </div>
+      </div>
       <label class="contact-consent">
         <input type="checkbox" name="consent" value="1" required>
-        <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
+        <span>上記の個人情報の取り扱いに同意します <span class="req">必須</span></span>
       </label>
       <p style="font-size:.82rem;color:var(--text-light);margin:-6px 0 0">送信後、受付確認の自動返信メールが届きます。営業のご連絡はいたしませんので、ご安心ください。</p>
       <button type="submit" class="btn" id="submit-btn">送信する</button>
@@ -150,6 +163,20 @@ require __DIR__ . '/../includes/head.php';
 #shiryou-box .sr-item input{width:18px;height:18px;margin-top:3px;padding:0 !important;flex:none;accent-color:var(--green)}
 #shiryou-box .sr-item b{color:var(--green-mid);font-size:.92rem}
 #shiryou-box .sr-item small{display:block;font-size:.76rem;color:var(--text-light);margin-top:2px;line-height:1.7}
+/* v0276：「その他」の内容欄 */
+#svc-box #svc-other-field{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.88rem;color:var(--green-mid)}
+#svc-box #svc-other-field[hidden]{display:none}
+/* v0276：フォーム内に載せる個人情報保護方針 */
+#privacy-box{border:1px solid var(--border);border-radius:10px;padding:14px 16px;background:var(--white)}
+#privacy-box .pv-title{font-weight:700;font-size:.92rem;color:var(--green-mid);margin:0 0 10px}
+#privacy-inline{max-height:220px;overflow-y:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:8px;padding:14px 16px;background:#fcfcfa;font-size:.82rem;line-height:1.95;color:#4a555c}
+#privacy-inline:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+#privacy-inline .lead{margin:0 0 12px}
+#privacy-inline h2{font-size:.86rem;font-weight:700;color:var(--green-mid);margin:16px 0 4px;padding:0;border:0}
+#privacy-inline h2:first-of-type{margin-top:0}
+#privacy-inline p{margin:0 0 8px}
+#privacy-inline ul{margin:0 0 8px}
+#privacy-inline li{margin-bottom:2px}
 /* v0275：送信後のガイドブック受け取り枠 */
 #guide-result{border:1px solid #e3d5b8;border-radius:10px;padding:16px 18px;background:#fffdf5;margin-top:14px}
 #guide-result[hidden]{display:none}
@@ -441,11 +468,21 @@ let shindanPath = '';
   }
   // v0275：住所欄の表示を決めているのは資料請求のチェックだけ。
   if (srPost) srPost.addEventListener('change', apply);
-  // 種別を選んだらエラー表示を消す
+  // 種別を選んだらエラー表示を消す／「その他」の内容欄を出し入れする
+  const otherBox   = svcBoxes.find(b => b.value.indexOf('その他') === 0);
+  const otherField = document.getElementById('svc-other-field');
+  const otherInput = form.querySelector('input[name="svc_other"]');
+  const applyOther = () => {
+    const on = !!(otherBox && otherBox.checked);
+    if (otherField) otherField.hidden = !on;
+    if (!on && otherInput) otherInput.value = '';   // 閉じたら値も消す
+  };
   svcBoxes.forEach(b => b.addEventListener('change', () => {
     const e = document.getElementById('svc-error');
     if (e && svcBoxes.some(x => x.checked)) e.hidden = true;
+    applyOther();
   }));
+  applyOther();
   /* v0273：内容欄の入力を見て、郵送希望らしければ住所欄を開く（いちど開いたら閉じない） */
   if (ta) {
     const watchMsg = () => {
@@ -485,6 +522,7 @@ let shindanPath = '';
     const e = document.getElementById('svc-error');
     if (e) e.hidden = true;
     apply();
+    applyOther();   // v0276：「その他」の内容欄も閉じる
     if (zipNote)  setNote(zipNote,  ZIP_NOTE_DEFAULT,  false);
     if (addrNote) setNote(addrNote, ADDR_NOTE_DEFAULT, false);
   };
@@ -546,7 +584,13 @@ form.addEventListener('submit', async (e) => {
   /* v0275：複数選択なので FormData の entries では最後の1件しか残らない。
      担当者通知メールの「お問い合わせ種別」欄にそのまま出したいので、ここで組み立てる。 */
   delete data['svc[]'];
-  data.category = svcChecked.join('／');
+  delete data.svc_other;
+  /* v0276：「その他」に内容を書いていただいた場合は、種別の文字列に（　）付きで足す。
+     担当者通知の「お問い合わせ種別」が1行で読めるようにするため、別項目にはしない。 */
+  const otherTxt = String((form.querySelector('input[name="svc_other"]') || {}).value || '').trim();
+  data.category = svcChecked.map(v =>
+    (otherTxt && v.indexOf('その他') === 0) ? (v + '（' + otherTxt + '）') : v
+  ).join('／');
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email || '')) {
     msg.className = 'ng';
     msg.textContent = 'メールアドレスの形式をご確認ください。';
