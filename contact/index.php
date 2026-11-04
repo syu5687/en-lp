@@ -108,11 +108,11 @@ require __DIR__ . '/../includes/head.php';
 
       <div id="post-addr" hidden>
         <p id="post-addr-title" style="font-size:.85rem;color:#8a6a2a;font-weight:700;margin:0 0 4px">詳しい資料の郵送をご希望のため、お届け先をご入力ください</p>
-        <label>郵便番号 <span class="req">必須</span>
+        <label>郵便番号 <span class="req" id="zip-req">必須</span>
           <input type="text" name="zip" inputmode="numeric" autocomplete="postal-code" placeholder="890-0000" maxlength="8">
           <span id="zip-note" style="font-weight:400;font-size:.78rem;color:var(--text-light)">入力すると住所が自動で入ります</span>
         </label>
-        <label>ご住所（お届け先） <span class="req">必須</span>
+        <label>ご住所（お届け先） <span class="req" id="addr-req">必須</span>
           <input type="text" name="addr" autocomplete="street-address" placeholder="鹿児島県鹿児島市〇〇町1-2-3 〇〇マンション101">
           <span id="addr-note" style="font-weight:400;font-size:.78rem;color:var(--text-light)">郵便番号を入れると自動で入ります。続けて番地・建物名までご入力ください。</span>
         </label>
@@ -152,6 +152,10 @@ require __DIR__ . '/../includes/head.php';
 #delivery-box .dlv-item b{color:var(--green-mid);font-size:.92rem}
 #delivery-box .dlv-item small{display:block;font-size:.76rem;color:var(--text-light);margin-top:2px;line-height:1.7}
 #post-addr{border:1px solid #eadfc4;border-radius:10px;padding:14px 16px;background:#fffdf9;display:flex;flex-direction:column;gap:10px}
+/* v0274：ID指定の display:flex が hidden 属性（UAの display:none）に勝ってしまい、
+   お届け先が常に表示されたままになっていた。属性セレクタを足して確実に閉じる。
+   同じ理由で #delivery-box と #goudou-date-field にも display を書かないこと。 */
+#post-addr[hidden]{display:none}
 
 .contact-form{display:flex;flex-direction:column;gap:18px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
 .contact-form label{display:flex;flex-direction:column;gap:8px;font-weight:600;font-size:.9rem}
@@ -161,6 +165,8 @@ require __DIR__ . '/../includes/head.php';
 @media(max-width:560px){.contact-attrs{grid-template-columns:1fr}}
 .contact-form input,.contact-form select,.contact-form textarea{padding:12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-family:inherit}
 .contact-form .req{display:inline-block;background:var(--green);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:4px;margin-left:6px;align-self:flex-start}
+/* v0274：必須ではないときのバッジ。赤系の必須表示のまま任意にすると誤解を招くため。 */
+.contact-form .req--opt{background:#9aa0a6}
 .contact-consent{flex-direction:row!important;align-items:center;justify-content:center;gap:10px;font-weight:400!important}
 .contact-consent input[type=checkbox]{width:18px;height:18px;padding:0!important;margin:0;flex:none;accent-color:var(--green)}
 .contact-consent span{white-space:nowrap}
@@ -249,6 +255,14 @@ let shindanPath = '';
     el.required = !!required;
     if (!visible) el.value = '';   // 非表示の値を送らない
   };
+  /* v0274：バッジの文言も実際の状態に合わせる。 */
+  const zipReqBadge  = document.getElementById('zip-req');
+  const addrReqBadge = document.getElementById('addr-req');
+  const setReqBadge = (el, required) => {
+    if (!el) return;
+    el.textContent = required ? '必須' : '任意';
+    el.classList.toggle('req--opt', !required);
+  };
   const dlvPdf = form.querySelector('input[name="delivery"][value="PDF（メール）"]');
   let dlvTouched = false;   // ご本人がお届け方法を選んだか
 
@@ -314,6 +328,8 @@ let shindanPath = '';
       addrBox.hidden = !needsAddr;
       setField(zipInp,  addrRequired, needsAddr);
       setField(addrInp, addrRequired, needsAddr);
+      setReqBadge(zipReqBadge,  addrRequired);
+      setReqBadge(addrReqBadge, addrRequired);
       /* v0260：ここで「お住まい」の都道府県を住所欄に入れるのをやめた。
          2026年9月13日の不具合報告の原因がこれだった。
          ・required は「空でないこと」しか見ないため、「鹿児島県」だけで送信が通ってしまう
@@ -539,7 +555,11 @@ form.addEventListener('submit', async (e) => {
   /* v0260：画面に出ていた項目だけを送る（非表示の div の中でも FormData には入るため）。
      資料請求はPDFを選んでいてもお届け先を伺うので、delivery の値では判定しない。 */
   if (document.getElementById('delivery-box').hidden) delete data.delivery;
-  if (document.getElementById('post-addr').hidden) { delete data.zip; delete data.addr; }
+  /* v0274：これまで post-addr の hidden だけで判定していたため、CSSの都合で欄が出ていた
+     期間は、お客様が入力したお届け先が送信直前に捨てられていた。
+     欄を閉じるときに値は空にしているので、「値が入っていれば送る」で十分かつ安全。 */
+  if (!String(data.zip  || '').trim()) delete data.zip;
+  if (!String(data.addr || '').trim()) delete data.addr;
   data.source = location.href;
   data.formName = 'en1150.co.jp お問い合わせフォーム';
   data.elapsedMs = Date.now() - PAGE_LOADED_AT; // 表示から送信までの時間（ボット判定用）
