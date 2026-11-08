@@ -1,6 +1,6 @@
 {
- "note": "v0272 で本文を修正した記事のID。/admin/sync-blog.php がこのリストの記事だけを Firestore へ上書きする。上書きは管理画面の編集を消すため、反映後はこのリストを空にする。",
- "version": "v20260713-0272",
+ "note": "本文を修正した既存記事のID。/admin/sync-blog.php がこのリストの記事だけを Firestore へ上書きする。新規記事は migrate-blog.php で入るのでここには不要。反映後はこのリストを [] に戻す。",
+ "version": "v20260713-0277",
  "ids": [
   "post-4184",
   "post-4114",
