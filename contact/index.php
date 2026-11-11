@@ -48,8 +48,16 @@ require __DIR__ . '/../includes/head.php';
       <label>メールアドレス <span class="req">必須</span>
         <input type="email" name="email" required>
       </label>
-      <label>電話番号 <span class="req req--opt">任意</span>
-        <input type="tel" name="tel" inputmode="tel">
+      <?php /* v0278：電話番号を必須にした。
+               2026-11-11、お墓じまいのご相談で電話番号が未入力のまま届き、折り返しができなかった。
+               墓じまい・改葬は現地確認とお見積りの説明が前提のため、電話が取れないと前に進めない。
+               抵抗を減らすため「営業のご連絡はいたしません」をこの欄の直下に置く。
+               ※英語フォーム（/en/）には tel 欄が無く、同じWorkerへ送信している。
+                 Worker の REQUIRED に tel を足すと海外からの問い合わせが全部弾かれるため、
+                 サーバー側の必須チェックは変更していない。 */ ?>
+      <label>電話番号 <span class="req">必須</span>
+        <input type="tel" name="tel" inputmode="tel" autocomplete="tel" placeholder="090-0000-0000" required>
+        <span id="tel-note" style="font-weight:400;font-size:.78rem;color:var(--text-light)">お見積りやご相談の折り返しに使います。営業のご連絡はいたしません。</span>
       </label>
       <?php /* v0275：お問い合わせ種別をチェック項目にし、任意3項目（お住まい・ご年代・性別）を廃止。
                ・種別＝サービスのみ。複数選択できる（「墓じまい＋海洋散骨」のような相談が1件で拾える）
@@ -118,7 +126,7 @@ require __DIR__ . '/../includes/head.php';
         <input type="checkbox" name="consent" value="1" required>
         <span>上記の個人情報の取り扱いに同意します <span class="req">必須</span></span>
       </label>
-      <p style="font-size:.82rem;color:var(--text-light);margin:-6px 0 0">送信後、受付確認の自動返信メールが届きます。営業のご連絡はいたしませんので、ご安心ください。</p>
+      <p style="font-size:.82rem;color:var(--text-light);margin:-6px 0 0">送信後、受付確認の自動返信メールが届きます。</p>
       <button type="submit" class="btn" id="submit-btn">送信する</button>
       <div id="form-msg" role="status" aria-live="polite"></div>
       <?php /* v0275：ガイドブックをご希望の方へ、送信後この場でPDFをお渡しする枠 */ ?>
@@ -383,6 +391,31 @@ let shindanPath = '';
     return '';
   };
 
+  /* v0278：電話番号の書式チェック。全角・ハイフン・括弧・+81 を受けたうえで桁数だけ見る。
+     厳しくしすぎると正しい番号を弾くため、「数字が10桁か11桁あるか」だけにとどめる。 */
+  const telInp  = form.querySelector('input[name="tel"]');
+  const telNote = document.getElementById('tel-note');
+  const TEL_NOTE_DEFAULT = 'お見積りやご相談の折り返しに使います。営業のご連絡はいたしません。';
+  const telProblem = (v) => {
+    let t = toHalf(String(v || '')).replace(/^\+81/, '0');
+    const n = t.replace(/[^0-9]/g, '');
+    if (!n) return '';                       // 空欄は required 側の仕事
+    if (n.length < 10 || n.length > 11) return '電話番号は10桁または11桁でご入力ください（例：090-0000-0000）。';
+    return '';
+  };
+  const refreshTel = () => {
+    if (!telInp) return;
+    const ng = telProblem(telInp.value);
+    telInp.setCustomValidity(ng);
+    if (ng) setNote(telNote, ng, true);
+    else if (telNote && telNote.style.color) setNote(telNote, TEL_NOTE_DEFAULT, false);
+  };
+  if (telInp) {
+    telInp.addEventListener('input', refreshTel);
+    telInp.addEventListener('blur',  refreshTel);
+  }
+  window.__enRefreshTel = refreshTel;
+
   const zipProblem = (v) => {
     const z = digits(v);
     if (!z) return '';                     // 空欄は required 側の仕事
@@ -562,6 +595,7 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.className = ''; msg.textContent = '';
   if (typeof window.__enRefreshAddr === 'function') window.__enRefreshAddr(); // v0260：お届け先の再チェック
+  if (typeof window.__enRefreshTel === 'function') window.__enRefreshTel();   // v0278：電話番号の再チェック
   /* v0273：本文で資料の郵送を希望されているのにお届け先が空のとき、1回だけご案内する。 */
   if (typeof window.__enPostGuard === 'function') {
     const ask = window.__enPostGuard();
