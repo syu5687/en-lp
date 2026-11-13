@@ -22,6 +22,7 @@ $page_title     = '海洋散骨 福岡｜博多湾で散骨・海洋葬 委託54
 $page_desc      = '福岡の海洋散骨（海洋葬）は、日本海洋散骨協会 加盟の有限会社 縁へ。博多湾など福岡の海域に対応し、委託54,450円〜・合同148,500円〜・チャーター176,000円〜（税込）。合同は姪浜旅客待合所から出航。粉骨から緯度・経度入りの散骨証明書まで一括。福岡営業所（中央区春吉）。相談・見積り無料、LINE可。';
 $page_canonical = SITE['url'] . '/kaiyou-sou/fukuoka/';
 $page_hero_image = '/fukuoka/images/fk-sea-flowers.jpg';
+$page_updated   = '2026-11-13'; // 最終更新日（v0279で追加。表示と構造化データ dateModified に使う）
 require __DIR__ . '/../../includes/head.php';
 
 $fk       = SITE['fukuoka'];
@@ -87,6 +88,9 @@ $kf_faq = [
   </ul>
 </section>
 <nav class="breadcrumb"><a href="/">ホーム</a> ＞ <a href="/kaiyou-sou/">海洋葬（海洋散骨）</a> ＞ 福岡の海洋散骨</nav>
+<div class="container" style="max-width:820px">
+  <p style="font-size:.82rem;color:var(--text-light);margin:10px 0 0;text-align:right">最終更新：2026年11月13日</p>
+</div>
 
 <style>
   /* FVは H1 → 料金 → 1行説明 → 信頼3つ まで。CTAは置かない。
@@ -442,6 +446,77 @@ $kf_faq = [
     </div>
   </section>
 
+  <!-- ⑩-2 依頼先のタイプ比較（「散骨 福岡」の比較意図の受け皿・v0279で追加） -->
+  <section class="section" style="background:var(--cream)">
+    <div class="container" style="max-width:880px">
+      <h2 style="text-align:center;margin-bottom:8px">福岡で海洋散骨を依頼する先には、いくつかのタイプがあります</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:22px">散骨は、ほとんどの方が一度しか経験しません。「どこに頼むのが自分に合うのか分からない」というご相談をよくいただきます。</p>
+
+      <div class="prose" style="max-width:800px;margin:0 auto">
+        <p>福岡で海洋散骨を依頼できる先は、大きく4つのタイプに分かれます。どれが良い・悪いではなく、<strong>得意な範囲が違います</strong>。ご自身の状況に近いタイプを選ぶことが、やり直しを避ける近道です。</p>
+      </div>
+
+      <div style="overflow-x:auto;margin-top:22px;-webkit-overflow-scrolling:touch">
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;line-height:1.85;min-width:620px;background:var(--white);border-radius:10px;overflow:hidden">
+          <thead>
+            <tr style="background:var(--green-mid);color:#fff">
+              <th style="padding:11px 13px;text-align:left;white-space:nowrap;font-size:.88rem">依頼先のタイプ</th>
+              <th style="padding:11px 13px;text-align:left;font-size:.88rem">得意なこと</th>
+              <th style="padding:11px 13px;text-align:left;font-size:.88rem">確認しておきたい点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:13px;border-bottom:1px solid var(--border);font-weight:700;vertical-align:top">散骨の専門事業者</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">船の手配と当日の運航。海域や季節の事情に慣れています。</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">粉骨を外部に出す場合があります。ご遺骨がどこを経由するか、散骨証明書が出るかを確認してください。</td>
+            </tr>
+            <tr>
+              <td style="padding:13px;border-bottom:1px solid var(--border);font-weight:700;vertical-align:top">一括見積もり・紹介サイト</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">複数社の金額を一度に集められます。相場感をつかむのに向いています。</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">実際に散骨するのは紹介された別の会社です。窓口と運航する会社が分かれるぶん、話の行き違いが起きやすくなります。</td>
+            </tr>
+            <tr>
+              <td style="padding:13px;border-bottom:1px solid var(--border);font-weight:700;vertical-align:top">葬儀社</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">ご葬儀からの流れで相談できます。法要の手配やお寺とのやり取りに慣れています。</td>
+              <td style="padding:13px;border-bottom:1px solid var(--border);vertical-align:top">散骨そのものは外部への手配になることが多く、海域の選定や粉骨の方法までは説明が難しい場合があります。</td>
+            </tr>
+            <tr>
+              <td style="padding:13px;font-weight:700;vertical-align:top;background:rgba(21,112,158,.05)">粉骨から散骨・墓じまいまで<br>一貫して受ける会社</td>
+              <td style="padding:13px;vertical-align:top;background:rgba(21,112,158,.05)">洗骨・粉骨・散骨・証明書の発行・墓じまいや手元供養までを、一つの窓口で進められます。</td>
+              <td style="padding:13px;vertical-align:top;background:rgba(21,112,158,.05)">会社によって「どこまで含むか」が大きく違います。見積書の範囲を必ず文字で確認してください。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:36px;font-size:1.1rem;color:var(--green-mid)">ご状況から選ぶときの目安</h3>
+      <ul style="list-style:none;padding:0;margin-top:16px;display:grid;gap:14px">
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">福岡にお住まいで、散骨だけを考えている</p>
+          <p style="font-size:.92rem;line-height:1.9">委託・合同・チャーターのどれを選ぶかで、費用も当日の過ごし方も変わります。先に3つの違いを見てから、金額を比べると迷いが減ります。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=itaku-goudou-charter-hikaku" style="color:var(--green);font-weight:600">委託・合同・チャーターの違いを、費用と当日の流れで比べる →</a>　｜　<a href="/blog/?id=kaiyou-sou-hiyou-naiyou" style="color:var(--green);font-weight:600">海洋葬の費用には何が含まれる？ →</a></p>
+        </li>
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">お墓を閉じたあとのご遺骨を、海へ還したい</p>
+          <p style="font-size:.92rem;line-height:1.9">墓じまいと散骨を別々の会社に頼むと、ご遺骨が会社の間を行き来します。撤去から散骨までを同じ窓口で受けられるかどうかで、その後の手間が変わります。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/grave/fukuoka/" style="color:var(--green);font-weight:600">福岡の墓じまい（基本プラン33万円）→</a>　｜　<a href="/blog/?id=fukuoka-ikotsu-ikisaki-hikaku" style="color:var(--green);font-weight:600">福岡で遺骨の移転先を選ぶ。霊園・納骨堂・寺院・散骨の比べ方 →</a></p>
+        </li>
+        <li style="padding:16px 18px;background:var(--white);border-radius:10px;border-left:4px solid var(--green)">
+          <p style="font-weight:700;color:var(--green-mid);margin-bottom:6px">県外にお住まいで、福岡の海へ還したい</p>
+          <p style="font-size:.92rem;line-height:1.9">立ち会わずに進める委託海洋散骨（54,450円〜・税込）があります。ご遺骨は郵送でお預かりし、粉骨から散骨、緯度・経度入りの証明書のお届けまで代行します。</p>
+          <p style="font-size:.88rem;margin-top:9px"><a href="/blog/?id=fukuoka-kara-sankotsu" style="color:var(--green);font-weight:600">福岡から海洋散骨を申し込む。海域と当日の考え方 →</a>　｜　<a href="/blog/?id=fukuoka-funkotsu-uketsuke" style="color:var(--green);font-weight:600">福岡で粉骨を頼みたい。受け渡しの方法と流れ →</a></p>
+        </li>
+      </ul>
+
+      <div class="prose" style="max-width:800px;margin:28px auto 0">
+        <p>縁（えん）は、4番目の「粉骨から散骨・墓じまいまで一貫して受ける会社」にあたります。福岡営業所（福岡市中央区春吉）を拠点に、ご遺骨のお預かりから洗骨・粉骨・博多湾ほか福岡の海域での散骨・緯度経度入りの散骨証明書のお届けまでを、同じ窓口でお受けしています。お墓じまいや手元供養も続けてご相談いただけます。見積りは無料で、確定後の追加請求はありません。</p>
+      </div>
+
+      <p style="text-align:center;margin-top:18px;font-size:.9rem"><a href="/blog/?id=sankotsu-hourits-jibun" style="color:var(--green);font-weight:600">海洋散骨は自分でやってもいい？ 法律とルール、業者に頼む場合の費用 →</a></p>
+    </div>
+  </section>
+
   <!-- ⑪ 業者を選ぶポイント -->
   <section class="section" style="background:var(--white)">
     <div class="container" style="max-width:960px">
@@ -535,6 +610,36 @@ $kf_faq = [
     </div>
   </section>
 
+  <!-- ⑮-2 関連記事（v0279で追加） -->
+  <?php
+    $kf_related = [
+      ['fukuoka-kara-sankotsu',       '福岡から海洋散骨を申し込む。海域と当日の考え方',                 'どの海域で、どんな一日になるのか。'],
+      ['fukuoka-ohaka-takai',         '福岡でお墓・納骨堂が高い…と感じたら。博多湾の海洋散骨という選択肢', '費用の考え方を、お墓と並べて比べます。'],
+      ['itaku-goudou-charter-hikaku', '委託・合同・チャーターの違いを、費用と当日の流れで比べる',       '3つの形は、金額だけでなく過ごし方が違います。'],
+      ['kaiyou-sou-hiyou-naiyou',     '海洋葬の費用には何が含まれる？ 3つの形の違い',                   '見積書のどこまでが含まれているか。'],
+      ['sankotsu-ichibu-nokosu',      '「全部撒かない」という選択。ご遺骨の一部を手元に残す方法と費用',   'すべてを海に還さなくても、かまいません。'],
+      ['sankotsu-shoumeisho-naiyou',  '散骨証明書には何が書かれていますか',                             '緯度・経度が入るかどうかが、あとで効きます。'],
+      ['sankotsu-madeno-kikan',       '申し込みから散骨までは何日かかる？ 日数の目安と、急ぎたいとき',   '日程から逆算したい方へ。'],
+      ['sankotsu-tenkou-enki',        '当日が荒天で延期になったらどうなる？ 振替と連絡の流れ',           '海の上の行事なので、ここは先に。'],
+      ['fukuoka-funkotsu-uketsuke',   '福岡で粉骨を頼みたい。受け渡しの方法と流れ',                     'お預かりから、お返しまで。'],
+    ];
+  ?>
+  <section class="section" style="background:var(--cream)">
+    <div class="container" style="max-width:920px">
+      <h2 style="text-align:center;margin-bottom:8px">福岡の海洋散骨について、さらに詳しく</h2>
+      <p style="text-align:center;color:var(--text-light);font-size:.92rem;margin-bottom:24px">費用・海域・当日の流れ・証明書など、気になるところから読めます。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:14px">
+        <?php foreach ($kf_related as $r): ?>
+          <a class="card" href="/blog/?id=<?= rawurlencode($r[0]) ?>" style="display:block;text-decoration:none;color:inherit">
+            <p style="font-size:.95rem;font-weight:700;color:var(--green-mid);line-height:1.7"><?= h($r[1]) ?></p>
+            <p style="font-size:.84rem;color:var(--text-light);line-height:1.8;margin-top:8px"><?= h($r[2]) ?></p>
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <p style="text-align:center;margin-top:22px;font-size:.92rem"><a href="/blog/?cat=<?= rawurlencode('海洋葬(海洋散骨)') ?>" style="color:var(--green);font-weight:600">「海洋葬（海洋散骨）」の記事をすべて見る →</a></p>
+    </div>
+  </section>
+
   <!-- ⑯ 福岡営業所案内（→ /fukuoka/ へ戻す導線） -->
   <section class="section">
     <div class="container" style="max-width:780px">
@@ -591,6 +696,17 @@ $kf_faq = [
     ['@type' => 'Offer', 'name' => '合同海洋散骨',       'price' => '148500', 'priceCurrency' => 'JPY', 'description' => '数家族で乗り合わせ。姪浜旅客待合所から出航（税込）'],
     ['@type' => 'Offer', 'name' => 'チャーター海洋散骨', 'price' => '176000', 'priceCurrency' => 'JPY', 'description' => '船を貸し切り、ご家族だけでお見送り（税込）'],
   ],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
+</script>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'WebPage',
+  'name' => '海洋散骨 福岡｜博多湾で散骨・海洋葬',
+  'url' => SITE['url'] . '/kaiyou-sou/fukuoka/',
+  'inLanguage' => 'ja',
+  'dateModified' => $page_updated,
+  'publisher' => ['@type' => 'Organization', 'name' => SITE['name'], 'url' => SITE['url'] . '/'],
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>
 </script>
 <script type="application/ld+json">
