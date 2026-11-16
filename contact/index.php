@@ -640,6 +640,25 @@ form.addEventListener('submit', async (e) => {
   if (!String(data.addr || '').trim()) delete data.addr;
   data.source = location.href;
   data.formName = 'en1150.co.jp お問い合わせフォーム';
+  /* v0280：流入元（広告・検索・着地ページ）を一緒に送る。
+     受け皿は worker.js・api/inquiry-log.php・管理画面CSV に v0263 から用意されていたが、
+     フォーム側が送っていなかったため、DBの該当8列がずっと空だった。
+     form_name も Worker/API はスネークケースで見ているため、こちらを足す（formName は残す）。 */
+  data.form_name = data.formName;
+  (function () {
+    var a = null;
+    try { a = JSON.parse(sessionStorage.getItem('en_attr') || 'null'); } catch (e) {}
+    if (!a || typeof a !== 'object') a = {};
+    var qp = new URLSearchParams(location.search);
+    var put = function (k, v) {
+      v = String(v == null ? '' : v).trim();
+      if (v) data[k] = v.slice(0, 200);
+    };
+    put('landing_page', a.landing_page);
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid'].forEach(function (k) {
+      put(k, a[k] || qp.get(k));
+    });
+  })();
   data.elapsedMs = Date.now() - PAGE_LOADED_AT; // 表示から送信までの時間（ボット判定用）
   if (shindanService) data.shindan = shindanService; // 診断結果を通知メールにも記載
   if (shindanPath) data.shindan_path = shindanPath;  // 診断で選ばれた全回答

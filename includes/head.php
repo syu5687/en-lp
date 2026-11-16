@@ -44,6 +44,22 @@ if ($hl_path !== null && ($hl_en = en_counterpart($hl_path)) !== null):
 <link rel="icon" href="/assets/img/en.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/common.css?v=<?= h(asset_ver()) ?>">
 <?php if (!empty($page_hero_image)): ?><style>.page-hero{--hero-image:url('<?= h($page_hero_image . (str_contains($page_hero_image, '?') ? '' : '?v=' . asset_ver())) ?>')}</style><?php endif; ?>
+<?php /* v0280：流入元の記憶。訪問の最初のページで utm_* / gclid / 着地ページを sessionStorage に控える。
+     /contact/ に着く頃には URL パラメータが消えているため、ここで拾っておかないと広告の紐付けができない。
+     保存できない環境（プライベートモード等）でも try/catch で握りつぶし、表示には一切影響させない。 */ ?>
+<script>
+(function(){try{
+  var K='en_attr',KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid'];
+  var qp=new URLSearchParams(location.search);
+  var hasNew=KEYS.some(function(k){return !!qp.get(k);});
+  var cur=null;try{cur=JSON.parse(sessionStorage.getItem(K)||'null');}catch(e){}
+  if(!hasNew&&cur)return;                      /* 2ページ目以降は上書きしない */
+  var o={};
+  if(hasNew)KEYS.forEach(function(k){var v=qp.get(k);if(v)o[k]=String(v).slice(0,200);});
+  o.landing_page=(location.pathname+location.search).slice(0,200);
+  try{sessionStorage.setItem(K,JSON.stringify(o));}catch(e){}
+}catch(e){}})();
+</script>
 <?php require __DIR__ . '/ga4.php'; ?>
 <?php require __DIR__ . '/jsonld.php'; ?>
 </head>
