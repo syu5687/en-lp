@@ -1,6 +1,6 @@
 {
  "note": "本文を修正した既存記事のID。/admin/sync-blog.php がこのリストの記事だけを Firestore へ上書きする。新規記事は migrate-blog.php で入るのでここには不要。反映後はこのリストを [] に戻す。",
- "version": "v20260713-0277",
+ "version": "v20260713-0282",
  "ids": [
   "post-4184",
   "post-4114",
@@ -42,6 +42,7 @@
   "ikotsu-yuso-houhou",
   "teraumi-wakeru-ryou-itsu",
   "seizen-keiyaku-okane",
-  "fukusuu-gyousha-mitsumori"
+  "fukusuu-gyousha-mitsumori",
+  "hakajimai-hojokin"
  ]
 }
