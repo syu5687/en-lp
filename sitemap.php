@@ -32,7 +32,7 @@ $by_key = [];
 $score = fn(array $it): int =>
   (!empty($it['_fs']) ? 8 : 0) + (!empty($it['body_html']) ? 4 : 0) + (!empty($it['image']) ? 2 : 0) + (!empty($it['images']) ? 1 : 0);
 $add = function (array $it) use (&$by_key, $score): void {
-  if (empty($it['published']) || (string)($it['id'] ?? '') === '') return;
+  if (!blog_is_live($it) || (string)($it['id'] ?? '') === '') return;   // v0281：予約公開に対応
   $key = ($it['date'] ?? '') . '|' . preg_replace('/[^\p{L}\p{N}]+/u', '', (string)($it['title'] ?? ''));
   if (!isset($by_key[$key]) || $score($it) > $score($by_key[$key])) $by_key[$key] = $it;
 };

@@ -47,7 +47,7 @@ function br_collect(): array {
   $score = static fn(array $it): int =>
     (!empty($it['body_html']) ? 4 : 0) + (!empty($it['image']) ? 2 : 0) + (!empty($it['images']) ? 1 : 0);
   $push = static function (array $it) use (&$by_key, &$seen, $score): void {
-    if (empty($it['published'])) return;
+    if (!blog_is_live($it)) return;   // v0281：予約公開に対応
     $id = (string)($it['id'] ?? '');
     if ($id === '' || isset($seen[$id])) return;
     $seen[$id] = true;

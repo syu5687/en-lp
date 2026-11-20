@@ -8,7 +8,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 // ---- アプリバージョン ----
-const APP_VERSION = 'v20260713-0280';
+const APP_VERSION = 'v20260713-0281';
 
 // ---- お問い合わせDB連携（Cloudflare Worker → /api/inquiry-log.php のHMAC共有鍵）----
 const INQUIRY_LOG_SECRET = 'fd66345cdcff8de89a8775c9ccb7666eb3e82a0fb129d887899911df8a2c65f2';
@@ -189,6 +189,19 @@ const BLOG_CATEGORIES = [
   '海洋散骨体験クルーズ',
   '海洋葬(海洋散骨)',
 ];
+
+/**
+ * v0281：記事の公開判定（予約公開）。
+ *   published が真で、かつ date が今日以前のものだけを「公開中」とする。
+ *   date が空の記事（旧WordPress由来で日付が取れていないもの）は、従来どおり公開する。
+ *   管理画面は news_all() を見ているため、予約中の記事も管理画面には表示される。
+ */
+function blog_is_live(?array $it): bool {
+  if (!is_array($it) || empty($it['published'])) return false;
+  $d = trim((string)($it['date'] ?? ''));
+  if ($d === '') return true;
+  return substr($d, 0, 10) <= date('Y-m-d');
+}
 
 /** HTMLエスケープ簡易ヘルパー */
 function h(?string $s): string {

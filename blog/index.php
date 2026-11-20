@@ -8,7 +8,7 @@ require_once __DIR__ . '/../includes/blog-popular.php';    // 人気の記事（
 function blog_seed_find(string $id): ?array {
   $seed = @json_decode((string)@file_get_contents(__DIR__ . '/../data/news.json'), true);
   foreach (($seed['items'] ?? []) as $it) {
-    if (($it['id'] ?? '') === $id && !empty($it['published'])) return $it;
+    if (($it['id'] ?? '') === $id && blog_is_live($it)) return $it;   // v0281：予約公開に対応
   }
   return null;
 }
@@ -23,7 +23,7 @@ function blog_archive_items(): array {
 /** アーカイブから公開記事をIDで取得 */
 function blog_archive_find(string $id): ?array {
   foreach (blog_archive_items() as $it) {
-    if (($it['id'] ?? '') === $id && !empty($it['published'])) return $it;
+    if (($it['id'] ?? '') === $id && blog_is_live($it)) return $it;   // v0281：予約公開に対応
   }
   return null;
 }
@@ -36,10 +36,10 @@ $blog_id = isset($_GET['id']) ? trim((string)$_GET['id']) : '';
 if ($blog_id !== '') {
   $post = null;
   try { $post = news_find($blog_id); } catch (Throwable $e) { $post = null; }
-  if (!$post || empty($post['published'])) $post = blog_seed_find($blog_id);
-  if (!$post || empty($post['published'])) $post = blog_archive_find($blog_id);
+  if (!blog_is_live($post)) $post = blog_seed_find($blog_id);        // v0281
+  if (!blog_is_live($post)) $post = blog_archive_find($blog_id);     // v0281
 
-  if (!$post || empty($post['published'])) {
+  if (!blog_is_live($post)) {                                        // v0281
     http_response_code(404);
     $page_title    = '記事が見つかりません｜' . SITE['name'];
     $page_noindex  = true;
@@ -378,7 +378,7 @@ $blog_score = function (array $it): int {
        + (!empty($it['images'])    ? 1 : 0);
 };
 $push = function (array $it) use (&$by_key, &$seen_ids, $blog_score) {
-  if (empty($it['published'])) return;
+  if (!blog_is_live($it)) return;                                    // v0281
   $id = (string)($it['id'] ?? '');
   if ($id === '' || isset($seen_ids[$id])) return;
   $seen_ids[$id] = true;
